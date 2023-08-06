@@ -1,22 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 
-import Role from '../../../database/models/roles';
+import User from '../../../database/models/users';
 
 const validRole = async (req: Request, res: Response, next: NextFunction) => {
 
-    const roles = await Role.find()
+    const user = await User.findById(req.user).populate("role").select("-password")
 
-    let isAllowed = false
-
-    for (let i = 0; i < roles.length; i++) {
-        if(roles[i].role === 'Admin') {
-            isAllowed = true
-            break;
-        }
+    if(!user) {
+        return res.status(400).json({ message: "User does not exists" })
     }
 
-    if(!isAllowed) {
-        return res.status(401).json({ message: "You cannot do this action" })
+    if(user.role.role !== 'Admin') {
+        return res.status(400).json({ message: "You cannot do this action" })
     }
 
     next()

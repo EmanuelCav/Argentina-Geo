@@ -7,5 +7,5 @@ export interface IUser extends Document {
     nickname: string;
     phone: string;
     password: string;
-    role: ObjectId;
+    role: any;
 }

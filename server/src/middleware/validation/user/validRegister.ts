@@ -2,19 +2,19 @@ import { Request, Response, NextFunction } from "express";
 
 import User from '../../../database/models/users';
 
-const ValidCreateUser = async (req: Request, res: Response, next: NextFunction) => {
+const ValidRegister = async (req: Request, res: Response, next: NextFunction) => {
 
     const validPhone = /^[0-9]+$/
     const validNickname = /^[a-zA-Z0-9]+$/
 
-    const { nickname, phone, role, password, confirm } = req.body
+    const { nickname, phone, password, confirm } = req.body
 
-    if(!nickname || !phone || !role || !password || !confirm) {
+    if(!nickname || !phone || !password || !confirm) {
         return res.status(400).json({ message: "There are empty fields" })
     }
 
-    if(password.length < 10) {
-        return res.status(400).json({ message: "Password must have at least 10 characters" })
+    if(password.length < 6) {
+        return res.status(400).json({ message: "Password must have at least 6 characters" })
     }
 
     if(password !== confirm) {
@@ -39,4 +39,4 @@ const ValidCreateUser = async (req: Request, res: Response, next: NextFunction) 
 
 }
 
-export default ValidCreateUser
+export default ValidRegister

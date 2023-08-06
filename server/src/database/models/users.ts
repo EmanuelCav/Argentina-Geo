@@ -9,14 +9,14 @@ const userSchema = new Schema({
     nickname: {
         type: String,
         required: true,
-        trim: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     phone: {
         type: String,
         required: true,
-        trim: true,
-        unique: true
+        // unique: true,
+        trim: true
     },
     password: {
         type: String,
