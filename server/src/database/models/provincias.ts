@@ -29,6 +29,9 @@ const provinciaSchema = new Schema({
         required: true
     }
 
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 export default model<IProvincia>('Provincia', provinciaSchema)
