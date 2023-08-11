@@ -1,6 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 import { IProvincia } from '../../interface/Provincia';
+
+const { ObjectId } = Types
 
 const provinciaSchema = new Schema({
 
@@ -16,16 +18,19 @@ const provinciaSchema = new Schema({
         trim: true
     },
     flag: {
-        type: String,
-        required: true,
-        trim: true
+        type: ObjectId,
+        ref: 'Image'
+    },
+    location: {
+        type: ObjectId,
+        ref: 'Image'
     },
     population: {
-        type: Number,
+        type: String,
         required: true
     },
     surface: {
-        type: Number,
+        type: String,
         required: true
     }
 

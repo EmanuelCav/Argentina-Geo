@@ -6,7 +6,8 @@ export interface IProvincia extends Document {
     _id: ObjectId;
     name: string;
     capital: string;
-    flag: string;
-    population: number;
-    surface: number;
+    flag: ObjectId;
+    location: ObjectId;
+    population: string;
+    surface: string;
 }

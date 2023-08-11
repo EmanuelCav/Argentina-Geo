@@ -38,9 +38,19 @@ export const createRole = async (req: Request, res: Response): Promise<Response>
 
 export const removeRole = async (req: Request, res: Response): Promise<Response> => {
 
+    const { id } = req.params
+
     try {
 
-        return res.status(200).json("removeRole")
+        const role = await Role.findById(id)
+
+        if(!role) {
+            return res.status(400).json({ message: "Role does not exists" })
+        }
+
+        await Role.findByIdAndDelete(id)
+
+        return res.status(200).json({ message: "Role was removed successfully" })
         
     } catch (error) {
         throw error
