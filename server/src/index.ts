@@ -13,6 +13,7 @@ import provinciaRoute from './routes/provincias.routes';
 import userRoute from './routes/user.routes';
 import roleRoute from './routes/role.routes';
 import imageRoute from './routes/image.routes';
+import municipioRoute from './routes/municipios.routes';
 
 const app = express()
 
@@ -27,6 +28,7 @@ app.use(provinciaRoute)
 app.use(userRoute)
 app.use(roleRoute)
 app.use(imageRoute)
+app.use(municipioRoute)
 
 app.use(express.static(path.join(__dirname, "../public")))
 

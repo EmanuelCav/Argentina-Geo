@@ -1,10 +1,10 @@
 import { Schema, model, Types } from "mongoose";
 
-import { IProvincia } from '../../interface/Localidades';
+import { IMunicipio } from '../../interface/Localidades';
 
 const { ObjectId } = Types
 
-const provinciaSchema = new Schema({
+const municipioSchema = new Schema({
 
     name: {
         type: String,
@@ -12,7 +12,7 @@ const provinciaSchema = new Schema({
         trim: true,
         unique: true
     },
-    capital: {
+    cabecera: {
         type: String,
         required: true,
         trim: true
@@ -32,6 +32,10 @@ const provinciaSchema = new Schema({
     surface: {
         type: String,
         required: true
+    },
+    provincia: {
+        type: ObjectId,
+        ref: 'Provincia'
     }
 
 }, {
@@ -39,4 +43,4 @@ const provinciaSchema = new Schema({
     versionKey: false
 })
 
-export default model<IProvincia>('Provincia', provinciaSchema)
+export default model<IMunicipio>('Municipio', municipioSchema)
