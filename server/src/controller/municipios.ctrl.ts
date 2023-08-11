@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import fs from 'fs-extra';
 
 import Municipio from '../database/models/municipios';
+import Provincia from '../database/models/provincias';
 import Image from '../database/models/image';
 
 import { cloud } from "../helper/cloud";
@@ -42,12 +43,18 @@ export const municipio = async (req: Request, res: Response): Promise<Response> 
 
 export const createMunicipio = async (req: any, res: Response): Promise<Response> => {
 
-    const { name, cabecera, population, surface } = req.body
+    const { name, cabecera, population, surface, provinciaName } = req.body
 
     try {
 
         if(!req.files) {
             return res.status(400).json({ message: "You have to upload a file" })
+        }
+
+        const provincia = await Provincia.findOne({ name: provinciaName })
+
+        if(!provincia) {
+            return res.status(401).json({ message: "Provincia's name was not created" })
         }
 
         const imagesMunicipio = []
@@ -75,7 +82,8 @@ export const createMunicipio = async (req: any, res: Response): Promise<Response
             population,
             surface,
             flag: imagesMunicipio[0],
-            location: imagesMunicipio[1]
+            location: imagesMunicipio[1],
+            provincia: provincia._id
         })
 
         const municipioSaved = await newMunicipio.save()
