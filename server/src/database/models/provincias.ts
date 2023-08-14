@@ -1,6 +1,6 @@
 import { Schema, model, Types } from "mongoose";
 
-import { IProvincia } from '../../interface/Localidades';
+import { IProvincia } from '../../interface/Game';
 
 const { ObjectId } = Types
 

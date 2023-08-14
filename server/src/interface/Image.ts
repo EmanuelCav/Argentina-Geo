@@ -6,5 +6,4 @@ export interface Image extends Document {
     updatedAt: NativeDate;
     image: string;
     imageId: string;
-    place: string;
 }

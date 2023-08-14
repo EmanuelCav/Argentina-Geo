@@ -9,11 +9,11 @@ dotenv.config()
 import './database/database/database'
 import { port } from './config/config';
 
-import provinciaRoute from './routes/provincias.routes';
 import userRoute from './routes/user.routes';
 import roleRoute from './routes/role.routes';
 import imageRoute from './routes/image.routes';
-import municipioRoute from './routes/municipios.routes';
+import questionRoute from './routes/questions.routes';
+import categoryRoute from './routes/category.routes';
 
 const app = express()
 
@@ -24,11 +24,11 @@ app.use(cors())
 app.use(express.json({ limit: '30mb' }))
 app.use(express.urlencoded({ extended: false, limit: '30mb' }))
 
-app.use(provinciaRoute)
 app.use(userRoute)
 app.use(roleRoute)
 app.use(imageRoute)
-app.use(municipioRoute)
+app.use(questionRoute)
+app.use(categoryRoute)
 
 app.use(express.static(path.join(__dirname, "../public")))
 
