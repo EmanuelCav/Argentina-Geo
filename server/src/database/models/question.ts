@@ -21,9 +21,12 @@ const questionSchema = new Schema({
     },
     answer: {
         type: String,
-        requuired: true
+        required: true
     }
-
+    
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 export default model<IQuestion>('Question', questionSchema)

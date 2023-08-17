@@ -1,4 +1,5 @@
 import { Document, ObjectId } from "mongoose";
+import { roleType } from "../types/auth.types";
 
 export interface IUser extends Document {
     createdAt: NativeDate;
@@ -7,5 +8,5 @@ export interface IUser extends Document {
     nickname: string;
     phone: string;
     password: string;
-    role: any;
+    role: roleType;
 }

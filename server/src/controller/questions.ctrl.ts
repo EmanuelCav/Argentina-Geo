@@ -54,7 +54,7 @@ export const createQuestions = async (req: Request, res: Response): Promise<Resp
             const newQuestion = new Question({
                 question,
                 image: imageSaved._id,
-                category: categorySelected.name,
+                category: categorySelected._id,
                 answer
             })
 
@@ -66,7 +66,7 @@ export const createQuestions = async (req: Request, res: Response): Promise<Resp
 
             const newQuestion = new Question({
                 question,
-                category: categorySelected.name,
+                category: categorySelected._id,
                 answer
             })
 
@@ -97,7 +97,9 @@ export const removeQuestions = async (req: Request, res: Response): Promise<Resp
             return res.status(400).json({ message: "Question does not exists" })
         }
 
-        await cloud.uploader.destroy(question.image.imageId)
+        if(question.image) {
+            await cloud.uploader.destroy(question.image.imageId)
+        }
 
         await Question.findByIdAndDelete(id)
 

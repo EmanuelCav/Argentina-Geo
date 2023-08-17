@@ -19,3 +19,19 @@ export interface IQuestion extends Document {
     answer: string;
 }
 
+export interface IGame extends Document {
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
+    _id: ObjectId;
+    questions: ObjectId;
+}
+
+export interface IQuestionGame extends Document {
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
+    _id: ObjectId;
+    question: ObjectId;
+    options: string[];
+}
+
+
