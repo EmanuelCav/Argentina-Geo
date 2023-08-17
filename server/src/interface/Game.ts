@@ -24,6 +24,7 @@ export interface IGame extends Document {
     updatedAt: NativeDate;
     _id: ObjectId;
     questions: ObjectId;
+    user: ObjectId;
 }
 
 export interface IQuestionGame extends Document {

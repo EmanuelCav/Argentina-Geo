@@ -1,4 +1,5 @@
 import { Document, ObjectId } from "mongoose";
+
 import { roleType } from "../types/auth.types";
 
 export interface IUser extends Document {
@@ -9,4 +10,9 @@ export interface IUser extends Document {
     phone: string;
     password: string;
     role: roleType;
+    level: number;
+    points: number;
+    categories: ObjectId[];
+    amountOptions: number;
+    amountQuestions: number;
 }

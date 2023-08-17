@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import User from '../database/models/users';
 import Role from '../database/models/roles';
+import Category from '../database/models/category';
 
 import { generateToken, hashPassword } from "../helper/encrypt";
 
@@ -81,10 +82,11 @@ export const register = async (req: Request, res: Response) => {
 
     try {
 
+        
         const pass = await hashPassword(password)
-
+        
         const role = await Role.findOne({ role: 'Player' })
-
+        
         const newUser = new User({
             nickname,
             phone,
@@ -93,6 +95,16 @@ export const register = async (req: Request, res: Response) => {
         })
 
         const userSaved = await newUser.save()
+        
+        const category = await Category.findOne({ name: 'Capitales' })
+
+        await User.findOneAndUpdate({ nickname }, {
+            $push: {
+                categories: category?._id
+            }
+        }, {
+            new: true
+        })
 
         const token = generateToken(userSaved._id)
 

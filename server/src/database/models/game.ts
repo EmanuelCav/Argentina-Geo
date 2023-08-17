@@ -9,7 +9,11 @@ const gameSchema = new Schema({
     questions: [{
         type: ObjectId,
         ref: 'QuestionGame'
-    }]
+    }],
+    user: {
+        type: ObjectId,
+        ref: 'User'
+    }
 
 }, {
     timestamps: true,
