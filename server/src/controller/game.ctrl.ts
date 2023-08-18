@@ -32,7 +32,12 @@ export const game = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const showGame = await Game.findById(id)
+        const showGame = await Game.findById(id).populate(({
+            path: "questions",
+            populate: {
+                path: "question"
+            }
+        }))
 
         if (!showGame) {
             return res.status(400).json({ message: "Game does not exists" })
@@ -69,9 +74,9 @@ export const createGames = async (req: Request, res: Response): Promise<Response
         const gameSaved = await newGame.save()
 
         for (let i = 0; i < user?.amountQuestions!; i++) {
-            
+
             let optionsAdded = []
-            
+
             const correctOption = Math.floor(Math.random() * user?.amountOptions!);
 
             const categoryQuestion = await Question.find({ category: shuffledQuestions[i].category })
@@ -85,7 +90,7 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
             for (let j = 0; j < user?.amountOptions!; j++) {
 
-                if(j === correctOption) {
+                if (j === correctOption) {
 
                     optionsAdded.push(shuffledQuestions[i].answer)
 
