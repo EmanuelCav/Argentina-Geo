@@ -2,21 +2,22 @@ import { View, Text, TouchableOpacity } from "react-native";
 
 import { homeStyles } from "../../styles/home.styles";
 
-const Options = () => {
+import { StackNavigation } from "../../types/props.types";
+
+import ButtonMenu from "../buttonMenu";
+
+const Options = ({ navigation }: { navigation: StackNavigation }) => {
+
+    const redirectPlay = () => {
+        navigation.navigate('Play')
+    }
+
     return (
         <View style={homeStyles.containerUserOption}>
-            <TouchableOpacity style={homeStyles.buttonUserOption}>
-                <Text style={homeStyles.textButtonOption}>Jugar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={homeStyles.buttonUserOption}>
-                <Text style={homeStyles.textButtonOption}>Estadísticas</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={homeStyles.buttonUserOption}>
-                <Text style={homeStyles.textButtonOption}>Ranking</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={homeStyles.buttonUserOption}>
-                <Text style={homeStyles.textButtonOption}>Ajustes</Text>
-            </TouchableOpacity>
+            <ButtonMenu text="Jugar" redirect={redirectPlay} />
+            <ButtonMenu text="Estadísticas" redirect={redirectPlay} />
+            <ButtonMenu text="Ranking" redirect={redirectPlay} />
+            <ButtonMenu text="Ajustes" redirect={redirectPlay} />
         </View>
     )
 }
