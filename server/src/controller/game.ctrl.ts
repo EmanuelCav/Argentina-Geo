@@ -15,10 +15,7 @@ export const games = async (req: Request, res: Response): Promise<Response> => {
 
         const showGames = await Game.find({ user: req.user })
 
-        return res.status(200).json({
-            games: showGames,
-            length: games.length
-        })
+        return res.status(200).json(showGames)
 
     } catch (error) {
         throw error
