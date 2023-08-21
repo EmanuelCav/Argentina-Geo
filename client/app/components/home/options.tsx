@@ -12,11 +12,15 @@ const Options = ({ navigation }: { navigation: StackNavigation }) => {
         navigation.navigate('Play')
     }
 
+    const redirectRanking = () => {
+        navigation.navigate('Ranking')
+    }
+
     return (
         <View style={homeStyles.containerUserOption}>
             <ButtonMenu text="Jugar" redirect={redirectPlay} />
             <ButtonMenu text="Estadísticas" redirect={redirectPlay} />
-            <ButtonMenu text="Ranking" redirect={redirectPlay} />
+            <ButtonMenu text="Clasificación" redirect={redirectRanking} />
             <ButtonMenu text="Ajustes" redirect={redirectPlay} />
         </View>
     )

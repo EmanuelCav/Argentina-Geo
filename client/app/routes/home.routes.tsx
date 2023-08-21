@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import User from '../components/home/user'
 import Options from '../components/home/options'
 
-import { gamesApi } from '../server/api/game'
+import { gamesApi } from '../server/api/game.api'
 import { gamesAction } from '../server/features/game.features'
 
 import { StackNavigation } from '../types/props.types'

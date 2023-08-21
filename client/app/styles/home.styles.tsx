@@ -40,5 +40,43 @@ export const homeStyles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '500'
     }
+})
+
+export const rankingStyles = StyleSheet.create({
+
+    containerRanking: {
+        flex: 1,
+        padding: 20
+    },
+    headerRanking: {
+        textAlign: 'center',
+        backgroundColor: '#597EEE',
+        padding: 14,
+        fontSize: 24,
+        fontWeight: '500',
+        borderColor: '#fff',
+        borderWidth: 1,
+        borderStyle: 'solid'
+    },
+    usersRanking: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'column',
+        flex: 1,
+        backgroundColor: '#597EEE'
+    },
+    userRanking: {
+        flexDirection: 'row',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        padding: 7,
+        backgroundColor: '#6789f0',
+        marginTop: 2
+    },
+    infoUserRank: {
+        fontSize: 20        
+    }
 
 })

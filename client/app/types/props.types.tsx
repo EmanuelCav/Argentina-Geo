@@ -4,6 +4,7 @@ type RoutesProps = {
     Home: undefined;
     Play: undefined;
     Playing: undefined;
+    Ranking: undefined;
 };
 
 export type StackNavigation = NativeStackNavigationProp<RoutesProps>;

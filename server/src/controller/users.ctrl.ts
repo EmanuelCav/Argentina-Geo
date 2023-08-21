@@ -11,11 +11,11 @@ export const users = async (req: Request, res: Response) => {
     try {
 
         const showUsers = await User.find().select("-password")
+        
 
-        return res.status(200).json({
-            users: showUsers,
-            length: showUsers.length
-        })
+        const showSortUsers = showUsers.sort((a, b) => b.points - a.points)
+
+        return res.status(200).json(showSortUsers)
         
     } catch (error) {
         throw error

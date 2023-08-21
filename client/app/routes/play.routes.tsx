@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import ButtonMenu from "../components/buttonMenu";
 
-import { createGameApi } from '../server/api/game'
+import { createGameApi } from '../server/api/game.api'
 import { createGameAction, getGameAction } from '../server/features/game.features'
 
 import { StackNavigation } from "../types/props.types";
