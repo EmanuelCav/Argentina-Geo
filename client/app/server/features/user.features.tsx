@@ -4,8 +4,10 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { ICounterUser, IUser } from '../../interface/User'
 
 const initialState: ICounterUser = {
+    user: {},
+    isLoggedIn: false,
     users: [],
-    user: {}
+    profile: {}
 }
 
 const counterGameSlice = createSlice({
@@ -14,10 +16,13 @@ const counterGameSlice = createSlice({
     reducers: {
         usersAction: (state, action: PayloadAction<IUser[]>) => {
             state.users = action.payload
+        },
+        getUserAction: (state, action: PayloadAction<IUser>) => {
+            state.profile = action.payload
         }
     }
 })
 
-export const { usersAction } = counterGameSlice.actions
+export const { usersAction, getUserAction } = counterGameSlice.actions
 
 export default counterGameSlice.reducer

@@ -1,6 +1,10 @@
+import { ICategories } from "./Game";
+
 export interface ICounterUser {
     users: IUser[];
     user: object;
+    isLoggedIn: boolean;
+    profile: object;
 }
 
 export interface IUser {
@@ -13,7 +17,7 @@ export interface IUser {
     role: string;
     level: number;
     points: number;
-    categories: string[];
+    categories: ICategories[];
     amountOptions: number;
     amountQuestions: number;
 }

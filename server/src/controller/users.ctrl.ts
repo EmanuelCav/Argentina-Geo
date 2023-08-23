@@ -29,7 +29,7 @@ export const user = async (req: Request, res: Response) => {
 
     try {
 
-        const showUser = await User.findById(id).select("-password")
+        const showUser = await User.findById(id).select("-password").populate("categories")
 
         if(!showUser) {
             return res.status(400).json({ message: "User does not exists" })
@@ -127,7 +127,7 @@ export const login = async (req: Request, res: Response) => {
 
     try {
 
-        const user = await User.findOne({ nickname }).select("-password")
+        const user = await User.findOne({ nickname }).select("-password").populate("categories")
 
         if(!user) {
             return res.status(400).json({ message: "Nickname does not exists or fields do not match" })

@@ -17,3 +17,11 @@ export const createGameApi = async (token: string) => {
         }
     })
 }
+
+export const categoriesApi = async (token: string) => {
+    return await api.get('/categories', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

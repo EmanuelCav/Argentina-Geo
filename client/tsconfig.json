@@ -3,5 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "outDir": "build"
-  }
+  },
+  "exclude": ["node_modules"],
+  "include": ["app"]
 }

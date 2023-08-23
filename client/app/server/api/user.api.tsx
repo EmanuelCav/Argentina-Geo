@@ -9,3 +9,11 @@ export const usersApi = async (token: string) => {
         }
     })
 }
+
+export const userApi = async (id: string, token: string) => {
+    return await api.get(`/users/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

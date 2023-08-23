@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
 
+import UserRank from "../components/ranking/userRank";
+
 import { usersApi } from "../server/api/user.api";
 import { usersAction } from "../server/features/user.features";
 
@@ -11,7 +13,7 @@ import { IReducer } from "../interface/Reducer";
 import { IUser } from "../interface/User";
 
 import { selector } from "../helper/selector";
-import UserRank from "../components/ranking/userRank";
+
 
 const Ranking = () => {
 

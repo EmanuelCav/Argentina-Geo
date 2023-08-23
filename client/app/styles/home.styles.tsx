@@ -63,7 +63,8 @@ export const rankingStyles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         flex: 1,
-        backgroundColor: '#597EEE'
+        backgroundColor: '#597EEE',
+        padding: 4
     },
     userRanking: {
         flexDirection: 'row',
