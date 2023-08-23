@@ -16,7 +16,8 @@ const userSchema = new Schema({
         type: String,
         required: true,
         // unique: true,
-        trim: true
+        trim: true,
+        default: null
     },
     password: {
         type: String,
@@ -46,6 +47,20 @@ const userSchema = new Schema({
     amountQuestions: {
         type: Number,
         default: 10
+    },
+    pais: {
+        type: ObjectId,
+        ref: 'Pais'
+    },
+    provincia: {
+        type: ObjectId,
+        ref: 'Provincia',
+        default: null
+    },
+    municipio: {
+        type: ObjectId,
+        ref: 'Municipio',
+        default: null
     }
 
 }, {

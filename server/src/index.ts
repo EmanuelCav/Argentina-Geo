@@ -15,6 +15,7 @@ import imageRoute from './routes/image.routes';
 import questionRoute from './routes/questions.routes';
 import categoryRoute from './routes/category.routes';
 import gameRoute from './routes/game.routes';
+import localidadRoute from './routes/localidad.routes';
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.use(imageRoute)
 app.use(questionRoute)
 app.use(categoryRoute)
 app.use(gameRoute)
+app.use(localidadRoute)
 
 app.use(express.static(path.join(__dirname, "../public")))
 

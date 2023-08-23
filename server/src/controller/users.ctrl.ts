@@ -3,27 +3,28 @@ import { Request, Response } from "express";
 import User from '../database/models/users';
 import Role from '../database/models/roles';
 import Category from '../database/models/category';
+import Pais from '../database/models/pais';
 
-import { generateToken, hashPassword } from "../helper/encrypt";
+import { generatePassword, generateToken, hashPassword } from "../helper/encrypt";
 
-export const users = async (req: Request, res: Response) => {
+export const users = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
         const showUsers = await User.find().select("-password")
-        
+
 
         const showSortUsers = showUsers.sort((a, b) => b.points - a.points)
 
         return res.status(200).json(showSortUsers)
-        
+
     } catch (error) {
         throw error
     }
 
 }
 
-export const user = async (req: Request, res: Response) => {
+export const user = async (req: Request, res: Response): Promise<Response> => {
 
     const { id } = req.params
 
@@ -31,19 +32,19 @@ export const user = async (req: Request, res: Response) => {
 
         const showUser = await User.findById(id).select("-password").populate("categories")
 
-        if(!showUser) {
+        if (!showUser) {
             return res.status(400).json({ message: "User does not exists" })
         }
 
         return res.status(200).json(showUser)
-        
+
     } catch (error) {
         throw error
     }
 
 }
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response): Promise<Response> => {
 
     const { nickname, phone, role, password } = req.body
 
@@ -51,8 +52,14 @@ export const createUser = async (req: Request, res: Response) => {
 
         const roleUser = await Role.findOne({ role })
 
-        if(!roleUser) {
+        if (!roleUser) {
             return res.status(400).json({ message: "Role does not exists" })
+        }
+
+        const country = await Pais.findOne({ name: "Argentina" })
+
+        if (!country) {
+            return res.status(401).json({ message: "Country does not exists" })
         }
 
         const pass = await hashPassword(password)
@@ -61,7 +68,8 @@ export const createUser = async (req: Request, res: Response) => {
             nickname,
             phone,
             role: roleUser._id,
-            password: pass
+            password: pass,
+            pais: country._id
         })
 
         await newUser.save()
@@ -69,33 +77,39 @@ export const createUser = async (req: Request, res: Response) => {
         return res.status(200).json({
             message: "User was created successfully"
         })
-        
+
     } catch (error) {
         throw error
     }
 
 }
 
-export const register = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response): Promise<Response> => {
 
     const { nickname, phone, password } = req.body
 
     try {
 
-        
         const pass = await hashPassword(password)
-        
+
         const role = await Role.findOne({ role: 'Player' })
-        
+
+        const country = await Pais.findOne({ name: "Argentina" })
+
+        if (!country) {
+            return res.status(401).json({ message: "Country does not exists" })
+        }
+
         const newUser = new User({
             nickname,
             phone,
             role: role?._id,
-            password: pass
+            password: pass,
+            pais: country._id
         })
 
         const userSaved = await newUser.save()
-        
+
         const category = await Category.findOne({ name: 'Capitales' })
 
         await User.findOneAndUpdate({ nickname }, {
@@ -108,20 +122,20 @@ export const register = async (req: Request, res: Response) => {
 
         const token = generateToken(userSaved._id)
 
-        const user = await User.findById(userSaved._id).select("-password")
+        const user = await User.findById(userSaved._id).populate("categories").select("-password")
 
         return res.status(200).json({
             user,
             token
         })
-        
+
     } catch (error) {
         throw error
     }
 
 }
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response): Promise<Response> => {
 
     const { nickname } = req.body
 
@@ -129,24 +143,63 @@ export const login = async (req: Request, res: Response) => {
 
         const user = await User.findOne({ nickname }).select("-password").populate("categories")
 
-        if(!user) {
+        if (!user) {
             return res.status(400).json({ message: "Nickname does not exists or fields do not match" })
         }
 
         const token = generateToken(user._id)
-        
+
         return res.status(200).json({
             user,
             token
         })
-        
+
     } catch (error) {
         throw error
     }
 
 }
 
-export const removeUser = async (req: Request, res: Response) => {
+export const firstTime = async (req: Request, res: Response): Promise<Response> => {
+
+    try {
+
+        const users = await User.find()
+
+        const country = await Pais.findOne({ name: "Argentina" })
+
+        const role = await Role.findOne({ role: 'Player' })
+
+        if (!country) {
+            return res.status(401).json({ message: "Country does not exists" })
+        }
+
+        const pass = generatePassword()
+
+        const newUser = new User({
+            nickname: `usuario${users.length + 1}`,
+            password: pass,
+            role: role?._id,
+            pais: country._id
+        })
+
+        const userSaved = await newUser.save()
+
+        const token = generateToken(userSaved._id)
+
+        const user = await User.findById(userSaved._id).populate("categories").select("-password")
+
+        return res.status(200).json({
+            user: user,
+            token
+        })
+
+    } catch (error) {
+        throw error
+    }
+}
+
+export const removeUser = async (req: Request, res: Response): Promise<Response> => {
 
     const { id } = req.params
 
@@ -154,14 +207,14 @@ export const removeUser = async (req: Request, res: Response) => {
 
         const user = await User.findById(id)
 
-        if(!user) {
+        if (!user) {
             return res.status(400).json({ message: "User does not exists" })
         }
 
         await User.findByIdAndDelete(id)
 
         return res.status(200).json({ message: "User was removed successfully" })
-        
+
     } catch (error) {
         throw error
     }

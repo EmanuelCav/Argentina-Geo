@@ -15,4 +15,7 @@ export interface IUser extends Document {
     categories: ObjectId[];
     amountOptions: number;
     amountQuestions: number;
+    pais: ObjectId;
+    provincia: ObjectId;
+    municipio: ObjectId;
 }
