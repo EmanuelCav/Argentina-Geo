@@ -17,3 +17,7 @@ export const userApi = async (id: string, token: string) => {
         }
     })
 }
+
+export const firstTimeApi = async () => {
+    return await api.post('/users/first')
+}

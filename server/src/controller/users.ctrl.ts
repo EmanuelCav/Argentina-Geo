@@ -185,6 +185,16 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
 
         const userSaved = await newUser.save()
 
+        const category = await Category.findOne({ name: 'Capitales' })
+
+        await User.findByIdAndUpdate(userSaved._id, {
+            $push: {
+                categories: category?._id
+            }
+        }, {
+            new: true
+        })
+
         const token = generateToken(userSaved._id)
 
         const user = await User.findById(userSaved._id).populate("categories").select("-password")

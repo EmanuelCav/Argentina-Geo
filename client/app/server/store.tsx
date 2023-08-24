@@ -1,11 +1,26 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import storage from 'redux-persist/lib/storage'
+import { persistReducer } from "redux-persist";
+import thunk from 'redux-thunk';
 
 import gameReducer from './features/game.features'
 import userReducer from './features/user.features'
 
-export default configureStore({
-    reducer: {
-        games: gameReducer,
-        users: userReducer
-    }
+const reducers = combineReducers({
+    users: userReducer,
+    games: gameReducer
 })
+
+const persistedReducers = persistReducer({
+    key: `arrgeo-user-games`,
+    version: 1,
+    storage
+}, reducers)
+
+const store = configureStore({
+    reducer: persistedReducers,
+    devTools: process.env.NODE_ENV !== 'production',
+    middleware: [thunk]
+})
+
+export default store

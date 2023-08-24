@@ -17,6 +17,7 @@ router.get('/users/:id', auth, usersCtrl.user)
 router.post('/users', [auth, validRole], validCreateUser, usersCtrl.createUser)
 router.post('/users/login', validLogin, usersCtrl.login)
 router.post('/users/register', validRegister, usersCtrl.register)
+router.post('/users/first', usersCtrl.firstTime)
 router.delete('/users/:id', [auth, validRole], usersCtrl.removeUser)
 
 export default router
