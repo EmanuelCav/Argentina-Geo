@@ -1,5 +1,8 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
+import { IUser } from "../interface/User";
+import { IGame } from "../interface/Game";
+
 type RoutesProps = {
     Home: undefined;
     Play: undefined;
@@ -19,4 +22,10 @@ export type ShowStatisticsProps = {
     navigation: StackNavigation;
     setIsProfile: (isProfile: boolean) => void;
     isProfile: boolean;
+}
+
+export type UserInfoProps = {
+    user: IUser;
+    users: IUser[];
+    games: IGame[];
 }

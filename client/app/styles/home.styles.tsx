@@ -9,8 +9,63 @@ export const homeStyles = StyleSheet.create({
     // USER
 
     containerUserHome: {
-        height: '25%',
+        height: '29%',
         backgroundColor: '#597EEE',
+        padding: 16
+    },
+
+    userInfoLevel: {
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexDirection: 'column'
+    },
+
+    userNickname: {
+        fontSize: 24,
+        fontFamily: '500'
+    },
+
+    userInfo: {
+        fontSize: 18,
+    },
+
+    containerLevel: {
+        width: '100%',
+        backgroundColor: '#ddd',
+        borderRadius: 20,
+        marginTop: 4,
+        height: 30,
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    imageLevel: {
+        width: 42,
+        height: 31,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        left: 0
+    },
+
+    containerLocationUser: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+
+    textExp: {
+        fontSize: 18
+    },
+
+    textLevel: {
+        fontSize: 18,
+        fontWeight: '900',
     },
 
     // OPTIONS
@@ -77,7 +132,7 @@ export const rankingStyles = StyleSheet.create({
         marginTop: 2
     },
     infoUserRank: {
-        fontSize: 20        
+        fontSize: 20
     }
 
 })

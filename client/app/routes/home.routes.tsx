@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import User from '../components/home/user'
 import Options from '../components/home/options'
+import Profile from '../components/profile/profile';
 
 import { gamesApi, categoriesApi } from '../server/api/game.api'
 import { gamesAction, categoriesAction } from '../server/features/game.features'
-
 import { firstTimeApi } from '../server/api/user.api'
 import { firstTimeAction } from '../server/features/user.features'
 
@@ -18,11 +18,11 @@ import { homeStyles } from "../styles/home.styles";
 
 import { getUserData } from '../helper/storage';
 import { selector } from '../helper/selector';
-import Profile from '../components/profile/profile';
 
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
+    const games = useSelector((state: IReducer) => selector(state).games)
 
     const dispatch = useDispatch()
 
@@ -80,14 +80,14 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     }, [dispatch, users.user])
 
     useEffect(() => {
-    }, [isProfile])
+    }, [isProfile, users.users])
 
     return (
         <View style={homeStyles.containerHome} >
             {
                 isProfile && <Profile />
             }
-            <User />
+            <User user={users.user.user} users={users.users} games={games.games} />
             <Options navigation={navigation} setIsProfile={setIsProfile} isProfile={isProfile} />
         </View>
     )

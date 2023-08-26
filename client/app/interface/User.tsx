@@ -20,4 +20,7 @@ export interface IUser {
     categories: ICategories[];
     amountOptions: number;
     amountQuestions: number;
+    pais: string;
+    provincia: string;
+    municipio: string;
 }
