@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
 
@@ -18,12 +18,15 @@ import { homeStyles } from "../styles/home.styles";
 
 import { getUserData } from '../helper/storage';
 import { selector } from '../helper/selector';
+import Profile from '../components/profile/profile';
 
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
 
     const dispatch = useDispatch()
+
+    const [isProfile, setIsProfile] = useState<boolean>(false)
 
     const getData = async () => {
 
@@ -76,10 +79,16 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     }, [dispatch, users.user])
 
+    useEffect(() => {
+    }, [isProfile])
+
     return (
         <View style={homeStyles.containerHome} >
+            {
+                isProfile && <Profile />
+            }
             <User />
-            <Options navigation={navigation} />
+            <Options navigation={navigation} setIsProfile={setIsProfile} isProfile={isProfile} />
         </View>
     )
 }

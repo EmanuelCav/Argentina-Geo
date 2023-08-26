@@ -14,6 +14,7 @@ import { IReducer } from "../interface/Reducer";
 import { menuStyles } from "../styles/menu.styles";
 
 import { selector } from "../helper/selector";
+import OptionsGame from "../components/options/options";
 
 const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -23,14 +24,14 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
     const dispatch = useDispatch()
 
     const [isCategories, setIsCategories] = useState<boolean>(false)
+    const [isOptionsGame, setIsOptionsGame] = useState<boolean>(false)
+
     const [categories, setCategories] = useState<string[]>([])
 
     const generateGame = async () => {
 
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZGU0YTFmNzExNWJmYWZjNTM1ZWFlNCIsImlhdCI6MTY5MjI5MzEyOSwiZXhwIjoxNjk0ODg1MTI5fQ.SUJFgqUomvhsvE1EPLSx9rTrAUbJa39z7fWUqYESHO8"
-
         try {
-            const { data } = await createGameApi(token)
+            const { data } = await createGameApi(users.user.token)
             dispatch(createGameAction(data))
             dispatch(getGameAction(data))
             navigation.navigate('Playing')
@@ -43,8 +44,8 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
         let arrCategories: string[] = []
 
-        for (let i = 0; i < users.profile.categories.length; i++) {
-            arrCategories.push(users.profile.categories[i].name)
+        for (let i = 0; i < users.user.user.categories.length; i++) {
+            arrCategories.push(users.user.user.categories[i].name)
         }
         for (let i = 0; i < games.categories.length; i++) {
             arrCategories.push(games.categories[i].name)
@@ -54,14 +55,21 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
         setIsCategories(!isCategories)
     }
 
+    const showOptions = () => {
+        setIsOptionsGame(!isOptionsGame)
+    }
+
     return (
         <View style={menuStyles.containerPlay}>
             <ButtonMenu text="Iniciar juego" redirect={generateGame} />
             <ButtonMenu text="Categorías" redirect={showCategories} />
-            <ButtonMenu text="Opciones" redirect={() => navigation.navigate('Home')} />
+            <ButtonMenu text="Opciones" redirect={showOptions} />
             <ButtonMenu text="Regresar" redirect={() => navigation.goBack()} />
             {
                 isCategories && <Categories categories={categories} />
+            }
+            {
+                isOptionsGame && <OptionsGame />
             }
         </View>
     )

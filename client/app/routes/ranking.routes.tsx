@@ -23,10 +23,8 @@ const Ranking = () => {
 
     const getData = async () => {
 
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZGU0YTFmNzExNWJmYWZjNTM1ZWFlNCIsImlhdCI6MTY5MjI5MzEyOSwiZXhwIjoxNjk0ODg1MTI5fQ.SUJFgqUomvhsvE1EPLSx9rTrAUbJa39z7fWUqYESHO8"
-
         try {
-            const { data } = await usersApi(token)
+            const { data } = await usersApi(users.user.token)
             dispatch(usersAction(data))
         } catch (error) {
             console.log(error);

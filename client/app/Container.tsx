@@ -12,7 +12,6 @@ export default function Container({ children }: { children: ReactNode }) {
 const styles = StyleSheet.create({
     container: {
         height: '100%',
-        width: '100%',
-        backgroundColor: '#a93',
+        width: '100%'
     }
 })

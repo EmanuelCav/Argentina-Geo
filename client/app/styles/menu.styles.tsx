@@ -19,7 +19,8 @@ export const menuStyles = StyleSheet.create({
         top: 0,
         backgroundColor: 'rgba(0,0,0,0.9)',
         paddingVertical: 40,
-        paddingHorizontal: 10 
+        paddingHorizontal: 10,
+        zIndex: 14
     },
 
     categoriesContain: {

@@ -11,8 +11,10 @@ import Home from './app/routes/home.routes';
 import Play from './app/routes/play.routes';
 import Playing from "./app/routes/playing.routes";
 import Ranking from "./app/routes/ranking.routes";
+import Settings from './app/routes/settings.routes'
 
 import store from "./app/server/store";
+
 const persistor = persistStore(store)
 
 export default function App() {
@@ -31,6 +33,7 @@ export default function App() {
               <Stack.Screen name='Play' component={Play} />
               <Stack.Screen name="Playing" component={Playing} />
               <Stack.Screen name="Ranking" component={Ranking} />
+              <Stack.Screen name="Settings" component={Settings} />
             </Stack.Navigator>
           </Container>
         </PersistGate>
