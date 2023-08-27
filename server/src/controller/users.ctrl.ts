@@ -11,8 +11,12 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const showUsers = await User.find().select("-password")
-
+        const showUsers = await User.find()
+            .populate("categories")
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+            .select("nickname level points pais provincia municipio")
 
         const showSortUsers = showUsers.sort((a, b) => b.points - a.points)
 
@@ -33,7 +37,9 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
         const showUser = await User.findById(id)
             .populate("categories")
             .populate("pais")
-            .select("-password")
+            .populate("provincia")
+            .populate("municipio")
+            .select("nickname level points pais provincia municipio categories")
 
         if (!showUser) {
             return res.status(400).json({ message: "User does not exists" })
@@ -144,7 +150,11 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const user = await User.findOne({ nickname }).select("-password").populate("categories")
+        const user = await User.findOne({ nickname })
+            .populate("categories")
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
 
         if (!user) {
             return res.status(400).json({ message: "Nickname does not exists or fields do not match" })
@@ -201,9 +211,10 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
         const token = generateToken(userSaved._id)
 
         const user = await User.findById(userSaved._id)
-        .populate("categories")
-        .populate("pais")
-        .select("-password")
+            .populate("categories")
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
 
         return res.status(200).json({
             user: user,

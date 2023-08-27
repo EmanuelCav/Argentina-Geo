@@ -21,6 +21,12 @@ const counterGameSlice = createSlice({
         getUserAction: (state, action: PayloadAction<IUser>) => {
             state.profile = action.payload
         },
+        loginAction: (state, action: PayloadAction<UserDataType>) => {
+            state.user = action.payload
+            state.isLoggedIn = true,
+            state.users = []
+            state.profile = {}
+        },
         firstTimeAction: (state, action: PayloadAction<UserDataType>) => {
             state.user = action.payload
             state.isLoggedIn = true
@@ -28,6 +34,6 @@ const counterGameSlice = createSlice({
     }
 })
 
-export const { usersAction, getUserAction, firstTimeAction } = counterGameSlice.actions
+export const { usersAction, getUserAction, loginAction, firstTimeAction } = counterGameSlice.actions
 
 export default counterGameSlice.reducer

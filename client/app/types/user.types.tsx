@@ -11,3 +11,4 @@ export type UserType = {
     isLoggedIn: boolean;
     profile: IUser;
 }
+

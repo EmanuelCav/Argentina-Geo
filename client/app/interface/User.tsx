@@ -20,7 +20,34 @@ export interface IUser {
     categories: ICategories[];
     amountOptions: number;
     amountQuestions: number;
-    pais: string;
-    provincia: string;
-    municipio: string;
+    pais: IPais;
+    provincia: IProvincia;
+    municipio: IMunicipio;
+}
+
+export interface ILogin {
+    nickname: string;
+    password: string;
+}
+
+export interface IPais {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    name: string;
+}
+
+export interface IProvincia {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    name: string;
+}
+
+export interface IMunicipio {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    name: string;
+    provincia: IProvincia;
 }

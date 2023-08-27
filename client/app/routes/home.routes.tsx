@@ -8,8 +8,8 @@ import Profile from '../components/profile/profile';
 
 import { gamesApi, categoriesApi } from '../server/api/game.api'
 import { gamesAction, categoriesAction } from '../server/features/game.features'
-import { firstTimeApi } from '../server/api/user.api'
-import { firstTimeAction } from '../server/features/user.features'
+import { firstTimeApi, loginApi } from '../server/api/user.api'
+import { firstTimeAction, loginAction } from '../server/features/user.features'
 
 import { StackNavigation } from '../types/props.types'
 import { IReducer } from '../interface/Reducer';
@@ -58,6 +58,21 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         }
     }
 
+    const getLoginData = async () => {
+
+        try {
+            const { data } = await loginApi(
+                { 
+                    nickname: users.user.user.nickname, 
+                    password: users.user.user.password 
+                }
+            )
+            dispatch(loginAction(data))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
 
         (async () => {
@@ -66,6 +81,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                 const isUser = await getUserData()
 
                 if (isUser) {
+                    getLoginData()
                     getData()
                     getCategories()
                 } else {
@@ -77,7 +93,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
             }
         })();
 
-    }, [dispatch, users.user])
+    }, [dispatch])
 
     useEffect(() => {
     }, [isProfile, users.users])
