@@ -7,6 +7,21 @@ const categorySchema = new Schema({
     name: {
         type: String,
         required: true
+    },
+
+    questions: {
+        type: Number,
+        default: 0
+    },
+
+    corrects: {
+        type: Number,
+        default: 0
+    },
+
+    isSelected: {
+        type: Boolean,
+        default: true
     }
 
 }, {

@@ -12,3 +12,9 @@ export type UserType = {
     profile: IUser;
 }
 
+export type UserReducerType = {
+    users: IUser[];
+    user: UserDataType;
+    isLoggedIn: boolean;
+    profile: IUser;
+}

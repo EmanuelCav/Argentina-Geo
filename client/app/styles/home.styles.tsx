@@ -68,6 +68,16 @@ export const homeStyles = StyleSheet.create({
         fontWeight: '900',
     },
 
+    // PROFILE
+
+    imageLevelProfile: {
+        width: 42,
+        height: 31,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
     // OPTIONS
 
     containerUserOption: {

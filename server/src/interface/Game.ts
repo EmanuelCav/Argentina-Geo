@@ -7,6 +7,9 @@ export interface ICategory extends Document {
     updatedAt: NativeDate;
     _id: ObjectId;
     name: string;
+    questions: number;
+    corrects: number;
+    isSelected: boolean;
 }
 
 export interface IQuestion extends Document {
@@ -25,6 +28,7 @@ export interface IGame extends Document {
     _id: ObjectId;
     questions: ObjectId;
     user: ObjectId;
+    corrects: number;
 }
 
 export interface IQuestionGame extends Document {

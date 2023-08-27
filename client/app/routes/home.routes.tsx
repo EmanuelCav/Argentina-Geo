@@ -101,7 +101,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerHome} >
             {
-                isProfile && <Profile />
+                isProfile && <Profile user={users} games={games.games} id={users.user.user._id} />
             }
             <User user={users.user.user} users={users.users} games={games.games} />
             <Options navigation={navigation} setIsProfile={setIsProfile} isProfile={isProfile} />

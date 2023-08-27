@@ -2,6 +2,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IUser } from "../interface/User";
 import { IGame } from "../interface/Game";
+import { UserReducerType } from "./user.types";
 
 type RoutesProps = {
     Home: undefined;
@@ -28,4 +29,10 @@ export type UserInfoProps = {
     user: IUser;
     users: IUser[];
     games: IGame[];
+}
+
+export type ProfileProps = {
+    user: UserReducerType;
+    games: IGame[]
+    id: string;
 }

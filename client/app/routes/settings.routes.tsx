@@ -30,7 +30,7 @@ const Settings = () => {
 
         const provinciasData: Item[] = []
 
-        const { data } = await getProvinciasApi()
+        const { data } = await getProvinciasApi("Argentina")
         
         for (let i = 0; i < data.length; i++) {
             provinciasData.push({
@@ -46,7 +46,7 @@ const Settings = () => {
 
         const municipiosData: Item[] = []
 
-        const { data } = await getMunicipiosApi()
+        const { data } = await getMunicipiosApi("Buenos Aires")
         
         for (let i = 0; i < data.length; i++) {
             municipiosData.push({

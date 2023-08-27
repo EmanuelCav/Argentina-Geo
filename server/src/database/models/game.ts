@@ -10,6 +10,10 @@ const gameSchema = new Schema({
         type: ObjectId,
         ref: 'QuestionGame'
     }],
+    corrects: {
+        type: Number,
+        default: 0
+    },
     user: {
         type: ObjectId,
         ref: 'User'
