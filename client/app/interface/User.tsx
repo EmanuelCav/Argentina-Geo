@@ -1,8 +1,13 @@
 import { ICategories } from "./Game";
 
+interface ICounterUserReducer {
+    token: string;
+    user: object;
+}
+
 export interface ICounterUser {
     users: IUser[];
-    user: object;
+    user: ICounterUserReducer;
     isLoggedIn: boolean;
     profile: object;
 }
@@ -23,6 +28,11 @@ export interface IUser {
     pais: IPais;
     provincia: IProvincia;
     municipio: IMunicipio;
+}
+
+export interface IUserReducer {
+    user: IUser,
+    token: string;
 }
 
 export interface ILogin {
@@ -50,4 +60,9 @@ export interface IMunicipio {
     updatedAt: string;
     name: string;
     provincia: IProvincia;
+}
+
+export interface IOptions {
+    amountQuestions: string;
+    amountOptions: string;
 }

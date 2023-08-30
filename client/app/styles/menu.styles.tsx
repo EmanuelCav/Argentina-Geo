@@ -27,7 +27,11 @@ export const menuStyles = StyleSheet.create({
         backgroundColor: '#fff',
         width: '100%',
         height: '100%',
-        padding: 12
+        padding: 12,
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexDirection: 'column'
     },
 
     containerCategory: {

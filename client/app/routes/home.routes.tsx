@@ -78,7 +78,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         (async () => {
             try {
 
-                const isUser = await getUserData()
+                const isUser = await getUserData()                
 
                 if (isUser) {
                     getLoginData()
@@ -101,9 +101,11 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerHome} >
             {
-                isProfile && <Profile user={users} games={games.games} id={users.user.user._id} />
+                isProfile && <Profile user={users} games={games.games} id={users.user.user._id} setIsProfile={setIsProfile} />
             }
-            <User user={users.user.user} users={users.users} games={games.games} />
+            {
+                users.isLoggedIn && <User user={users.user.user} users={users.users} games={games.games} />
+            }
             <Options navigation={navigation} setIsProfile={setIsProfile} isProfile={isProfile} />
         </View>
     )

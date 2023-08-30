@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { ILogin } from '../../interface/User'
+import { ILogin, IOptions } from '../../interface/User'
 
 const api = axios.create({ baseURL: 'http://localhost:4200' })
 
@@ -30,4 +30,16 @@ export const loginApi = async (userData: ILogin) => {
 
 export const firstTimeApi = async () => {
     return await api.post('/users/first')
+}
+
+export const updateOptionsApi = async (id: string, userData: IOptions, token: string) => {
+    return await api.put(`/users/options/${id}`, {
+        amountQuestions: parseInt(userData.amountQuestions),
+        amountOptions: parseInt(userData.amountOptions)
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
 }

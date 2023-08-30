@@ -78,6 +78,10 @@ export const homeStyles = StyleSheet.create({
         alignItems: 'center'
     },
 
+    containerActionsView: {
+        width: '100%'
+    },
+
     // OPTIONS
 
     containerUserOption: {

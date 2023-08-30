@@ -1,13 +1,14 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
+
+import InputOptions from "./components/inputOptions";
 
 import { menuStyles } from '../../styles/menu.styles'
 
-const OptionsGame = () => {
+const OptionsGame = ({ setIsOptionsGame }: { setIsOptionsGame: (isOptionsGame: boolean) => void }) => {
+
     return (
         <View style={menuStyles.containerCategories}>
-            <View style={menuStyles.categoriesContain}>
-                <Text>OptionsGame</Text>
-            </View>
+            <InputOptions setIsOptionsGame={setIsOptionsGame} />
         </View>
     )
 }

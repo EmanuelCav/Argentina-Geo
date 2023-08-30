@@ -248,11 +248,30 @@ export const removeUser = async (req: Request, res: Response): Promise<Response>
 
 }
 
-export const updateUser = async (req: Request, res: Response): Promise<Response> => {
+export const updateOptions = async (req: Request, res: Response): Promise<Response> => {
+
+    const { amountOptions, amountQuestions } = req.body
+    const { id } = req.params
 
     try {
 
-        return res.status(200).json({ message: "Update user" })
+        const user = await User.findById(id)
+
+        if (user?._id != req.user) {
+            return res.status(401).json({ message: "You cannot update options" })
+        }
+
+        const optionsUpdated = await User.findByIdAndUpdate(id, {
+            amountOptions, amountQuestions
+        }, {
+            new: true
+        })
+            .populate("categories")
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+
+        return res.status(200).json(optionsUpdated)
 
     } catch (error) {
         throw error

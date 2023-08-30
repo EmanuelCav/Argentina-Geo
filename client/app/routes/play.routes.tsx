@@ -66,10 +66,10 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
             <ButtonMenu text="Opciones" redirect={showOptions} />
             <ButtonMenu text="Regresar" redirect={() => navigation.goBack()} />
             {
-                isCategories && <Categories categories={categories} />
+                isCategories && <Categories categories={categories} setIsCategories={setIsCategories} />
             }
             {
-                isOptionsGame && <OptionsGame />
+                isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} />
             }
         </View>
     )

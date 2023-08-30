@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import Select, { Item } from 'react-native-picker-select'
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";

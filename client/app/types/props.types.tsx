@@ -33,6 +33,12 @@ export type UserInfoProps = {
 
 export type ProfileProps = {
     user: UserReducerType;
-    games: IGame[]
+    games: IGame[];
     id: string;
+    setIsProfile: (isProfile: boolean) => void;
+}
+
+export type CategoriesProps = {
+    categories: string[];
+    setIsCategories: (isCategories: boolean) => void;
 }
