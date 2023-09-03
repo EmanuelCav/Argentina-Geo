@@ -11,13 +11,10 @@ const User = ({ user, users, games }: UserInfoProps) => {
             <View style={homeStyles.userInfoLevel}>
                 <Text style={homeStyles.userNickname}>{user.nickname}</Text>
                 <Text style={homeStyles.userInfo}>{user.pais.name}</Text>
-                {
-                    user.provincia &&
-                    <View style={homeStyles.containerLocationUser}>
-                        <Text style={homeStyles.userInfo}>{user.provincia !== null && user.provincia.name}</Text>
-                        <Text style={homeStyles.userInfo}>{user.municipio !== null && - user.municipio.name}</Text>
-                    </View>
-                }
+                <View style={homeStyles.containerLocationUser}>
+                    <Text style={homeStyles.userInfo}>{user.provincia !== null && user.provincia.name}</Text>
+                    <Text style={homeStyles.userInfo}>{user.municipio !== null && - user.municipio.name}</Text>
+                </View>
                 <Text style={homeStyles.userInfo}>Posición: {users.map((user) => user._id).indexOf(user._id) + 1}°</Text>
                 <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
                 <View style={homeStyles.containerLevel}>

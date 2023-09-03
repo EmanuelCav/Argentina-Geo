@@ -16,6 +16,7 @@ export const menuStyles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position: 'absolute',
+        left: 0,
         top: 0,
         backgroundColor: 'rgba(0,0,0,0.9)',
         paddingVertical: 40,
@@ -32,18 +33,6 @@ export const menuStyles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         flexDirection: 'column'
-    },
-
-    containerCategory: {
-
-    },
-
-    textCategory: {
-
-    },
-
-    buttonCategory: {
-
     }
 
 })

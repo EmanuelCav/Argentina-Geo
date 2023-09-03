@@ -105,6 +105,7 @@ export const homeStyles = StyleSheet.create({
         margin: 30,
     },
     textButtonOption: {
+        textAlign: 'center',
         color: '#fff',
         fontSize: 24,
         fontWeight: '500'

@@ -5,6 +5,7 @@ import { IGame } from "../interface/Game";
 import { UserReducerType } from "./user.types";
 
 type RoutesProps = {
+    New: undefined;
     Home: undefined;
     Play: undefined;
     Playing: undefined;
@@ -41,4 +42,9 @@ export type ProfileProps = {
 export type CategoriesProps = {
     categories: string[];
     setIsCategories: (isCategories: boolean) => void;
+}
+
+export type NewProps = {
+    navigation: StackNavigation;
+    setIsAuth: (isAuth: boolean) => void;
 }

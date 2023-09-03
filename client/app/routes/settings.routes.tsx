@@ -5,7 +5,7 @@ import { View } from "react-native";
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
 
 import ButtonMenu from "../components/buttonMenu";
-import Select from "../components/select/select";
+import Select from "../components/select";
 
 import { IReducer } from "../interface/Reducer";
 import { ISetting } from "../interface/User";
