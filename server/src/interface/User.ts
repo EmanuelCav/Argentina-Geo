@@ -10,7 +10,7 @@ export interface IUser extends Document {
     phone: string;
     password: string;
     role: roleType;
-    level: number;
+    level: ObjectId;
     points: number;
     categories: ObjectId[];
     amountOptions: number;
@@ -19,3 +19,17 @@ export interface IUser extends Document {
     provincia: ObjectId;
     municipio: ObjectId;
 }
+
+export interface ILevel extends Document {
+    level: number;
+    max: number;
+}
+
+export interface IExperience extends Document {
+    day: number;
+    month: number;
+    year: number;
+    total: number;
+    user: ObjectId;
+}
+

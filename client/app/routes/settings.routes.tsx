@@ -1,26 +1,50 @@
 import { useState, useEffect } from "react";
+import { useSelector } from 'react-redux'
 import { View } from "react-native";
-import Select, { Item } from 'react-native-picker-select'
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
 
-const Settings = () => {
+import ButtonMenu from "../components/buttonMenu";
+import Select from "../components/select/select";
 
-    const [paises, setPaises] = useState<Item[]>([])
-    const [provincias, setProvincias] = useState<Item[]>([])
-    const [municipios, setMunicipios] = useState<Item[]>([])
+import { IReducer } from "../interface/Reducer";
+import { ISetting } from "../interface/User";
+import { StackNavigation } from "../types/props.types";
+
+import { menuStyles } from '../styles/menu.styles'
+import { homeStyles } from '../styles/home.styles'
+
+import { selector } from "../helper/selector";
+
+const Settings = ({ navigation }: { navigation: StackNavigation }) => {
+
+    const users = useSelector((state: IReducer) => selector(state).users)
+
+    const initialState: ISetting = {
+        pais: users.user.user.pais.name,
+        provincia: users.user.user.provincia ? users.user.user.provincia.name : "",
+        municipio: users.user.user.municipio ? users.user.user.municipio.name : "",
+        password: users.user.user.password
+    }
+
+    const [settingsData, setSettingsData] = useState<ISetting>(initialState)
+
+    const [paises, setPaises] = useState<string[]>([])
+    const [provincias, setProvincias] = useState<string[]>([])
+    const [municipios, setMunicipios] = useState<string[]>([])
+
+    const [isMunicipio, setIsMunicipio] = useState<boolean>(false)
+
+    const { pais, provincia, municipio, password } = settingsData
 
     const getPaises = async () => {
 
-        const paisesData: Item[] = []
+        const paisesData: string[] = []
 
         const { data } = await getCountriesApi()
-        
+
         for (let i = 0; i < data.length; i++) {
-            paisesData.push({
-                label: data[i].name,
-                value: data[i].name
-            })
+            paisesData.push(data[i].name)
         }
 
         setPaises(paisesData)
@@ -28,15 +52,12 @@ const Settings = () => {
 
     const getProvincias = async () => {
 
-        const provinciasData: Item[] = []
+        const provinciasData: string[] = []
 
-        const { data } = await getProvinciasApi("Argentina")
-        
+        const { data } = await getProvinciasApi(pais)
+
         for (let i = 0; i < data.length; i++) {
-            provinciasData.push({
-                label: data[i].name,
-                value: data[i].name
-            })
+            provinciasData.push(data[i].name)
         }
 
         setProvincias(provinciasData)
@@ -44,15 +65,12 @@ const Settings = () => {
 
     const getMunicipios = async () => {
 
-        const municipiosData: Item[] = []
+        const municipiosData: string[] = []
 
-        const { data } = await getMunicipiosApi("Buenos Aires")
-        
+        const { data } = await getMunicipiosApi(provincia)
+
         for (let i = 0; i < data.length; i++) {
-            municipiosData.push({
-                label: data[i].name,
-                value: data[i].name
-            })
+            municipiosData.push(data[i].name)
         }
 
         setMunicipios(municipiosData)
@@ -61,34 +79,16 @@ const Settings = () => {
     useEffect(() => {
         getPaises()
         getProvincias()
-        // getMunicipios()
-    }, [])
-
+    }, [pais])
 
     return (
         <View>
-            <Select
-                onValueChange={(value) => console.log(value)}
-                items={paises}
-                placeholder={{
-                    label: "Selecciona un país",
-                    value: null
-                }}
-                value={"Argentina"}
-            />
-            <Select
-                onValueChange={(value) => console.log(value)}
-                items={provincias}
-                placeholder={{
-                    label: "Selecciona una provincia",
-                    value: null
-                }}
-            />
-            <Select
-                onValueChange={(value) => console.log(value)}
-                items={municipios}
-                disabled
-            />
+            <View style={menuStyles.categoriesContain}>
+                <Select data={paises} />
+            </View>
+            <View style={homeStyles.containerActionsView}>
+                <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} />
+            </View>
         </View>
     )
 }

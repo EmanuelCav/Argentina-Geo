@@ -66,3 +66,10 @@ export interface IOptions {
     amountQuestions: string;
     amountOptions: string;
 }
+
+export interface ISetting {
+    pais: string;
+    provincia: string;
+    municipio: string;
+    password: string;
+}

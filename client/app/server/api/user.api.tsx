@@ -33,7 +33,7 @@ export const firstTimeApi = async () => {
 }
 
 export const updateOptionsApi = async (id: string, userData: IOptions, token: string) => {
-    return await api.put(`/users/options/${id}`, {
+    return await api.patch(`/users/options/${id}`, {
         amountQuestions: parseInt(userData.amountQuestions),
         amountOptions: parseInt(userData.amountOptions)
     }, {

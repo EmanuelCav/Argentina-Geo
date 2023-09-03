@@ -29,12 +29,12 @@ const userSchema = new Schema({
         ref: 'Role'
     },
     level: {
-        type: Number,
-        default: 1
+        type: ObjectId,
+        ref: 'Level'
     },
     points: {
-        type: Number,
-        default: 0
+        type: ObjectId,
+        default: 'Experience'
     },
     categories: [{
         type: ObjectId,

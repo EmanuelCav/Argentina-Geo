@@ -9,7 +9,7 @@ export interface ICategory extends Document {
     name: string;
     questions: number;
     corrects: number;
-    isSelected: boolean;
+    isSelected: any;
 }
 
 export interface IQuestion extends Document {
@@ -38,5 +38,6 @@ export interface IQuestionGame extends Document {
     question: ObjectId;
     options: string[];
 }
+
 
 
