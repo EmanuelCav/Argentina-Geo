@@ -11,7 +11,7 @@ export interface IUser extends Document {
     password: string;
     role: roleType;
     level: ObjectId;
-    points: number;
+    points: ObjectId;
     categories: ObjectId[];
     amountOptions: number;
     amountQuestions: number;
@@ -21,11 +21,17 @@ export interface IUser extends Document {
 }
 
 export interface ILevel extends Document {
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
+    _id: ObjectId;
     level: number;
     max: number;
 }
 
 export interface IExperience extends Document {
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
+    _id: ObjectId;
     day: number;
     month: number;
     year: number;

@@ -11,6 +11,7 @@ import { StackNavigation } from "../types/props.types";
 import { newStyles } from '../styles/settings.styles'
 
 import { selector } from "../helper/selector";
+import { getUserData } from "../helper/storage";
 
 const New = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -21,6 +22,8 @@ const New = ({ navigation }: { navigation: StackNavigation }) => {
     useEffect(() => {
 
         (async () => {
+
+            await getUserData()
 
             if (users.isLoggedIn) {
                 navigation.navigate('Home')
@@ -36,7 +39,7 @@ const New = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={newStyles.containerNew}>
             {
-                isAuth && <Auth setIsAuth={setIsAuth} />
+                isAuth && <Auth navigation={navigation} setIsAuth={setIsAuth} />
             }
             <NewUser navigation={navigation} setIsAuth={setIsAuth} />
         </View>

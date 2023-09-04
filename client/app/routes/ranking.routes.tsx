@@ -14,7 +14,6 @@ import { IUser } from "../interface/User";
 
 import { selector } from "../helper/selector";
 
-
 const Ranking = () => {
 
     const users = useSelector((state: IReducer) => selector(state).users)

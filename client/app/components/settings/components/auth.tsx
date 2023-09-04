@@ -1,8 +1,56 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { useState } from "react";
+import { View } from 'react-native'
+import { useDispatch } from "react-redux";
 
-import { authStyles, newStyles } from '../../../styles/settings.styles'
+import ButtonSettings from "./buttonSettings";
+import Input from "./components/input";
 
-const Auth = ({ setIsAuth }: { setIsAuth: (isAuth: boolean) => void }) => {
+import { loginApi } from '../../../server/api/user.api'
+import { loginAction } from '../../../server/features/user.features'
+
+import { authStyles } from '../../../styles/settings.styles'
+
+import { ILogin } from "../../../interface/User";
+import { NewProps } from "../../../types/props.types";
+
+const Auth = ({ navigation, setIsAuth }: NewProps) => {
+
+    const dispatch = useDispatch()
+
+    const initialState: ILogin = {
+        nickname: "",
+        password: ""
+    }
+
+    const [userData, setUserData] = useState<ILogin>(initialState)
+
+    const { nickname, password } = userData
+
+    const handleChangeNickname = (value: string) => {
+        setUserData({
+            ...userData,
+            nickname: value
+        })
+    }
+
+    const handleChangePassword = (value: string) => {
+        setUserData({
+            ...userData,
+            password: value
+        })
+    }
+
+    const handleSumbit = async () => {
+
+        try {
+            const { data } = await loginApi(userData)
+            dispatch(loginAction(data))
+            setIsAuth(false)
+            navigation.navigate('Home')
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const redirectNew = () => {
         setIsAuth(false)
@@ -11,21 +59,11 @@ const Auth = ({ setIsAuth }: { setIsAuth: (isAuth: boolean) => void }) => {
     return (
         <View style={authStyles.containerAuth} >
             <View style={authStyles.containerForm}>
+                <Input label="Nombre de usuario" value={nickname} handleChange={handleChangeNickname} isPassword={false} />
+                <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={true} />
                 <View style={authStyles.separator}>
-                    <Text style={authStyles.labelForm}>Nombre de usuario</Text>
-                    <TextInput style={authStyles.inputAuth} />
-                </View>
-                <View style={authStyles.separator}>
-                    <Text style={authStyles.labelForm}>Código de entrada</Text>
-                    <TextInput style={authStyles.inputAuth} />
-                </View>
-                <View style={authStyles.separator}>
-                    <TouchableOpacity style={newStyles.buttonSettings}>
-                        <Text style={newStyles.textButtonSettings}>Aceptar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={newStyles.buttonSettings} onPress={redirectNew}>
-                        <Text style={newStyles.textButtonSettings}>Volver</Text>
-                    </TouchableOpacity>
+                    <ButtonSettings text="Aceptar" redirect={handleSumbit} />
+                    <ButtonSettings text="Regresar" redirect={redirectNew} />
                 </View>
             </View>
         </View>

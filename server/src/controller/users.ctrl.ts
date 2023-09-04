@@ -4,6 +4,8 @@ import User from '../database/models/users';
 import Role from '../database/models/roles';
 import Category from '../database/models/category';
 import Pais from '../database/models/pais';
+import Level from '../database/models/level';
+import Experience from '../database/models/experience';
 
 import { generatePassword, generateToken, hashPassword } from "../helper/encrypt";
 
@@ -16,11 +18,11 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
+            .populate("level")
+            .populate("points")
             .select("nickname level points pais provincia municipio")
 
-        const showSortUsers = showUsers.sort((a, b) => b.points - a.points)
-
-        return res.status(200).json(showSortUsers)
+        return res.status(200).json(showUsers)
 
     } catch (error) {
         throw error
@@ -39,6 +41,8 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
+            .populate("level")
+            .populate("points")
             .select("nickname level points pais provincia municipio categories")
 
         if (!showUser) {
@@ -105,6 +109,8 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
         const country = await Pais.findOne({ name: "Argentina" })
 
+        const level = await Level.findOne({ level: 1 })
+
         if (!country) {
             return res.status(401).json({ message: "Country does not exists" })
         }
@@ -114,7 +120,8 @@ export const register = async (req: Request, res: Response): Promise<Response> =
             phone,
             role: role?._id,
             password: pass,
-            pais: country._id
+            pais: country._id,
+            level
         })
 
         const userSaved = await newUser.save()
@@ -155,6 +162,8 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
+            .populate("level")
+            .populate("points")
 
         if (!user) {
             return res.status(400).json({ message: "Nickname does not exists or fields do not match" })
@@ -183,19 +192,22 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
 
         const role = await Role.findOne({ role: 'Player' })
 
+        const level = await Level.findOne({ level: 1 })
+
         if (!country) {
             return res.status(401).json({ message: "Country does not exists" })
         }
 
         const pass = generatePassword()
-
+        
         const newUser = new User({
             nickname: `usuario${users.length + 1}`,
             password: pass,
             role: role?._id,
-            pais: country._id
+            pais: country._id,
+            level: level?._id
         })
-
+        
         const userSaved = await newUser.save()
 
         const category = await Category.findOne({ name: 'Capitales' })
@@ -208,6 +220,18 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
             new: true
         })
 
+        const newExperience = new Experience({
+            user: userSaved._id
+        })
+
+        const experienceSaved = await newExperience.save()
+
+        await User.findByIdAndUpdate(userSaved._id, {
+            points: experienceSaved._id
+        }, {
+            new: true
+        })
+
         const token = generateToken(userSaved._id)
 
         const user = await User.findById(userSaved._id)
@@ -215,6 +239,8 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
+            .populate("level")
+            .populate("points")
 
         return res.status(200).json({
             user: user,
@@ -270,6 +296,8 @@ export const updateOptions = async (req: Request, res: Response): Promise<Respon
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
+            .populate("level")
+            .populate("points")
 
         return res.status(200).json(optionsUpdated)
 

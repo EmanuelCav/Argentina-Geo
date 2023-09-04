@@ -48,3 +48,10 @@ export type NewProps = {
     navigation: StackNavigation;
     setIsAuth: (isAuth: boolean) => void;
 }
+
+export type InputProps = {
+    label: string;
+    value: string;
+    handleChange: (value: string) => void;
+    isPassword: boolean;
+}

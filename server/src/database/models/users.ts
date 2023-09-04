@@ -34,7 +34,7 @@ const userSchema = new Schema({
     },
     points: {
         type: ObjectId,
-        default: 'Experience'
+        ref: 'Experience'
     },
     categories: [{
         type: ObjectId,

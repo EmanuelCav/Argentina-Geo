@@ -49,7 +49,7 @@ export const authStyles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         top: 0,
-        backgroundColor: 'rgba(89,126,238,0.9)',
+        backgroundColor: 'rgba(89,126,238,0.7)',
         zIndex: 14,
         flex: 1,
         justifyContent: 'center',
@@ -81,7 +81,7 @@ export const authStyles = StyleSheet.create({
     },
 
     labelForm: {
-        fontSize: 18,
+        fontSize: 22,
         margin: 2
     }
 

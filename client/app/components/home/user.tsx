@@ -19,9 +19,9 @@ const User = ({ user, users, games }: UserInfoProps) => {
                 <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
                 <View style={homeStyles.containerLevel}>
                     <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevel}>
-                        <Text style={homeStyles.textLevel}>{user.level}</Text>
+                        <Text style={homeStyles.textLevel}>{user.level.level}</Text>
                     </ImageBackground>
-                    <Text style={homeStyles.textExp}>{user.points}</Text>
+                    <Text style={homeStyles.textExp}>{user.points.total}/{user.level.max} xp</Text>
                 </View>
             </View>
         </View>

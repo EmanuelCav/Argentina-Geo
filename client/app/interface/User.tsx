@@ -20,8 +20,8 @@ export interface IUser {
     phone: string;
     password: string;
     role: string;
-    level: number;
-    points: number;
+    level: ILevel;
+    points: IExperience;
     categories: ICategories[];
     amountOptions: number;
     amountQuestions: number;
@@ -72,4 +72,23 @@ export interface ISetting {
     provincia: string;
     municipio: string;
     password: string;
+}
+
+export interface ILevel {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    level: number;
+    max: number;
+}
+
+export interface IExperience {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    day: number;
+    month: number;
+    year: number;
+    total: number;
+    user: IUser;
 }

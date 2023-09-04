@@ -8,15 +8,14 @@ import Profile from '../components/profile/profile';
 
 import { gamesApi, categoriesApi } from '../server/api/game.api'
 import { gamesAction, categoriesAction } from '../server/features/game.features'
-import { firstTimeApi, loginApi } from '../server/api/user.api'
-import { firstTimeAction, loginAction } from '../server/features/user.features'
+import { firstTimeApi, loginApi, usersApi } from '../server/api/user.api'
+import { firstTimeAction, loginAction, usersAction } from '../server/features/user.features'
 
 import { StackNavigation } from '../types/props.types'
 import { IReducer } from '../interface/Reducer';
 
 import { homeStyles } from "../styles/home.styles";
 
-import { getUserData } from '../helper/storage';
 import { selector } from '../helper/selector';
 
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
@@ -33,6 +32,16 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         try {
             const { data } = await gamesApi(users.user.token)
             dispatch(gamesAction(data))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getUsers = async () => {
+
+        try {
+            const { data } = await usersApi(users.user.token)
+            dispatch(usersAction(data))
         } catch (error) {
             console.log(error);
         }
@@ -62,9 +71,9 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
         try {
             const { data } = await loginApi(
-                { 
-                    nickname: users.user.user.nickname, 
-                    password: users.user.user.password 
+                {
+                    nickname: users.user.user.nickname,
+                    password: users.user.user.password
                 }
             )
             dispatch(loginAction(data))
@@ -75,25 +84,16 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     useEffect(() => {
 
-        (async () => {
-            try {
+        if (users.isLoggedIn) {
+            getLoginData()
+            getUsers()
+            getData()
+            getCategories()
+        } else {
+            generateUserData()
+        }
 
-                const isUser = await getUserData()                
-
-                if (isUser) {
-                    getLoginData()
-                    getData()
-                    getCategories()
-                } else {
-                    generateUserData()
-                }
-
-            } catch (error) {
-                console.log(error);
-            }
-        })();
-
-    }, [dispatch])
+    }, [dispatch, users.isLoggedIn])
 
     useEffect(() => {
     }, [isProfile, users.users])

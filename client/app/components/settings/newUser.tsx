@@ -1,5 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 
+import ButtonSettings from "./components/buttonSettings";
+
 import { NewProps } from "../../types/props.types";
 
 import { newStyles } from '../../styles/settings.styles'
@@ -16,12 +18,8 @@ const NewUser = ({ navigation, setIsAuth }: NewProps) => {
 
     return (
         <View style={newStyles.newContain}>
-            <TouchableOpacity style={newStyles.buttonSettings} onPress={redirectHome} >
-                <Text style={newStyles.textButtonSettings}>Soy un jugador nuevo</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={newStyles.buttonSettings} onPress={redirectForm}>
-                <Text style={newStyles.textButtonSettings}>Ya tengo un usuario</Text>
-            </TouchableOpacity>
+            <ButtonSettings text="Soy un jugador nuevo" redirect={redirectHome} />
+            <ButtonSettings text="Ya tengo un usuario" redirect={redirectForm} />
         </View>
     )
 }

@@ -26,12 +26,12 @@ const counterGameSlice = createSlice({
         loginAction: (state, action: PayloadAction<IUserReducer>) => {
             state.user = action.payload
             state.isLoggedIn = true
-            state.users = []
             state.profile = action.payload.user
         },
         firstTimeAction: (state, action: PayloadAction<IUserReducer>) => {
             state.user = action.payload
             state.isLoggedIn = true
+            state.profile = action.payload.user
         },
         updateOptionsAction: (state, action: PayloadAction<IUser>) => {
             state.user.user = action.payload
