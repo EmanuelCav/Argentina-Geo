@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View } from 'react-native'
 import { useDispatch } from "react-redux";
 
-import ButtonSettings from "./buttonSettings";
+import ButtonSettings from "./components/buttonSettings";
 import Input from "./components/input";
 
 import { loginApi } from '../../../server/api/user.api'

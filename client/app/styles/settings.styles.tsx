@@ -86,3 +86,38 @@ export const authStyles = StyleSheet.create({
     }
 
 })
+
+export const sectionStyle = StyleSheet.create({
+
+    containerInputSettings: {
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        padding: 7,
+        borderRadius: 4,
+        borderColor: '#597EEE',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 12
+    },
+
+    containCode: {
+        height: '40%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%'
+    },
+
+    textCode: {
+        fontSize: 18
+    },
+
+    changeTextCode: {
+        fontSize: 22,
+        color: '#597EEE',
+        marginTop: 2
+    }
+
+})

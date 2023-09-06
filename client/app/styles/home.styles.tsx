@@ -1,5 +1,25 @@
 import { StyleSheet } from "react-native";
 
+export const generalStyles = StyleSheet.create({
+
+    containerInfoSelect: {
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'column'
+    },
+
+    containSelector: {
+        height: '40%',
+        width: '100%',
+        padding: 16,
+        justifyContent: 'space-around',
+        flexDirection: 'column',
+        alignItems: 'center'
+    }
+
+})
+
 export const homeStyles = StyleSheet.create({
 
     containerHome: {
@@ -9,7 +29,7 @@ export const homeStyles = StyleSheet.create({
     // USER
 
     containerUserHome: {
-        height: '29%',
+        height: '30%',
         backgroundColor: '#597EEE',
         padding: 16
     },
@@ -79,18 +99,19 @@ export const homeStyles = StyleSheet.create({
     },
 
     containerActionsView: {
-        width: '100%'
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
     // OPTIONS
 
     containerUserOption: {
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         flexDirection: 'column',
         flex: 1,
-        padding: 12,
-        marginBottom: 48
+        padding: 12
     },
     buttonUserOption: {
         width: '80%',

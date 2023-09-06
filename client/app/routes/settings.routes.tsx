@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
+import { View, Text } from "react-native";
 import { useSelector } from 'react-redux'
-import { View } from "react-native";
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
 
 import ButtonMenu from "../components/buttonMenu";
-import Select from "../components/select";
+import Selector from "../components/settings/selector";
+import CodeSettings from "../components/settings/codeSettings";
 
 import { IReducer } from "../interface/Reducer";
 import { ISetting } from "../interface/User";
 import { StackNavigation } from "../types/props.types";
 
-import { menuStyles } from '../styles/menu.styles'
-import { homeStyles } from '../styles/home.styles'
+import { homeStyles, generalStyles } from '../styles/home.styles'
 
 import { selector } from "../helper/selector";
 
@@ -82,10 +82,9 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     }, [pais])
 
     return (
-        <View>
-            <View style={menuStyles.categoriesContain}>
-                <Select data={paises} />
-            </View>
+        <View style={generalStyles.containerInfoSelect}>
+            <Selector />
+            <CodeSettings password={password} />
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} />
             </View>

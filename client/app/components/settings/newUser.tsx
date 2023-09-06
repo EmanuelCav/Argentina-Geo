@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 
-import ButtonSettings from "./components/buttonSettings";
+import ButtonSettings from "./components/components/buttonSettings";
 
 import { NewProps } from "../../types/props.types";
 
