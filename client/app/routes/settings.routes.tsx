@@ -7,6 +7,7 @@ import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/a
 import ButtonMenu from "../components/buttonMenu";
 import Selector from "../components/settings/selector";
 import CodeSettings from "../components/settings/codeSettings";
+import Select from "../components/select";
 
 import { IReducer } from "../interface/Reducer";
 import { ISetting } from "../interface/User";
@@ -33,7 +34,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     const [provincias, setProvincias] = useState<string[]>([])
     const [municipios, setMunicipios] = useState<string[]>([])
 
-    const [isMunicipio, setIsMunicipio] = useState<boolean>(false)
+    const [isSelector, setisSelector] = useState<boolean>(false)
 
     const { pais, provincia, municipio, password } = settingsData
 
@@ -83,7 +84,10 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
 
     return (
         <View style={generalStyles.containerInfoSelect}>
-            <Selector />
+            {
+                isSelector && <Select data={paises} />
+            }
+            <Selector settingsData={settingsData} />
             <CodeSettings password={password} />
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} />

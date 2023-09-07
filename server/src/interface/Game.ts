@@ -7,9 +7,18 @@ export interface ICategory extends Document {
     updatedAt: NativeDate;
     _id: ObjectId;
     name: string;
+}
+
+export interface ICategoryUser extends Document {
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
+    _id: ObjectId;
+    category: ObjectId;
     questions: number;
     corrects: number;
-    isSelected: any;
+    isSelect: boolean;
+    isUnlocked: boolean;
+    user: ObjectId;
 }
 
 export interface IQuestion extends Document {
@@ -17,7 +26,7 @@ export interface IQuestion extends Document {
     updatedAt: NativeDate;
     _id: ObjectId;
     question: string;
-    category: ObjectId;
+    category: string;
     image: imageType;
     answer: string;
 }

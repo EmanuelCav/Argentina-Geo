@@ -1,16 +1,21 @@
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 import InputSelect from './components/inputSelect'
 
 import { generalStyles } from '../../styles/home.styles'
+import { authStyles } from '../../styles/settings.styles'
 
-const Selector = () => {
+import { ISetting } from '../../interface/User'
+
+const Selector = ({ settingsData }: { settingsData: ISetting }) => {
     return (
         <View style={generalStyles.containSelector}>
-            <InputSelect value="Selecciona un país" />
-            <InputSelect value="Selecciona una provincia" />
-            <InputSelect value="Selecciona un partido/barrio" />
-            {/* <Select data={paises} /> */}
+            <Text style={authStyles.labelForm}>País</Text>
+            <InputSelect value={settingsData.pais} />
+            <Text style={authStyles.labelForm}>Provincia</Text>
+            <InputSelect value={settingsData.provincia} />
+            <Text style={authStyles.labelForm}>Partido/barrio</Text>
+            <InputSelect value={settingsData.municipio} />
         </View>
     )
 }

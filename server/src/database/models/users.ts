@@ -38,7 +38,7 @@ const userSchema = new Schema({
     },
     categories: [{
         type: ObjectId,
-        ref: 'Category'
+        ref: 'Categoryuser'
     }],
     amountOptions: {
         type: Number,

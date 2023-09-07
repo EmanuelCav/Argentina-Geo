@@ -102,12 +102,24 @@ export const sectionStyle = StyleSheet.create({
         margin: 12
     },
 
-    containCode: {
+    textInput: {
+        textAlign: 'center',
+        color: '#597EEE',
+        fontSize: 20,
+        fontWeight: '500'
+    },
+
+    containerMoreSettings: {
         height: '40%',
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center',
         width: '100%'
+    },
+
+    containCode: {
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
     textCode: {

@@ -3,11 +3,13 @@ import { Request, Response } from "express";
 import User from '../database/models/users';
 import Role from '../database/models/roles';
 import Category from '../database/models/category';
+import Categoryuser from '../database/models/categoryUser';
 import Pais from '../database/models/pais';
 import Level from '../database/models/level';
 import Experience from '../database/models/experience';
 
 import { generatePassword, generateToken, hashPassword } from "../helper/encrypt";
+import { categoriesFromUser, experienceFromUser } from "../helper/user.functions";
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
 
@@ -85,7 +87,10 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
             pais: country._id
         })
 
-        await newUser.save()
+        const userSaved = await newUser.save()
+
+        await categoriesFromUser(userSaved._id)
+        await experienceFromUser(userSaved._id)
 
         return res.status(200).json({
             message: "User was created successfully"
@@ -126,15 +131,8 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
         const userSaved = await newUser.save()
 
-        const category = await Category.findOne({ name: 'Capitales' })
-
-        await User.findOneAndUpdate({ nickname }, {
-            $push: {
-                categories: category?._id
-            }
-        }, {
-            new: true
-        })
+        await categoriesFromUser(userSaved._id)
+        await experienceFromUser(userSaved._id)
 
         const token = generateToken(userSaved._id)
 
@@ -194,6 +192,8 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
 
         const level = await Level.findOne({ level: 1 })
 
+        const categories = await Category.find()
+
         if (!country) {
             return res.status(401).json({ message: "Country does not exists" })
         }
@@ -210,27 +210,39 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
         
         const userSaved = await newUser.save()
 
-        const category = await Category.findOne({ name: 'Capitales' })
+        await categoriesFromUser(userSaved._id)
 
-        await User.findByIdAndUpdate(userSaved._id, {
-            $push: {
-                categories: category?._id
-            }
-        }, {
-            new: true
-        })
+        // for(let i = 0; i < categories.length; i++) {
 
-        const newExperience = new Experience({
-            user: userSaved._id
-        })
+        //     const categoryUser = new Categoryuser({
+        //         category: categories[i]._id,
+        //         user: userSaved._id
+        //     })
 
-        const experienceSaved = await newExperience.save()
+        //     const categoryUserSaved = await categoryUser.save()
 
-        await User.findByIdAndUpdate(userSaved._id, {
-            points: experienceSaved._id
-        }, {
-            new: true
-        })
+        //     await User.findByIdAndUpdate(userSaved._id, {
+        //         $push: {
+        //             categories: categoryUserSaved._id
+        //         }
+        //     }, {
+        //         new: true
+        //     })
+        // }
+
+        await experienceFromUser(userSaved._id)
+
+        // const newExperience = new Experience({
+        //     user: userSaved._id
+        // })
+
+        // const experienceSaved = await newExperience.save()
+
+        // await User.findByIdAndUpdate(userSaved._id, {
+        //     points: experienceSaved._id
+        // }, {
+        //     new: true
+        // })
 
         const token = generateToken(userSaved._id)
 
@@ -263,6 +275,13 @@ export const removeUser = async (req: Request, res: Response): Promise<Response>
         if (!user) {
             return res.status(400).json({ message: "User does not exists" })
         }
+
+        await Experience.deleteOne({
+            user: id
+        })
+        await Categoryuser.deleteMany({
+            user: id
+        })
 
         await User.findByIdAndDelete(id)
 

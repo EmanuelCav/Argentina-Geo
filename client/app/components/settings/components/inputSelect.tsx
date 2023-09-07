@@ -5,7 +5,7 @@ import { sectionStyle } from "../../../styles/settings.styles";
 const InputSelect = ({ value }: { value: string }) => {
     return (
         <TouchableOpacity style={sectionStyle.containerInputSettings}>
-            <Text>{value}</Text>
+            <Text style={sectionStyle.textInput}>{value}</Text>
         </TouchableOpacity>
     )
 }
