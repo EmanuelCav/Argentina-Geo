@@ -8,7 +8,7 @@ const UserRank = ({ user }: { user: IUser }) => {
     return (
         <View style={rankingStyles.userRanking}>
             <Text style={rankingStyles.infoUserRank}>{user.nickname}</Text>
-            <Text style={rankingStyles.infoUserRank}>{user.points} xp</Text>
+            <Text style={rankingStyles.infoUserRank}>{user.points.total} xp</Text>
         </View>
     )
 }

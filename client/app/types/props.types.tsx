@@ -1,6 +1,7 @@
+import { SetStateAction } from 'react'
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-import { IUser } from "../interface/User";
+import { IOptions, IUser } from "../interface/User";
 import { IGame } from "../interface/Game";
 import { UserReducerType } from "./user.types";
 
@@ -54,4 +55,21 @@ export type InputProps = {
     value: string;
     handleChange: (value: string) => void;
     isPassword: boolean;
+}
+
+export type CodeProps = {
+    password: string;
+    nickname: string;
+}
+
+export type SelectOptionProps = {
+    setOptionsData: (optionData: SetStateAction<IOptions>) => void; 
+    optionsData: IOptions, 
+    amountOptions: string;
+}
+
+export type SelectQuestionProps = {
+    setOptionsData: (optionData: SetStateAction<IOptions>) => void; 
+    optionsData: IOptions, 
+    amountQuestions: number;
 }

@@ -24,8 +24,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     const initialState: ISetting = {
         pais: users.user.user.pais.name,
         provincia: users.user.user.provincia ? users.user.user.provincia.name : "",
-        municipio: users.user.user.municipio ? users.user.user.municipio.name : "",
-        password: users.user.user.password
+        municipio: users.user.user.municipio ? users.user.user.municipio.name : ""
     }
 
     const [settingsData, setSettingsData] = useState<ISetting>(initialState)
@@ -36,7 +35,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
 
     const [isSelector, setisSelector] = useState<boolean>(false)
 
-    const { pais, provincia, municipio, password } = settingsData
+    const { pais, provincia, municipio } = settingsData
 
     const getPaises = async () => {
 
@@ -88,7 +87,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
                 isSelector && <Select data={paises} />
             }
             <Selector settingsData={settingsData} />
-            <CodeSettings password={password} />
+            <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname} />
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} />
             </View>

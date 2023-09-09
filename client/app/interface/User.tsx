@@ -63,7 +63,7 @@ export interface IMunicipio {
 }
 
 export interface IOptions {
-    amountQuestions: string;
+    amountQuestions: number;
     amountOptions: string;
 }
 
@@ -71,7 +71,6 @@ export interface ISetting {
     pais: string;
     provincia: string;
     municipio: string;
-    password: string;
 }
 
 export interface ILevel {

@@ -34,7 +34,7 @@ const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
             <View style={menuStyles.categoriesContain}>
                 <View>
                     <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevelProfile}>
-                        <Text style={homeStyles.textLevel}>{user.profile.level}</Text>
+                        <Text style={homeStyles.textLevel}>{user.profile.level.level}</Text>
                     </ImageBackground>
                     <Text style={homeStyles.userNickname}>{user.profile.nickname}</Text>
                     <Text style={homeStyles.userInfo}>{user.profile.pais.name}</Text>

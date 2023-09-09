@@ -107,7 +107,7 @@ export const homeStyles = StyleSheet.create({
     // OPTIONS
 
     containerUserOption: {
-        justifyContent: 'flex-start',
+        justifyContent: 'space-around',
         alignItems: 'center',
         flexDirection: 'column',
         flex: 1,
@@ -116,14 +116,13 @@ export const homeStyles = StyleSheet.create({
     buttonUserOption: {
         width: '80%',
         backgroundColor: '#597EEE',
-        padding: 7,
+        padding: 12,
         borderRadius: 4,
         borderColor: '#fff',
         borderStyle: 'solid',
         borderWidth: 2,
         justifyContent: 'center',
-        alignItems: 'center',
-        margin: 30,
+        alignItems: 'center'
     },
     textButtonOption: {
         textAlign: 'center',

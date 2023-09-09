@@ -34,7 +34,7 @@ export const firstTimeApi = async () => {
 
 export const updateOptionsApi = async (id: string, userData: IOptions, token: string) => {
     return await api.patch(`/users/options/${id}`, {
-        amountQuestions: parseInt(userData.amountQuestions),
+        amountQuestions: userData.amountQuestions,
         amountOptions: parseInt(userData.amountOptions)
     }, {
         headers: {

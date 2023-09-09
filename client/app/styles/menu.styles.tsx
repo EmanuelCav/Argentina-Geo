@@ -6,8 +6,9 @@ export const menuStyles = StyleSheet.create({
 
     containerPlay: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        height: '100%'
     },
 
     // CATEGORIES
@@ -33,6 +34,45 @@ export const menuStyles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         flexDirection: 'column'
+    },
+
+    // OPTIONS
+
+    containOptionsSelector: {
+        width: '100%',
+        padding: 16,
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+
+    textTitleOptions: {
+        fontSize: 26,
+        color: '#597EEE',
+        marginTop: 2,
+        fontWeight: '600'
+    },
+
+    textQuestionOptions: {
+        fontSize: 20
+    },
+
+    buttonOptions: {
+        width: '50%',
+        padding: 7,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: '#597EEE',
+        height: 48,
+        margin: 16,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    textButtonOptions: {
+        fontSize: 22,
+        color: '#597EEE',
+        fontWeight: '600'
     }
 
 })

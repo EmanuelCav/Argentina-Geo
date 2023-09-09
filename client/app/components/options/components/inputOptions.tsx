@@ -1,9 +1,10 @@
-import { useState } from 'react'
-import { View, Text } from "react-native";
+import { useState, useEffect } from 'react'
+import { View } from "react-native";
 import { useSelector, useDispatch } from 'react-redux'
-import Select from 'react-native-picker-select'
 
 import ButtonMenu from "../../buttonMenu";
+import SliderQuestion from './components/sliderQuestion';
+import SelectOption from './components/selectOption';
 
 import { updateOptionsApi } from '../../../server/api/user.api'
 import { updateOptionsAction } from '../../../server/features/user.features'
@@ -23,7 +24,7 @@ const InputOptions = ({ setIsOptionsGame }: { setIsOptionsGame: (isOptionsGame: 
     const dispatch = useDispatch()
 
     const initialState: IOptions = {
-        amountQuestions: String(users.user.user.amountQuestions),
+        amountQuestions: users.user.user.amountQuestions,
         amountOptions: String(users.user.user.amountOptions)
     }
 
@@ -44,44 +45,8 @@ const InputOptions = ({ setIsOptionsGame }: { setIsOptionsGame: (isOptionsGame: 
 
     return (
         <View style={menuStyles.categoriesContain}>
-            <View>
-                <Text>Cantidad de opciones</Text>
-                <Select
-                    onValueChange={(value) => setOptionsData(optionData => ({
-                        ...optionData, amountOptions: value
-                    }))}
-                    items={[{
-                        label: '2', value: '2'
-                    }, {
-                        label: '4', value: '4'
-                    }, {
-                        label: '6', value: '6'
-                    }, {
-                        label: '8', value: '8'
-                    }]}
-                    value={amountOptions}
-                />
-            </View>
-            <View>
-                <Text>Cantidad de preguntas</Text>
-                <Select
-                    onValueChange={(value) => setOptionsData(optionData => ({
-                        ...optionData, amountQuestions: value
-                    }))}
-                    items={[{
-                        label: '10', value: '10'
-                    }, {
-                        label: '20', value: '20'
-                    }, {
-                        label: '30', value: '30'
-                    }, {
-                        label: '40', value: '40'
-                    }, {
-                        label: '50', value: '50'
-                    }]}
-                    value={amountQuestions}
-                />
-            </View>
+            <SelectOption setOptionsData={setOptionsData} optionsData={optionsData} amountOptions={amountOptions} />
+            <SliderQuestion setOptionsData={setOptionsData} optionsData={optionsData} amountQuestions={amountQuestions} />
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Aceptar" redirect={acceptOptions} />
             </View>

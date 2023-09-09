@@ -110,7 +110,6 @@ export const sectionStyle = StyleSheet.create({
     },
 
     containerMoreSettings: {
-        height: '40%',
         flex: 1,
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -129,7 +128,8 @@ export const sectionStyle = StyleSheet.create({
     changeTextCode: {
         fontSize: 22,
         color: '#597EEE',
-        marginTop: 2
+        marginTop: 2,
+        fontWeight: '600'
     }
 
 })
