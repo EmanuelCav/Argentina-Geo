@@ -26,31 +26,42 @@ export const menuStyles = StyleSheet.create({
     },
 
     categoriesContain: {
-        backgroundColor: '#fff',
+        backgroundColor: '#FFFFFF',
         width: '100%',
         height: '100%',
         padding: 12,
         flex: 1,
         justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        flexDirection: 'column'
+        alignItems: 'center',
+        flexDirection: 'column',
     },
 
     // OPTIONS
 
-    containOptionsSelector: {
+    containQuestionSelector: {
         width: '100%',
         padding: 16,
         justifyContent: 'center',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '36%'
+    },
+
+    containOptionsSelector: {
+        width: '100%',
+        padding: 16,
+        justifyContent: 'space-between',
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: '56%'
     },
 
     textTitleOptions: {
         fontSize: 26,
         color: '#597EEE',
         marginTop: 2,
-        fontWeight: '600'
+        fontWeight: '600',
+        textAlign: 'center'
     },
 
     textQuestionOptions: {
@@ -63,8 +74,17 @@ export const menuStyles = StyleSheet.create({
         borderRadius: 12,
         borderWidth: 1,
         borderColor: '#597EEE',
-        height: 48,
-        margin: 16,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    buttonOptionsSelected: {
+        width: '50%',
+        padding: 7,
+        borderRadius: 12,
+        borderWidth: 1,
+        backgroundColor: '#597EEE',
+        borderColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -72,6 +92,12 @@ export const menuStyles = StyleSheet.create({
     textButtonOptions: {
         fontSize: 22,
         color: '#597EEE',
+        fontWeight: '600'
+    },
+
+    textButtonOptionsSelected: {
+        fontSize: 22,
+        color: '#FFFFFF',
         fontWeight: '600'
     }
 

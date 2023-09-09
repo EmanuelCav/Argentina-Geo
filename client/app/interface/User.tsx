@@ -64,7 +64,7 @@ export interface IMunicipio {
 
 export interface IOptions {
     amountQuestions: number;
-    amountOptions: string;
+    amountOptions: number;
 }
 
 export interface ISetting {

@@ -33,10 +33,7 @@ export const firstTimeApi = async () => {
 }
 
 export const updateOptionsApi = async (id: string, userData: IOptions, token: string) => {
-    return await api.patch(`/users/options/${id}`, {
-        amountQuestions: userData.amountQuestions,
-        amountOptions: parseInt(userData.amountOptions)
-    }, {
+    return await api.patch(`/users/options/${id}`, userData, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

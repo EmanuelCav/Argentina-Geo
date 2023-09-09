@@ -13,7 +13,7 @@ const sliderQuestion = ({ setOptionsData, optionsData, amountQuestions }: Select
     }, [optionsData])
 
     return (
-        <View style={menuStyles.containOptionsSelector}>
+        <View style={menuStyles.containQuestionSelector}>
             <Text style={menuStyles.textTitleOptions}>Cantidad de preguntas</Text>
             <Text style={menuStyles.textQuestionOptions}>{amountQuestions}</Text>
             <Slider

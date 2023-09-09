@@ -65,7 +65,7 @@ export type CodeProps = {
 export type SelectOptionProps = {
     setOptionsData: (optionData: SetStateAction<IOptions>) => void; 
     optionsData: IOptions, 
-    amountOptions: string;
+    amountOptions: number;
 }
 
 export type SelectQuestionProps = {

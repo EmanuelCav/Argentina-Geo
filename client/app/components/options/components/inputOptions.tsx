@@ -25,7 +25,7 @@ const InputOptions = ({ setIsOptionsGame }: { setIsOptionsGame: (isOptionsGame: 
 
     const initialState: IOptions = {
         amountQuestions: users.user.user.amountQuestions,
-        amountOptions: String(users.user.user.amountOptions)
+        amountOptions: users.user.user.amountOptions
     }
 
     const [optionsData, setOptionsData] = useState<IOptions>(initialState)

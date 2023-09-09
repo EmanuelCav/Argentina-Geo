@@ -101,7 +101,8 @@ export const homeStyles = StyleSheet.create({
     containerActionsView: {
         width: '100%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '8%'
     },
 
     // OPTIONS
@@ -114,7 +115,7 @@ export const homeStyles = StyleSheet.create({
         padding: 12
     },
     buttonUserOption: {
-        width: '80%',
+        width: '88%',
         backgroundColor: '#597EEE',
         padding: 12,
         borderRadius: 4,
