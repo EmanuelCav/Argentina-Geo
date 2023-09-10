@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { ILogin, IOptions } from '../../interface/User'
+import { ILogin, INickname, IOptions, IPassword } from '../../interface/User'
 
 const api = axios.create({ baseURL: 'http://localhost:4200' })
 
@@ -34,6 +34,24 @@ export const firstTimeApi = async () => {
 
 export const updateOptionsApi = async (id: string, userData: IOptions, token: string) => {
     return await api.patch(`/users/options/${id}`, userData, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const updatePasswordApi = async (id: string, userData: IPassword, token: string) => {
+    return await api.put(`/users/password/${id}`, userData, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const updateNicknameApi = async (id: string, userData: INickname, token: string) => {
+    return await api.put(`/users/nickname/${id}`, userData, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IOptions, IUser } from "../interface/User";
 import { IGame } from "../interface/Game";
-import { UserReducerType } from "./user.types";
+import { UserDataType, UserReducerType } from "./user.types";
 
 type RoutesProps = {
     New: undefined;
@@ -60,6 +60,9 @@ export type InputProps = {
 export type CodeProps = {
     password: string;
     nickname: string;
+    setIsAuth: (isAuth: boolean) => void;
+    setIsCode: (isCode: boolean) => void;
+    setIsNickname: (isNickname: boolean) => void;
 }
 
 export type SelectOptionProps = {
@@ -72,4 +75,14 @@ export type SelectQuestionProps = {
     setOptionsData: (optionData: SetStateAction<IOptions>) => void; 
     optionsData: IOptions, 
     amountQuestions: number;
+}
+
+export type ChangeCodeProps = {
+    setIsCode:  (isCode: boolean) => void;
+    user: UserDataType;
+}
+
+export type ChangeNicknameProps = {
+    setIsNickname:  (isNickname: boolean) => void;
+    user: UserDataType;
 }

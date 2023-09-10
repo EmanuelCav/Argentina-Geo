@@ -199,7 +199,7 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
         }
 
         const pass = generatePassword()
-        
+
         const newUser = new User({
             nickname: `usuario${users.length + 1}`,
             password: pass,
@@ -207,42 +207,11 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
             pais: country._id,
             level: level?._id
         })
-        
+
         const userSaved = await newUser.save()
 
         await categoriesFromUser(userSaved._id)
-
-        // for(let i = 0; i < categories.length; i++) {
-
-        //     const categoryUser = new Categoryuser({
-        //         category: categories[i]._id,
-        //         user: userSaved._id
-        //     })
-
-        //     const categoryUserSaved = await categoryUser.save()
-
-        //     await User.findByIdAndUpdate(userSaved._id, {
-        //         $push: {
-        //             categories: categoryUserSaved._id
-        //         }
-        //     }, {
-        //         new: true
-        //     })
-        // }
-
         await experienceFromUser(userSaved._id)
-
-        // const newExperience = new Experience({
-        //     user: userSaved._id
-        // })
-
-        // const experienceSaved = await newExperience.save()
-
-        // await User.findByIdAndUpdate(userSaved._id, {
-        //     points: experienceSaved._id
-        // }, {
-        //     new: true
-        // })
 
         const token = generateToken(userSaved._id)
 
@@ -319,6 +288,80 @@ export const updateOptions = async (req: Request, res: Response): Promise<Respon
             .populate("points")
 
         return res.status(200).json(optionsUpdated)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const updatePassword = async (req: Request, res: Response): Promise<Response> => {
+
+    const { password } = req.body
+    const { id } = req.params
+
+    try {
+
+        const user = await User.findById(id)
+
+        if (!user) {
+            return res.status(400).json({ message: "User does not exists" })
+        }
+
+        if (user._id != req.user) {
+            return res.status(401).json({ message: "You cannot update the password" })
+        }
+
+        const userUpdated = await User.findByIdAndUpdate(id, {
+            password
+        }, {
+            new: true
+        })
+            .populate("categories")
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+            .populate("level")
+            .populate("points")
+
+        return res.status(200).json(userUpdated)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const updateNickname = async (req: Request, res: Response): Promise<Response> => {
+
+    const { nickname } = req.body
+    const { id } = req.params
+
+    try {
+
+        const user = await User.findById(id)
+
+        if (!user) {
+            return res.status(400).json({ message: "User does not exists" })
+        }
+
+        if (user._id != req.user) {
+            return res.status(401).json({ message: "You cannot update the nickname" })
+        }
+
+        const userUpdated = await User.findByIdAndUpdate(id, {
+            nickname
+        }, {
+            new: true
+        })
+            .populate("categories")
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+            .populate("level")
+            .populate("points")
+
+        return res.status(200).json(userUpdated)
 
     } catch (error) {
         throw error

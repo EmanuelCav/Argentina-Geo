@@ -10,6 +10,8 @@ import validLogin from '../middleware/validation/user/validLogin';
 import validRegister from '../middleware/validation/user/validRegister';
 import validOptions from "../middleware/validation/user/validOptions";
 import validLevel from "../middleware/validation/user/validLevel";
+import validPassword from "../middleware/validation/user/validPassword";
+import validNickname from "../middleware/validation/user/validNickname";
 
 import auth from '../middleware/auth/auth';
 
@@ -25,9 +27,11 @@ router.post('/users/first', usersCtrl.firstTime)
 // router.delete('/users/:id', [auth, validRole], usersCtrl.removeUser)
 router.delete('/users/:id', usersCtrl.removeUser)
 router.patch('/users/options/:id', auth, validOptions, usersCtrl.updateOptions)
+router.put('/users/password/:id', auth, validPassword, usersCtrl.updatePassword)
+router.put('/users/nickname/:id', auth, validNickname, usersCtrl.updateNickname)
 
 // router.get('/levels', [auth, validRole], validLevel, levelsCtrl.levels)
-router.get('/levels', validLevel, levelsCtrl.levels)
+router.get('/levels', levelsCtrl.levels)
 // router.post('/levels', [auth, validRole], validLevel, levelsCtrl.createLevels)
 router.post('/levels', validLevel, levelsCtrl.createLevels)
 

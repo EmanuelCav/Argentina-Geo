@@ -8,6 +8,9 @@ import ButtonMenu from "../components/buttonMenu";
 import Selector from "../components/settings/selector";
 import CodeSettings from "../components/settings/codeSettings";
 import Select from "../components/select";
+import Auth from "../components/settings/components/auth";
+import ChangeCode from "../components/settings/changeCode";
+import ChangeName from "../components/settings/changeName";
 
 import { IReducer } from "../interface/Reducer";
 import { ISetting } from "../interface/User";
@@ -34,6 +37,9 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     const [municipios, setMunicipios] = useState<string[]>([])
 
     const [isSelector, setisSelector] = useState<boolean>(false)
+    const [isAuth, setIsAuth] = useState<boolean>(false)
+    const [isCode, setIsCode] = useState<boolean>(false)
+    const [isNickname, setIsNickname] = useState<boolean>(false)
 
     const { pais, provincia, municipio } = settingsData
 
@@ -86,8 +92,18 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
             {
                 isSelector && <Select data={paises} />
             }
+            {
+                isAuth && <Auth setIsAuth={setIsAuth} navigation={navigation} />
+            }
+            {
+                isCode && <ChangeCode setIsCode={setIsCode} user={users.user} />
+            }
+            {
+                isNickname && <ChangeName setIsNickname={setIsNickname} user={users.user} />
+            }
             <Selector settingsData={settingsData} />
-            <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname} />
+            <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname} 
+            setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} />
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} />
             </View>

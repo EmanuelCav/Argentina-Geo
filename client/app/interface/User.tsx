@@ -91,3 +91,11 @@ export interface IExperience {
     total: number;
     user: IUser;
 }
+
+export interface IPassword {
+    password: string;
+}
+
+export interface INickname {
+    nickname: string;
+}
