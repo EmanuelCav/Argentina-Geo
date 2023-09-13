@@ -2,7 +2,7 @@ import { SetStateAction } from 'react'
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IOptions, IUser } from "../interface/User";
-import { IGame } from "../interface/Game";
+import { ICategoriesUser, IGame } from "../interface/Game";
 import { UserDataType, UserReducerType } from "./user.types";
 
 type RoutesProps = {
@@ -41,7 +41,7 @@ export type ProfileProps = {
 }
 
 export type CategoriesProps = {
-    categories: string[];
+    categories: ICategoriesUser[];
     setIsCategories: (isCategories: boolean) => void;
 }
 

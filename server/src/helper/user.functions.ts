@@ -11,10 +11,20 @@ export const categoriesFromUser = async (id: ObjectId) => {
 
     for (let i = 0; i < categories.length; i++) {
 
-        const categoryUser = new Categoryuser({
-            category: categories[i]._id,
-            user: id
-        })
+        let categoryUser
+
+        if(i === 0) {
+            categoryUser = new Categoryuser({
+                category: categories[i]._id,
+                user: id,
+                isUnlocked: true
+            })
+        } else {
+            categoryUser = new Categoryuser({
+                category: categories[i]._id,
+                user: id
+            })
+        }
 
         const categoryUserSaved = await categoryUser.save()
 

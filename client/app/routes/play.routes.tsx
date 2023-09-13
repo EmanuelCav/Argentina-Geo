@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { View } from "react-native";
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -41,17 +41,6 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
     }
 
     const showCategories = () => {
-
-        let arrCategories: string[] = []
-
-        for (let i = 0; i < users.user.user.categories.length; i++) {
-            arrCategories.push(users.user.user.categories[i].name)
-        }
-        for (let i = 0; i < games.categories.length; i++) {
-            arrCategories.push(games.categories[i].name)
-        }
-
-        setCategories(arrCategories)
         setIsCategories(!isCategories)
     }
 
@@ -66,7 +55,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
             <ButtonMenu text="Opciones" redirect={showOptions} />
             <ButtonMenu text="Regresar" redirect={() => navigation.goBack()} />
             {
-                isCategories && <Categories categories={categories} setIsCategories={setIsCategories} />
+                isCategories && <Categories categories={users.user.user.categories} setIsCategories={setIsCategories} />
             }
             {
                 isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} />

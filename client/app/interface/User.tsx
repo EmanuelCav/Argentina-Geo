@@ -1,4 +1,4 @@
-import { ICategories } from "./Game";
+import { ICategoriesUser } from "./Game";
 
 interface ICounterUserReducer {
     token: string;
@@ -22,7 +22,7 @@ export interface IUser {
     role: string;
     level: ILevel;
     points: IExperience;
-    categories: ICategories[];
+    categories: ICategoriesUser[];
     amountOptions: number;
     amountQuestions: number;
     pais: IPais;
@@ -52,6 +52,7 @@ export interface IProvincia {
     createdAt: string;
     updatedAt: string;
     name: string;
+    pais: IPais;
 }
 
 export interface IMunicipio {

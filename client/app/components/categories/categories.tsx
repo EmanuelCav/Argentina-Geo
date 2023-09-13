@@ -7,6 +7,7 @@ import { menuStyles } from "../../styles/menu.styles";
 import { homeStyles } from "../../styles/home.styles";
 
 import { CategoriesProps } from '../../types/props.types';
+import { ICategoriesUser } from '../../interface/Game';
 
 const Categories = ({ categories, setIsCategories }: CategoriesProps) => {
 
@@ -19,8 +20,8 @@ const Categories = ({ categories, setIsCategories }: CategoriesProps) => {
             <View style={menuStyles.categoriesContain}>
                 <View>
                     {
-                        categories.map((category: string, index: number) => {
-                            return <Category category={category} key={index} />
+                        categories.map((category: ICategoriesUser, index: number) => {
+                            return <Category category={category.category.name} key={index} />
                         })
                     }
                 </View>

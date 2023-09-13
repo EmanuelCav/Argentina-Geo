@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 
 import User from '../database/models/users';
 import Role from '../database/models/roles';
-import Category from '../database/models/category';
 import Categoryuser from '../database/models/categoryUser';
 import Pais from '../database/models/pais';
 import Level from '../database/models/level';
@@ -16,7 +15,6 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
     try {
 
         const showUsers = await User.find()
-            .populate("categories")
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
@@ -39,7 +37,14 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
     try {
 
         const showUser = await User.findById(id)
-            .populate("categories")
+            .populate({
+                path: "categories",
+                select: "category questions corrects",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
@@ -156,7 +161,14 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     try {
 
         const user = await User.findOne({ nickname })
-            .populate("categories")
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
@@ -192,8 +204,6 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
 
         const level = await Level.findOne({ level: 1 })
 
-        const categories = await Category.find()
-
         if (!country) {
             return res.status(401).json({ message: "Country does not exists" })
         }
@@ -216,8 +226,15 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
         const token = generateToken(userSaved._id)
 
         const user = await User.findById(userSaved._id)
-            .populate("categories")
-            .populate("pais")
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
+            .populate("pais", "name")
             .populate("provincia")
             .populate("municipio")
             .populate("level")
@@ -280,7 +297,14 @@ export const updateOptions = async (req: Request, res: Response): Promise<Respon
         }, {
             new: true
         })
-            .populate("categories")
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
@@ -317,7 +341,14 @@ export const updatePassword = async (req: Request, res: Response): Promise<Respo
         }, {
             new: true
         })
-            .populate("categories")
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
@@ -354,7 +385,14 @@ export const updateNickname = async (req: Request, res: Response): Promise<Respo
         }, {
             new: true
         })
-            .populate("categories")
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
