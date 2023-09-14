@@ -41,6 +41,7 @@ export type ProfileProps = {
 }
 
 export type CategoriesProps = {
+    user: UserDataType;
     categories: ICategoriesUser[];
     setIsCategories: (isCategories: boolean) => void;
 }
@@ -85,4 +86,9 @@ export type ChangeCodeProps = {
 export type ChangeNicknameProps = {
     setIsNickname:  (isNickname: boolean) => void;
     user: UserDataType;
+}
+
+export type CategoryProps = {
+    user: UserDataType;
+    category: ICategoriesUser;
 }

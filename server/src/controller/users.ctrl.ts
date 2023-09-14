@@ -406,3 +406,48 @@ export const updateNickname = async (req: Request, res: Response): Promise<Respo
     }
 
 }
+
+export const updateCategory = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+
+    try {
+
+        const category = await Categoryuser.findById(id)
+
+        if (!category) {
+            return res.status(400).json({ message: "Category does not exists" })
+        }
+
+        if (category.user != req.user) {
+            return res.status(400).json({ message: "You cannot update this category" })
+        }
+
+        await Categoryuser.findByIdAndUpdate(id, {
+            isSelect: !category.isSelect
+        }, {
+            new: true
+        })
+
+        const user = await User.findById(req.user)
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+            .populate("level")
+            .populate("points")
+
+        return res.status(200).json(user)
+
+    } catch (error) {
+        throw error
+    }
+
+}

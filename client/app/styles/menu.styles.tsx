@@ -36,6 +36,46 @@ export const menuStyles = StyleSheet.create({
         flexDirection: 'column',
     },
 
+    showCategoriesContain: {
+        width: '100%'
+    },
+
+    categoryContainer: {
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: '#597EEE',
+        borderStyle: 'solid',
+        padding: 7,
+    },
+
+    categoryContainerUnlocked: {
+        width: '100%',
+        backgroundColor: '#597EEE',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: '#FFFFFF',
+        borderStyle: 'solid',
+        padding: 7,
+    },
+
+    textCategory: {
+        fontSize: 20,
+        color: '#597EEE'
+    },
+
+    textCategoryUnlocked: {
+        fontSize: 20,
+        color: '#FFFFFF'
+    },
+
     // OPTIONS
 
     containQuestionSelector: {

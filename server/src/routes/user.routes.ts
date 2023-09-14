@@ -27,6 +27,7 @@ router.post('/users/first', usersCtrl.firstTime)
 // router.delete('/users/:id', [auth, validRole], usersCtrl.removeUser)
 router.delete('/users/:id', usersCtrl.removeUser)
 router.patch('/users/options/:id', auth, validOptions, usersCtrl.updateOptions)
+router.patch('/users/category/:id', auth, usersCtrl.updateCategory)
 router.put('/users/password/:id', auth, validPassword, usersCtrl.updatePassword)
 router.put('/users/nickname/:id', auth, validNickname, usersCtrl.updateNickname)
 

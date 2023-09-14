@@ -41,6 +41,14 @@ export const updateOptionsApi = async (id: string, userData: IOptions, token: st
     })
 }
 
+export const updateCategoryApi = async (id: string, token: string) => {
+    return await api.patch(`/users/category/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
 export const updatePasswordApi = async (id: string, userData: IPassword, token: string) => {
     return await api.put(`/users/password/${id}`, userData, {
         headers: {

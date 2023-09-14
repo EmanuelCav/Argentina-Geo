@@ -19,14 +19,11 @@ import OptionsGame from "../components/options/options";
 const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
-    const games = useSelector((state: IReducer) => selector(state).games)
 
     const dispatch = useDispatch()
 
     const [isCategories, setIsCategories] = useState<boolean>(false)
     const [isOptionsGame, setIsOptionsGame] = useState<boolean>(false)
-
-    const [categories, setCategories] = useState<string[]>([])
 
     const generateGame = async () => {
 
@@ -55,7 +52,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
             <ButtonMenu text="Opciones" redirect={showOptions} />
             <ButtonMenu text="Regresar" redirect={() => navigation.goBack()} />
             {
-                isCategories && <Categories categories={users.user.user.categories} setIsCategories={setIsCategories} />
+                isCategories && <Categories user={users.user} categories={users.user.user.categories} setIsCategories={setIsCategories} />
             }
             {
                 isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} />
