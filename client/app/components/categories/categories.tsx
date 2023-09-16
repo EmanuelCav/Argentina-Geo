@@ -1,4 +1,5 @@
-import { View } from 'react-native'
+import { useState, useEffect } from 'react'
+import { View, Text } from 'react-native'
 
 import Category from './components/category';
 import ButtonMenu from '../buttonMenu';
@@ -11,9 +12,33 @@ import { ICategoriesUser } from '../../interface/Game';
 
 const Categories = ({ user, categories, setIsCategories }: CategoriesProps) => {
 
+    const [min, setMin] = useState<number>(0)
+    const [max, setMax] = useState<number>(8)
+
     const acceptCategories = () => {
         setIsCategories(false)
     }
+
+    const next = () => {
+        if(max+9 > categories.length) {
+            return
+        }
+
+        setMin(min+9)
+        setMax(max+9)
+    }
+
+    const before = () => {
+        if(min === 0) {
+            return
+        }
+
+        setMin(min-9)
+        setMax(max-9)
+    }
+
+    useEffect(() => {
+    }, [max, min])
 
     return (
         <View style={menuStyles.containerCategories}>
@@ -22,8 +47,12 @@ const Categories = ({ user, categories, setIsCategories }: CategoriesProps) => {
                     {
                         categories.map((category: ICategoriesUser, index: number) => {
                             return <Category user={user} category={category} key={index} />
-                        }).slice(0, 8)
+                        }).slice(min, max)
                     }
+                </View>
+                <View>
+                <ButtonMenu text="Anterior" redirect={before} />
+                    <ButtonMenu text="Siguiente" redirect={next} />
                 </View>
                 <View style={homeStyles.containerActionsView}>
                     <ButtonMenu text="Aceptar" redirect={acceptCategories} />

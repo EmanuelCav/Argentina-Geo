@@ -4,6 +4,7 @@ import Game from '../database/models/game';
 import QuestionGame from '../database/models/questionGame';
 import Question from '../database/models/question';
 import User from '../database/models/users';
+import CategoryUser from '../database/models/categoryUser'
 
 import { shuffle } from '../helper/functions';
 
@@ -56,11 +57,19 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         const user = await User.findById(req.user)
 
-        const avaibleQuestions = await Question.find({ category: user?.categories })
+        let categories = []
 
-        if (avaibleQuestions.length === 0) {
+        const categoriesSelected = await CategoryUser.find({ user: req.user, isSelect: true, isUnlocked: true })
+
+        if (categoriesSelected.length === 0) {
             return res.status(401).json({ message: "You have to add a category to start" })
         }
+
+        for (let i = 0; i < categoriesSelected.length; i++) {
+            categories.push(categoriesSelected[i].category)
+        }
+
+        const avaibleQuestions = await Question.find({ category: categories })
 
         const shuffledQuestions = shuffle(avaibleQuestions).slice(0, user?.amountQuestions)
 

@@ -16,7 +16,7 @@ export const questions = async (req: Request, res: Response): Promise<Response> 
         const showQuestions = await Question.find()
 
         return res.status(200).json(showQuestions)
-        
+
     } catch (error) {
         throw error
     }
@@ -31,13 +31,13 @@ export const createQuestions = async (req: Request, res: Response): Promise<Resp
 
         const categorySelected = await Category.findOne({ name: category })
 
-        if(!categorySelected) {
+        if (!categorySelected) {
             return res.status(400).json({ message: "Category does not exists" })
         }
 
         let questionSaved;
 
-        if(req.file) {
+        if (req.file) {
 
             const result = await cloud.uploader.upload(req.file.path, {
                 use_filename: true,
@@ -74,11 +74,11 @@ export const createQuestions = async (req: Request, res: Response): Promise<Resp
 
         }
 
-        return res.status(200).json({ 
+        return res.status(200).json({
             message: "Question craeted successfully",
             question: questionSaved
         })
-        
+
     } catch (error) {
         throw error
     }
@@ -93,18 +93,18 @@ export const removeQuestions = async (req: Request, res: Response): Promise<Resp
 
         const question = await Question.findByIdAndDelete(id).populate("image")
 
-        if(!question) {
+        if (!question) {
             return res.status(400).json({ message: "Question does not exists" })
         }
 
-        if(question.image) {
+        if (question.image) {
             await cloud.uploader.destroy(question.image.imageId)
         }
 
         await Question.findByIdAndDelete(id)
 
         return res.status(200).json({ message: "Question was removed successfully" })
-        
+
     } catch (error) {
         throw error
     }
