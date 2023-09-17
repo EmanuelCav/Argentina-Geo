@@ -1,39 +1,26 @@
 import { useEffect, useState } from 'react'
-import { View, Text, Image } from 'react-native'
+import { useSelector } from 'react-redux'
+import { View, Text, Image, FlatList } from 'react-native'
+import type { ImageSourcePropType } from 'react-native';
 
 import Finish from '../components/game/finish'
+import OptionGame from '../components/game/optionGame'
+
+import { IReducer } from '../interface/Reducer'
+
+import { gameStyles } from '../styles/game.styles';
+
+import { selector } from '../helper/selector'
 
 const Playing = () => {
+
+    const games = useSelector((state: IReducer) => selector(state).games)
 
     const [numberQuestion, setNumberQuestion] = useState<number>(0)
     const [isFinish, setIsFinish] = useState<boolean>(false)
 
-    const [game, setIsGame] = useState([
-        {
-            question: "Jujuy",
-            answer: "Jujuy",
-            image: require('../../assets/argentina_bandera.png'),
-            text: null,
-            options: ["Salta", "Tucumán", "Catamarca", "Jujuy"]
-        },
-        {
-            question: "Capital de",
-            answer: "San Salvador de Jujuy",
-            image: null,
-            text: "Jujuy",
-            options: ["Salta", "San Salvador de Jujuy", "San Miguel de Tucumán", "La Rioja"]
-        },
-        {
-            question: "Jujuy",
-            answer: "Jujuy",
-            image: require('../../assets/argentina_bandera.png'),
-            text: null,
-            options: ["Salta", "Jujuy", "Tucumán", "Catamarca"]
-        }
-    ])
-
     const nextQuestion = () => {
-        if(numberQuestion === game.length - 1) {
+        if(numberQuestion === games.game.questions.length - 1) {
             setIsFinish(true)
             return
         }
@@ -45,28 +32,32 @@ const Playing = () => {
     }, [numberQuestion, isFinish])
 
     return (
-        <View>
+        <View style={gameStyles.gameContainer}>
             {
                 isFinish && <Finish />
             }
-            <View>
+            <View style={gameStyles.containerQuestion}>
                 {
-                    game[numberQuestion].image ? (
-                        <Image source={game[numberQuestion].image} style={{ width: 30, height: 50 }}/>
+                    games.game.questions[numberQuestion].question.image ? (
+                        <Image source={games.game.questions[numberQuestion].question.image.image as ImageSourcePropType} 
+                        style={gameStyles.imageQuestion} resizeMode={'contain'}/>
                     ) : (
-                        <>
-                            <Text style={{ fontSize: 25 }}>{game[numberQuestion].question}</Text>
-                            <Text style={{ fontSize: 25 }}>{game[numberQuestion].text}</Text>
-                        </>
+                        <View>
+                            <Text style={{ fontSize: 25 }}>{games.game.questions[numberQuestion].question.text}</Text>
+                            <Text style={{ fontSize: 25 }}>{games.game.questions[numberQuestion].question.text}</Text>
+                        </View>
                     )
                 }
             </View>
-            <View>
-                {
-                    game[numberQuestion].options.map((option: string, index: number) => {
-                        return <Text onPress={nextQuestion} style={{ fontSize: 18 }} key={index}>{option}</Text>
-                    })
-                }
+            <View style={gameStyles.containerOptions}>
+                <FlatList 
+                    data={games.game.questions[numberQuestion].options}
+                    renderItem={({item}) => (
+                        <OptionGame text={item} redirect={nextQuestion} />
+                    )}
+                    numColumns={2}
+                    keyExtractor={(item, index) => String(index) as string}
+                />
             </View>
         </View>
     )

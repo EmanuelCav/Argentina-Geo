@@ -50,7 +50,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
             <ButtonMenu text="Iniciar juego" redirect={generateGame} />
             <ButtonMenu text="Categorías" redirect={showCategories} />
             <ButtonMenu text="Opciones" redirect={showOptions} />
-            <ButtonMenu text="Regresar" redirect={() => navigation.goBack()} />
+            <ButtonMenu text="Regresar" redirect={() => navigation.navigate('Playing')} />
             {
                 isCategories && <Categories user={users.user} categories={users.user.user.categories} setIsCategories={setIsCategories} />
             }

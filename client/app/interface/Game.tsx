@@ -2,8 +2,9 @@ export interface IGame {
     _id: string;
     createdAt: string;
     updatedAt: string;
-    questions: string[];
     user: string;
+    corrects: number;
+    questions: IQuestion[];
 }
 
 export interface ICategoriesUser {
@@ -28,4 +29,31 @@ export interface ICounterGame {
     games: IGame[],
     game: object;
     categories: ICategories[]
+}
+
+export interface IQuestion {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    question: IQuestionGame;
+    options: string[];
+}
+
+export interface IImage {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    image: string;
+    imageId: string;
+}
+
+export interface IQuestionGame {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    question: string;
+    category: string;
+    image: IImage;
+    answer: string;
+    text: string;
 }
