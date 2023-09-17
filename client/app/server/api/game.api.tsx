@@ -25,3 +25,19 @@ export const categoriesApi = async (token: string) => {
         }
     })
 }
+
+export const questionsCountApi = async (id: string, token: string) => {
+    return await api.patch(`/questions/count/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const questionsCorrectApi = async (id: string, idGame: string, token: string) => {
+    return await api.patch(`/questions/correct/${id}/${idGame}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

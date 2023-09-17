@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { View, Text, Image } from 'react-native'
+
+import Finish from '../components/game/finish'
 
 const Playing = () => {
 
     const [numberQuestion, setNumberQuestion] = useState<number>(0)
+    const [isFinish, setIsFinish] = useState<boolean>(false)
 
     const [game, setIsGame] = useState([
         {
@@ -31,14 +34,21 @@ const Playing = () => {
 
     const nextQuestion = () => {
         if(numberQuestion === game.length - 1) {
+            setIsFinish(true)
             return
         }
 
         setNumberQuestion(numberQuestion+1)
     }
 
+    useEffect(() => {
+    }, [numberQuestion, isFinish])
+
     return (
         <View>
+            {
+                isFinish && <Finish />
+            }
             <View>
                 {
                     game[numberQuestion].image ? (

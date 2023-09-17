@@ -27,7 +27,7 @@ export const questions = async (req: Request, res: Response): Promise<Response> 
 
 export const createQuestions = async (req: Request, res: Response): Promise<Response> => {
 
-    const { question, category, answer } = req.body
+    const { question, category, answer, text } = req.body
 
     try {
 
@@ -69,7 +69,8 @@ export const createQuestions = async (req: Request, res: Response): Promise<Resp
             const newQuestion = new Question({
                 question,
                 category: categorySelected._id,
-                answer
+                answer,
+                text
             })
 
             questionSaved = await newQuestion.save()

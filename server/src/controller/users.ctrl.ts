@@ -6,6 +6,8 @@ import Categoryuser from '../database/models/categoryUser';
 import Pais from '../database/models/pais';
 import Level from '../database/models/level';
 import Experience from '../database/models/experience';
+import Game from '../database/models/game'
+import QuestionGame from '../database/models/questionGame'
 
 import { generatePassword, generateToken, hashPassword } from "../helper/encrypt";
 import { categoriesFromUser, experienceFromUser } from "../helper/user.functions";
@@ -266,6 +268,12 @@ export const removeUser = async (req: Request, res: Response): Promise<Response>
             user: id
         })
         await Categoryuser.deleteMany({
+            user: id
+        })
+        await Game.deleteMany({
+            user: id
+        })
+        await QuestionGame.deleteMany({
             user: id
         })
 

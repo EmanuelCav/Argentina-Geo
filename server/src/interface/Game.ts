@@ -29,6 +29,7 @@ export interface IQuestion extends Document {
     category: string;
     image: imageType;
     answer: string;
+    text: string;
 }
 
 export interface IGame extends Document {
@@ -46,6 +47,7 @@ export interface IQuestionGame extends Document {
     _id: ObjectId;
     question: ObjectId;
     options: string[];
+    user: ObjectId;
 }
 
 

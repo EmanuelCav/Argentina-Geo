@@ -22,6 +22,9 @@ const questionSchema = new Schema({
     answer: {
         type: String,
         required: true
+    },
+    text: {
+        type: String
     }
     
 }, {

@@ -73,74 +73,78 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         const shuffledQuestions = shuffle(avaibleQuestions).slice(0, user?.amountQuestions)
 
-        // const newGame = new Game({
-        //     user: req.user
-        // })
+        const newGame = new Game({
+            user: req.user
+        })
 
-        // const gameSaved = await newGame.save()
+        const gameSaved = await newGame.save()
 
-        // for (let i = 0; i < user?.amountQuestions!; i++) {
+        for (let i = 0; i < user?.amountQuestions!; i++) {
 
-        //     let optionsAdded = []
+            let optionsAdded = []
 
-        //     const correctOption = Math.floor(Math.random() * user?.amountOptions!);
+            const correctOption = Math.floor(Math.random() * user?.amountOptions!);
 
-        //     const categoryQuestion = await Question.find({ category: shuffledQuestions[i].category })
-        //     const shuffledCategoryQuestion = shuffle(categoryQuestion).filter((q: IQuestion) => q.answer !== shuffledQuestions[i].answer)
+            const categoryQuestion = await Question.find({ category: shuffledQuestions[i].category })
+            const shuffledCategoryQuestion = shuffle(categoryQuestion).filter((q: IQuestion) => q.answer !== shuffledQuestions[i].answer)
 
-        //     const newQuestionGame = new QuestionGame({
-        //         question: shuffledQuestions[i]._id
-        //     })
+            const newQuestionGame = new QuestionGame({
+                question: shuffledQuestions[i]._id,
+                user: req.user
+            })
 
-        //     const questionSaved = await newQuestionGame.save()
+            const questionSaved = await newQuestionGame.save()
 
-        //     for (let j = 0; j < user?.amountOptions!; j++) {
+            for (let j = 0; j < user?.amountOptions!; j++) {
 
-        //         if (j === correctOption) {
+                if (j === correctOption) {
 
-        //             optionsAdded.push(shuffledQuestions[i].answer)
+                    optionsAdded.push(shuffledQuestions[i].answer)
 
-        //             await QuestionGame.findByIdAndUpdate(questionSaved._id, {
-        //                 $push: {
-        //                     options: shuffledQuestions[i].answer
-        //                 }
-        //             }, {
-        //                 new: true
-        //             })
-        //         } else {
+                    await QuestionGame.findByIdAndUpdate(questionSaved._id, {
+                        $push: {
+                            options: shuffledQuestions[i].answer
+                        }
+                    }, {
+                        new: true
+                    })
+                } else {
 
-        //             optionsAdded.push(shuffledCategoryQuestion[j].answer)
+                    optionsAdded.push(shuffledCategoryQuestion[j].answer)
 
-        //             await QuestionGame.findByIdAndUpdate(questionSaved._id, {
-        //                 $push: {
-        //                     options: shuffledCategoryQuestion[j].answer
-        //                 }
-        //             }, {
-        //                 new: true
-        //             })
-        //         }
+                    await QuestionGame.findByIdAndUpdate(questionSaved._id, {
+                        $push: {
+                            options: shuffledCategoryQuestion[j].answer
+                        }
+                    }, {
+                        new: true
+                    })
+                }
 
-        //     }
+            }
 
-        //     await Game.findByIdAndUpdate(gameSaved._id, {
-        //         $push: {
-        //             questions: questionSaved._id
-        //         }
-        //     }, {
-        //         new: true
-        //     })
+            await Game.findByIdAndUpdate(gameSaved._id, {
+                $push: {
+                    questions: questionSaved._id
+                }
+            }, {
+                new: true
+            })
 
-        // }
+        }
 
-        // const game = await Game.findById(gameSaved._id).populate(({
-        //     path: "questions",
-        //     populate: {
-        //         path: "question"
-        //     }
-        // }))
+        const game = await Game.findById(gameSaved._id).populate({
+            path: "questions",
+            populate: {
+                path: "question",
+                populate: {
+                    path: "image",
+                    select: "image"
+                }
+            }
+        })
 
-        // return res.status(200).json(game)
-        return res.status(200).json({})
+        return res.status(200).json(game)
 
     } catch (error) {
         throw error

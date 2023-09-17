@@ -12,7 +12,11 @@ const questionGameSchema = new Schema({
     },
     options: [{
         type: String
-    }]
+    }],
+    user: {
+        type: ObjectId,
+        ref: 'User'
+    }
 
 }, {
     timestamps: true,
