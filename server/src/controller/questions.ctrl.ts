@@ -3,7 +3,9 @@ import fs from 'fs-extra';
 
 import Question from '../database/models/question';
 import Category from '../database/models/category';
+import Categoryuser from '../database/models/categoryUser'
 import Image from '../database/models/image';
+import Game from '../database/models/game'
 
 import { cloud } from "../helper/cloud";
 
@@ -105,6 +107,81 @@ export const removeQuestions = async (req: Request, res: Response): Promise<Resp
 
         return res.status(200).json({ message: "Question was removed successfully" })
 
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const gameQuestion = async (req: Request, res: Response) => {
+
+    const { id } = req.params
+
+    try {
+
+        const category = await Categoryuser.findById(id)
+
+        if(!category) {
+            return res.status(400).json({ message: "Category does not exists" })
+        }
+
+        if(req.user != category.user) {
+            return res.status(400).json({ message: "The category user does not match with user logged" })
+        }
+
+        await Categoryuser.findByIdAndUpdate(id, {
+            questions: category.questions+1
+        }, {
+            new: true
+        })
+
+        return res.status(200).json({ message: "New question" })
+        
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const correctQuestion = async (req: Request, res: Response) => {
+
+    const { id, gameId } = req.params
+
+    try {
+
+        const category = await Categoryuser.findById(id)
+        const game = await Game.findById(gameId)
+
+        if(!category) {
+            return res.status(400).json({ message: "Category does not exists" })
+        }
+
+        if(!game) {
+            return res.status(400).json({ message: "Category does not exists" })
+        }
+
+        if(req.user != category.user) {
+            return res.status(400).json({ message: "The category user does not match with user logged" })
+        }
+
+        if(req.user != game.user) {
+            return res.status(400).json({ message: "The game user does not match with user logged" })
+        }
+
+        await Categoryuser.findByIdAndUpdate(id, {
+            corrects: category.corrects+1
+        }, {
+            new: true
+        })
+
+        await Categoryuser.findByIdAndUpdate(gameId, {
+            corrects: game.corrects+1
+        }, {
+            new: true
+        })
+
+        return res.status(200).json({ message: "Correct" })
+        
     } catch (error) {
         throw error
     }
