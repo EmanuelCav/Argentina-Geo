@@ -1,17 +1,18 @@
 import { ReactNode } from "react";
-import { View, StyleSheet } from 'react-native';
+import { ImageBackground, StyleSheet } from 'react-native';
 
 export default function Container({ children }: { children: ReactNode }) {
     return (
-        <View style={styles.container}>
+        <ImageBackground source={require('../assets/fondo2.png')} style={styles.container} resizeMode="cover">
             {children}
-        </View>
+        </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
-        width: '100%'
+        paddingVertical: 12,
+        paddingHorizontal: 6,
+        flex: 1
     }
 })

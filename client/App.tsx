@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -23,8 +23,16 @@ export default function App() {
 
   const Stack = createNativeStackNavigator()
 
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background:'transparent'
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Container>

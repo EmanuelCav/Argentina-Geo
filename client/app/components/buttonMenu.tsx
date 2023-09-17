@@ -2,11 +2,11 @@ import { Text, TouchableOpacity } from "react-native";
 
 import { homeStyles } from '../styles/home.styles'
 
-import { ButtonNavigateProps } from "../types/props.types";
+import { ButtonGameProps } from "../types/props.types";
 
-const ButtonMenu = ({ text, redirect }: ButtonNavigateProps) => {
+const ButtonMenu = ({ text, redirect, isAccept }: ButtonGameProps) => {
   return (
-    <TouchableOpacity style={homeStyles.buttonUserOption} onPress={redirect} >
+    <TouchableOpacity style={isAccept ? homeStyles.buttonAcceptOption : homeStyles.buttonMenu } onPress={redirect} >
       <Text style={homeStyles.textButtonOption}>{text}</Text>
     </TouchableOpacity>
   )

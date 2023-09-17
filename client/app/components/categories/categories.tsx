@@ -51,11 +51,11 @@ const Categories = ({ user, categories, setIsCategories }: CategoriesProps) => {
                     }
                 </View>
                 <View>
-                <ButtonMenu text="Anterior" redirect={before} />
-                    <ButtonMenu text="Siguiente" redirect={next} />
+                <View />
+                    <ButtonMenu text="Siguiente" redirect={next} isAccept={false} />
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Aceptar" redirect={acceptCategories} />
+                    <ButtonMenu text="Aceptar" redirect={acceptCategories} isAccept={true}  />
                 </View>
             </View>
         </View>

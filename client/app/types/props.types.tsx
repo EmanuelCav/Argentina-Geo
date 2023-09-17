@@ -16,6 +16,12 @@ type RoutesProps = {
 
 export type StackNavigation = NativeStackNavigationProp<RoutesProps>;
 
+export type ButtonGameProps = {
+    text: string;
+    redirect: () => void;
+    isAccept: boolean;
+}
+
 export type ButtonNavigateProps = {
     text: string;
     redirect: () => void;

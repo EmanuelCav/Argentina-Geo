@@ -26,10 +26,12 @@ const Options = ({ navigation, setIsProfile, isProfile }: ShowStatisticsProps) =
 
     return (
         <View style={homeStyles.containerUserOption}>
-            <ButtonMenu text="Jugar" redirect={redirectPlay} />
-            <ButtonMenu text="Estadísticas" redirect={showProfile} />
-            <ButtonMenu text="Clasificación" redirect={redirectRanking} />
-            <ButtonMenu text="Ajustes" redirect={redirectSettings} />
+            <View style={homeStyles.containerMenuButtons}>
+                <ButtonMenu text="Jugar" redirect={redirectPlay} isAccept={false} />
+                <ButtonMenu text="Estadísticas" redirect={showProfile} isAccept={false} />
+                <ButtonMenu text="Clasificación" redirect={redirectRanking} isAccept={false} />
+                <ButtonMenu text="Ajustes" redirect={redirectSettings} isAccept={false} />
+            </View>
         </View>
     )
 }

@@ -46,7 +46,7 @@ const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
                     <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Aceptar" redirect={cancelProfile} />
+                    <ButtonMenu text="Aceptar" redirect={cancelProfile} isAccept={true} />
                 </View>
             </View>
         </View>

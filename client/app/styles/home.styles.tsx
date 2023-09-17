@@ -30,7 +30,7 @@ export const homeStyles = StyleSheet.create({
 
     containerUserHome: {
         height: '30%',
-        backgroundColor: '#597EEE',
+        backgroundColor: '#5d8cff',
         padding: 16
     },
 
@@ -108,13 +108,22 @@ export const homeStyles = StyleSheet.create({
     // OPTIONS
 
     containerUserOption: {
-        justifyContent: 'space-around',
+        flex: 1
+    },
+    
+    containerMenuButtons: {
+        justifyContent: 'flex-start',
         alignItems: 'center',
         flexDirection: 'column',
-        flex: 1,
-        padding: 12
+        borderColor: '#597EEE',
+        borderStyle: 'solid',
+        borderWidth: 4,
+        width: '100%',
+        paddingBottom: 40,
+        marginTop: 6
     },
-    buttonUserOption: {
+
+    buttonAcceptOption: {
         width: '88%',
         backgroundColor: '#597EEE',
         padding: 12,
@@ -125,12 +134,35 @@ export const homeStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+
+    buttonMenu: {
+        width: '88%',
+        backgroundColor: '#5d8cff',
+        padding: 12,
+        borderRadius: 4,
+        borderColor: '#fff',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 40,
+    },
+
     textButtonOption: {
         textAlign: 'center',
         color: '#fff',
         fontSize: 24,
         fontWeight: '500'
+    },
+
+    // PLAY
+
+    containerPlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
+
 })
 
 export const rankingStyles = StyleSheet.create({
