@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, Text, ImageBackground } from "react-native";
+import { View, Text, ImageBackground, ScrollView } from "react-native";
 import { useDispatch } from 'react-redux'
 
 import ButtonMenu from "../buttonMenu";
@@ -11,6 +11,8 @@ import { menuStyles } from '../../styles/menu.styles'
 import { homeStyles } from '../../styles/home.styles'
 
 import { ProfileProps } from "../../types/props.types";
+import CategoryUser from "./components/categoryUser";
+import { ICategoriesUser } from "../../interface/Game";
 
 const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
 
@@ -32,18 +34,27 @@ const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
     return (
         <View style={menuStyles.containerCategories} >
             <View style={menuStyles.categoriesContain}>
-                <View>
-                    <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevelProfile}>
-                        <Text style={homeStyles.textLevel}>{user.profile.level.level}</Text>
-                    </ImageBackground>
-                    <Text style={homeStyles.userNickname}>{user.profile.nickname}</Text>
-                    <Text style={homeStyles.userInfo}>{user.profile.pais.name}</Text>
-                    <View style={homeStyles.containerLocationUser}>
-                        <Text style={homeStyles.userInfo}>{user.profile.provincia !== null && user.profile.provincia.name}</Text>
-                        <Text style={homeStyles.userInfo}>{user.profile.municipio !== null && - user.profile.municipio.name}</Text>
-                    </View>
-                    <Text style={homeStyles.userInfo}>Posición: {user.users.map((u) => u._id).indexOf(user.user.user._id) + 1}°</Text>
-                    <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
+                <View style={menuStyles.containerScroll}>
+                    <ScrollView>
+                        <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevelProfile}>
+                            <Text style={homeStyles.textLevel}>{user.profile.level.level}</Text>
+                        </ImageBackground>
+                        <Text style={homeStyles.userNickname}>{user.profile.nickname}</Text>
+                        <Text style={homeStyles.userInfo}>{user.profile.pais.name}</Text>
+                        <View style={homeStyles.containerLocationUser}>
+                            <Text style={homeStyles.userInfo}>{user.profile.provincia !== null && user.profile.provincia.name}</Text>
+                            <Text style={homeStyles.userInfo}>{user.profile.municipio !== null && - user.profile.municipio.name}</Text>
+                        </View>
+                        <Text style={homeStyles.userInfo}>Posición: {user.users.map((u) => u._id).indexOf(user.user.user._id) + 1}°</Text>
+                        <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
+                        <View>
+                            {
+                                user.profile.categories.map((category: ICategoriesUser) => {
+                                    return <CategoryUser category={category} key={category._id} />
+                                })
+                            }
+                        </View>
+                    </ScrollView>
                 </View>
                 <View style={homeStyles.containerActionsView}>
                     <ButtonMenu text="Aceptar" redirect={cancelProfile} isAccept={true} />

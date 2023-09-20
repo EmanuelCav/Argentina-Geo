@@ -99,10 +99,8 @@ export const homeStyles = StyleSheet.create({
     },
 
     containerActionsView: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '8%'
+        paddingHorizontal: 12,
+        width: '100%'
     },
 
     // OPTIONS
@@ -124,13 +122,10 @@ export const homeStyles = StyleSheet.create({
     },
 
     buttonAcceptOption: {
-        width: '88%',
+        width: '100%',
         backgroundColor: '#597EEE',
         padding: 12,
         borderRadius: 4,
-        borderColor: '#fff',
-        borderStyle: 'solid',
-        borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center'
     },

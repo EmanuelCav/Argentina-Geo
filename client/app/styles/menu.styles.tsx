@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 export const menuStyles = StyleSheet.create({
 
@@ -10,21 +10,33 @@ export const menuStyles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         top: 0,
-        backgroundColor: 'rgba(0,0,0,0.9)',
-        paddingVertical: 40,
+        backgroundColor: 'rgba(89, 205, 238, 0.9)',
+        paddingVertical: 44,
         paddingHorizontal: 10,
-        zIndex: 14
+        zIndex: 14,
     },
 
     categoriesContain: {
+        position: 'absolute',
         backgroundColor: '#FFFFFF',
-        width: '100%',
-        height: '100%',
-        padding: 12,
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        width: Dimensions.get('window').width - 10 * 2 - 6 * 2,
+        height: Dimensions.get('window').height - 44 * 2 - 12 * 2,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
         flexDirection: 'column',
+        flexWrap: 'wrap',
+        paddingVertical: 12
+    },
+
+    containerScroll: {
+        paddingHorizontal: 14,
+        paddingVertical: 42,
+        top: 0,
+        left: 0,
+        zIndex: 16,
+        position: 'absolute',
+        height: Dimensions.get('window').height - 44 * 2 - 12 * 2 - 42 * 2,
+        width: Dimensions.get('window').width - 10 * 2 - 6 * 2
     },
 
     showCategoriesContain: {

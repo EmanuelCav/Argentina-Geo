@@ -56,7 +56,7 @@ const Playing = () => {
                         <OptionGame text={item} redirect={nextQuestion} />
                     )}
                     numColumns={2}
-                    keyExtractor={(item, index) => String(index) as string}
+                    keyExtractor={(item, index) => String(index)}
                 />
             </View>
         </View>
