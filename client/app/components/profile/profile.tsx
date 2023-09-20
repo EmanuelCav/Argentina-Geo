@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, ImageBackground, ScrollView } from "react-native";
 import { useDispatch } from 'react-redux'
 
 import ButtonMenu from "../buttonMenu";
+import CategoryUser from "./components/categoryUser";
 
 import { userApi } from "../../server/api/user.api";
 import { getUserAction } from "../../server/features/user.features";
@@ -11,12 +12,16 @@ import { menuStyles } from '../../styles/menu.styles'
 import { homeStyles } from '../../styles/home.styles'
 
 import { ProfileProps } from "../../types/props.types";
-import CategoryUser from "./components/categoryUser";
 import { ICategoriesUser } from "../../interface/Game";
+
+import { totalCorrects, totalQuestions } from "../../helper/statistic";
 
 const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
 
     const dispatch = useDispatch()
+
+    const [questions, setQuestions] = useState<number>(0)
+    const [corrects, setCorrects] = useState<number>(0)
 
     const getData = async () => {
         const { data } = await userApi(id, user.user.token)
@@ -24,6 +29,10 @@ const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
     }
 
     useEffect(() => {
+
+        setQuestions(totalQuestions(user.profile.categories))
+        setCorrects(totalCorrects(user.profile.categories))
+
         getData()
     }, [dispatch])
 
@@ -36,17 +45,27 @@ const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
             <View style={menuStyles.categoriesContain}>
                 <View style={menuStyles.containerScroll}>
                     <ScrollView>
-                        <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevelProfile}>
-                            <Text style={homeStyles.textLevel}>{user.profile.level.level}</Text>
-                        </ImageBackground>
-                        <Text style={homeStyles.userNickname}>{user.profile.nickname}</Text>
+                        <View style={menuStyles.containFlagNickname}>
+                            <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevelProfile}>
+                                <Text style={homeStyles.textLevel}>{user.profile.level.level}</Text>
+                            </ImageBackground>
+                            <Text style={menuStyles.textNicknameProfile}>{user.profile.nickname}</Text>
+                        </View>
                         <Text style={homeStyles.userInfo}>{user.profile.pais.name}</Text>
                         <View style={homeStyles.containerLocationUser}>
-                            <Text style={homeStyles.userInfo}>{user.profile.provincia !== null && user.profile.provincia.name}</Text>
-                            <Text style={homeStyles.userInfo}>{user.profile.municipio !== null && - user.profile.municipio.name}</Text>
+                            <Text style={homeStyles.userInfo}>{user.profile.provincia && user.profile.provincia.name}</Text>
+                            <Text style={homeStyles.userInfo}>{user.profile.municipio && - user.profile.municipio.name}</Text>
                         </View>
                         <Text style={homeStyles.userInfo}>Posición: {user.users.map((u) => u._id).indexOf(user.user.user._id) + 1}°</Text>
                         <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
+                        <Text style={homeStyles.userInfo}>Preguntas totales: {questions}</Text>
+                        <Text style={homeStyles.userInfo}>Respuestas correctas: {corrects} ({
+                            questions === 0 ? (
+                                (questions).toFixed(2)
+                            ) : (
+                                ((corrects * 100) / questions).toFixed(2)
+                            )
+                        }%)</Text>
                         <View>
                             {
                                 user.profile.categories.map((category: ICategoriesUser) => {

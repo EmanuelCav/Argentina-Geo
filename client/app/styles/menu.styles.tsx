@@ -30,12 +30,12 @@ export const menuStyles = StyleSheet.create({
 
     containerScroll: {
         paddingHorizontal: 14,
-        paddingVertical: 42,
+        paddingVertical: 30,
         top: 0,
         left: 0,
         zIndex: 16,
         position: 'absolute',
-        height: Dimensions.get('window').height - 44 * 2 - 12 * 2 - 42 * 2,
+        height: Dimensions.get('window').height - 44 * 2 - 12 * 2 - 30 * 2,
         width: Dimensions.get('window').width - 10 * 2 - 6 * 2
     },
 
@@ -142,6 +142,32 @@ export const menuStyles = StyleSheet.create({
         fontSize: 22,
         color: '#FFFFFF',
         fontWeight: '600'
-    }
+    },
+
+    // PROFILE
+
+    containFlagNickname: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
+    textNicknameProfile: {
+        fontSize: 18,
+        marginLeft: 12
+    },
+
+    containCategoryProfile: {
+        borderColor: '#597EEE',
+        borderWidth: 2,
+        borderStyle: 'solid',
+        padding: 7,
+        marginVertical: 4
+    },
+
+    categoryProfile: {
+        fontSize: 18,
+        fontWeight: '600'
+    },
+
 
 })
