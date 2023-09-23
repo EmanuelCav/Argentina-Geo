@@ -47,17 +47,17 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
     return (
         <View style={homeStyles.containerPlay}>
+            {
+                isCategories && <Categories user={users.user} categories={users.user.user.categories} setIsCategories={setIsCategories} />
+            }
+            {
+                isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} />
+            }
             <View style={homeStyles.containerMenuButtons}>
                 <ButtonMenu text="Iniciar juego" redirect={generateGame} isAccept={false} />
                 <ButtonMenu text="Categorías" redirect={showCategories} isAccept={false} />
                 <ButtonMenu text="Opciones" redirect={showOptions} isAccept={false} />
                 <ButtonMenu text="Regresar" redirect={() => navigation.goBack()} isAccept={false} />
-                {
-                    isCategories && <Categories user={users.user} categories={users.user.user.categories} setIsCategories={setIsCategories} />
-                }
-                {
-                    isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} />
-                }
             </View>
         </View>
     )

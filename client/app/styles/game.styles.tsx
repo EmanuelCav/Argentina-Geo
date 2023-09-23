@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from 'react-native';
 
 export const gameStyles = StyleSheet.create({
 
@@ -48,6 +49,56 @@ export const gameStyles = StyleSheet.create({
     textButtonOptions: {
         fontSize: 16,
         color: '#FFFFFF'
+    }
+
+})
+
+export const configGamesStyles = StyleSheet.create({
+
+    containerConfigGames: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        backgroundColor: 'rgba(89, 205, 238, 0.9)',
+        zIndex: 14,
+        paddingVertical: 44,
+        paddingHorizontal: 10,
+    },
+
+    configGamesContain: {
+        backgroundColor: '#FFFFFF',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'column',
+        paddingVertical: 12,
+        paddingHorizontal: 6
+    },
+
+    containShowCategories: {
+        width: '100%',
+        flex: 1,
+    },
+
+    containMoveCategories: {
+        marginTop: 24,
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+
+    iconMoveCategories: {
+        fontSize: 22,
+        fontWeight: '900',
+        color: '#111'
+    },
+
+    iconMoveCategoriesDisable: {
+        fontSize: 22,
+        fontWeight: '900',
+        color: '#888'
     }
 
 })
