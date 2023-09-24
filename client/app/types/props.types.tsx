@@ -107,10 +107,30 @@ export type SelectSettingsProps = {
 }
 
 export type InputSettingsType = {
-    value: string;
+    value: string | undefined;
     setIsPais: (isLocation: boolean) => void;
     setIsProvincia: (isProvincia: boolean) => void;
     setIsMunicipio: (isMunicipio: boolean) => void;
     isDisabled: boolean;
     location: string;
+}
+
+export type SelectProps = {
+    loc: string;
+    user: UserDataType;
+    setSettingsData: (userLocation: ISetting) => void;
+    userLocation: string | undefined;
+    settingsData: ISetting;
+    data: string[];
+    setIsPais: (isLocation: boolean) => void;
+    setIsProvincia: (isProvincia: boolean) => void;
+    setIsMunicipio: (isMunicipio: boolean) => void;
+}
+
+export type LocationProps = {
+    loc: string;
+    settingsData: ISetting;
+    setSettingsData: (userLocation: ISetting) => void;
+    location: string;
+    userLocation: string | undefined;
 }

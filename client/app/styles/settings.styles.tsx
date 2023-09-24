@@ -102,6 +102,19 @@ export const sectionStyle = StyleSheet.create({
         margin: 12
     },
 
+    containerInputSettingsDisabled: {
+        width: '100%',
+        backgroundColor: '#888',
+        padding: 7,
+        borderRadius: 4,
+        borderColor: '#597EEE',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 12
+    },
+
     textInput: {
         textAlign: 'center',
         color: '#597EEE',
@@ -141,6 +154,34 @@ export const sectionStyle = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         zIndex: 14
+    },
+
+    locationSelect: {
+        width: '100%',
+        padding: 7,
+        borderWidth: 2,
+        borderColor: "#597EEE",
+        borderStyle: "solid",
+        backgroundColor: "#fff"
+    },
+
+    locationSelected: {
+        width: '100%',
+        padding: 7,
+        borderWidth: 2,
+        borderColor: "#597EEE",
+        borderStyle: "solid",
+        backgroundColor: "#597EEE"
+    },
+
+    textLocationSelect: {
+        fontSize: 18,
+        color: "#597EEE"
+    },
+
+    textLocationSelected: {
+        fontSize: 18,
+        color: "#fff"
     }
 
 })

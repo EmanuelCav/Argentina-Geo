@@ -15,10 +15,10 @@ const Selector = ({ settingsData, setIsPais, setIsProvincia, setIsMunicipio }: S
             isDisabled={false} location="Pais" />
             <Text style={authStyles.labelForm}>Provincia</Text>
             <InputSelect value={settingsData.provincia} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
-            isDisabled={false} location="Provincia" />
+            isDisabled={settingsData.pais === "Argentina" ? false : true} location="Provincia" />
             <Text style={authStyles.labelForm}>Partido/barrio</Text>
             <InputSelect value={settingsData.municipio} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
-            isDisabled={true} location="Municipio" />
+            isDisabled={settingsData.provincia === "" ? true : false} location="Municipio" />
         </View>
     )
 }

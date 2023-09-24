@@ -33,7 +33,8 @@ const InputSelect = ({ value, setIsPais, setIsProvincia, setIsMunicipio, isDisab
     }
 
     return (
-        <TouchableOpacity style={sectionStyle.containerInputSettings} onPress={setLocation} disabled={isDisabled}>
+        <TouchableOpacity style={isDisabled ? sectionStyle.containerInputSettingsDisabled : sectionStyle.containerInputSettings} 
+        onPress={setLocation} disabled={isDisabled}>
             <Text style={sectionStyle.textInput}>{value}</Text>
         </TouchableOpacity>
     )

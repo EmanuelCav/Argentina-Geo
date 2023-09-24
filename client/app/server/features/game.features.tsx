@@ -22,7 +22,6 @@ const counterGameSlice = createSlice({
         createGameAction: (state, action: PayloadAction<IGame>) => {
             state.games = [...state.games, action.payload]
         },
-        
         categoriesAction: (state, action: PayloadAction<ICategories[]>) => {
             state.categories = action.payload
         }

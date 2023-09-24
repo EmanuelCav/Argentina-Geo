@@ -6,10 +6,10 @@ export const getCountriesApi = async () => {
     return await api.get('/paises')
 }
 
-export const getProvinciasApi = async (pais: string) => {
+export const getProvinciasApi = async (pais: string | undefined) => {
     return await api.get(`/provincias/${pais}`)
 }
 
-export const getMunicipiosApi = async (provincia: string) => {
+export const getMunicipiosApi = async (provincia: string | undefined) => {
     return await api.get(`/municipios/${provincia}`)
 }

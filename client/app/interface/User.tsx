@@ -69,9 +69,9 @@ export interface IOptions {
 }
 
 export interface ISetting {
-    pais: string;
-    provincia: string;
-    municipio: string;
+    pais?: string;
+    provincia?: string;
+    municipio?: string;
 }
 
 export interface ILevel {

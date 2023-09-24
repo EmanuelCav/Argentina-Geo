@@ -30,6 +30,7 @@ router.patch('/users/options/:id', auth, validOptions, usersCtrl.updateOptions)
 router.patch('/users/category/:id', auth, usersCtrl.updateCategory)
 router.put('/users/password/:id', auth, validPassword, usersCtrl.updatePassword)
 router.put('/users/nickname/:id', auth, validNickname, usersCtrl.updateNickname)
+router.put('/users/location/:id', auth, usersCtrl.updateLocation)
 
 // router.get('/levels', [auth, validRole], validLevel, levelsCtrl.levels)
 router.get('/levels', levelsCtrl.levels)

@@ -10,7 +10,7 @@ export const generalStyles = StyleSheet.create({
     },
 
     containSelector: {
-        height: '40%',
+        height: '50%',
         width: '100%',
         padding: 16,
         justifyContent: 'space-around',

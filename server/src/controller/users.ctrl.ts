@@ -1,9 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, json } from "express";
 
 import User from '../database/models/users';
 import Role from '../database/models/roles';
 import Categoryuser from '../database/models/categoryUser';
 import Pais from '../database/models/pais';
+import Provincia from '../database/models/provincia';
+import Municipio from '../database/models/municipio';
 import Level from '../database/models/level';
 import Experience from '../database/models/experience';
 import Game from '../database/models/game'
@@ -453,6 +455,59 @@ export const updateCategory = async (req: Request, res: Response): Promise<Respo
             .populate("points")
 
         return res.status(200).json(user)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const updateLocation = async (req: Request, res: Response): Promise<Response> => {
+
+    const { pais, provincia, municipio } = req.body
+
+    try {
+
+        const paisSelected = await Pais.findOne({ name: pais })
+
+        if(!pais) {
+            return res.status(400).json({ message: "Pais does not exists" })
+        }
+
+        let provinciaSelected;
+
+        if(provincia) {
+            provinciaSelected = await Provincia.findOne({ name: provincia })
+        }
+
+        let municipioSelected;
+
+        if(municipio) {
+            municipioSelected = await Municipio.findOne({ name: municipio })
+        }
+
+        const locationUpdated = await User.findByIdAndUpdate(req.user, {
+            pais: paisSelected?._id, 
+            provincia: provinciaSelected ? provinciaSelected?._id : null,
+            municipio: municipioSelected ? municipioSelected?._id : null
+        }, {
+            new: true
+        })
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+            .populate("level")
+            .populate("points")
+
+        return res.status(200).json(locationUpdated)
 
     } catch (error) {
         throw error

@@ -88,18 +88,25 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     useEffect(() => {
         getPaises()
         getProvincias()
+
+        if(provincia !== "") {
+            getMunicipios()
+        }
     }, [isPais, isProvincia, isMunicipio])
 
     return (
         <View style={generalStyles.containerInfoSelect}>
             {
-                isPais && <Select data={paises} />
+                isPais && <Select loc="Pais" user={users.user} setSettingsData={setSettingsData} userLocation={pais} settingsData={settingsData} data={paises} 
+                setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
             }
             {
-                isProvincia && <Select data={provincias} />
+                isProvincia && <Select loc="Provincia" user={users.user} setSettingsData={setSettingsData} settingsData={settingsData} userLocation={provincia} data={provincias} 
+                setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
             }
             {
-                isMunicipio && <Select data={municipios} />
+                isMunicipio && <Select loc="Municipio" user={users.user} setSettingsData={setSettingsData} userLocation={municipio} settingsData={settingsData} data={municipios}
+                setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
             }
             {
                 isAuth && <Auth setIsAuth={setIsAuth} navigation={navigation} />
