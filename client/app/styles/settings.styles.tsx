@@ -111,7 +111,7 @@ export const sectionStyle = StyleSheet.create({
 
     containerMoreSettings: {
         flex: 1,
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
         width: '100%'
     },
@@ -130,6 +130,17 @@ export const sectionStyle = StyleSheet.create({
         color: '#597EEE',
         marginTop: 2,
         fontWeight: '600'
+    },
+
+    containerSelect: {
+        position: 'absolute',
+        backgroundColor: '#fff',
+        top: 0,
+        left: 0,
+        width: '100%',
+        flex: 1,
+        flexDirection: 'column',
+        zIndex: 14
     }
 
 })

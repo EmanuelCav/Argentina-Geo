@@ -1,7 +1,7 @@
 import { SetStateAction } from 'react'
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-import { IOptions, IUser } from "../interface/User";
+import { IOptions, ISetting, IUser } from "../interface/User";
 import { ICategoriesUser, IGame } from "../interface/Game";
 import { UserDataType, UserReducerType } from "./user.types";
 
@@ -97,4 +97,20 @@ export type ChangeNicknameProps = {
 export type CategoryProps = {
     user: UserDataType;
     category: ICategoriesUser;
+}
+
+export type SelectSettingsProps = {
+    settingsData: ISetting;
+    setIsPais: (isPais: boolean) => void;
+    setIsProvincia: (isProvincia: boolean) => void;
+    setIsMunicipio: (isMunicipio: boolean) => void;
+}
+
+export type InputSettingsType = {
+    value: string;
+    setIsPais: (isLocation: boolean) => void;
+    setIsProvincia: (isProvincia: boolean) => void;
+    setIsMunicipio: (isMunicipio: boolean) => void;
+    isDisabled: boolean;
+    location: string;
 }

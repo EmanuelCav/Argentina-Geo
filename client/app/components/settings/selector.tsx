@@ -5,17 +5,20 @@ import InputSelect from './components/inputSelect'
 import { generalStyles } from '../../styles/home.styles'
 import { authStyles } from '../../styles/settings.styles'
 
-import { ISetting } from '../../interface/User'
+import { SelectSettingsProps } from '../../types/props.types'
 
-const Selector = ({ settingsData }: { settingsData: ISetting }) => {
+const Selector = ({ settingsData, setIsPais, setIsProvincia, setIsMunicipio }: SelectSettingsProps) => {
     return (
         <View style={generalStyles.containSelector}>
             <Text style={authStyles.labelForm}>País</Text>
-            <InputSelect value={settingsData.pais} />
+            <InputSelect value={settingsData.pais} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
+            isDisabled={false} location="Pais" />
             <Text style={authStyles.labelForm}>Provincia</Text>
-            <InputSelect value={settingsData.provincia} />
+            <InputSelect value={settingsData.provincia} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
+            isDisabled={false} location="Provincia" />
             <Text style={authStyles.labelForm}>Partido/barrio</Text>
-            <InputSelect value={settingsData.municipio} />
+            <InputSelect value={settingsData.municipio} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
+            isDisabled={true} location="Municipio" />
         </View>
     )
 }

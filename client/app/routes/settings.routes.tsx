@@ -36,7 +36,10 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     const [provincias, setProvincias] = useState<string[]>([])
     const [municipios, setMunicipios] = useState<string[]>([])
 
-    const [isSelector, setisSelector] = useState<boolean>(false)
+    const [isPais, setIsPais] = useState<boolean>(false)
+    const [isProvincia, setIsProvincia] = useState<boolean>(false)
+    const [isMunicipio, setIsMunicipio] = useState<boolean>(false)
+
     const [isAuth, setIsAuth] = useState<boolean>(false)
     const [isCode, setIsCode] = useState<boolean>(false)
     const [isNickname, setIsNickname] = useState<boolean>(false)
@@ -85,12 +88,18 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     useEffect(() => {
         getPaises()
         getProvincias()
-    }, [pais])
+    }, [isPais, isProvincia, isMunicipio])
 
     return (
         <View style={generalStyles.containerInfoSelect}>
             {
-                isSelector && <Select data={paises} />
+                isPais && <Select data={paises} />
+            }
+            {
+                isProvincia && <Select data={provincias} />
+            }
+            {
+                isMunicipio && <Select data={municipios} />
             }
             {
                 isAuth && <Auth setIsAuth={setIsAuth} navigation={navigation} />
@@ -101,7 +110,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
             {
                 isNickname && <ChangeName setIsNickname={setIsNickname} user={users.user} />
             }
-            <Selector settingsData={settingsData} />
+            <Selector settingsData={settingsData} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
             <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname} 
             setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} />
             <View style={homeStyles.containerActionsView}>

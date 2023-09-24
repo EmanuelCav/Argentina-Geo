@@ -45,7 +45,7 @@ const Categories = ({ user, categories, setIsCategories }: CategoriesProps) => {
     return (
         <View style={configGamesStyles.containerConfigGames}>
             <View style={configGamesStyles.configGamesContain}>
-                <View style={configGamesStyles.containShowCategories}>
+                <View style={configGamesStyles.containShowConfig}>
                     <View style={menuStyles.showCategoriesContain}>
                         {
                             categories.map((category: ICategoriesUser, index: number) => {

@@ -76,7 +76,7 @@ export const configGamesStyles = StyleSheet.create({
         paddingHorizontal: 6
     },
 
-    containShowCategories: {
+    containShowConfig: {
         width: '100%',
         flex: 1,
     },

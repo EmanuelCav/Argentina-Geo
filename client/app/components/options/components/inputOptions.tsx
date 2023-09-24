@@ -14,6 +14,7 @@ import { IReducer } from '../../../interface/Reducer';
 
 import { homeStyles } from '../../../styles/home.styles'
 import { menuStyles } from '../../../styles/menu.styles'
+import { configGamesStyles } from '../../../styles/game.styles'
 
 import { selector } from '../../../helper/selector';
 
@@ -44,9 +45,11 @@ const InputOptions = ({ setIsOptionsGame }: { setIsOptionsGame: (isOptionsGame: 
     }
 
     return (
-        <View style={menuStyles.categoriesContain}>
-            <SelectOption setOptionsData={setOptionsData} optionsData={optionsData} amountOptions={amountOptions} />
-            <SliderQuestion setOptionsData={setOptionsData} optionsData={optionsData} amountQuestions={amountQuestions} />
+        <View style={configGamesStyles.configGamesContain}>
+            <View style={configGamesStyles.containShowConfig}>
+                <SelectOption setOptionsData={setOptionsData} optionsData={optionsData} amountOptions={amountOptions} />
+                <SliderQuestion setOptionsData={setOptionsData} optionsData={optionsData} amountQuestions={amountQuestions} />
+            </View>
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Aceptar" redirect={acceptOptions} isAccept={true} />
             </View>
