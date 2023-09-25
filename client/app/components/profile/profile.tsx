@@ -52,10 +52,10 @@ const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
                             <Text style={menuStyles.textNicknameProfile}>{user.profile.nickname}</Text>
                         </View>
                         <Text style={homeStyles.userInfo}>{user.profile.pais.name}</Text>
-                        <View style={homeStyles.containerLocationUser}>
-                            <Text style={homeStyles.userInfo}>{user.profile.provincia && user.profile.provincia.name}</Text>
-                            <Text style={homeStyles.userInfo}>{user.profile.municipio && - user.profile.municipio.name}</Text>
-                        </View>
+                        <Text style={homeStyles.userInfo} adjustsFontSizeToFit>{user.profile.provincia && user.profile.provincia.name}
+                            {user.profile.municipio && (
+                                <Text> - {user.profile.municipio.name}</Text>)}
+                        </Text>
                         <Text style={homeStyles.userInfo}>Posición: {user.users.map((u) => u._id).indexOf(user.user.user._id) + 1}°</Text>
                         <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
                         <Text style={homeStyles.userInfo}>Preguntas totales: {questions}</Text>

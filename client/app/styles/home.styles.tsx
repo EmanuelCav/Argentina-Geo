@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 export const generalStyles = StyleSheet.create({
 
@@ -31,7 +31,8 @@ export const homeStyles = StyleSheet.create({
     containerUserHome: {
         height: '30%',
         backgroundColor: '#5d8cff',
-        padding: 16
+        // padding: 16
+        padding: Dimensions.get("window").height/46.25
     },
 
     userInfoLevel: {
@@ -42,20 +43,19 @@ export const homeStyles = StyleSheet.create({
     },
 
     userNickname: {
-        fontSize: 24,
-        fontFamily: '500'
+        fontSize: Dimensions.get("window").height/34,
     },
 
     userInfo: {
-        fontSize: 18,
+        fontSize: Dimensions.get("window").height/46,
     },
 
     containerLevel: {
         width: '100%',
         backgroundColor: '#ddd',
         borderRadius: 20,
-        marginTop: 4,
-        height: 30,
+        marginTop: Dimensions.get("window").height/185,
+        height: Dimensions.get("window").height/26,
         position: 'relative',
         display: 'flex',
         justifyContent: 'center',
@@ -63,8 +63,8 @@ export const homeStyles = StyleSheet.create({
     },
 
     imageLevel: {
-        width: 42,
-        height: 31,
+        width: Dimensions.get("window").width/8.5,
+        height: Dimensions.get("window").height/24,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -80,26 +80,27 @@ export const homeStyles = StyleSheet.create({
     },
 
     textExp: {
-        fontSize: 18
+        fontSize: Dimensions.get("window").height/42
     },
 
     textLevel: {
-        fontSize: 18,
+        fontSize: Dimensions.get("window").height/42,
         fontWeight: '900',
     },
 
     // PROFILE
 
     imageLevelProfile: {
-        width: 42,
-        height: 31,
+        width: Dimensions.get("window").width/8.5,
+        height: Dimensions.get("window").height/24,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
     },
 
     containerActionsView: {
-        paddingHorizontal: 12,
+        paddingHorizontal: Dimensions.get("window").width/30,
+        // paddingHorizontal: 12,
         width: '100%'
     },
 
@@ -117,14 +118,15 @@ export const homeStyles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 4,
         width: '100%',
-        paddingBottom: 40,
-        marginTop: 6
+        paddingBottom: Dimensions.get("window").height/18.5,
+        marginTop: Dimensions.get("window").height/123.66,
     },
 
     buttonAcceptOption: {
         width: '100%',
         backgroundColor: '#597EEE',
-        padding: 12,
+        // padding: 12,
+        padding: Dimensions.get("window").height/61.66,
         borderRadius: 4,
         justifyContent: 'center',
         alignItems: 'center'
@@ -133,20 +135,21 @@ export const homeStyles = StyleSheet.create({
     buttonMenu: {
         width: '88%',
         backgroundColor: '#5d8cff',
-        padding: 12,
+        // padding: 12,
+        padding: Dimensions.get("window").height/61.66,
         borderRadius: 4,
         borderColor: '#fff',
         borderStyle: 'solid',
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40,
+        marginTop: Dimensions.get("window").height/18.5,
     },
 
     textButtonOption: {
         textAlign: 'center',
         color: '#fff',
-        fontSize: 24,
+        fontSize: Dimensions.get("window").height/31,
         fontWeight: '500'
     },
 

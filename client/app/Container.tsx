@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { ImageBackground, StyleSheet } from 'react-native';
+import { ImageBackground, StyleSheet, Dimensions } from 'react-native';
 
 export default function Container({ children }: { children: ReactNode }) {
     return (
@@ -11,8 +11,8 @@ export default function Container({ children }: { children: ReactNode }) {
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: 12,
-        paddingHorizontal: 6,
+        paddingVertical: Dimensions.get("window").height/60,
+        paddingHorizontal: Dimensions.get("window").width/60,
         flex: 1
     }
 })
