@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 export const newStyles = StyleSheet.create({
 
@@ -8,11 +8,11 @@ export const newStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 12
+        padding: Dimensions.get("window").height/62,
     },
 
     newContain: {
-        padding: 12,
+        padding: Dimensions.get("window").height/62,
         backgroundColor: '#597EEE',
         justifyContent: 'center',
         alignItems: 'center',
@@ -22,20 +22,20 @@ export const newStyles = StyleSheet.create({
     buttonSettings: {
         width: '100%',
         backgroundColor: '#597EEE',
-        padding: 7,
+        padding: Dimensions.get("window").height/106,
         borderRadius: 4,
         borderColor: '#fff',
         borderStyle: 'solid',
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 12
+        margin: Dimensions.get("window").height/62,
     },
 
     textButtonSettings: {
         textAlign: 'center',
         color: '#fff',
-        fontSize: 24,
+        fontSize: Dimensions.get("window").height/31,
         fontWeight: '500'
     }
 
@@ -54,17 +54,17 @@ export const authStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 26
+        paddingHorizontal: Dimensions.get("window").height/13.85
     },
 
     containerForm: {
         width: '100%',
-        padding: 12,
+        padding: Dimensions.get("window").height/62,
         backgroundColor: '#ffffff'
     },
 
     separator: {
-        marginTop: 12,
+        marginTop: Dimensions.get("window").height/62,
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center'
@@ -72,17 +72,17 @@ export const authStyles = StyleSheet.create({
 
     inputAuth: {
         width: '100%',
-        padding: 7,
+        padding: Dimensions.get("window").height/106,
         borderRadius: 12,
-        fontSize: 18,
+        fontSize: Dimensions.get("window").height/41.11,
         borderWidth: 1,
         borderColor: '#597EEE',
-        height: 48
+        height: Dimensions.get("window").height/15.5
     },
 
     labelForm: {
-        fontSize: 22,
-        margin: 2
+        fontSize: Dimensions.get("window").height/33.66,
+        margin: Dimensions.get("window").height/370
     }
 
 })
@@ -92,33 +92,33 @@ export const sectionStyle = StyleSheet.create({
     containerInputSettings: {
         width: '100%',
         backgroundColor: '#FFFFFF',
-        padding: 7,
+        padding: Dimensions.get("window").height/106,
         borderRadius: 4,
         borderColor: '#597EEE',
         borderStyle: 'solid',
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 12
+        margin: Dimensions.get("window").height/62
     },
 
     containerInputSettingsDisabled: {
         width: '100%',
         backgroundColor: '#888',
-        padding: 7,
+        padding: Dimensions.get("window").height/106,
         borderRadius: 4,
         borderColor: '#597EEE',
         borderStyle: 'solid',
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 12
+        margin: Dimensions.get("window").height/62
     },
 
     textInput: {
         textAlign: 'center',
         color: '#597EEE',
-        fontSize: 20,
+        fontSize: Dimensions.get("window").height/37,
         fontWeight: '500'
     },
 
@@ -135,13 +135,13 @@ export const sectionStyle = StyleSheet.create({
     },
 
     textCode: {
-        fontSize: 18
+        fontSize: Dimensions.get("window").height/41.11,
     },
 
     changeTextCode: {
-        fontSize: 22,
+        fontSize: Dimensions.get("window").height/33.66,
         color: '#597EEE',
-        marginTop: 2,
+        marginTop: Dimensions.get("window").height/370,
         fontWeight: '600'
     },
 
@@ -158,7 +158,7 @@ export const sectionStyle = StyleSheet.create({
 
     locationSelect: {
         width: '100%',
-        padding: 7,
+        padding: Dimensions.get("window").height/106,
         borderWidth: 2,
         borderColor: "#597EEE",
         borderStyle: "solid",
@@ -167,7 +167,7 @@ export const sectionStyle = StyleSheet.create({
 
     locationSelected: {
         width: '100%',
-        padding: 7,
+        padding: Dimensions.get("window").height/106,
         borderWidth: 2,
         borderColor: "#597EEE",
         borderStyle: "solid",
@@ -175,12 +175,12 @@ export const sectionStyle = StyleSheet.create({
     },
 
     textLocationSelect: {
-        fontSize: 18,
+        fontSize: Dimensions.get("window").height/41.11,
         color: "#597EEE"
     },
 
     textLocationSelected: {
-        fontSize: 18,
+        fontSize: Dimensions.get("window").height/41.11,
         color: "#fff"
     }
 

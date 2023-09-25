@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 export const gameStyles = StyleSheet.create({
 
@@ -60,8 +60,8 @@ export const configGamesStyles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: 'rgba(89, 205, 238, 0.9)',
         zIndex: 14,
-        paddingVertical: 44,
-        paddingHorizontal: 10,
+        paddingVertical: Dimensions.get("window").height/16.81,
+        paddingHorizontal: Dimensions.get("window").width/36
     },
 
     configGamesContain: {
@@ -71,8 +71,8 @@ export const configGamesStyles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'column',
-        paddingVertical: 12,
-        paddingHorizontal: 6
+        paddingVertical: Dimensions.get("window").height/61.66,
+        paddingHorizontal: Dimensions.get("window").width/60
     },
 
     containShowConfig: {
@@ -81,7 +81,7 @@ export const configGamesStyles = StyleSheet.create({
     },
 
     containMoveCategories: {
-        marginTop: 24,
+        marginVertical: Dimensions.get("window").height/52.85,
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-around',
@@ -89,13 +89,13 @@ export const configGamesStyles = StyleSheet.create({
     },
 
     iconMoveCategories: {
-        fontSize: 22,
+        fontSize: Dimensions.get("window").height/33.63,
         fontWeight: '900',
         color: '#111'
     },
 
     iconMoveCategoriesDisable: {
-        fontSize: 22,
+        fontSize: Dimensions.get("window").height/33.63,
         fontWeight: '900',
         color: '#888'
     }

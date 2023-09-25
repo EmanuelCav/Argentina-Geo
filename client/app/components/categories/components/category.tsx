@@ -29,7 +29,7 @@ const Category = ({ user, category }: CategoryProps) => {
 
     return (
         <View style={category.isUnlocked ? menuStyles.categoryContainer : menuStyles.categoryContainerUnlocked}>
-            <Text style={category.isUnlocked ? menuStyles.textCategory : menuStyles.textCategoryUnlocked}>
+            <Text adjustsFontSizeToFit style={category.isUnlocked ? menuStyles.textCategory : menuStyles.textCategoryUnlocked}>
                 {category.category.name}
             </Text>
             {

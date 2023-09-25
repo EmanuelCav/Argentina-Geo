@@ -47,7 +47,7 @@ const Location = ({ loc, settingsData, setSettingsData, location, userLocation }
 
     return (
         <TouchableOpacity style={userLocation === location ? sectionStyle.locationSelected : sectionStyle.locationSelect} onPress={selectLocation}>
-            <Text style={userLocation === location ? sectionStyle.textLocationSelected : sectionStyle.textLocationSelect}>{location}</Text>
+            <Text adjustsFontSizeToFit style={userLocation === location ? sectionStyle.textLocationSelected : sectionStyle.textLocationSelect}>{location}</Text>
         </TouchableOpacity>
     )
 }

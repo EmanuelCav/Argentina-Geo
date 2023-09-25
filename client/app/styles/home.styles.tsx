@@ -12,7 +12,7 @@ export const generalStyles = StyleSheet.create({
     containSelector: {
         height: '50%',
         width: '100%',
-        padding: 16,
+        padding: Dimensions.get("window").height/46.25,
         justifyContent: 'space-around',
         flexDirection: 'column',
         alignItems: 'center'
@@ -31,7 +31,6 @@ export const homeStyles = StyleSheet.create({
     containerUserHome: {
         height: '30%',
         backgroundColor: '#5d8cff',
-        // padding: 16
         padding: Dimensions.get("window").height/46.25
     },
 
@@ -100,7 +99,6 @@ export const homeStyles = StyleSheet.create({
 
     containerActionsView: {
         paddingHorizontal: Dimensions.get("window").width/30,
-        // paddingHorizontal: 12,
         width: '100%'
     },
 
@@ -125,7 +123,6 @@ export const homeStyles = StyleSheet.create({
     buttonAcceptOption: {
         width: '100%',
         backgroundColor: '#597EEE',
-        // padding: 12,
         padding: Dimensions.get("window").height/61.66,
         borderRadius: 4,
         justifyContent: 'center',
@@ -135,7 +132,6 @@ export const homeStyles = StyleSheet.create({
     buttonMenu: {
         width: '88%',
         backgroundColor: '#5d8cff',
-        // padding: 12,
         padding: Dimensions.get("window").height/61.66,
         borderRadius: 4,
         borderColor: '#fff',

@@ -9,8 +9,8 @@ export const menuStyles = StyleSheet.create({
         height: '100%',
         position: 'absolute',
         backgroundColor: 'rgba(89, 205, 238, 0.9)',
-        paddingVertical: 44,
-        paddingHorizontal: 10,
+        paddingVertical: Dimensions.get('window').height/16.81,
+        paddingHorizontal: Dimensions.get('window').width/36,
         zIndex: 14,
     },
 
@@ -23,12 +23,12 @@ export const menuStyles = StyleSheet.create({
         alignItems: 'flex-start',
         flexDirection: 'column',
         flexWrap: 'wrap',
-        paddingVertical: 12
+        paddingVertical: Dimensions.get('window').height/61.66
     },
 
     containerScroll: {
-        paddingHorizontal: 14,
-        paddingVertical: 30,
+        paddingHorizontal: Dimensions.get('window').width/25.5,
+        paddingVertical: Dimensions.get('window').height/24.66,
         top: 0,
         left: 0,
         zIndex: 16,
@@ -38,10 +38,14 @@ export const menuStyles = StyleSheet.create({
     },
 
     showCategoriesContain: {
-        width: '100%'
+        width: '100%',
+        flex: 1,
+        backgroundColor: 'red',
+        flexDirection: 'column'
     },
 
     categoryContainer: {
+        flex: 1,
         width: '100%',
         backgroundColor: '#FFFFFF',
         display: 'flex',
@@ -51,10 +55,11 @@ export const menuStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#597EEE',
         borderStyle: 'solid',
-        padding: 7,
+        padding: Dimensions.get('window').height/106
     },
 
     categoryContainerUnlocked: {
+        flex: 1,
         width: '100%',
         backgroundColor: '#597EEE',
         display: 'flex',
@@ -64,16 +69,16 @@ export const menuStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#FFFFFF',
         borderStyle: 'solid',
-        padding: 7,
+        padding: Dimensions.get('window').height/106
     },
 
     textCategory: {
-        fontSize: 20,
+        fontSize: Dimensions.get('window').height/37,
         color: '#597EEE'
     },
 
     textCategoryUnlocked: {
-        fontSize: 20,
+        fontSize: Dimensions.get('window').height/37,
         color: '#FFFFFF'
     },
 
@@ -81,7 +86,7 @@ export const menuStyles = StyleSheet.create({
 
     containQuestionSelector: {
         width: '100%',
-        padding: 16,
+        padding: Dimensions.get('window').height/46.25,
         justifyContent: 'center',
         flexDirection: 'column',
         alignItems: 'center',
@@ -90,7 +95,7 @@ export const menuStyles = StyleSheet.create({
 
     containOptionsSelector: {
         width: '100%',
-        padding: 16,
+        padding: Dimensions.get('window').height/46.25,
         justifyContent: 'space-between',
         flexDirection: 'column',
         alignItems: 'center',
@@ -98,20 +103,20 @@ export const menuStyles = StyleSheet.create({
     },
 
     textTitleOptions: {
-        fontSize: 26,
+        fontSize: Dimensions.get('window').height/28.45,
         color: '#597EEE',
-        marginTop: 2,
+        marginTop: Dimensions.get('window').height/370,
         fontWeight: '600',
         textAlign: 'center'
     },
 
     textQuestionOptions: {
-        fontSize: 20
+        fontSize: Dimensions.get('window').height/37
     },
 
     buttonOptions: {
         width: '50%',
-        padding: 7,
+        padding: Dimensions.get('window').height/106,
         borderRadius: 12,
         borderWidth: 1,
         borderColor: '#597EEE',
@@ -121,7 +126,7 @@ export const menuStyles = StyleSheet.create({
 
     buttonOptionsSelected: {
         width: '50%',
-        padding: 7,
+        padding: Dimensions.get('window').height/106,
         borderRadius: 12,
         borderWidth: 1,
         backgroundColor: '#597EEE',
@@ -131,13 +136,13 @@ export const menuStyles = StyleSheet.create({
     },
 
     textButtonOptions: {
-        fontSize: 22,
+        fontSize: Dimensions.get('window').height/33.63,
         color: '#597EEE',
         fontWeight: '600'
     },
 
     textButtonOptionsSelected: {
-        fontSize: 22,
+        fontSize: Dimensions.get('window').height/33.63,
         color: '#FFFFFF',
         fontWeight: '600'
     },
@@ -150,20 +155,20 @@ export const menuStyles = StyleSheet.create({
     },
 
     textNicknameProfile: {
-        fontSize: 18,
-        marginLeft: 12
+        fontSize: Dimensions.get('window').height/41.11,
+        marginLeft: Dimensions.get('window').width/30
     },
 
     containCategoryProfile: {
         borderColor: '#597EEE',
         borderWidth: 2,
         borderStyle: 'solid',
-        padding: 7,
-        marginVertical: 4
+        padding: Dimensions.get('window').height/106,
+        marginVertical: Dimensions.get('window').height/185
     },
 
     categoryProfile: {
-        fontSize: 18,
+        fontSize: Dimensions.get('window').height/41.11,
         fontWeight: '600'
     },
 
