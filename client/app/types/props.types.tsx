@@ -25,6 +25,7 @@ export type ButtonGameProps = {
 export type ButtonNavigateProps = {
     text: string;
     redirect: () => void;
+    styles: any;
 }
 
 export type ShowStatisticsProps = {

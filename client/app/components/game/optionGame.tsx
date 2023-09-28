@@ -4,10 +4,10 @@ import { ButtonNavigateProps } from "../../types/props.types";
 
 import { gameStyles } from '../../styles/game.styles';
 
-const OptionsGame = ({ text, redirect }: ButtonNavigateProps) => {
+const OptionsGame = ({ text, redirect, styles }: ButtonNavigateProps) => {
     return (
         <TouchableOpacity onPress={redirect} style={gameStyles.buttonOptions}>
-            <Text style={gameStyles.textButtonOptions}>{text}</Text>
+            <Text adjustsFontSizeToFit style={styles.textButtonOptions}>{text}</Text>
         </TouchableOpacity>
     )
 }

@@ -27,13 +27,19 @@ export const gameStyles = StyleSheet.create({
     containerOptions: {
         width: '100%',
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        flexDirection: 'row'
+    },
+
+    containerSectionOptions: {
+        width: '50%',
+        height: '100%',
+        padding: Dimensions.get("window").height/106
     },
 
     buttonOptions: {
-        width: '50%',
-        padding: 7,
+        padding: Dimensions.get("window").height/106,
         borderRadius: 12,
         backgroundColor: '#597EEE',
         borderWidth: 2,
@@ -41,13 +47,8 @@ export const gameStyles = StyleSheet.create({
         borderStyle: 'solid',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 6,
-        height: 100
-    },
-
-    textButtonOptions: {
-        fontSize: 16,
-        color: '#FFFFFF'
+        flex: 1,
+        marginVertical: Dimensions.get("window").height/61.66
     }
 
 })
