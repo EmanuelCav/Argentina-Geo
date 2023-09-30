@@ -18,8 +18,8 @@ const NewUser = ({ navigation, setIsAuth }: NewProps) => {
 
     return (
         <View style={newStyles.newContain}>
-            <ButtonSettings text="Soy un jugador nuevo" redirect={redirectHome} />
-            <ButtonSettings text="Ya tengo un usuario" redirect={redirectForm} />
+            <ButtonSettings text="Soy un jugador nuevo" styles={null} redirect={redirectHome} />
+            <ButtonSettings text="Ya tengo un usuario" styles={null} redirect={redirectForm} />
         </View>
     )
 }

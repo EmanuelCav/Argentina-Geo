@@ -62,7 +62,7 @@ export const createGames = async (req: Request, res: Response): Promise<Response
         const categoriesSelected = await CategoryUser.find({ user: req.user, isSelect: true, isUnlocked: true })
 
         if (categoriesSelected.length === 0) {
-            return res.status(401).json({ message: "You have to add a category to start" })
+            return res.status(401).json({ message: "Tienes que elegír algunas categorias para comenzar" })
         }
 
         for (let i = 0; i < categoriesSelected.length; i++) {

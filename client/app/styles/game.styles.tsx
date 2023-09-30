@@ -49,6 +49,19 @@ export const gameStyles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         marginVertical: Dimensions.get("window").height/61.66
+    },
+
+    containerDataGame: {
+        width: '100%',
+        padding: Dimensions.get("window").height/106,
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
+    textDataGame: {
+        fontSize: Dimensions.get("window").height/37
     }
 
 })

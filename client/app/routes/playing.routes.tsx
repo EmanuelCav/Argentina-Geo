@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { View, Text, Image, Dimensions, ImageSourcePropType, StyleSheet } from 'react-native'
 
 import Finish from '../components/game/finish'
+import DataGame from '../components/game/dataGame'
 import OptionGame from '../components/game/optionGame'
 
 import { IReducer } from '../interface/Reducer'
@@ -44,6 +45,9 @@ const Playing = () => {
         }
     })
 
+    const [seconds, setSeconds] = useState<number>(0)
+    const [minutes, setMinutes] = useState<number>(0)
+
     const [numberQuestion, setNumberQuestion] = useState<number>(0)
     const [isFinish, setIsFinish] = useState<boolean>(false)
 
@@ -58,6 +62,17 @@ const Playing = () => {
 
     useEffect(() => {
     }, [numberQuestion, isFinish])
+
+    useEffect(() => {
+        if(seconds === 60) {
+            setSeconds(0)
+            setMinutes(1)
+        }
+
+        setTimeout(() => {
+            setSeconds(seconds+1)
+        }, 1000);
+    }, [seconds])
 
     return (
         <View style={gameStyles.gameContainer}>
@@ -77,6 +92,7 @@ const Playing = () => {
                     )
                 }
             </View>
+            <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} seconds={seconds} minutes={minutes} />
             <View style={gameStyles.containerOptions}>
                 <View style={gameStyles.containerSectionOptions}>
                     {

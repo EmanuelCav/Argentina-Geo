@@ -17,8 +17,8 @@ export const menuStyles = StyleSheet.create({
     categoriesContain: {
         position: 'absolute',
         backgroundColor: '#FFFFFF',
-        width: Dimensions.get('window').width - 10 * 2 - 6 * 2,
-        height: Dimensions.get('window').height - 44 * 2 - 12 * 2,
+        width: Dimensions.get('window').width - Dimensions.get('window').width/36 * 2 - Dimensions.get("window").width/60 * 2,
+        height: Dimensions.get('window').height - Dimensions.get('window').height/16.81 * 2 - Dimensions.get("window").height/60 * 2,
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
         flexDirection: 'column',
@@ -33,8 +33,8 @@ export const menuStyles = StyleSheet.create({
         left: 0,
         zIndex: 16,
         position: 'absolute',
-        height: Dimensions.get('window').height - 44 * 2 - 12 * 2 - 30 * 2,
-        width: Dimensions.get('window').width - 10 * 2 - 6 * 2
+        height: Dimensions.get('window').height - Dimensions.get('window').height/16.81 * 2 - Dimensions.get("window").height/60 * 2 - Dimensions.get('window').height/24.66 * 2,
+        width: Dimensions.get('window').width - Dimensions.get('window').width/36 * 2 - Dimensions.get("window").width/60 * 2
     },
 
     showCategoriesContain: {

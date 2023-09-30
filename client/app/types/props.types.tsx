@@ -135,3 +135,10 @@ export type LocationProps = {
     location: string;
     userLocation: string | undefined;
 }
+
+export type GameDataProps = {
+    numberQuestion: number;
+    amountQuestions: number;
+    seconds: number;
+    minutes: number;
+}

@@ -13,7 +13,6 @@ import { IOptions } from '../../../interface/User';
 import { IReducer } from '../../../interface/Reducer';
 
 import { homeStyles } from '../../../styles/home.styles'
-import { menuStyles } from '../../../styles/menu.styles'
 import { configGamesStyles } from '../../../styles/game.styles'
 
 import { selector } from '../../../helper/selector';

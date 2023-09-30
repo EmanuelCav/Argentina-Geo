@@ -17,7 +17,7 @@ const sliderQuestion = ({ setOptionsData, optionsData, amountQuestions }: Select
             <Text style={menuStyles.textTitleOptions}>Cantidad de preguntas</Text>
             <Text style={menuStyles.textQuestionOptions}>{amountQuestions}</Text>
             <Slider
-                style={sliderStyle.slider}
+                style={[sliderStyle.slider, null]}
                 thumbTintColor='#597EEE'
                 minimumValue={10}
                 maximumValue={50}
