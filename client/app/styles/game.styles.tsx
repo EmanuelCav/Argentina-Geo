@@ -84,7 +84,28 @@ export const gameStyles = StyleSheet.create({
         opacity: 0.4,
         width: '100%',
         height: '100%'
-    }
+    },
+
+    containerFinish: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 14,
+        backgroundColor: '#fff',
+        width: '100%',
+        height: '100%',
+        padding: Dimensions.get("window").height/46.25,
+    },
+
+    containerDataFinish: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    textHeaderGame: {
+        fontSize: Dimensions.get("window").height/33.63
+    },
 
 })
 
@@ -113,7 +134,7 @@ export const configGamesStyles = StyleSheet.create({
 
     containShowConfig: {
         width: '100%',
-        flex: 1,
+        flex: 1
     },
 
     containMoveCategories: {

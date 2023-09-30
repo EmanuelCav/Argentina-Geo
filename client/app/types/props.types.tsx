@@ -142,3 +142,17 @@ export type GameDataProps = {
     seconds: number;
     minutes: number;
 }
+
+export type TimeProps = {
+    seconds: number;
+    minutes: number;
+    specialText: string;
+}
+
+export type FinishProps = {
+    seconds: number;
+    minutes: number;
+    corrects: number;
+    points: number;
+    navigation: StackNavigation;
+}

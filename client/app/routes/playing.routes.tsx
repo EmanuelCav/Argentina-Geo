@@ -7,12 +7,13 @@ import DataGame from '../components/game/dataGame'
 import OptionGame from '../components/game/optionGame'
 
 import { IReducer } from '../interface/Reducer'
+import { StackNavigation } from '../types/props.types'
 
 import { gameStyles } from '../styles/game.styles';
 
 import { selector } from '../helper/selector'
 
-const Playing = () => {
+const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
     const games = useSelector((state: IReducer) => selector(state).games)
@@ -65,7 +66,10 @@ const Playing = () => {
         }
 
         if (numberQuestion === games.game.questions.length - 1) {
-            setIsFinish(true)
+            setInterval(() => {
+                setIsFinish(true)
+            }, 100)
+
             return
         }
 
@@ -79,12 +83,12 @@ const Playing = () => {
             setIsIncorrect(false)
         }, 100);
 
-    }, [numberQuestion, isFinish, isCorrect, isIncorrect])
+    }, [isCorrect, isIncorrect])
 
     useEffect(() => {
         if (seconds === 60) {
             setSeconds(0)
-            setMinutes(1)
+            setMinutes(minutes+1)
         }
 
         if (minutes === 60) {
@@ -92,7 +96,9 @@ const Playing = () => {
         }
 
         setTimeout(() => {
-            setSeconds(seconds + 1)
+            if (!isFinish) {
+                setSeconds(seconds + 1)
+            }
         }, 1000);
     }, [seconds])
 
@@ -105,7 +111,7 @@ const Playing = () => {
                 isIncorrect && <View style={gameStyles.containerIncorrect} />
             }
             {
-                isFinish && <Finish />
+                isFinish && <Finish minutes={minutes} seconds={seconds} corrects={games.game.corrects} points={0} navigation={navigation} />
             }
             <View style={gameStyles.containerQuestion}>
                 {
