@@ -62,6 +62,28 @@ export const gameStyles = StyleSheet.create({
 
     textDataGame: {
         fontSize: Dimensions.get("window").height/37
+    },
+
+    containerCorrect: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 14,
+        backgroundColor: '#0f0',
+        opacity: 0.4,
+        width: '100%',
+        height: '100%'
+    },
+
+    containerIncorrect: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 14,
+        backgroundColor: '#f00',
+        opacity: 0.4,
+        width: '100%',
+        height: '100%'
     }
 
 })

@@ -18,20 +18,20 @@ const Playing = () => {
     const games = useSelector((state: IReducer) => selector(state).games)
 
     const usersOptions = (): number => {
-        if(users.user.user.amountOptions === 2) {
-            return 13.73
+        if (users.user.user.amountOptions === 2) {
+            return 14.73
         }
 
-        if(users.user.user.amountOptions === 4) {
-            return 16.22
+        if (users.user.user.amountOptions === 4) {
+            return 18.22
         }
 
-        if(users.user.user.amountOptions === 6) {
-            return 18.71
+        if (users.user.user.amountOptions === 6) {
+            return 22.86
         }
 
-        if(users.user.user.amountOptions === 8) {
-            return 22.31
+        if (users.user.user.amountOptions === 8) {
+            return 26.31
         }
 
         return 22.31
@@ -40,7 +40,7 @@ const Playing = () => {
     const styles = StyleSheet.create({
         textButtonOptions: {
             color: "#ffffff",
-            fontSize: ((Dimensions.get("window").height - ((Dimensions.get("window").height / 60) * 2)) / 2)/usersOptions(),
+            fontSize: ((Dimensions.get("window").height - ((Dimensions.get("window").height / 60) * 2)) / 2) / usersOptions(),
             textAlign: 'center'
         }
     })
@@ -51,7 +51,19 @@ const Playing = () => {
     const [numberQuestion, setNumberQuestion] = useState<number>(0)
     const [isFinish, setIsFinish] = useState<boolean>(false)
 
-    const nextQuestion = () => {
+    const [isCorrect, setIsCorrect] = useState<boolean>(false)
+    const [isIncorrect, setIsIncorrect] = useState<boolean>(false)
+
+    const nextQuestion = (item: string) => {
+
+        if (item === games.game.questions[numberQuestion].question.answer) {
+            setIsCorrect(true)
+        }
+
+        if (item !== games.game.questions[numberQuestion].question.answer) {
+            setIsIncorrect(true)
+        }
+
         if (numberQuestion === games.game.questions.length - 1) {
             setIsFinish(true)
             return
@@ -61,21 +73,37 @@ const Playing = () => {
     }
 
     useEffect(() => {
-    }, [numberQuestion, isFinish])
+
+        setTimeout(() => {
+            setIsCorrect(false)
+            setIsIncorrect(false)
+        }, 100);
+
+    }, [numberQuestion, isFinish, isCorrect, isIncorrect])
 
     useEffect(() => {
-        if(seconds === 60) {
+        if (seconds === 60) {
             setSeconds(0)
             setMinutes(1)
         }
 
+        if (minutes === 60) {
+            return
+        }
+
         setTimeout(() => {
-            setSeconds(seconds+1)
+            setSeconds(seconds + 1)
         }, 1000);
     }, [seconds])
 
     return (
         <View style={gameStyles.gameContainer}>
+            {
+                isCorrect && <View style={gameStyles.containerCorrect} />
+            }
+            {
+                isIncorrect && <View style={gameStyles.containerIncorrect} />
+            }
             {
                 isFinish && <Finish />
             }
@@ -97,14 +125,14 @@ const Playing = () => {
                 <View style={gameStyles.containerSectionOptions}>
                     {
                         games.game.questions[numberQuestion].options.map((item, index) => {
-                            return <OptionGame styles={styles} text={item} key={index} redirect={nextQuestion} />
+                            return <OptionGame styles={styles} text={item} key={index} redirect={() => nextQuestion(item)} />
                         }).slice(0, games.game.questions[numberQuestion].options.length / 2)
                     }
                 </View>
                 <View style={gameStyles.containerSectionOptions}>
                     {
                         games.game.questions[numberQuestion].options.map((item, index) => {
-                            return <OptionGame styles={styles} text={item} key={index} redirect={nextQuestion} />
+                            return <OptionGame styles={styles} text={item} key={index} redirect={() => nextQuestion(item)} />
                         }).slice(games.game.questions[numberQuestion].options.length / 2, games.game.questions[numberQuestion].options.length)
                     }
                 </View>
