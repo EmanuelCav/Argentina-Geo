@@ -1,4 +1,4 @@
-import { Request, Response, json } from "express";
+import { Request, Response } from "express";
 
 import User from '../database/models/users';
 import Role from '../database/models/roles';
@@ -470,24 +470,24 @@ export const updateLocation = async (req: Request, res: Response): Promise<Respo
 
         const paisSelected = await Pais.findOne({ name: pais })
 
-        if(!pais) {
+        if (!pais) {
             return res.status(400).json({ message: "Pais does not exists" })
         }
 
         let provinciaSelected;
 
-        if(provincia) {
+        if (provincia) {
             provinciaSelected = await Provincia.findOne({ name: provincia })
         }
 
         let municipioSelected;
 
-        if(municipio) {
+        if (municipio) {
             municipioSelected = await Municipio.findOne({ name: municipio })
         }
 
         const locationUpdated = await User.findByIdAndUpdate(req.user, {
-            pais: paisSelected?._id, 
+            pais: paisSelected?._id,
             provincia: provinciaSelected ? provinciaSelected?._id : null,
             municipio: municipioSelected ? municipioSelected?._id : null
         }, {
@@ -508,6 +508,47 @@ export const updateLocation = async (req: Request, res: Response): Promise<Respo
             .populate("points")
 
         return res.status(200).json(locationUpdated)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const unlockCategory = async (req: Request, res: Response) => {
+
+    const { id } = req.params
+
+    try {
+
+        const category = await Categoryuser.findById(id)
+
+        if (!category) {
+            return res.status(400).json({ message: "Category does not exists" })
+        }
+
+        await Categoryuser.findByIdAndUpdate(id, {
+            isUnlocked: true
+        }, {
+            new: true
+        })
+
+        const user = await User.findById(req.user)
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+            .populate("level")
+            .populate("points")
+
+        return res.status(200).json(user)
 
     } catch (error) {
         throw error

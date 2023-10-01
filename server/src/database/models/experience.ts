@@ -25,6 +25,10 @@ const experienceSchema = new Schema({
     user: {
         type: ObjectId,
         ref: 'User'
+    },
+    levelExperience: {
+        type: Number,
+        default: 0
     }
 
 }, {

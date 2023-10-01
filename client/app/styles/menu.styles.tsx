@@ -172,5 +172,8 @@ export const menuStyles = StyleSheet.create({
         fontWeight: '600'
     },
 
+    iconCategory: {
+        height: Dimensions.get('window').height/46.25
+    }
 
 })

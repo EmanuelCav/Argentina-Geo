@@ -63,11 +63,11 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const nextQuestion = async (item: string) => {
 
-        await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
+        // await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
 
         if (item === games.game.questions[numberQuestion].question.answer) {
-            const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
-            dispatch(getGameAction(data))
+            // const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
+            // dispatch(getGameAction(data))
             setIsCorrect(true)
         }
 

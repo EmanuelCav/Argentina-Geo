@@ -37,5 +37,6 @@ export interface IExperience extends Document {
     year: number;
     total: number;
     user: ObjectId;
+    levelExperience: number;
 }
 

@@ -75,3 +75,11 @@ export const updateLocationApi = async (id: string, settingsData: ISetting, toke
         }
     })
 }
+
+export const unlockCategoryApi = async (id: string, token: string) => {
+    return await api.put(`/users/category/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
