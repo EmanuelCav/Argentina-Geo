@@ -88,8 +88,15 @@ export const createGames = async (req: Request, res: Response): Promise<Response
             const categoryQuestion = await Question.find({ category: shuffledQuestions[i].category })
             const shuffledCategoryQuestion = shuffle(categoryQuestion).filter((q: IQuestion) => q.answer !== shuffledQuestions[i].answer)
 
+            const nameCategoryUser = await CategoryUser.findOne({ user: req.user, category: shuffledQuestions[i].category })
+
+            if (!nameCategoryUser) {
+                return res.status(400).json({ message: "User category does not exists" })
+            }
+
             const newQuestionGame = new QuestionGame({
                 question: shuffledQuestions[i]._id,
+                categoryUser: nameCategoryUser._id,
                 user: req.user
             })
 

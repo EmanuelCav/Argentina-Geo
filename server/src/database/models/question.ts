@@ -12,8 +12,7 @@ const questionSchema = new Schema({
         trim: true
     },
     category: {
-        type: String,
-        required: true
+        type: String
     },
     image: {
         type: ObjectId,

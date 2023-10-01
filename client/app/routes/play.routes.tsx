@@ -28,9 +28,9 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
     const generateGame = async () => {
 
         try {
-            // const { data } = await createGameApi(users.user.token)
-            // dispatch(createGameAction(data))
-            // dispatch(getGameAction(data))
+            const { data } = await createGameApi(users.user.token)
+            dispatch(createGameAction(data))
+            dispatch(getGameAction(data))
             navigation.navigate('Playing')
         } catch (error) {
             console.log(error);

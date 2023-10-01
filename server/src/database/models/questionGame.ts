@@ -16,6 +16,10 @@ const questionGameSchema = new Schema({
     user: {
         type: ObjectId,
         ref: 'User'
+    },
+    categoryUser: {
+        type: ObjectId,
+        ref: 'Categoryuser'
     }
 
 }, {

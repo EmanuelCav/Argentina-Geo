@@ -1,3 +1,5 @@
+import { IUser } from "./User";
+
 export interface IGame {
     _id: string;
     createdAt: string;
@@ -37,6 +39,8 @@ export interface IQuestion {
     updatedAt: string;
     question: IQuestionGame;
     options: string[];
+    user: IUser;
+    categoryUser: string;
 }
 
 export interface IImage {

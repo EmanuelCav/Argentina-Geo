@@ -26,7 +26,7 @@ export interface IQuestion extends Document {
     updatedAt: NativeDate;
     _id: ObjectId;
     question: string;
-    category: string;
+    category: String;
     image: imageType;
     answer: string;
     text: string;
@@ -48,6 +48,7 @@ export interface IQuestionGame extends Document {
     question: ObjectId;
     options: string[];
     user: ObjectId;
+    categoryUser: ObjectId;
 }
 
 

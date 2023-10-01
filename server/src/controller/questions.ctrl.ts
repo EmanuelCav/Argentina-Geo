@@ -120,24 +120,24 @@ export const gameQuestion = async (req: Request, res: Response) => {
 
     try {
 
-        const category = await Categoryuser.findById(id)
+        const category = await Categoryuser.findById(id)        
 
-        if(!category) {
+        if (!category) {
             return res.status(400).json({ message: "Category does not exists" })
         }
 
-        if(req.user != category.user) {
+        if (req.user != category.user) {
             return res.status(400).json({ message: "The category user does not match with user logged" })
         }
 
         await Categoryuser.findByIdAndUpdate(id, {
-            questions: category.questions+1
+            questions: category.questions + 1
         }, {
             new: true
         })
 
         return res.status(200).json({ message: "New question" })
-        
+
     } catch (error) {
         throw error
     }
@@ -153,36 +153,46 @@ export const correctQuestion = async (req: Request, res: Response) => {
         const category = await Categoryuser.findById(id)
         const game = await Game.findById(gameId)
 
-        if(!category) {
+        if (!category) {
             return res.status(400).json({ message: "Category does not exists" })
         }
 
-        if(!game) {
+        if (!game) {
             return res.status(400).json({ message: "Category does not exists" })
         }
 
-        if(req.user != category.user) {
+        if (req.user != category.user) {
             return res.status(400).json({ message: "The category user does not match with user logged" })
         }
 
-        if(req.user != game.user) {
+        if (req.user != game.user) {
             return res.status(400).json({ message: "The game user does not match with user logged" })
         }
 
         await Categoryuser.findByIdAndUpdate(id, {
-            corrects: category.corrects+1
+            corrects: category.corrects + 1
         }, {
             new: true
         })
 
-        await Categoryuser.findByIdAndUpdate(gameId, {
-            corrects: game.corrects+1
+        const gameUpdated = await Game.findByIdAndUpdate(gameId, {
+            corrects: game.corrects + 1
         }, {
             new: true
         })
+            .populate({
+                path: "questions",
+                populate: {
+                    path: "question",
+                    populate: {
+                        path: "image",
+                        select: "image"
+                    }
+                }
+            })
 
-        return res.status(200).json({ message: "Correct" })
-        
+        return res.status(200).json(gameUpdated)
+
     } catch (error) {
         throw error
     }
