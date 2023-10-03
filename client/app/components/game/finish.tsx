@@ -20,7 +20,7 @@ const Finish = ({ minutes, seconds, corrects, points, navigation }: FinishProps)
                 <Text style={gameStyles.textHeaderGame}>Juego finalizado</Text>
                 <Text style={gameStyles.textDataGame}>Respuestas correctas: {corrects}</Text>
                 <Time seconds={seconds} minutes={minutes} specialText="Tiempo: " />
-                <Text style={gameStyles.textDataGame}>Total de puntos: {points}</Text>
+                <Text style={gameStyles.textDataGame}>Total de puntos: {points}xp</Text>
             </View>
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Continuar" redirect={navigateHome} isAccept={true} />

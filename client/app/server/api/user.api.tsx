@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { ILogin, INickname, IOptions, IPassword, ISetting } from '../../interface/User'
+import { ILogin, INickname, IOptions, IPassword, IPoints, ISetting } from '../../interface/User'
 
 const api = axios.create({ baseURL: 'http://localhost:4200' })
 
@@ -78,6 +78,14 @@ export const updateLocationApi = async (id: string, settingsData: ISetting, toke
 
 export const unlockCategoryApi = async (id: string, token: string) => {
     return await api.put(`/users/category/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const updateExperienceApi = async (id: string, pointsData: IPoints, token: string) => {
+    return await api.put(`/users/experience/${id}`, pointsData, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

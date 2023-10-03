@@ -7,14 +7,17 @@ import DataGame from '../components/game/dataGame'
 import OptionGame from '../components/game/optionGame'
 
 import { IReducer } from '../interface/Reducer'
+import { IPoints } from '../interface/User'
 import { StackNavigation } from '../types/props.types'
 
 import { questionsCorrectApi, questionsCountApi } from '../server/api/game.api'
+import { getGameAction } from '../server/features/game.features'
+import { updateExperienceApi } from '../server/api/user.api'
+import { updateOptionsAction } from '../server/features/user.features'
 
 import { gameStyles } from '../styles/game.styles';
 
 import { selector } from '../helper/selector'
-import { getGameAction } from '../server/features/game.features'
 
 const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -51,23 +54,32 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
         }
     })
 
+    const initialState: IPoints = {
+        points: 0
+    }
+
+    const [pointsData, setPointsData] = useState<IPoints>(initialState)
+
     const [seconds, setSeconds] = useState<number>(0)
     const [minutes, setMinutes] = useState<number>(0)
-    const [points, setPoints] = useState<number>(0)
+    const [realSeconds, setRealSeconds] = useState<number>(0)
+    const [realMinutes, setRealMinutes] = useState<number>(0)
 
     const [numberQuestion, setNumberQuestion] = useState<number>(0)
-    const [isFinish, setIsFinish] = useState<boolean>(false)
 
     const [isCorrect, setIsCorrect] = useState<boolean>(false)
     const [isIncorrect, setIsIncorrect] = useState<boolean>(false)
+    const [isFinish, setIsFinish] = useState<boolean>(false)
+
+    const { points } = pointsData
 
     const nextQuestion = async (item: string) => {
 
-        // await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
+        await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
 
         if (item === games.game.questions[numberQuestion].question.answer) {
-            // const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
-            // dispatch(getGameAction(data))
+            const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
+            dispatch(getGameAction(data))
             setIsCorrect(true)
         }
 
@@ -80,10 +92,31 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
                 setIsFinish(true)
             }, 100)
 
+            setRealSeconds(seconds)
+            setRealMinutes(minutes)
+
+            setPointsData({
+                points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
+                    users.user.user.categories.filter(category => category.isUnlocked && category.isSelect).length * games.game.corrects) / (seconds + (60 * minutes)))
+            })
+
             return
         }
 
         setNumberQuestion(numberQuestion + 1)
+    }
+
+    const experienceUser = async () => {
+
+        if(points !== 0) {
+            try {
+                const { data } = await updateExperienceApi(users.user.user.level._id, pointsData, users.user.token)
+                dispatch(updateOptionsAction(data))
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
     }
 
     useEffect(() => {
@@ -112,6 +145,12 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
         }, 1000);
     }, [seconds])
 
+    useEffect(() => {
+        console.log(points);
+        experienceUser()
+    }, [points])
+
+
     return (
         <View style={gameStyles.gameContainer}>
             {
@@ -121,7 +160,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
                 isIncorrect && <View style={gameStyles.containerIncorrect} />
             }
             {
-                isFinish && <Finish minutes={minutes} seconds={seconds} corrects={games.game.corrects} points={points} navigation={navigation} />
+                isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points} navigation={navigation} />
             }
             <View style={gameStyles.containerQuestion}>
                 {

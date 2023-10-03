@@ -36,3 +36,30 @@ export const createLevels = async (req: Request, res: Response): Promise<Respons
     }
 
 }
+
+export const updateLevels = async (req: Request, res: Response): Promise<Response> => {
+
+    const { max } = req.body
+    const { id } = req.params
+
+    try {
+
+        const level = await Level.findById(id)
+
+        if(!level) {
+            return res.status(400).json({ message: "Level does not exists" })
+        }
+
+        await Level.findByIdAndUpdate(id, {
+            max
+        }, {
+            new: true
+        })
+
+        return res.status(200).json({ message: "Level updated successfully" })
+        
+    } catch (error) {
+        throw error
+    }
+
+}

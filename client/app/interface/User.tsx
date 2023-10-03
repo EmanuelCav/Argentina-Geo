@@ -91,6 +91,7 @@ export interface IExperience {
     year: number;
     total: number;
     user: IUser;
+    levelExperience: number;
 }
 
 export interface IPassword {
@@ -99,4 +100,8 @@ export interface IPassword {
 
 export interface INickname {
     nickname: string;
+}
+
+export interface IPoints {
+    points: number;
 }

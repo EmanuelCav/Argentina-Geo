@@ -47,8 +47,8 @@ const ChangeCode = ({ setIsCode, user }: ChangeCodeProps) => {
             <View style={authStyles.containerForm}>
                 <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={false} />
                 <View style={authStyles.separator}>
-                    <ButtonSettings text="Aceptar" redirect={handleSumbit} />
-                    <ButtonSettings text="Regresar" redirect={redirectSettings} />
+                    <ButtonSettings text="Aceptar" styles={null} redirect={handleSumbit} />
+                    <ButtonSettings text="Regresar" styles={null} redirect={redirectSettings} />
                 </View>
             </View>
         </View>

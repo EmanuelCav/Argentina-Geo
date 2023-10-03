@@ -555,3 +555,75 @@ export const unlockCategory = async (req: Request, res: Response) => {
     }
 
 }
+
+export const updateExperience = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+    const { points } = req.body
+
+    try {
+
+        console.log(points);
+        
+
+        const experience = await Experience.findOne({
+            user: req.user
+        })
+
+        if (!experience) {
+            return res.status(400).json({ message: "Experiece does not exists" })
+        }
+
+        const experienceUpdated = await Experience.findByIdAndUpdate(experience._id, {
+            total: experience.total + points,
+            levelExperience: experience.levelExperience + points
+        }, {
+            new: true
+        })
+        
+        const level = await Level.findById(id)
+
+        if (!level) {
+            return res.status(400).json({ message: "Level does not exists" })
+        }
+
+        if (experienceUpdated?.levelExperience! >= level.max) {
+
+            const nextLevel = await Level.findOne({ level: level.level + 1 })
+
+            await Experience.findByIdAndUpdate(experience._id, {
+                levelExperience: experienceUpdated?.levelExperience! - level.max
+            }, {
+                new: true
+            })
+
+            await User.findByIdAndUpdate(req.user, {
+                level: nextLevel?._id
+            }, {
+                new: true
+            })
+
+        }
+
+        const user = await User.findById(req.user)
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+            .populate("level")
+            .populate("points")
+
+        return res.status(200).json(user)
+
+    } catch (error) {
+        throw error
+    }
+
+}

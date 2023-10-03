@@ -32,10 +32,13 @@ router.put('/users/password/:id', auth, validPassword, usersCtrl.updatePassword)
 router.put('/users/nickname/:id', auth, validNickname, usersCtrl.updateNickname)
 router.put('/users/location/:id', auth, usersCtrl.updateLocation)
 router.put('/users/category/:id', auth, usersCtrl.unlockCategory)
+router.put('/users/experience/:id', auth, usersCtrl.updateExperience)
 
 // router.get('/levels', [auth, validRole], validLevel, levelsCtrl.levels)
 router.get('/levels', levelsCtrl.levels)
 // router.post('/levels', [auth, validRole], validLevel, levelsCtrl.createLevels)
 router.post('/levels', validLevel, levelsCtrl.createLevels)
+// router.post('/levels', [auth, validRole], validLevel, levelsCtrl.createLevels)
+router.put('/levels/:id', levelsCtrl.updateLevels)
 
 export default router
