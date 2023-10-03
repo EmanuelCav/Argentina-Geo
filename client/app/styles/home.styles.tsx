@@ -155,6 +155,18 @@ export const homeStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+
+    containerIconUnlockCategory: {
+        position: 'absolute',
+        width: '100%',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    iconUnlockCategory: {
+        left: '40%'
     }
 
 })

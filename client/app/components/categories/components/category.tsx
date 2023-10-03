@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { View, Text, Dimensions } from 'react-native'
+import { useEffect, useRef } from "react";
+import { View, Text, Dimensions, Animated } from 'react-native'
 import { useDispatch } from "react-redux";
 import CheckBox from 'expo-checkbox'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -15,6 +15,8 @@ const Category = ({ user, category }: CategoryProps) => {
 
     const dispatch = useDispatch()
 
+    const animate = useRef(new Animated.Value(0.5)).current
+
     const selectCategory = async () => {
 
         try {
@@ -27,7 +29,7 @@ const Category = ({ user, category }: CategoryProps) => {
 
     const newUnlock = async () => {
 
-        if (user.user.categories.filter((u) => u.isUnlocked === true).length !== user.user.level.level) {
+        if (user.user.categories.filter((u) => u.isUnlocked).length !== user.user.level.level) {
             try {
                 const { data } = await unlockCategoryApi(category._id, user.token)
                 dispatch(updateOptionsAction(data))
@@ -41,6 +43,29 @@ const Category = ({ user, category }: CategoryProps) => {
     useEffect(() => {
     }, [user.user, dispatch])
 
+    useEffect(() => {
+        if (user.user.categories.filter((u) => u.isUnlocked).length !== user.user.level.level) {
+            Animated.loop(
+                Animated.sequence([
+                    Animated.timing(animate, {
+                        toValue: 45,
+                        useNativeDriver: true,
+                        delay: 1000
+                    }),
+                    Animated.timing(animate, {
+                        toValue: -45,
+                        useNativeDriver: true
+                    }),
+                    Animated.timing(animate, {
+                        toValue: 0,
+                        useNativeDriver: true
+                    })
+                ])
+            )
+                .start();
+        }
+    }, []);
+
     return (
         <View style={category.isUnlocked ? menuStyles.categoryContainer : menuStyles.categoryContainerUnlocked}>
             <Text adjustsFontSizeToFit style={category.isUnlocked ? menuStyles.textCategory : menuStyles.textCategoryUnlocked}>
@@ -52,15 +77,25 @@ const Category = ({ user, category }: CategoryProps) => {
                         value={category.isSelect}
                         onValueChange={selectCategory}
                         color={category.isSelect ? '#597EEE' : undefined}
-                        style={menuStyles.iconCategory}
                     />
                 ) : (
                     <>
                         {
-                            user.user.categories.filter((u) => u.isUnlocked === true).length === user.user.level.level ? (
+                            user.user.categories.filter((u) => u.isUnlocked).length === user.user.level.level ? (
                                 <AntDesign name="lock" color={"#fff"} size={Dimensions.get('window').height / 37} />
                             ) : (
-                                <AntDesign name="unlock" color={"#fff"} size={Dimensions.get('window').height / 37} onPress={newUnlock} />
+                                <Animated.View style={{
+                                    transform: [
+                                        {
+                                            rotate: animate.interpolate({
+                                                inputRange: [0, 100],
+                                                outputRange: ['0deg', '45deg']
+                                            }),
+                                        },
+                                    ]
+                                }}>
+                                    <AntDesign name="unlock" color={"#fff"} size={Dimensions.get('window').height / 37} onPress={newUnlock} />
+                                </Animated.View>
                             )
                         }
                     </>

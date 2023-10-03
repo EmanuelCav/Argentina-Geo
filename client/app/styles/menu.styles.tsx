@@ -170,10 +170,6 @@ export const menuStyles = StyleSheet.create({
     categoryProfile: {
         fontSize: Dimensions.get('window').height/41.11,
         fontWeight: '600'
-    },
-
-    iconCategory: {
-        height: Dimensions.get('window').height/46.25
     }
 
 })

@@ -59,7 +59,7 @@ const Categories = ({ user, categories, setIsCategories }: CategoriesProps) => {
                     </View>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Aceptar" redirect={acceptCategories} isAccept={true} />
+                    <ButtonMenu text="Aceptar" redirect={acceptCategories} isAccept={true} isCategory={false} />
                 </View>
             </View>
         </View>

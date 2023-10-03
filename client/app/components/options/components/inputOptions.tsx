@@ -50,7 +50,7 @@ const InputOptions = ({ setIsOptionsGame }: { setIsOptionsGame: (isOptionsGame: 
                 <SliderQuestion setOptionsData={setOptionsData} optionsData={optionsData} amountQuestions={amountQuestions} />
             </View>
             <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Aceptar" redirect={acceptOptions} isAccept={true} />
+                <ButtonMenu text="Aceptar" redirect={acceptOptions} isAccept={true} isCategory={false} />
             </View>
         </View>
     )

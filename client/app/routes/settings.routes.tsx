@@ -121,7 +121,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
             <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname} 
             setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} />
             <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} />
+                <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} isCategory={false} />
             </View>
         </View>
     )

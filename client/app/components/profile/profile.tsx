@@ -76,7 +76,7 @@ const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
                     </ScrollView>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Aceptar" redirect={cancelProfile} isAccept={true} />
+                    <ButtonMenu text="Aceptar" redirect={cancelProfile} isAccept={true} isCategory={false} />
                 </View>
             </View>
         </View>

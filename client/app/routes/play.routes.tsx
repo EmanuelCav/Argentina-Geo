@@ -54,10 +54,11 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
                 isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} />
             }
             <View style={homeStyles.containerMenuButtons}>
-                <ButtonMenu text="Iniciar juego" redirect={generateGame} isAccept={false} />
-                <ButtonMenu text="Categorías" redirect={showCategories} isAccept={false} />
-                <ButtonMenu text="Opciones" redirect={showOptions} isAccept={false} />
-                <ButtonMenu text="Regresar" redirect={() => navigation.goBack()} isAccept={false} />
+                <ButtonMenu text="Iniciar juego" redirect={generateGame} isAccept={false} isCategory={false} />
+                <ButtonMenu text="Categorías" redirect={showCategories} isAccept={false}
+                    isCategory={users.user.user.categories.filter((u) => u.isUnlocked).length !== users.user.user.level.level ? true : false} />
+                <ButtonMenu text="Opciones" redirect={showOptions} isAccept={false} isCategory={false} />
+                <ButtonMenu text="Regresar" redirect={() => navigation.goBack()} isAccept={false} isCategory={false} />
             </View>
         </View>
     )

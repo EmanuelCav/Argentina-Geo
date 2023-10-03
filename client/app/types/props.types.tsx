@@ -20,6 +20,7 @@ export type ButtonGameProps = {
     text: string;
     redirect: () => void;
     isAccept: boolean;
+    isCategory: boolean;
 }
 
 export type ButtonNavigateProps = {

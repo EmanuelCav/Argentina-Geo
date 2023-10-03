@@ -23,7 +23,7 @@ const Finish = ({ minutes, seconds, corrects, points, navigation }: FinishProps)
                 <Text style={gameStyles.textDataGame}>Total de puntos: {points}xp</Text>
             </View>
             <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Continuar" redirect={navigateHome} isAccept={true} />
+                <ButtonMenu text="Continuar" redirect={navigateHome} isAccept={true} isCategory={false} />
             </View>
         </View>
     )
