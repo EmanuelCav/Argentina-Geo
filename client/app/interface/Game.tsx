@@ -1,4 +1,5 @@
-import { IUser } from "./User";
+import { StackNavigation } from "../types/props.types";
+import { ILogin, IUser } from "./User";
 
 export interface IGame {
     _id: string;
@@ -30,7 +31,6 @@ export interface ICategories {
 export interface ICounterGame {
     games: IGame[],
     game: object;
-    categories: ICategories[]
 }
 
 export interface IQuestion {
@@ -60,4 +60,9 @@ export interface IQuestionGame {
     image: IImage;
     answer: string;
     text: string;
+}
+
+export interface IGameGenerate {
+    token: string;
+    navigation: StackNavigation;
 }

@@ -1,3 +1,5 @@
+import { StackNavigation } from "../types/props.types";
+import { UserReducerType } from "../types/user.types";
 import { ICategoriesUser } from "./Game";
 
 interface ICounterUserReducer {
@@ -104,4 +106,15 @@ export interface INickname {
 
 export interface IPoints {
     points: number;
+}
+
+export interface IAuthAction {
+    userData: ILogin;
+    setIsAuth: (isAuth: boolean) => void;
+    navigation: StackNavigation;
+}
+
+export interface IGetUserAction {
+    user: UserReducerType;
+    setIsProfile: (isProfile: boolean) => void;
 }

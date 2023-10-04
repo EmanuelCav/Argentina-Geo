@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { View, Text } from "react-native";
-import { useSelector } from 'react-redux'
+import { View } from "react-native";
+import { useSelector, useDispatch } from 'react-redux'
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
 
@@ -23,6 +23,8 @@ import { selector } from "../helper/selector";
 const Settings = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
+
+    const dispatch = useDispatch()
 
     const initialState: ISetting = {
         pais: users.user.user.pais.name,
@@ -109,7 +111,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
                 setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
             }
             {
-                isAuth && <Auth setIsAuth={setIsAuth} navigation={navigation} />
+                isAuth && <Auth setIsAuth={setIsAuth} navigation={navigation} dispatch={dispatch} />
             }
             {
                 isCode && <ChangeCode setIsCode={setIsCode} user={users.user} />

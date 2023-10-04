@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import { View, Text, ImageBackground, ScrollView } from "react-native";
-import { useDispatch } from 'react-redux'
 
 import ButtonMenu from "../buttonMenu";
 import CategoryUser from "./components/categoryUser";
-
-import { userApi } from "../../server/api/user.api";
-import { getUserAction } from "../../server/features/user.features";
 
 import { menuStyles } from '../../styles/menu.styles'
 import { homeStyles } from '../../styles/home.styles'
@@ -16,25 +12,10 @@ import { ICategoriesUser } from "../../interface/Game";
 
 import { totalCorrects, totalQuestions } from "../../helper/statistic";
 
-const Profile = ({ user, games, id, setIsProfile }: ProfileProps) => {
+const Profile = ({ user, games, setIsProfile }: ProfileProps) => {
 
-    const dispatch = useDispatch()
-
-    const [questions, setQuestions] = useState<number>(0)
-    const [corrects, setCorrects] = useState<number>(0)
-
-    const getData = async () => {
-        const { data } = await userApi(id, user.user.token)
-        dispatch(getUserAction(data))
-    }
-
-    useEffect(() => {
-
-        setQuestions(totalQuestions(user.profile.categories))
-        setCorrects(totalCorrects(user.profile.categories))
-
-        getData()
-    }, [dispatch])
+    const questions = useRef(totalQuestions(user.profile.categories)).current
+    const corrects = useRef(totalCorrects(user.profile.categories)).current
 
     const cancelProfile = () => {
         setIsProfile(false)

@@ -1,19 +1,27 @@
 import { View } from "react-native";
+import { useDispatch } from "react-redux";
 
 import ButtonMenu from "../buttonMenu";
+
+import { getUser } from "../../server/actions/user.actions";
 
 import { homeStyles } from "../../styles/home.styles";
 
 import { ShowStatisticsProps } from "../../types/props.types";
 
-const Options = ({ navigation, setIsProfile, isProfile }: ShowStatisticsProps) => {
+const Options = ({ navigation, setIsProfile, user }: ShowStatisticsProps) => {
+
+    const dispatch = useDispatch()
 
     const redirectPlay = () => {
         navigation.navigate('Play')
     }
 
     const showProfile = () => {
-        setIsProfile(!isProfile)
+        dispatch(getUser({
+            user,
+            setIsProfile
+        }) as any)
     }
 
     const redirectRanking = () => {

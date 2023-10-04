@@ -1,4 +1,5 @@
 import { SetStateAction } from 'react'
+import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IOptions, ISetting, IUser } from "../interface/User";
@@ -32,7 +33,7 @@ export type ButtonNavigateProps = {
 export type ShowStatisticsProps = {
     navigation: StackNavigation;
     setIsProfile: (isProfile: boolean) => void;
-    isProfile: boolean;
+    user: UserReducerType;
 }
 
 export type UserInfoProps = {
@@ -44,7 +45,6 @@ export type UserInfoProps = {
 export type ProfileProps = {
     user: UserReducerType;
     games: IGame[];
-    id: string;
     setIsProfile: (isProfile: boolean) => void;
 }
 
@@ -57,6 +57,7 @@ export type CategoriesProps = {
 export type NewProps = {
     navigation: StackNavigation;
     setIsAuth: (isAuth: boolean) => void;
+    dispatch: Dispatch<AnyAction>
 }
 
 export type InputProps = {

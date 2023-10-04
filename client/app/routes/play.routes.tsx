@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonMenu from "../components/buttonMenu";
 import Categories from "../components/categories/categories";
+import OptionsGame from "../components/options/options";
 
-import { createGameApi } from '../server/api/game.api'
-import { createGameAction, getGameAction } from '../server/features/game.features'
+import { game } from "../server/actions/game.actions";
 
 import { StackNavigation } from "../types/props.types";
 import { IReducer } from "../interface/Reducer";
@@ -14,7 +14,6 @@ import { IReducer } from "../interface/Reducer";
 import { homeStyles } from "../styles/home.styles";
 
 import { selector } from "../helper/selector";
-import OptionsGame from "../components/options/options";
 
 const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -26,15 +25,10 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
     const [isOptionsGame, setIsOptionsGame] = useState<boolean>(false)
 
     const generateGame = async () => {
-
-        try {
-            // const { data } = await createGameApi(users.user.token)
-            // dispatch(createGameAction(data))
-            // dispatch(getGameAction(data))
-            navigation.navigate('Playing')
-        } catch (error) {
-            console.log(error);
-        }
+        dispatch(game({
+            token: users.user.token,
+            navigation
+        }) as any)
     }
 
     const showCategories = () => {

@@ -14,6 +14,7 @@ import Play from './app/routes/play.routes';
 import Playing from "./app/routes/playing.routes";
 import Ranking from "./app/routes/ranking.routes";
 import Settings from './app/routes/settings.routes'
+import Loading from './app/components/response/loading';
 
 import store from "./app/server/store";
 
@@ -27,7 +28,7 @@ export default function App() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background:'transparent'
+      background: 'transparent'
     },
   };
 
@@ -36,6 +37,7 @@ export default function App() {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Container>
+            <Loading />
             <Stack.Navigator initialRouteName='New' screenOptions={{
               headerShown: false
             }}>

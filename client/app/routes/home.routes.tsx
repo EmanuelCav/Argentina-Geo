@@ -6,10 +6,10 @@ import User from '../components/home/user'
 import Options from '../components/home/options'
 import Profile from '../components/profile/profile';
 
-import { gamesApi, categoriesApi } from '../server/api/game.api'
-import { gamesAction, categoriesAction } from '../server/features/game.features'
+import { gamesApi } from '../server/api/game.api'
 import { firstTimeApi, loginApi, usersApi } from '../server/api/user.api'
 import { firstTimeAction, loginAction, usersAction } from '../server/features/user.features'
+import { gamesAction } from '../server/features/game.features'
 
 import { StackNavigation } from '../types/props.types'
 import { IReducer } from '../interface/Reducer';
@@ -47,16 +47,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         }
     }
 
-    const getCategories = async () => {
-
-        try {
-            const { data } = await categoriesApi(users.user.token)
-            dispatch(categoriesAction(data))
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     const generateUserData = async () => {
 
         try {
@@ -88,7 +78,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
             getLoginData()
             getUsers()
             getData()
-            getCategories()
         } else {
             generateUserData()
         }
@@ -101,12 +90,12 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerHome} >
             {
-                isProfile && <Profile user={users} games={games.games} id={users.user.user._id} setIsProfile={setIsProfile} />
+                isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
             }
             {
                 users.isLoggedIn && <User user={users.user.user} users={users.users} games={games.games} />
             }
-            <Options navigation={navigation} setIsProfile={setIsProfile} isProfile={isProfile} />
+            <Options navigation={navigation} setIsProfile={setIsProfile} user={users} />
         </View>
     )
 }

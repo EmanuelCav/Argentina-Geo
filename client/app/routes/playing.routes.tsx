@@ -14,6 +14,7 @@ import { questionsCorrectApi, questionsCountApi } from '../server/api/game.api'
 import { getGameAction } from '../server/features/game.features'
 import { updateExperienceApi } from '../server/api/user.api'
 import { updateOptionsAction } from '../server/features/user.features'
+import { loadingAction } from '../server/features/response.features'
 
 import { gameStyles } from '../styles/game.styles';
 
@@ -28,11 +29,11 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const usersOptions = (): number => {
         if (users.user.user.amountOptions === 2) {
-            return 14.73
+            return 16.54
         }
 
         if (users.user.user.amountOptions === 4) {
-            return 18.22
+            return 19.76
         }
 
         if (users.user.user.amountOptions === 6) {
@@ -75,11 +76,11 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const nextQuestion = async (item: string) => {
 
-        await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
+        // await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
 
         if (item === games.game.questions[numberQuestion].question.answer) {
-            const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
-            dispatch(getGameAction(data))
+            // const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
+            // dispatch(getGameAction(data))
             setIsCorrect(true)
         }
 
@@ -88,9 +89,13 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
         }
 
         if (numberQuestion === games.game.questions.length - 1) {
+
+            dispatch(loadingAction(true))
+
             setInterval(() => {
                 setIsFinish(true)
-            }, 100)
+                dispatch(loadingAction(false))
+            }, 2000)
 
             setRealSeconds(seconds)
             setRealMinutes(minutes)
@@ -108,7 +113,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const experienceUser = async () => {
 
-        if(points !== 0) {
+        if (points !== 0) {
             try {
                 const { data } = await updateExperienceApi(users.user.user.level._id, pointsData, users.user.token)
                 dispatch(updateOptionsAction(data))
@@ -146,7 +151,6 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
     }, [seconds])
 
     useEffect(() => {
-        console.log(points);
         experienceUser()
     }, [points])
 

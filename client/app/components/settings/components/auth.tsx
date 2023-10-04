@@ -1,21 +1,17 @@
 import { useState } from "react";
 import { View } from 'react-native'
-import { useDispatch } from "react-redux";
 
 import ButtonSettings from "./components/buttonSettings";
 import Input from "./components/input";
 
-import { loginApi } from '../../../server/api/user.api'
-import { loginAction } from '../../../server/features/user.features'
+import { auth } from "../../../server/actions/user.actions";
 
 import { authStyles } from '../../../styles/settings.styles'
 
 import { ILogin } from "../../../interface/User";
 import { NewProps } from "../../../types/props.types";
 
-const Auth = ({ navigation, setIsAuth }: NewProps) => {
-
-    const dispatch = useDispatch()
+const Auth = ({ navigation, setIsAuth, dispatch }: NewProps) => {
 
     const initialState: ILogin = {
         nickname: "",
@@ -41,19 +37,11 @@ const Auth = ({ navigation, setIsAuth }: NewProps) => {
     }
 
     const handleSumbit = async () => {
-
-        try {
-            const { data } = await loginApi(userData)
-            dispatch(loginAction(data))
-            setIsAuth(false)
-            navigation.navigate('Home')
-        } catch (error) {
-            console.log(error);
-            setUserData({
-                nickname: "",
-                password: ""
-            })
-        }
+        dispatch(auth({
+            userData,
+            setIsAuth,
+            navigation
+        }) as any)
     }
 
     const redirectNew = () => {

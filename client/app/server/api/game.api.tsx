@@ -18,14 +18,6 @@ export const createGameApi = async (token: string) => {
     })
 }
 
-export const categoriesApi = async (token: string) => {
-    return await api.get('/categories', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-}
-
 export const questionsCountApi = async (id: string, token: string) => {
     return await api.patch(`/questions/count/${id}`, null, {
         headers: {

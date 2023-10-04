@@ -5,10 +5,12 @@ import thunk from 'redux-thunk';
 
 import gameReducer from './features/game.features'
 import userReducer from './features/user.features'
+import responseReducer from './features/response.features'
 
 const reducers = combineReducers({
     users: userReducer,
-    games: gameReducer
+    games: gameReducer,
+    response: responseReducer
 })
 
 const persistedReducers = persistReducer({

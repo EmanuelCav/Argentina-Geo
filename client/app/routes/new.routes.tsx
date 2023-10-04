@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import NewUser from "../components/settings/newUser";
 import Auth from "../components/settings/components/auth";
@@ -12,10 +12,13 @@ import { newStyles } from '../styles/settings.styles'
 
 import { selector } from "../helper/selector";
 import { getUserData } from "../helper/storage";
+import { loadingAction } from "../server/features/response.features";
 
 const New = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
+
+    const dispatch = useDispatch()
 
     const [isAuth, setIsAuth] = useState<boolean>(false)
 
@@ -29,6 +32,12 @@ const New = ({ navigation }: { navigation: StackNavigation }) => {
                 navigation.navigate('Home')
             }
 
+            dispatch(loadingAction(true))
+
+            setTimeout(() => {
+                dispatch(loadingAction(false))
+            }, 2000);
+
         })()
 
     }, [])
@@ -39,9 +48,9 @@ const New = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={newStyles.containerNew}>
             {
-                isAuth && <Auth navigation={navigation} setIsAuth={setIsAuth} />
+                isAuth && <Auth navigation={navigation} setIsAuth={setIsAuth} dispatch={dispatch} />
             }
-            <NewUser navigation={navigation} setIsAuth={setIsAuth} />
+            <NewUser navigation={navigation} setIsAuth={setIsAuth} dispatch={dispatch} />
         </View>
     )
 }
