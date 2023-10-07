@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { View, Text, Image, Dimensions, ImageSourcePropType, StyleSheet } from 'react-native'
+import { View, Text, Image, Dimensions, ImageSourcePropType, StyleSheet, Pressable } from 'react-native'
 
 import Finish from '../components/game/finish'
 import DataGame from '../components/game/dataGame'
@@ -70,6 +70,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const [isCorrect, setIsCorrect] = useState<boolean>(false)
     const [isIncorrect, setIsIncorrect] = useState<boolean>(false)
+    const [isPreFinish, setIsPreFinish] = useState<boolean>(false)
     const [isFinish, setIsFinish] = useState<boolean>(false)
 
     const { points } = pointsData
@@ -90,12 +91,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
         if (numberQuestion === games.game.questions.length - 1) {
 
-            dispatch(loadingAction(true))
-
-            setInterval(() => {
-                setIsFinish(true)
-                dispatch(loadingAction(false))
-            }, 2000)
+            setIsPreFinish(true)
 
             setRealSeconds(seconds)
             setRealMinutes(minutes)
@@ -124,6 +120,17 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     }
 
+    const redirectFinish = () => {
+
+        dispatch(loadingAction(true))
+        setIsPreFinish(false)
+        
+        setTimeout(() => {
+            setIsFinish(true)
+            dispatch(loadingAction(false))
+        }, 1000);
+    }
+
     useEffect(() => {
 
         setTimeout(() => {
@@ -144,7 +151,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
         }
 
         setTimeout(() => {
-            if (!isFinish) {
+            if (!isFinish && !isPreFinish) {
                 setSeconds(seconds + 1)
             }
         }, 1000);
@@ -165,6 +172,15 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
             }
             {
                 isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points} navigation={navigation} />
+            }
+            {
+                isPreFinish &&
+                <Pressable style={gameStyles.containerPreFinish} onPress={redirectFinish}>
+                    <View style={gameStyles.containPreFinish}>
+                        <Text style={gameStyles.textHeaderGame}>¡Juego Finalizado!</Text>
+                        <Text style={gameStyles.textFinishGame}>Pulsa para continuar</Text>
+                    </View>
+                </Pressable>
             }
             <View style={gameStyles.containerQuestion}>
                 {
