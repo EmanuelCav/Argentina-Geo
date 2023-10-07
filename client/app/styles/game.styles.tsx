@@ -6,7 +6,7 @@ export const gameStyles = StyleSheet.create({
         width: '100%',
         height: '100%',
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column'
     },
@@ -35,11 +35,11 @@ export const gameStyles = StyleSheet.create({
     containerSectionOptions: {
         width: '50%',
         height: '100%',
-        padding: Dimensions.get("window").height/106
+        padding: Dimensions.get("window").height / 106
     },
 
     buttonOptions: {
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         borderRadius: 12,
         backgroundColor: '#597EEE',
         borderWidth: 2,
@@ -48,12 +48,12 @@ export const gameStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        marginVertical: Dimensions.get("window").height/61.66
+        marginVertical: Dimensions.get("window").height / 61.66
     },
 
     containerDataGame: {
         width: '100%',
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         display: 'flex',
         justifyContent: 'space-evenly',
         flexDirection: 'row',
@@ -61,7 +61,7 @@ export const gameStyles = StyleSheet.create({
     },
 
     textDataGame: {
-        fontSize: Dimensions.get("window").height/37,
+        fontSize: Dimensions.get("window").height / 37,
         color: '#597EEE'
     },
 
@@ -101,7 +101,7 @@ export const gameStyles = StyleSheet.create({
     },
 
     containPreFinish: {
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         backgroundColor: '#597EEE',
         width: '66%',
         height: '22%',
@@ -113,32 +113,36 @@ export const gameStyles = StyleSheet.create({
     },
 
     containerFinish: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        zIndex: 14,
         backgroundColor: '#fff',
         width: '100%',
-        height: '100%',
-        padding: Dimensions.get("window").height/46.25,
+        padding: Dimensions.get("window").height / 46.25,
     },
 
     containerDataFinish: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: Dimensions.get("window").height / 106,
+        marginVertical: Dimensions.get("window").height / 46.25
     },
 
     textHeaderGame: {
-        fontSize: Dimensions.get("window").height/29.63,
+        fontSize: Dimensions.get("window").height / 29.63,
         color: '#fff',
         textAlign: 'center'
     },
 
     textFinishGame: {
-        fontSize: Dimensions.get("window").height/37,
+        fontSize: Dimensions.get("window").height / 37,
         color: '#fff',
         textAlign: 'center'
+    },
+
+    textErrorsGame: {
+        fontSize: Dimensions.get("window").height / 29.63,
+        color: '#597EEE',
+        fontWeight: '600',
+        marginVertical: Dimensions.get("window").height / 37
     }
 
 })
@@ -151,8 +155,8 @@ export const configGamesStyles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: 'rgba(89, 205, 238, 0.9)',
         zIndex: 14,
-        paddingVertical: Dimensions.get("window").height/16.81,
-        paddingHorizontal: Dimensions.get("window").width/36
+        paddingVertical: Dimensions.get("window").height / 16.81,
+        paddingHorizontal: Dimensions.get("window").width / 36
     },
 
     configGamesContain: {
@@ -162,8 +166,8 @@ export const configGamesStyles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'column',
-        paddingVertical: Dimensions.get("window").height/61.66,
-        paddingHorizontal: Dimensions.get("window").width/60
+        paddingVertical: Dimensions.get("window").height / 61.66,
+        paddingHorizontal: Dimensions.get("window").width / 60
     },
 
     containShowConfig: {
@@ -172,7 +176,7 @@ export const configGamesStyles = StyleSheet.create({
     },
 
     containMoveCategories: {
-        marginVertical: Dimensions.get("window").height/52.85,
+        marginVertical: Dimensions.get("window").height / 52.85,
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-around',
@@ -180,13 +184,13 @@ export const configGamesStyles = StyleSheet.create({
     },
 
     iconMoveCategories: {
-        fontSize: Dimensions.get("window").height/33.63,
+        fontSize: Dimensions.get("window").height / 33.63,
         fontWeight: '900',
         color: '#111'
     },
 
     iconMoveCategoriesDisable: {
-        fontSize: Dimensions.get("window").height/33.63,
+        fontSize: Dimensions.get("window").height / 33.63,
         fontWeight: '900',
         color: '#888'
     }

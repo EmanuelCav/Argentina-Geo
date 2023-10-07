@@ -3,8 +3,9 @@ import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IOptions, ISetting, IUser } from "../interface/User";
-import { ICategoriesUser, IGame } from "../interface/Game";
+import { ICategoriesUser, IGame, IQuestion } from "../interface/Game";
 import { UserDataType, UserReducerType } from "./user.types";
+import { GameType } from './games.types';
 
 type RoutesProps = {
     New: undefined;
@@ -157,4 +158,18 @@ export type FinishProps = {
     corrects: number;
     points: number;
     navigation: StackNavigation;
+    viewErrors: () => void;
+    areErrors: boolean;
+}
+
+export type ShowQuestionProps = {
+    questions: IQuestion[];
+    numberQuestion: number;
+}
+
+export type ShowOptionGameProps = {
+    questions: IQuestion[];
+    numberQuestion: number;
+    styles: any;
+    nextQuestion: (item: string) => void;
 }

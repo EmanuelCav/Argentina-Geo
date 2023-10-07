@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { View, Text, Image, Dimensions, ImageSourcePropType, StyleSheet, Pressable } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, Pressable } from 'react-native'
 
 import Finish from '../components/game/finish'
 import DataGame from '../components/game/dataGame'
-import OptionGame from '../components/game/optionGame'
+import ShowOptionsGame from '../components/game/showOptionsGame'
 
 import { IReducer } from '../interface/Reducer'
 import { IPoints } from '../interface/User'
+import { IQuestion } from '../interface/Game'
 import { StackNavigation } from '../types/props.types'
 
 import { questionsCorrectApi, questionsCountApi } from '../server/api/game.api'
@@ -19,6 +20,7 @@ import { loadingAction } from '../server/features/response.features'
 import { gameStyles } from '../styles/game.styles';
 
 import { selector } from '../helper/selector'
+import ShowQuestion from '../components/game/showQuestion'
 
 const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -61,6 +63,9 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const [pointsData, setPointsData] = useState<IPoints>(initialState)
 
+    const [errors, setErrors] = useState<IQuestion[]>([])
+    const [errorsGame, setErrorsGame] = useState<IQuestion[]>([])
+
     const [seconds, setSeconds] = useState<number>(0)
     const [minutes, setMinutes] = useState<number>(0)
     const [realSeconds, setRealSeconds] = useState<number>(0)
@@ -72,34 +77,57 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
     const [isIncorrect, setIsIncorrect] = useState<boolean>(false)
     const [isPreFinish, setIsPreFinish] = useState<boolean>(false)
     const [isFinish, setIsFinish] = useState<boolean>(false)
+    const [isGameError, setIsGameError] = useState<boolean>(false)
 
     const { points } = pointsData
 
+    const viewErrors = () => {
+
+        dispatch(loadingAction(true))
+        setIsGameError(true)
+        setIsFinish(false)
+        setNumberQuestion(0)
+
+        setErrorsGame(errors)
+        setErrors([])
+
+        setTimeout(() => {
+            dispatch(loadingAction(false))
+        }, 800);
+    }
+
     const nextQuestion = async (item: string) => {
 
-        // await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
+        if (!isGameError) {
+            // await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
+        }
 
-        if (item === games.game.questions[numberQuestion].question.answer) {
-            // const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
-            // dispatch(getGameAction(data))
+        if (item === (isGameError ? (errorsGame[numberQuestion].question.answer) : (games.game.questions[numberQuestion].question.answer))) {
+            if (!isGameError) {
+                // const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
+                // dispatch(getGameAction(data))
+            }
             setIsCorrect(true)
         }
 
-        if (item !== games.game.questions[numberQuestion].question.answer) {
+        if (item !== (isGameError ? (errorsGame[numberQuestion].question.answer) : (games.game.questions[numberQuestion].question.answer))) {
+            setErrors([...errors, games.game.questions[numberQuestion]])
             setIsIncorrect(true)
         }
 
-        if (numberQuestion === games.game.questions.length - 1) {
+        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (games.game.questions.length - 1))) {
 
             setIsPreFinish(true)
 
-            setRealSeconds(seconds)
-            setRealMinutes(minutes)
+            if (!isGameError) {
+                setRealSeconds(seconds)
+                setRealMinutes(minutes)
 
-            setPointsData({
-                points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
-                    users.user.user.categories.filter(category => category.isUnlocked && category.isSelect).length * games.game.corrects) / (seconds + (60 * minutes)))
-            })
+                setPointsData({
+                    points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
+                        users.user.user.categories.filter(category => category.isUnlocked && category.isSelect).length * games.game.corrects) / (seconds + (60 * minutes)))
+                })
+            }
 
             return
         }
@@ -124,7 +152,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
         dispatch(loadingAction(true))
         setIsPreFinish(false)
-        
+
         setTimeout(() => {
             setIsFinish(true)
             dispatch(loadingAction(false))
@@ -141,77 +169,70 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
     }, [isCorrect, isIncorrect])
 
     useEffect(() => {
-        if (seconds === 60) {
-            setSeconds(0)
-            setMinutes(minutes + 1)
-        }
-
-        if (minutes === 60) {
-            return
-        }
-
-        setTimeout(() => {
-            if (!isFinish && !isPreFinish) {
-                setSeconds(seconds + 1)
+        if (!isGameError) {
+            if (seconds === 60) {
+                setSeconds(0)
+                setMinutes(minutes + 1)
             }
-        }, 1000);
+
+            if (minutes === 60) {
+                return
+            }
+
+            setTimeout(() => {
+                if (!isFinish && !isPreFinish) {
+                    setSeconds(seconds + 1)
+                }
+            }, 1000);
+        }
     }, [seconds])
 
     useEffect(() => {
-        experienceUser()
+        if (!isGameError) {
+            experienceUser()
+        }
     }, [points])
-
 
     return (
         <View style={gameStyles.gameContainer}>
             {
-                isCorrect && <View style={gameStyles.containerCorrect} />
+                isFinish ? (
+                    <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points}
+                        navigation={navigation} viewErrors={viewErrors} areErrors={errors.length === 0 ? false : true} />
+                ) : (
+                    <>
+                        {
+                            isCorrect && <View style={gameStyles.containerCorrect} />
+                        }
+                        {
+                            isIncorrect && <View style={gameStyles.containerIncorrect} />
+                        }
+                        {
+                            isPreFinish &&
+                            <Pressable style={gameStyles.containerPreFinish} onPress={redirectFinish}>
+                                <View style={gameStyles.containPreFinish}>
+                                    <Text style={gameStyles.textHeaderGame}>¡Juego Finalizado!</Text>
+                                    <Text style={gameStyles.textFinishGame}>Pulsa para continuar</Text>
+                                </View>
+                            </Pressable>
+                        }
+                        {
+                            isGameError ? (
+                                <>
+                                    <ShowQuestion questions={errorsGame} numberQuestion={numberQuestion} />
+                                    <ShowOptionsGame questions={errorsGame} numberQuestion={numberQuestion} styles={styles} nextQuestion={nextQuestion} />
+                                </>
+                            ) : (
+                                <>
+                                    <ShowQuestion questions={games.game.questions} numberQuestion={numberQuestion} />
+                                    <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} seconds={seconds} minutes={minutes} />
+                                    <ShowOptionsGame questions={games.game.questions} numberQuestion={numberQuestion} styles={styles} nextQuestion={nextQuestion} />
+                                </>
+                            )
+                        }
+                    </>
+                )
             }
-            {
-                isIncorrect && <View style={gameStyles.containerIncorrect} />
-            }
-            {
-                isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points} navigation={navigation} />
-            }
-            {
-                isPreFinish &&
-                <Pressable style={gameStyles.containerPreFinish} onPress={redirectFinish}>
-                    <View style={gameStyles.containPreFinish}>
-                        <Text style={gameStyles.textHeaderGame}>¡Juego Finalizado!</Text>
-                        <Text style={gameStyles.textFinishGame}>Pulsa para continuar</Text>
-                    </View>
-                </Pressable>
-            }
-            <View style={gameStyles.containerQuestion}>
-                {
-                    games.game.questions[numberQuestion].question.image ? (
-                        <Image source={games.game.questions[numberQuestion].question.image.image as ImageSourcePropType}
-                            style={gameStyles.imageQuestion} resizeMode={'contain'} />
-                    ) : (
-                        <View>
-                            <Text>{games.game.questions[numberQuestion].question.text}</Text>
-                            <Text>{games.game.questions[numberQuestion].question.text}</Text>
-                        </View>
-                    )
-                }
-            </View>
-            <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} seconds={seconds} minutes={minutes} />
-            <View style={gameStyles.containerOptions}>
-                <View style={gameStyles.containerSectionOptions}>
-                    {
-                        games.game.questions[numberQuestion].options.map((item, index) => {
-                            return <OptionGame styles={styles} text={item} key={index} redirect={() => nextQuestion(item)} />
-                        }).slice(0, games.game.questions[numberQuestion].options.length / 2)
-                    }
-                </View>
-                <View style={gameStyles.containerSectionOptions}>
-                    {
-                        games.game.questions[numberQuestion].options.map((item, index) => {
-                            return <OptionGame styles={styles} text={item} key={index} redirect={() => nextQuestion(item)} />
-                        }).slice(games.game.questions[numberQuestion].options.length / 2, games.game.questions[numberQuestion].options.length)
-                    }
-                </View>
-            </View>
         </View>
     )
 }
