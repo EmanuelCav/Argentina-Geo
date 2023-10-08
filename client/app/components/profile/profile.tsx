@@ -32,21 +32,23 @@ const Profile = ({ user, games, setIsProfile }: ProfileProps) => {
                             </ImageBackground>
                             <Text style={menuStyles.textNicknameProfile}>{user.profile.nickname}</Text>
                         </View>
-                        <Text style={homeStyles.userInfo}>{user.profile.pais.name}</Text>
-                        <Text style={homeStyles.userInfo} adjustsFontSizeToFit>{user.profile.provincia && user.profile.provincia.name}
-                            {user.profile.municipio && (
-                                <Text> - {user.profile.municipio.name}</Text>)}
-                        </Text>
-                        <Text style={homeStyles.userInfo}>Posición: {user.users.map((u) => u._id).indexOf(user.user.user._id) + 1}°</Text>
-                        <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
-                        <Text style={homeStyles.userInfo}>Preguntas totales: {questions}</Text>
-                        <Text style={homeStyles.userInfo}>Respuestas correctas: {corrects} ({
-                            questions === 0 ? (
-                                (questions).toFixed(2)
-                            ) : (
-                                ((corrects * 100) / questions).toFixed(2)
-                            )
-                        }%)</Text>
+                        <View style={homeStyles.containerMainInfoProfile}>
+                            <Text style={homeStyles.userInfoProfile}>{user.profile.pais.name}</Text>
+                            <Text style={homeStyles.userInfoProfile} adjustsFontSizeToFit>{user.profile.provincia && user.profile.provincia.name}
+                                {user.profile.municipio && (
+                                    <Text> - {user.profile.municipio.name}</Text>)}
+                            </Text>
+                            <Text style={homeStyles.userInfoProfile}>Posición: {user.users.map((u) => u._id).indexOf(user.user.user._id) + 1}°</Text>
+                            <Text style={homeStyles.userInfoProfile}>Partidas jugadas: {games.length}</Text>
+                            <Text style={homeStyles.userInfoProfile}>Preguntas totales: {questions}</Text>
+                            <Text style={homeStyles.userInfoProfile}>Correctas: {corrects} ({
+                                questions === 0 ? (
+                                    (questions).toFixed(2)
+                                ) : (
+                                    ((corrects * 100) / questions).toFixed(2)
+                                )}%)
+                            </Text>
+                        </View>
                         <View>
                             {
                                 user.profile.categories.map((category: ICategoriesUser) => {

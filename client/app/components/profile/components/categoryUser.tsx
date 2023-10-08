@@ -9,15 +9,15 @@ const CategoryUser = ({ category }: { category: ICategoriesUser }) => {
     return (
         <View style={menuStyles.containCategoryProfile}>
             <Text style={menuStyles.categoryProfile}>{category.category.name}</Text>
-            <Text style={homeStyles.userInfo}>Cantidad de preguntas: {category.questions}</Text>
-            <Text style={homeStyles.userInfo}>Respuestas correctas: {category.corrects}</Text>
+            <Text style={homeStyles.userInfoProfile}>Cantidad de preguntas: {category.questions}</Text>
+            <Text style={homeStyles.userInfoProfile}>Respuestas correctas: {category.corrects}</Text>
             <>
                 {category.questions === 0 ? (
-                    <Text style={homeStyles.userInfo}>
+                    <Text style={homeStyles.userInfoProfile}>
                         Efectividad: {(category.questions).toFixed(2)}%
                     </Text>
                 ) : (
-                    <Text style={homeStyles.userInfo}>
+                    <Text style={homeStyles.userInfoProfile}>
                         Efectividad: {((category.corrects * 100) / category.questions).toFixed(2)}%
                     </Text>
                 )

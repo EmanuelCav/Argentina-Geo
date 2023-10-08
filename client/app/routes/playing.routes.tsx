@@ -31,19 +31,19 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const usersOptions = (): number => {
         if (users.user.user.amountOptions === 2) {
-            return 16.54
+            return 19.54
         }
 
         if (users.user.user.amountOptions === 4) {
-            return 19.76
+            return 22.12
         }
 
         if (users.user.user.amountOptions === 6) {
-            return 22.86
+            return 25.86
         }
 
         if (users.user.user.amountOptions === 8) {
-            return 26.31
+            return 29.31
         }
 
         return 22.31
@@ -152,9 +152,9 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
         dispatch(loadingAction(true))
         setIsPreFinish(false)
+        setIsFinish(true)
 
         setTimeout(() => {
-            setIsFinish(true)
             dispatch(loadingAction(false))
         }, 1000);
     }
@@ -198,7 +198,8 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
             {
                 isFinish ? (
                     <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points}
-                        navigation={navigation} viewErrors={viewErrors} areErrors={errors.length === 0 ? false : true} />
+                        navigation={navigation} viewErrors={viewErrors} 
+                        isGameError={isGameError} areErrors={errors.length === 0 ? false : true} />
                 ) : (
                     <>
                         {

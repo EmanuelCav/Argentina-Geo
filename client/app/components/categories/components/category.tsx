@@ -77,6 +77,7 @@ const Category = ({ user, category }: CategoryProps) => {
                         value={category.isSelect}
                         onValueChange={selectCategory}
                         color={category.isSelect ? '#597EEE' : undefined}
+                        style={{ padding: Dimensions.get("window").height / 92.5 }}
                     />
                 ) : (
                     <>

@@ -86,6 +86,7 @@ export type SelectQuestionProps = {
     setOptionsData: (optionData: SetStateAction<IOptions>) => void; 
     optionsData: IOptions, 
     amountQuestions: number;
+    level: number;
 }
 
 export type ChangeCodeProps = {
@@ -160,6 +161,7 @@ export type FinishProps = {
     navigation: StackNavigation;
     viewErrors: () => void;
     areErrors: boolean;
+    isGameError: boolean;
 }
 
 export type ShowQuestionProps = {

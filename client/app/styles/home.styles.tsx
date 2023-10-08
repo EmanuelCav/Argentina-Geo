@@ -12,7 +12,7 @@ export const generalStyles = StyleSheet.create({
     containSelector: {
         height: '50%',
         width: '100%',
-        padding: Dimensions.get("window").height/46.25,
+        padding: Dimensions.get("window").height / 46.25,
         justifyContent: 'space-around',
         flexDirection: 'column',
         alignItems: 'center'
@@ -30,8 +30,8 @@ export const homeStyles = StyleSheet.create({
 
     containerUserHome: {
         height: '30%',
-        backgroundColor: '#5d8cff',
-        padding: Dimensions.get("window").height/46.25
+        backgroundColor: '#597EEE',
+        padding: Dimensions.get("window").height / 46.25
     },
 
     userInfoLevel: {
@@ -42,19 +42,21 @@ export const homeStyles = StyleSheet.create({
     },
 
     userNickname: {
-        fontSize: Dimensions.get("window").height/34,
+        fontSize: Dimensions.get("window").height / 34,
+        color: '#fff'
     },
 
     userInfo: {
-        fontSize: Dimensions.get("window").height/46,
+        fontSize: Dimensions.get("window").height / 46,
+        color: '#fff'
     },
 
     containerLevel: {
         width: '100%',
         backgroundColor: '#ddd',
         borderRadius: 20,
-        marginTop: Dimensions.get("window").height/185,
-        height: Dimensions.get("window").height/26,
+        marginTop: Dimensions.get("window").height / 185,
+        height: Dimensions.get("window").height / 26,
         position: 'relative',
         display: 'flex',
         justifyContent: 'center',
@@ -62,8 +64,8 @@ export const homeStyles = StyleSheet.create({
     },
 
     imageLevel: {
-        width: Dimensions.get("window").width/8.5,
-        height: Dimensions.get("window").height/24,
+        width: Dimensions.get("window").width / 8.5,
+        height: Dimensions.get("window").height / 24,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -79,27 +81,41 @@ export const homeStyles = StyleSheet.create({
     },
 
     textExp: {
-        fontSize: Dimensions.get("window").height/42
+        fontSize: Dimensions.get("window").height / 42,
+        color: '#597EEE'
     },
 
     textLevel: {
-        fontSize: Dimensions.get("window").height/42,
-        fontWeight: '900',
+        fontSize: Dimensions.get("window").height / 42,
+        fontWeight: '900'
     },
 
     // PROFILE
 
     imageLevelProfile: {
-        width: Dimensions.get("window").width/8.5,
-        height: Dimensions.get("window").height/24,
+        width: Dimensions.get("window").width / 8.5,
+        height: Dimensions.get("window").height / 24,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
     },
 
     containerActionsView: {
-        paddingHorizontal: Dimensions.get("window").width/30,
+        paddingHorizontal: Dimensions.get("window").width / 30,
         width: '100%'
+    },
+
+    containerMainInfoProfile: {
+        paddingVertical: Dimensions.get("window").height / 106,
+        justifyContent: 'space-evenly',
+        alignItems: 'flex-start',
+        flexDirection: 'column'
+    },
+
+    userInfoProfile: {
+        fontSize: Dimensions.get("window").height / 46,
+        color: '#597EEE',
+        marginVertical: Dimensions.get("window").height / 233
     },
 
     // OPTIONS
@@ -107,7 +123,7 @@ export const homeStyles = StyleSheet.create({
     containerUserOption: {
         flex: 1
     },
-    
+
     containerMenuButtons: {
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -116,14 +132,14 @@ export const homeStyles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 4,
         width: '100%',
-        paddingBottom: Dimensions.get("window").height/18.5,
-        marginTop: Dimensions.get("window").height/123.66,
+        paddingBottom: Dimensions.get("window").height / 18.5,
+        marginTop: Dimensions.get("window").height / 123.66,
     },
 
     buttonAcceptOption: {
         width: '100%',
         backgroundColor: '#597EEE',
-        padding: Dimensions.get("window").height/61.66,
+        padding: Dimensions.get("window").height / 61.66,
         borderRadius: 4,
         justifyContent: 'center',
         alignItems: 'center'
@@ -132,20 +148,20 @@ export const homeStyles = StyleSheet.create({
     buttonMenu: {
         width: '88%',
         backgroundColor: '#5d8cff',
-        padding: Dimensions.get("window").height/61.66,
+        padding: Dimensions.get("window").height / 61.66,
         borderRadius: 4,
         borderColor: '#fff',
         borderStyle: 'solid',
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: Dimensions.get("window").height/18.5,
+        marginTop: Dimensions.get("window").height / 18.5,
     },
 
     textButtonOption: {
         textAlign: 'center',
         color: '#fff',
-        fontSize: Dimensions.get("window").height/31,
+        fontSize: Dimensions.get("window").height / 31,
         fontWeight: '500'
     },
 

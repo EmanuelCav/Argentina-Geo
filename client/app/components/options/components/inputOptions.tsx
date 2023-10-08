@@ -47,7 +47,8 @@ const InputOptions = ({ setIsOptionsGame }: { setIsOptionsGame: (isOptionsGame: 
         <View style={configGamesStyles.configGamesContain}>
             <View style={configGamesStyles.containShowConfig}>
                 <SelectOption setOptionsData={setOptionsData} optionsData={optionsData} amountOptions={amountOptions} />
-                <SliderQuestion setOptionsData={setOptionsData} optionsData={optionsData} amountQuestions={amountQuestions} />
+                <SliderQuestion setOptionsData={setOptionsData} optionsData={optionsData} 
+                amountQuestions={amountQuestions} level={users.user.user.level.level} />
             </View>
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Aceptar" redirect={acceptOptions} isAccept={true} isCategory={false} />
