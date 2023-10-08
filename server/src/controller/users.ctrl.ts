@@ -24,7 +24,7 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
             .populate("municipio")
             .populate("level")
             .populate("points")
-            .select("nickname level points pais provincia municipio")
+            .select("nickname level points pais provincia municipio password")
 
         return res.status(200).json(showUsers)
 
@@ -180,7 +180,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             .populate("points")
 
         if (!user) {
-            return res.status(400).json({ message: "Nickname does not exists or fields do not match" })
+            return res.status(400).json({ message: "Los campos no coinciden" })
         }
 
         const token = generateToken(user._id)
@@ -214,8 +214,21 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
 
         const pass = generatePassword()
 
+        let i = 1
+        
+        while(true) {
+
+            const newUserExists = await User.findOne({ nickname: `usuario${users.length + i}` })
+
+            if(newUserExists) {
+                break
+            }
+
+            i++
+        }
+
         const newUser = new User({
-            nickname: `usuario${users.length + 1}`,
+            nickname: `usuario${users.length + i}`,
             password: pass,
             role: role?._id,
             pais: country._id,

@@ -65,4 +65,5 @@ export interface IQuestionGame {
 export interface IGameGenerate {
     token: string;
     navigation: StackNavigation;
+    setMessage: (message: string) => void;
 }

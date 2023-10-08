@@ -17,8 +17,8 @@ export const game = createAsyncThunk('game/generateGame', async (gameData: IGame
 
         // return data
 
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        gameData.setMessage(error.response.data.message)
     }
 
 })

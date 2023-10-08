@@ -111,6 +111,8 @@ export interface IPoints {
 export interface IAuthAction {
     userData: ILogin;
     setIsAuth: (isAuth: boolean) => void;
+    setMessage: (message: string) => void;
+    setUserData: (userData: ILogin) => void;
     navigation: StackNavigation;
 }
 

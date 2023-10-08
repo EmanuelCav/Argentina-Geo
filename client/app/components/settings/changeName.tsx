@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import Input from "./components/components/input";
 import ButtonSettings from "./components/components/buttonSettings";
+import Error from "../../components/response/error";
 
 import { updateNicknameApi } from '../../server/api/user.api'
 import { updateOptionsAction } from '../../server/features/user.features'
@@ -21,6 +22,7 @@ const ChangeCode = ({ setIsNickname, user }: ChangeNicknameProps) => {
         nickname: user.user.nickname
     }
 
+    const [message, setMessage] = useState<string>("")
     const [nicknameData, setNicknameData] = useState<INickname>(initialState)
 
     const { nickname } = nicknameData;
@@ -33,9 +35,14 @@ const ChangeCode = ({ setIsNickname, user }: ChangeNicknameProps) => {
     }
 
     const handleSumbit = async () => {
-        const { data } = await updateNicknameApi(user.user._id, nicknameData, user.token)
-        dispatch(updateOptionsAction(data))
-        setIsNickname(false)
+
+        try {
+            const { data } = await updateNicknameApi(user.user._id, nicknameData, user.token)
+            dispatch(updateOptionsAction(data))
+            setIsNickname(false)
+        } catch (error: any) {
+            setMessage(error.response.data.message)
+        }
     }
 
     const redirectSettings = () => {
@@ -45,6 +52,7 @@ const ChangeCode = ({ setIsNickname, user }: ChangeNicknameProps) => {
     return (
         <View style={authStyles.containerAuth} >
             <View style={authStyles.containerForm}>
+                <Error msg={message} />
                 <Input label="Nombre de usuario" value={nickname} handleChange={handleChangePassword} isPassword={false} />
                 <View style={authStyles.separator}>
                     <ButtonSettings text="Aceptar" styles={null} redirect={handleSumbit} />

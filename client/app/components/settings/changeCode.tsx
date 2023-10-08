@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import Input from "./components/components/input";
 import ButtonSettings from "./components/components/buttonSettings";
+import Error from "../../components/response/error";
 
 import { updatePasswordApi } from '../../server/api/user.api'
 import { updateOptionsAction } from '../../server/features/user.features'
@@ -22,6 +23,7 @@ const ChangeCode = ({ setIsCode, user }: ChangeCodeProps) => {
     }
 
     const [passwordData, setPasswordData] = useState<IPassword>(initialState)
+    const [message, setMessage] = useState<string>("")
 
     const { password } = passwordData;
 
@@ -33,9 +35,14 @@ const ChangeCode = ({ setIsCode, user }: ChangeCodeProps) => {
     }
 
     const handleSumbit = async () => {
-        const { data } = await updatePasswordApi(user.user._id, passwordData, user.token)
-        dispatch(updateOptionsAction(data))
-        setIsCode(false)
+
+        try {
+            const { data } = await updatePasswordApi(user.user._id, passwordData, user.token)
+            dispatch(updateOptionsAction(data))
+            setIsCode(false)
+        } catch (error: any) {
+            setMessage(error.response.data.message)
+        }
     }
 
     const redirectSettings = () => {
@@ -45,6 +52,7 @@ const ChangeCode = ({ setIsCode, user }: ChangeCodeProps) => {
     return (
         <View style={authStyles.containerAuth} >
             <View style={authStyles.containerForm}>
+                <Error msg={message} />
                 <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={false} />
                 <View style={authStyles.separator}>
                     <ButtonSettings text="Aceptar" styles={null} redirect={handleSumbit} />

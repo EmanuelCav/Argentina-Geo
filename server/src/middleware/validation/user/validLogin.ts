@@ -9,24 +9,14 @@ const validLogin = async (req: Request, res: Response, next: NextFunction) => {
     const { nickname, password } = req.body
 
     if(!nickname || !password) {
-        return res.status(400).json({ message: "There are empty fields" })
-    }
-
-    if(!nickname) {
-        return res.status(400).json({ message: "There are empty fields" })
+        return res.status(400).json({ message: "Hay campos vacios" })
     }
 
     const user = await User.findOne({ nickname })
 
     if(!user) {
-        return res.status(400).json({ message: "Nickname does not exists or fields do not match" })
+        return res.status(400).json({ message: "Los campos no coinciden" })
     }
-
-    // const passwordMatched = await comparePassword(password, user.password)
-
-    // if(!passwordMatched) {
-    //     return res.status(400).json({ message: "Nickname does not exists or fields do not match" })
-    // }
 
     next()
 
