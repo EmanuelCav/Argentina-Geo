@@ -1,20 +1,22 @@
 import { useEffect } from "react";
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
 
 import UserRank from "../components/ranking/userRank";
+import ButtonMenu from "../components/buttonMenu";
 
 import { usersApi } from "../server/api/user.api";
 import { usersAction } from "../server/features/user.features";
 
-import { rankingStyles } from "../styles/home.styles";
+import { rankingStyles, homeStyles } from "../styles/home.styles";
 
 import { IReducer } from "../interface/Reducer";
 import { IUser } from "../interface/User";
+import { StackNavigation } from "../types/props.types";
 
 import { selector } from "../helper/selector";
 
-const Ranking = () => {
+const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
 
@@ -36,13 +38,19 @@ const Ranking = () => {
 
     return (
         <View style={rankingStyles.containerRanking}>
-            <Text style={rankingStyles.headerRanking}>CLASIFICACIÓN</Text>
-            <View style={rankingStyles.usersRanking}>
-                {
-                    users.users.map((user: IUser) => {
-                        return <UserRank user={user} key={user._id} />
-                    })
-                }
+            <View style={rankingStyles.rankingContain}>
+                <View style={rankingStyles.containerScrollRanking}>
+                    <ScrollView>
+                        {
+                            users.users.map((user: IUser) => {
+                                return <UserRank user={user} key={user._id} />
+                            })
+                        }
+                    </ScrollView>
+                </View>
+                <View style={homeStyles.containerActionsView}>
+                    <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} isCategory={false} />
+                </View>
             </View>
         </View>
     )

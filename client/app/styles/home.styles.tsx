@@ -191,38 +191,51 @@ export const rankingStyles = StyleSheet.create({
 
     containerRanking: {
         flex: 1,
-        padding: 20
+        justifyContent: 'center',
+        width: '100%',
+        alignItems: 'center'
     },
-    headerRanking: {
-        textAlign: 'center',
-        backgroundColor: '#597EEE',
-        padding: 14,
-        fontSize: 24,
-        fontWeight: '500',
-        borderColor: '#fff',
-        borderWidth: 1,
-        borderStyle: 'solid'
-    },
-    usersRanking: {
-        justifyContent: 'flex-start',
-        alignItems: 'center',
+
+    rankingContain: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
         flexDirection: 'column',
-        flex: 1,
-        backgroundColor: '#597EEE',
-        padding: 4
+        flexWrap: 'wrap',
+        paddingVertical: Dimensions.get('window').height / 61.66,
+        backgroundColor: '#ffffff',
+        padding: Dimensions.get('window').height / 106
     },
+
+    containerScrollRanking: {
+        paddingHorizontal: Dimensions.get('window').width / 25.5,
+        paddingVertical: Dimensions.get('window').height / 24.66,
+        top: 0,
+        left: 0,
+        zIndex: 16,
+        position: 'absolute',
+        height: Dimensions.get('window').height - Dimensions.get('window').height / 16.81 * 2 - Dimensions.get("window").height / 60 * 2 - Dimensions.get('window').height / 24.66 * 2,
+        width: '100%',
+        backgroundColor: 'red'
+    },
+
     userRanking: {
         flexDirection: 'row',
         width: '100%',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        padding: 7,
-        backgroundColor: '#6789f0',
-        marginTop: 2
+        paddingHorizontal: Dimensions.get('window').height / 106,
+        paddingVertical: Dimensions.get('window').height / 67.27,
+        backgroundColor: '#fff',
+        borderWidth: 2,
+        borderColor: '#597EEE',
+        borderStyle: 'solid'
     },
+
     infoUserRank: {
-        fontSize: 20
+        fontSize: Dimensions.get('window').height / 41.11
     }
 
 })

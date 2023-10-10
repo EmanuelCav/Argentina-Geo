@@ -215,16 +215,18 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
         const pass = generatePassword()
 
         let i = 1
+        let isUserCreated = false
         
-        while(true) {
+        while(!isUserCreated) {
 
             const newUserExists = await User.findOne({ nickname: `usuario${users.length + i}` })
-
-            if(newUserExists) {
-                break
+            
+            if(!newUserExists) {
+                isUserCreated = true
+            } else {
+                i++
             }
 
-            i++
         }
 
         const newUser = new User({

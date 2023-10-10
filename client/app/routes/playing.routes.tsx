@@ -5,6 +5,7 @@ import { View, Text, Dimensions, StyleSheet, Pressable } from 'react-native'
 import Finish from '../components/game/finish'
 import DataGame from '../components/game/dataGame'
 import ShowOptionsGame from '../components/game/showOptionsGame'
+import ShowQuestion from '../components/game/showQuestion'
 
 import { IReducer } from '../interface/Reducer'
 import { IPoints } from '../interface/User'
@@ -20,7 +21,6 @@ import { loadingAction } from '../server/features/response.features'
 import { gameStyles } from '../styles/game.styles';
 
 import { selector } from '../helper/selector'
-import ShowQuestion from '../components/game/showQuestion'
 
 const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
