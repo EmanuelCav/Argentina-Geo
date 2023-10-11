@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import UserRank from "../components/ranking/userRank";
 import ButtonMenu from "../components/buttonMenu";
+import FilterRank from "../components/ranking/filterRank";
 
 import { usersApi } from "../server/api/user.api";
 import { usersAction } from "../server/features/user.features";
@@ -40,6 +41,7 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
         <View style={rankingStyles.containerRanking}>
             <View style={rankingStyles.rankingContain}>
                 <View style={rankingStyles.containerScrollRanking}>
+                    <FilterRank />
                     <ScrollView>
                         {
                             users.users.map((user: IUser) => {

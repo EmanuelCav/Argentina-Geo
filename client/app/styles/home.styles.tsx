@@ -215,9 +215,8 @@ export const rankingStyles = StyleSheet.create({
         left: 0,
         zIndex: 16,
         position: 'absolute',
-        height: Dimensions.get('window').height - Dimensions.get('window').height / 16.81 * 2 - Dimensions.get("window").height / 60 * 2 - Dimensions.get('window').height / 24.66 * 2,
-        width: '100%',
-        backgroundColor: 'red'
+        height: Dimensions.get('window').height - Dimensions.get("window").height / 60 * 2 - Dimensions.get("window").height / 61.66 * 2 - Dimensions.get('window').height / 24.66 * 2,
+        width: '100%'
     },
 
     userRanking: {
@@ -234,8 +233,46 @@ export const rankingStyles = StyleSheet.create({
         borderStyle: 'solid'
     },
 
+    containerFilterRanking: {
+
+    },
+
+    containerDateRank: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row',
+        borderWidth: 2,
+        borderColor: "#597EEE",
+        borderStyle: 'solid',
+        marginBottom: Dimensions.get('window').height / 360
+    },
+
+    buttonDateRank: {
+        padding: Dimensions.get('window').height / 106,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    buttonDateRankSelected: {
+        padding: Dimensions.get('window').height / 106,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#5d8cff'
+    },
+
     infoUserRank: {
-        fontSize: Dimensions.get('window').height / 41.11
+        fontSize: Dimensions.get('window').height / 41.11,
+        color: '#5d8cff',
+        textAlign: 'center'
+    },
+
+    infoUserRankSelected: {
+        fontSize: Dimensions.get('window').height / 41.11,
+        color: '#fff',
+        textAlign: 'center'
     }
 
 })
