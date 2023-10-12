@@ -1,4 +1,4 @@
-import { IUser } from "../interface/User"
+import { IUser, IUsersRank } from "../interface/User"
 
 export type UserDataType = {
     user: IUser;
@@ -6,14 +6,14 @@ export type UserDataType = {
 }
 
 export type UserType = {
-    users: IUser[];
+    users: IUsersRank;
     user: UserDataType;
     isLoggedIn: boolean;
     profile: IUser;
 }
 
 export type UserReducerType = {
-    users: IUser[];
+    users: object;
     user: UserDataType;
     isLoggedIn: boolean;
     profile: IUser;

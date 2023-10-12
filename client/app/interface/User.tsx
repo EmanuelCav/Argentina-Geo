@@ -7,8 +7,13 @@ interface ICounterUserReducer {
     user: object;
 }
 
+export interface IUsersRank {
+    total: IUser[],
+    ranking: IUser[];
+}
+
 export interface ICounterUser {
-    users: IUser[];
+    users: IUsersRank;
     user: ICounterUserReducer;
     isLoggedIn: boolean;
     profile: object;
@@ -94,6 +99,7 @@ export interface IExperience {
     total: number;
     user: IUser;
     levelExperience: number;
+    bestPuntuation: number;
 }
 
 export interface IPassword {

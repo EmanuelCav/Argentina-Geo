@@ -26,7 +26,7 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
     const getData = async () => {
 
         try {
-            const { data } = await usersApi(users.user.token)
+            const { data } = await usersApi("total", users.user.token)
             dispatch(usersAction(data))
         } catch (error) {
             console.log(error);
@@ -41,10 +41,10 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
         <View style={rankingStyles.containerRanking}>
             <View style={rankingStyles.rankingContain}>
                 <View style={rankingStyles.containerScrollRanking}>
-                    <FilterRank />
+                    <FilterRank users={users} />
                     <ScrollView>
                         {
-                            users.users.map((user: IUser) => {
+                            users.users.ranking.map((user: IUser) => {
                                 return <UserRank user={user} key={user._id} />
                             })
                         }

@@ -40,7 +40,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     const getUsers = async () => {
 
         try {
-            const { data } = await usersApi(users.user.token)
+            const { data } = await usersApi("total", users.user.token)
             dispatch(usersAction(data))
         } catch (error) {
             console.log(error);

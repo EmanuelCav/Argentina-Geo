@@ -16,17 +16,56 @@ import { categoriesFromUser, experienceFromUser } from "../helper/user.functions
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
 
+    const { date } = req.params
+
     try {
 
-        const showUsers = await User.find()
-            .populate("pais")
-            .populate("provincia")
-            .populate("municipio")
-            .populate("level")
-            .populate("points")
-            .select("nickname level points pais provincia municipio password")
+        const totalUser = await User.aggregate([
+            {
+                $lookup: {
+                    from: Experience.collection.name,
+                    localField: 'points',
+                    foreignField: '_id',
+                    as: 'points'
+                }
+            },
+            {
+                $unwind: {
+                    path: "$points"
+                }
+            },
+            {
+                $sort: {
+                    "points.total": -1
+                }
+            }
+        ])
 
-        return res.status(200).json(showUsers)
+        const dateUser = await User.aggregate([
+            {
+                $lookup: {
+                    from: Experience.collection.name,
+                    localField: 'points',
+                    foreignField: '_id',
+                    as: 'points'
+                }
+            },
+            {
+                $unwind: {
+                    path: "$points"
+                }
+            },
+            {
+                $sort: {
+                    [`points.${date}`]: -1
+                }
+            }
+        ])
+
+        return res.status(200).json({
+            total: totalUser,
+            ranking: dateUser
+        })
 
     } catch (error) {
         throw error
@@ -216,12 +255,12 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
 
         let i = 1
         let isUserCreated = false
-        
-        while(!isUserCreated) {
+
+        while (!isUserCreated) {
 
             const newUserExists = await User.findOne({ nickname: `usuario${users.length + i}` })
-            
-            if(!newUserExists) {
+
+            if (!newUserExists) {
                 isUserCreated = true
             } else {
                 i++
@@ -578,9 +617,6 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
 
     try {
 
-        console.log(points);
-        
-
         const experience = await Experience.findOne({
             user: req.user
         })
@@ -590,12 +626,16 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
         }
 
         const experienceUpdated = await Experience.findByIdAndUpdate(experience._id, {
+            bestPuntuation: points > experience.bestPuntuation ? points : experience.bestPuntuation,
+            day: experience.day + points,
+            month: experience.month + points,
+            year: experience.year + points,
             total: experience.total + points,
             levelExperience: experience.levelExperience + points
         }, {
             new: true
         })
-        
+
         const level = await Level.findById(id)
 
         if (!level) {

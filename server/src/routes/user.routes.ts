@@ -17,8 +17,8 @@ import auth from '../middleware/auth/auth';
 
 const router = Router()
 
-// router.get('/users', auth, usersCtrl.users)
-router.get('/users', usersCtrl.users)
+// router.get('/users/ranking/:date', auth, usersCtrl.users)
+router.get('/users/ranking/:date', usersCtrl.users)
 router.get('/users/:id', auth, usersCtrl.user)
 router.post('/users', [auth, validRole], validCreateUser, usersCtrl.createUser)
 router.post('/users/login', validLogin, usersCtrl.login)

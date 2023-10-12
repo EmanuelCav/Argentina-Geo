@@ -2,7 +2,7 @@ import { SetStateAction } from 'react'
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-import { IOptions, ISetting, IUser } from "../interface/User";
+import { IOptions, ISetting, IUser, IUsersRank } from "../interface/User";
 import { ICategoriesUser, IGame, IQuestion } from "../interface/Game";
 import { UserDataType, UserReducerType } from "./user.types";
 import { GameType } from './games.types';
@@ -39,7 +39,7 @@ export type ShowStatisticsProps = {
 
 export type UserInfoProps = {
     user: IUser;
-    users: IUser[];
+    users: IUsersRank;
     games: IGame[];
 }
 

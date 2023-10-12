@@ -11,7 +11,7 @@ export interface IUser extends Document {
     password: string;
     role: roleType;
     level: ObjectId;
-    points: ObjectId;
+    points: IExperience;
     categories: ObjectId[];
     amountOptions: number;
     amountQuestions: number;
@@ -38,5 +38,6 @@ export interface IExperience extends Document {
     total: number;
     user: ObjectId;
     levelExperience: number;
+    bestPuntuation: number;
 }
 

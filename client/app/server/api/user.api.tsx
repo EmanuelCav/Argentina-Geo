@@ -4,8 +4,8 @@ import { ILogin, INickname, IOptions, IPassword, IPoints, ISetting } from '../..
 
 const api = axios.create({ baseURL: 'http://localhost:4200' })
 
-export const usersApi = async (token: string) => {
-    return await api.get('/users', {
+export const usersApi = async (date: string, token: string) => {
+    return await api.get(`/users/ranking/${date}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
