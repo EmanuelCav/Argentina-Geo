@@ -3,13 +3,13 @@ import { UserReducerType } from "../types/user.types";
 import { ICategoriesUser } from "./Game";
 
 interface ICounterUserReducer {
-    token: string;
-    user: object;
+    token?: string;
+    user?: object;
 }
 
 export interface IUsersRank {
-    total: IUser[],
-    ranking: IUser[];
+    total?: IUser[],
+    ranking?: IUser[];
 }
 
 export interface ICounterUser {

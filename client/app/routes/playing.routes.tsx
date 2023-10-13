@@ -103,10 +103,10 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
         }
 
         if (item === (isGameError ? (errorsGame[numberQuestion].question.answer) : (games.game.questions[numberQuestion].question.answer))) {
-            if (!isGameError) {
-                // const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
-                // dispatch(getGameAction(data))
-            }
+            // if (!isGameError) {
+            //     const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
+            //     dispatch(getGameAction(data))
+            // }
             setIsCorrect(true)
         }
 
@@ -198,7 +198,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
             {
                 isFinish ? (
                     <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points}
-                        navigation={navigation} viewErrors={viewErrors} 
+                        navigation={navigation} viewErrors={viewErrors}
                         isGameError={isGameError} areErrors={errors.length === 0 ? false : true} />
                 ) : (
                     <>

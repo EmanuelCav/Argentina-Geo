@@ -7,8 +7,8 @@ import Options from '../components/home/options'
 import Profile from '../components/profile/profile';
 
 import { gamesApi } from '../server/api/game.api'
-import { firstTimeApi, loginApi, usersApi } from '../server/api/user.api'
-import { firstTimeAction, loginAction, usersAction } from '../server/features/user.features'
+import { loginApi, usersApi } from '../server/api/user.api'
+import { loginAction, usersAction } from '../server/features/user.features'
 import { gamesAction } from '../server/features/game.features'
 
 import { StackNavigation } from '../types/props.types'
@@ -47,16 +47,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         }
     }
 
-    const generateUserData = async () => {
-
-        try {
-            const { data } = await firstTimeApi()
-            dispatch(firstTimeAction(data))
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     const getLoginData = async () => {
 
         try {
@@ -78,8 +68,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
             getLoginData()
             getUsers()
             getData()
-        } else {
-            generateUserData()
         }
 
     }, [dispatch, users.isLoggedIn])

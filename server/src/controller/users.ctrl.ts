@@ -59,7 +59,14 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
                 $sort: {
                     [`points.${date}`]: -1
                 }
-            }
+            },
+            {
+                $match: {
+                    [`points.${date}`]: {
+                        $gt: 0
+                    }
+                }
+            },
         ])
 
         return res.status(200).json({

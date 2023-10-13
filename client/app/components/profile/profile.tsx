@@ -38,7 +38,7 @@ const Profile = ({ user, games, setIsProfile }: ProfileProps) => {
                                 {user.profile.municipio && (
                                     <Text> - {user.profile.municipio.name}</Text>)}
                             </Text>
-                            <Text style={homeStyles.userInfoProfile}>Posición: {user.users.map((u) => u._id).indexOf(user.user.user._id) + 1}°</Text>
+                            <Text style={homeStyles.userInfoProfile}>Posición: {user.users.total!.map((u) => u._id).indexOf(user.user.user._id) + 1}°</Text>
                             <Text style={homeStyles.userInfoProfile}>Partidas jugadas: {games.length}</Text>
                             <Text style={homeStyles.userInfoProfile}>Preguntas totales: {questions}</Text>
                             <Text style={homeStyles.userInfoProfile}>Correctas: {corrects} ({

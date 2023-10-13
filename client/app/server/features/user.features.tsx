@@ -4,15 +4,9 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { ICounterUser, IUser, IUserReducer, IUsersRank } from '../../interface/User'
 
 const initialState: ICounterUser = {
-    user: {
-        token: "",
-        user: {}
-    },
+    user: {},
     isLoggedIn: false,
-    users: {
-        total: [],
-        ranking: []
-    },
+    users: {},
     profile: {}
 }
 

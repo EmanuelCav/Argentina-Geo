@@ -7,9 +7,9 @@ import { usersAction } from "../../server/features/user.features";
 
 import { rankingStyles } from '../../styles/home.styles';
 
-import { UserType } from "../../types/user.types";
+import { RankingProps } from "../../types/props.types";
 
-const FilterRank = ({ users }: { users: UserType }) => {
+const FilterRank = ({ users, setRankData }: RankingProps) => {
 
     const dispatch = useDispatch()
 
@@ -24,6 +24,7 @@ const FilterRank = ({ users }: { users: UserType }) => {
 
         dispatch(usersAction(data))
 
+        setRankData("total")
         setIsTotal(true)
         setIsYear(false)
         setIsMonth(false)
@@ -36,6 +37,7 @@ const FilterRank = ({ users }: { users: UserType }) => {
 
         dispatch(usersAction(data))
 
+        setRankData("year")
         setIsTotal(false)
         setIsYear(true)
         setIsMonth(false)
@@ -48,6 +50,7 @@ const FilterRank = ({ users }: { users: UserType }) => {
 
         dispatch(usersAction(data))
 
+        setRankData("month")
         setIsTotal(false)
         setIsYear(false)
         setIsMonth(true)
@@ -60,6 +63,7 @@ const FilterRank = ({ users }: { users: UserType }) => {
 
         dispatch(usersAction(data))
 
+        setRankData("day")
         setIsTotal(false)
         setIsYear(false)
         setIsMonth(false)
@@ -68,7 +72,17 @@ const FilterRank = ({ users }: { users: UserType }) => {
 
     return (
         <View style={rankingStyles.containerFilterRanking}>
-            <Text style={rankingStyles.infoUserRank}>Su posición actual es 2500°</Text>
+            <Text style={rankingStyles.infoUserRank}>{users.users.ranking!.map((u) => u._id)
+                .indexOf(users.user.user._id) + 1 === 0 ? (
+                <Text>
+                    Usted no se encuetra aquí
+                </Text>
+            ) : (
+                <Text>
+                    Su posición actual es {users.users.ranking!.map((u) => u._id)
+                        .indexOf(users.user.user._id) + 1}°
+                </Text>
+            )}</Text>
             <View style={rankingStyles.containerDateRank}>
                 <TouchableOpacity style={isTotal ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
                     onPress={showTotal} disabled={isTotal}>

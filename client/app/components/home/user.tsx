@@ -27,7 +27,7 @@ const User = ({ user, users, games }: UserInfoProps) => {
                     {user.municipio && (
                         <Text> - {user.municipio.name}</Text>)}
                 </Text>
-                <Text style={homeStyles.userInfo}>Posición: {users.total.map((user) => user._id).indexOf(user._id) + 1}°</Text>
+                <Text style={homeStyles.userInfo}>Posición: {users.total!.map((user) => user._id).indexOf(user._id) + 1}°</Text>
                 <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
                 <View style={homeStyles.containerLevel}>
                     <View style={experienceGotStyle.experienceGot} />

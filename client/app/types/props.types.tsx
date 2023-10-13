@@ -4,8 +4,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IOptions, ISetting, IUser, IUsersRank } from "../interface/User";
 import { ICategoriesUser, IGame, IQuestion } from "../interface/Game";
-import { UserDataType, UserReducerType } from "./user.types";
-import { GameType } from './games.types';
+import { UserDataType, UserReducerType, UserType } from "./user.types";
 
 type RoutesProps = {
     New: undefined;
@@ -44,7 +43,7 @@ export type UserInfoProps = {
 }
 
 export type ProfileProps = {
-    user: UserReducerType;
+    user: UserType;
     games: IGame[];
     setIsProfile: (isProfile: boolean) => void;
 }
@@ -174,4 +173,14 @@ export type ShowOptionGameProps = {
     numberQuestion: number;
     styles: any;
     nextQuestion: (item: string) => void;
+}
+
+export type RankingProps = {
+    users: UserType;
+    setRankData: (rankData: string) => void;
+}
+
+export type UserRankingProps = {
+    user: IUser;
+    rankData: string;
 }
