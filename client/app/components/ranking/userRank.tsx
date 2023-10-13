@@ -1,10 +1,23 @@
-import { View, Text } from "react-native";
+import { Text, Pressable } from "react-native";
+import { useDispatch } from 'react-redux';
 
 import { UserRankingProps } from "../../types/props.types";
 
+import { getUser } from "../../server/actions/user.actions";
+
 import { rankingStyles } from "../../styles/home.styles";
 
-const UserRank = ({ user, rankData }: UserRankingProps) => {
+const UserRank = ({ user, users, rankData, setIsProfile }: UserRankingProps) => {
+
+    const dispatch = useDispatch()
+
+    const showProfile = () => {
+        dispatch(getUser({
+            id: user._id,
+            user: users,
+            setIsProfile
+        }) as any)
+    }
 
     const pointsRank = () => {
         if (rankData === "total") {
@@ -27,10 +40,10 @@ const UserRank = ({ user, rankData }: UserRankingProps) => {
     }
 
     return (
-        <View style={rankingStyles.userRanking}>
+        <Pressable style={rankingStyles.userRanking} onPress={showProfile}>
             <Text style={rankingStyles.infoUserRank}>{user.nickname}</Text>
             <Text style={rankingStyles.infoUserRank}>{pointsRank()} xp</Text>
-        </View>
+        </Pressable>
     )
 }
 

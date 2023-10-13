@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import UserRank from "../components/ranking/userRank";
 import ButtonMenu from "../components/buttonMenu";
 import FilterRank from "../components/ranking/filterRank";
+import Profile from '../components/profile/profile';
 
 import { rankingStyles, homeStyles } from "../styles/home.styles";
 
@@ -17,18 +18,23 @@ import { selector } from "../helper/selector";
 const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
+    const games = useSelector((state: IReducer) => selector(state).games)
 
     const [rankData, setRankData] = useState("total")
+    const [isProfile, setIsProfile] = useState<boolean>(false)
 
     return (
         <View style={rankingStyles.containerRanking}>
+            {
+                isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
+            }
             <View style={rankingStyles.rankingContain}>
                 <View style={rankingStyles.containerScrollRanking}>
                     <FilterRank users={users} setRankData={setRankData} />
                     <ScrollView>
                         {
                             users.users.ranking!.map((user: IUser) => {
-                                return <UserRank user={user} rankData={rankData} key={user._id} />
+                                return <UserRank user={user} users={users} rankData={rankData} setIsProfile={setIsProfile} key={user._id} />
                             })
                         }
                     </ScrollView>

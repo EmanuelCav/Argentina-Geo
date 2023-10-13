@@ -37,7 +37,7 @@ export const getUser = createAsyncThunk("users/getUser", async (userData: IGetUs
 
     try {
 
-        const { data } = await userApi.userApi(userData.user.profile._id, userData.user.user.token)
+        const { data } = await userApi.userApi(userData.id, userData.user.user.token)
 
         dispatch(getUserAction(data))
 

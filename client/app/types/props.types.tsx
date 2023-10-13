@@ -182,5 +182,7 @@ export type RankingProps = {
 
 export type UserRankingProps = {
     user: IUser;
+    users: UserReducerType;
     rankData: string;
+    setIsProfile: (isProfile: boolean) => void;
 }

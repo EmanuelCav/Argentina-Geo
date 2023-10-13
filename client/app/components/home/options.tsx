@@ -19,6 +19,7 @@ const Options = ({ navigation, setIsProfile, user }: ShowStatisticsProps) => {
 
     const showProfile = () => {
         dispatch(getUser({
+            id: user.user.user._id,
             user,
             setIsProfile
         }) as any)

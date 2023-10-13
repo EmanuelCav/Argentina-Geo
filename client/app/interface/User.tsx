@@ -123,6 +123,7 @@ export interface IAuthAction {
 }
 
 export interface IGetUserAction {
+    id: string;
     user: UserReducerType;
     setIsProfile: (isProfile: boolean) => void;
 }

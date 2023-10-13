@@ -9,7 +9,7 @@ const User = ({ user, users, games }: UserInfoProps) => {
     const experienceGotStyle = StyleSheet.create({
         experienceGot: {
             width: `${(user.points.levelExperience*100)/(user.level.max)}%`,
-            backgroundColor: '#0f0',
+            backgroundColor: '#a5b6e9',
             top: 0,
             position: 'absolute',
             left: 0,
