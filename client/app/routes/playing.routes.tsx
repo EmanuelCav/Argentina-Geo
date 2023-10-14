@@ -99,14 +99,14 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
     const nextQuestion = async (item: string) => {
 
         if (!isGameError) {
-            // await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
+            await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
         }
 
         if (item === (isGameError ? (errorsGame[numberQuestion].question.answer) : (games.game.questions[numberQuestion].question.answer))) {
-            // if (!isGameError) {
-            //     const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
-            //     dispatch(getGameAction(data))
-            // }
+            if (!isGameError) {
+                const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
+                dispatch(getGameAction(data))
+            }
             setIsCorrect(true)
         }
 

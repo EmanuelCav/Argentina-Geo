@@ -39,5 +39,6 @@ export interface IExperience extends Document {
     user: ObjectId;
     levelExperience: number;
     bestPuntuation: number;
+    lastGame: string;
 }
 

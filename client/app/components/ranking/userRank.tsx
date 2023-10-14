@@ -1,4 +1,4 @@
-import { Text, Pressable } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import { useDispatch } from 'react-redux';
 
 import { UserRankingProps } from "../../types/props.types";
@@ -7,7 +7,7 @@ import { getUser } from "../../server/actions/user.actions";
 
 import { rankingStyles } from "../../styles/home.styles";
 
-const UserRank = ({ user, users, rankData, setIsProfile }: UserRankingProps) => {
+const UserRank = ({ index, user, users, rankData, setIsProfile }: UserRankingProps) => {
 
     const dispatch = useDispatch()
 
@@ -41,8 +41,13 @@ const UserRank = ({ user, users, rankData, setIsProfile }: UserRankingProps) => 
 
     return (
         <Pressable style={rankingStyles.userRanking} onPress={showProfile}>
-            <Text style={rankingStyles.infoUserRank}>{user.nickname}</Text>
-            <Text style={rankingStyles.infoUserRank}>{pointsRank()} xp</Text>
+            <View style={rankingStyles.containerUserRank}>
+                <View  style={rankingStyles.topUser}>
+                    <Text style={rankingStyles.topUserRank}>{index + 1}</Text>
+                    <Text style={rankingStyles.infoUserRank}>{user.nickname}</Text>
+                </View>
+                <Text style={rankingStyles.infoUserRank}>{pointsRank()}xp</Text>
+            </View>
         </Pressable>
     )
 }

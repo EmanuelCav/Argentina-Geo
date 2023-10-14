@@ -33,6 +33,10 @@ const experienceSchema = new Schema({
     bestPuntuation: {
         type: Number,
         default: 0
+    },
+    lastGame: {
+        type: String,
+        trim: true
     }
 
 }, {

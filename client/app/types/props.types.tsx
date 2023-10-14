@@ -181,6 +181,7 @@ export type RankingProps = {
 }
 
 export type UserRankingProps = {
+    index: number;
     user: IUser;
     users: UserReducerType;
     rankData: string;

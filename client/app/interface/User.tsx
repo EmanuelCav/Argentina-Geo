@@ -100,6 +100,7 @@ export interface IExperience {
     user: IUser;
     levelExperience: number;
     bestPuntuation: number;
+    lastGame: string;
 }
 
 export interface IPassword {

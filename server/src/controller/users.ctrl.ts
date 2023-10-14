@@ -638,7 +638,8 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
             month: experience.month + points,
             year: experience.year + points,
             total: experience.total + points,
-            levelExperience: experience.levelExperience + points
+            levelExperience: experience.levelExperience + points,
+            lastGame: `${new Date().getUTCFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
         }, {
             new: true
         })
@@ -683,6 +684,26 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
             .populate("points")
 
         return res.status(200).json(user)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const getDate = async (req: Request, res: Response): Promise<Response> => {
+
+    const { date } = req.params
+
+    try {
+
+        await Experience.updateMany({
+            day: 0,
+            month: date.split("-")[2] === "01" && 0,
+            year: date.split("-")[1] === "01" && 0
+        })
+
+        return res.status(200).json({ message: "Points updated" })
 
     } catch (error) {
         throw error

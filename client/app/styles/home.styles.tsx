@@ -233,8 +233,17 @@ export const rankingStyles = StyleSheet.create({
         borderStyle: 'solid'
     },
 
-    containerFilterRanking: {
+    containerUserRank: {
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
 
+    topUser: {
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: 'row'
     },
 
     containerDateRank: {
@@ -263,6 +272,14 @@ export const rankingStyles = StyleSheet.create({
         backgroundColor: '#5d8cff'
     },
 
+    topUserRank: {
+        fontSize: Dimensions.get('window').height / 41.11,
+        color: '#5d8cff',
+        textAlign: 'center',
+        fontWeight: '600',
+        marginRight: Dimensions.get("window").width / 60
+    },
+
     infoUserRank: {
         fontSize: Dimensions.get('window').height / 41.11,
         color: '#5d8cff',
@@ -273,6 +290,13 @@ export const rankingStyles = StyleSheet.create({
         fontSize: Dimensions.get('window').height / 41.11,
         color: '#fff',
         textAlign: 'center'
+    },
+
+    textNoUsers: {
+        textAlign: 'center',
+        color: "#597EEE",
+        fontSize: Dimensions.get("window").height / 46.25,
+        marginTop: Dimensions.get("window").height / 240
     }
 
 })

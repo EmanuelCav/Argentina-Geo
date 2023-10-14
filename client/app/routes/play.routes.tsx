@@ -8,6 +8,7 @@ import OptionsGame from "../components/options/options";
 import Error from '../components/response/error';
 
 import { game } from "../server/actions/game.actions";
+import { getDateExperienceApi } from "../server/api/user.api";
 
 import { StackNavigation } from "../types/props.types";
 import { IReducer } from "../interface/Reducer";
@@ -33,6 +34,20 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
             navigation,
             setMessage
         }) as any)
+
+        const isNewDate = users.users.total?.find((u) => {
+            if (u.points.lastGame) {
+                if (u.points.lastGame.split("-")[2] === `${new Date().getDate()}`) {
+                    return true
+                }
+            }
+        })
+
+        if (!isNewDate) {
+            await getDateExperienceApi(`${new Date().getUTCFullYear()}
+            -${new Date().getMonth() + 1}
+            -${new Date().getDate()}`)
+        }
     }
 
     const showCategories = () => {

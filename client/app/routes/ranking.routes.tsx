@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, ScrollView } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
 import { useSelector } from "react-redux";
 
 import UserRank from "../components/ranking/userRank";
@@ -33,9 +33,18 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
                     <FilterRank users={users} setRankData={setRankData} />
                     <ScrollView>
                         {
-                            users.users.ranking!.map((user: IUser) => {
-                                return <UserRank user={user} users={users} rankData={rankData} setIsProfile={setIsProfile} key={user._id} />
-                            })
+                            users.users.ranking?.length === 0 ? (
+                                <Text style={rankingStyles.textNoUsers}>No hay usuarios en la clasificación</Text>
+                            ) : (
+                                <>
+                                    {
+                                        users.users.ranking!.map((user: IUser, index: number) => {
+                                            return <UserRank user={user} users={users} index={index}
+                                                rankData={rankData} setIsProfile={setIsProfile} key={user._id} />
+                                        })
+                                    }
+                                </>
+                            )
                         }
                     </ScrollView>
                 </View>
@@ -43,7 +52,7 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
                     <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} isCategory={false} />
                 </View>
             </View>
-        </View>
+        </View >
     )
 }
 

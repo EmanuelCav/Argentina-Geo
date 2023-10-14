@@ -11,11 +11,19 @@ const sliderQuestion = ({ setOptionsData, optionsData, amountQuestions, level }:
 
     const maxValue = (): number => {
         if (level <= 3) {
-            return 15
+            return 10
+        }
+
+        if (level <= 6) {
+            return 20
         }
 
         if (level <= 9) {
             return 30
+        }
+
+        if (level <= 12) {
+            return 40
         }
 
         return 50
@@ -31,7 +39,7 @@ const sliderQuestion = ({ setOptionsData, optionsData, amountQuestions, level }:
             <Slider
                 style={[sliderStyle.slider, null]}
                 thumbTintColor='#597EEE'
-                minimumValue={10}
+                minimumValue={5}
                 maximumValue={maxValue()}
                 value={amountQuestions}
                 minimumTrackTintColor="#597EEE"
