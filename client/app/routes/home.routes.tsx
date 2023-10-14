@@ -7,7 +7,7 @@ import Options from '../components/home/options'
 import Profile from '../components/profile/profile';
 
 import { gamesApi } from '../server/api/game.api'
-import { loginApi, usersApi } from '../server/api/user.api'
+import { getDateExperienceApi, loginApi, usersApi } from '../server/api/user.api'
 import { loginAction, usersAction } from '../server/features/user.features'
 import { gamesAction } from '../server/features/game.features'
 
@@ -62,12 +62,32 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         }
     }
 
+    const getNewDate = async () => {
+        try {
+            await getDateExperienceApi(users.user.token)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
 
         if (users.isLoggedIn) {
             getLoginData()
             getUsers()
             getData()
+
+            const isNewDate = users.users.total?.find((u) => {
+                if (u.points.lastGame) {
+                    if (u.points.lastGame.split("-")[2] === `${new Date().getDate()}`) {
+                        return true
+                    }
+                }
+            })
+
+            if (!isNewDate) {
+                getNewDate()
+            }
         }
 
     }, [dispatch, users.isLoggedIn])

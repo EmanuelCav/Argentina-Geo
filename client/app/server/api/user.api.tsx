@@ -92,6 +92,10 @@ export const updateExperienceApi = async (id: string, pointsData: IPoints, token
     })
 }
 
-export const getDateExperienceApi = async (date: string) => {
-    return await api.get(`/users/experience/date/${date}`)
+export const getDateExperienceApi = async (token: string) => {
+    return await api.get(`/users/experience/date`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
 }

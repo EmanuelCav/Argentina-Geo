@@ -33,7 +33,9 @@ router.put('/users/nickname/:id', auth, validNickname, usersCtrl.updateNickname)
 router.put('/users/location/:id', auth, usersCtrl.updateLocation)
 router.put('/users/category/:id', auth, usersCtrl.unlockCategory)
 router.put('/users/experience/:id', auth, usersCtrl.updateExperience)
-router.put('/users/experience/date/:date', usersCtrl.getDate)
+router.get('/users/experience/date', auth, usersCtrl.getDate)
+
+router.put('/xp', usersCtrl.updateExp)
 
 // router.get('/levels', [auth, validRole], validLevel, levelsCtrl.levels)
 router.get('/levels', levelsCtrl.levels)

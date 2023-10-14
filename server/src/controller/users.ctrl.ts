@@ -693,20 +693,51 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
 
 export const getDate = async (req: Request, res: Response): Promise<Response> => {
 
-    const { date } = req.params
-
     try {
 
-        await Experience.updateMany({
-            day: 0,
-            month: date.split("-")[2] === "01" && 0,
-            year: date.split("-")[1] === "01" && 0
+        if(new Date().getUTCMonth() + 1 === 1) {
+
+            await Experience.updateMany({
+                day: 0,
+                month: 0,
+                year: 0
+            })
+
+            return res.status(200).json({ message: "Year points updated" })
+        }
+
+        if(new Date().getUTCDate() === 1) {
+
+            await Experience.updateMany({
+                day: 0,
+                month: 0
+            })
+
+            return res.status(200).json({ message: "Month points updated" })
+        }
+        
+        await await Experience.updateMany({
+            day: 0
         })
 
-        return res.status(200).json({ message: "Points updated" })
+        return res.status(200).json({ message: "Day points updated" })
+
 
     } catch (error) {
         throw error
     }
+
+}
+
+export const updateExp = async (req: Request, res: Response) => {
+
+    
+    await Experience.updateMany({
+        lastGame: `2023-10-13`
+    })
+
+    const exps = await Experience.find()
+
+    return res.status(200).json(exps)
 
 }
