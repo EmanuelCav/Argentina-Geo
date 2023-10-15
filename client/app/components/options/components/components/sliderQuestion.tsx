@@ -37,7 +37,7 @@ const sliderQuestion = ({ setOptionsData, optionsData, amountQuestions, level }:
             <Text style={menuStyles.textTitleOptions}>Cantidad de preguntas</Text>
             <Text style={menuStyles.textQuestionOptions}>{amountQuestions}</Text>
             <Slider
-                style={[sliderStyle.slider, null]}
+                style={sliderStyle.slider}
                 thumbTintColor='#597EEE'
                 minimumValue={5}
                 maximumValue={maxValue()}
@@ -48,6 +48,7 @@ const sliderQuestion = ({ setOptionsData, optionsData, amountQuestions, level }:
                     ...optionData, amountQuestions: value
                 }))}
                 step={5}
+                accessibilityRole={undefined}
             />
         </View>
     )

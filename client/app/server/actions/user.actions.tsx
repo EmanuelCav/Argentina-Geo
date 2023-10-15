@@ -7,7 +7,7 @@ import * as gamesApi from "../api/game.api";
 
 import { firstTimeAction, getUserAction, loginAuthAction, usersAction } from "../features/user.features";
 import { gamesAction } from "../features/game.features";
-import { StackNavigation } from "../../types/props.types";
+import { RankingActionProps, StackNavigation } from "../../types/props.types";
 
 export const auth = createAsyncThunk('users/login', async (userData: IAuthAction, { dispatch }) => {
 
@@ -63,6 +63,22 @@ export const newUser = createAsyncThunk("users/newUser", async (navigation: Stac
 
         return resFirst.data
 
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+export const getRanking = createAsyncThunk('users/ranking', async (rankingData: RankingActionProps, { dispatch }) => {
+
+    try {
+
+        const { data } = await userApi.usersApi("total", rankingData.user.user.token)
+
+        dispatch(usersAction(data))
+
+        rankingData.navigation.navigate("Ranking")
+        
     } catch (error) {
         console.log(error);
     }

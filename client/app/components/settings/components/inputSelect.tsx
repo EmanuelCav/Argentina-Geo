@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text } from "react-native";
+import { Text, Pressable } from "react-native";
 
 import { sectionStyle } from "../../../styles/settings.styles";
 
@@ -33,10 +33,10 @@ const InputSelect = ({ value, setIsPais, setIsProvincia, setIsMunicipio, isDisab
     }
 
     return (
-        <TouchableOpacity style={isDisabled ? sectionStyle.containerInputSettingsDisabled : sectionStyle.containerInputSettings} 
+        <Pressable style={isDisabled ? sectionStyle.containerInputSettingsDisabled : sectionStyle.containerInputSettings} 
         onPress={setLocation} disabled={isDisabled}>
             <Text style={sectionStyle.textInput}>{value}</Text>
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 

@@ -8,11 +8,11 @@ export const newStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: Dimensions.get("window").height/62,
+        padding: Dimensions.get("window").height / 62,
     },
 
     newContain: {
-        padding: Dimensions.get("window").height/62,
+        padding: Dimensions.get("window").height / 62,
         backgroundColor: '#597EEE',
         justifyContent: 'center',
         alignItems: 'center',
@@ -22,20 +22,20 @@ export const newStyles = StyleSheet.create({
     buttonSettings: {
         width: '100%',
         backgroundColor: '#597EEE',
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         borderRadius: 4,
         borderColor: '#fff',
         borderStyle: 'solid',
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: Dimensions.get("window").height/62,
+        margin: Dimensions.get("window").height / 62,
     },
 
     textButtonSettings: {
         textAlign: 'center',
         color: '#fff',
-        fontSize: Dimensions.get("window").height/31,
+        fontSize: Dimensions.get("window").height / 31,
         fontWeight: '500'
     }
 
@@ -54,17 +54,17 @@ export const authStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: Dimensions.get("window").width/32.5
+        paddingHorizontal: Dimensions.get("window").width / 32.5
     },
 
     containerForm: {
         width: '100%',
-        padding: Dimensions.get("window").height/62,
+        padding: Dimensions.get("window").height / 62,
         backgroundColor: '#ffffff'
     },
 
     separator: {
-        marginTop: Dimensions.get("window").height/62,
+        marginTop: Dimensions.get("window").height / 62,
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center'
@@ -72,12 +72,12 @@ export const authStyles = StyleSheet.create({
 
     inputAuth: {
         width: '100%',
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         borderRadius: 12,
-        fontSize: Dimensions.get("window").height/41.11,
+        fontSize: Dimensions.get("window").height / 41.11,
         borderWidth: 1,
         borderColor: '#597EEE',
-        height: Dimensions.get("window").height/15.5
+        height: Dimensions.get("window").height / 15.5
     },
 
     inputAuthFocused: {
@@ -85,20 +85,20 @@ export const authStyles = StyleSheet.create({
         shadowColor: "#597EEE",
         shadowOffset: { width: 1, height: 2 },
         shadowOpacity: 1,
-        shadowRadius: 6,  
+        shadowRadius: 6,
         elevation: 5,
         width: '100%',
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         borderRadius: 12,
-        fontSize: Dimensions.get("window").height/41.11,
+        fontSize: Dimensions.get("window").height / 41.11,
         borderWidth: 1,
         borderColor: '#597EEE',
-        height: Dimensions.get("window").height/15.5
+        height: Dimensions.get("window").height / 15.5
     },
 
     labelForm: {
-        fontSize: Dimensions.get("window").height/33.66,
-        margin: Dimensions.get("window").height/370
+        fontSize: Dimensions.get("window").height / 33.66,
+        margin: Dimensions.get("window").height / 370
     }
 
 })
@@ -108,33 +108,33 @@ export const sectionStyle = StyleSheet.create({
     containerInputSettings: {
         width: '100%',
         backgroundColor: '#FFFFFF',
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         borderRadius: 4,
         borderColor: '#597EEE',
         borderStyle: 'solid',
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: Dimensions.get("window").height/62
+        margin: Dimensions.get("window").height / 62
     },
 
     containerInputSettingsDisabled: {
         width: '100%',
         backgroundColor: '#888',
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         borderRadius: 4,
         borderColor: '#597EEE',
         borderStyle: 'solid',
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: Dimensions.get("window").height/62
+        margin: Dimensions.get("window").height / 62
     },
 
     textInput: {
         textAlign: 'center',
         color: '#597EEE',
-        fontSize: Dimensions.get("window").height/37,
+        fontSize: Dimensions.get("window").height / 37,
         fontWeight: '500'
     },
 
@@ -151,13 +151,13 @@ export const sectionStyle = StyleSheet.create({
     },
 
     textCode: {
-        fontSize: Dimensions.get("window").height/41.11,
+        fontSize: Dimensions.get("window").height / 41.11,
     },
 
     changeTextCode: {
-        fontSize: Dimensions.get("window").height/33.66,
+        fontSize: Dimensions.get("window").height / 33.66,
         color: '#597EEE',
-        marginTop: Dimensions.get("window").height/370,
+        marginTop: Dimensions.get("window").height / 370,
         fontWeight: '600'
     },
 
@@ -174,7 +174,7 @@ export const sectionStyle = StyleSheet.create({
 
     locationSelect: {
         width: '100%',
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         borderWidth: 2,
         borderColor: "#597EEE",
         borderStyle: "solid",
@@ -183,7 +183,7 @@ export const sectionStyle = StyleSheet.create({
 
     locationSelected: {
         width: '100%',
-        padding: Dimensions.get("window").height/106,
+        padding: Dimensions.get("window").height / 106,
         borderWidth: 2,
         borderColor: "#597EEE",
         borderStyle: "solid",
@@ -191,12 +191,12 @@ export const sectionStyle = StyleSheet.create({
     },
 
     textLocationSelect: {
-        fontSize: Dimensions.get("window").height/41.11,
+        fontSize: Dimensions.get("window").height / 41.11,
         color: "#597EEE"
     },
 
     textLocationSelected: {
-        fontSize: Dimensions.get("window").height/41.11,
+        fontSize: Dimensions.get("window").height / 41.11,
         color: "#fff"
     }
 

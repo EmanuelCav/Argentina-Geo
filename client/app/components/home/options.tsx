@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import ButtonMenu from "../buttonMenu";
 
-import { getUser } from "../../server/actions/user.actions";
+import { getRanking, getUser } from "../../server/actions/user.actions";
 
 import { homeStyles } from "../../styles/home.styles";
 
@@ -26,7 +26,10 @@ const Options = ({ navigation, setIsProfile, user }: ShowStatisticsProps) => {
     }
 
     const redirectRanking = () => {
-        navigation.navigate('Ranking')
+        dispatch(getRanking({
+            user,
+            navigation
+        }) as any)
     }
 
     const redirectSettings = () => {

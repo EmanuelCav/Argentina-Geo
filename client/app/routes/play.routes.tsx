@@ -37,10 +37,16 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
     const showCategories = () => {
         setIsCategories(!isCategories)
+        setMessage("")
     }
 
     const showOptions = () => {
         setIsOptionsGame(!isOptionsGame)
+        setMessage("")
+    }
+
+    const back = () => {
+        navigation.goBack()
     }
 
     return (
@@ -57,7 +63,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
                 <ButtonMenu text="Categorías" redirect={showCategories} isAccept={false}
                     isCategory={users.user.user.categories.filter((u) => u.isUnlocked).length !== users.user.user.level.level ? true : false} />
                 <ButtonMenu text="Opciones" redirect={showOptions} isAccept={false} isCategory={false} />
-                <ButtonMenu text="Regresar" redirect={() => navigation.goBack()} isAccept={false} isCategory={false} />
+                <ButtonMenu text="Regresar" redirect={back} isAccept={false} isCategory={false} />
             </View>
         </View>
     )

@@ -115,7 +115,7 @@ export const menuStyles = StyleSheet.create({
     },
 
     buttonOptions: {
-        width: '50%',
+        width: '58%',
         padding: Dimensions.get('window').height / 106,
         borderRadius: 12,
         borderWidth: 1,
@@ -125,7 +125,7 @@ export const menuStyles = StyleSheet.create({
     },
 
     buttonOptionsSelected: {
-        width: '50%',
+        width: '58%',
         padding: Dimensions.get('window').height / 106,
         borderRadius: 12,
         borderWidth: 1,

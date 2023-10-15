@@ -79,6 +79,7 @@ export type SelectOptionProps = {
     setOptionsData: (optionData: SetStateAction<IOptions>) => void; 
     optionsData: IOptions, 
     amountOptions: number;
+    level: number;
 }
 
 export type SelectQuestionProps = {
@@ -186,4 +187,9 @@ export type UserRankingProps = {
     users: UserReducerType;
     rankData: string;
     setIsProfile: (isProfile: boolean) => void;
+}
+
+export type RankingActionProps = {
+    user: UserReducerType;
+    navigation: StackNavigation;
 }

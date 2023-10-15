@@ -8,7 +8,9 @@ export const paises = async (req: Request, res: Response): Promise<Response> => 
 
     try {
 
-        const showPaises = await Pais.find()
+        const showPaises = await Pais.find().sort({
+            name: 1
+        })
 
         return res.status(200).json(showPaises)
 
@@ -32,6 +34,9 @@ export const provincias = async (req: Request, res: Response): Promise<Response>
 
         const showProvincias = await Provincia.find({ pais: paisId._id })
             .populate("pais")
+            .sort({
+                name: 1
+            })
 
         return res.status(200).json(showProvincias)
 
@@ -55,6 +60,9 @@ export const municipios = async (req: Request, res: Response): Promise<Response>
 
         const showMunicipios = await Municipio.find({ provincia: provinciaId._id })
             .populate("provincia")
+            .sort({
+                name: 1
+            })
 
         return res.status(200).json(showMunicipios)
 

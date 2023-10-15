@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { useDispatch } from 'react-redux';
 
 import { usersApi } from "../../server/api/user.api";
@@ -71,7 +71,7 @@ const FilterRank = ({ users, setRankData }: RankingProps) => {
     }
 
     return (
-        <View style={rankingStyles.containerFilterRanking}>
+        <View>
             <Text style={rankingStyles.infoUserRank}>{users.users.ranking!.map((u) => u._id)
                 .indexOf(users.user.user._id) + 1 === 0 ? (
                 <Text>
@@ -84,22 +84,22 @@ const FilterRank = ({ users, setRankData }: RankingProps) => {
                 </Text>
             )}</Text>
             <View style={rankingStyles.containerDateRank}>
-                <TouchableOpacity style={isTotal ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
+                <Pressable style={isTotal ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
                     onPress={showTotal} disabled={isTotal}>
                     <Text style={isTotal ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Total</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={isYear ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
+                </Pressable>
+                <Pressable style={isYear ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
                     onPress={showYear} disabled={isYear}>
                     <Text style={isYear ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Año</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={isMonth ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
+                </Pressable>
+                <Pressable style={isMonth ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
                     onPress={showMonth} disabled={isMonth}>
                     <Text style={isMonth ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Mes</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={isDay ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
+                </Pressable>
+                <Pressable style={isDay ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
                     onPress={showDay} disabled={isDay}>
                     <Text style={isDay ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Día</Text>
-                </TouchableOpacity>
+                </Pressable>
             </View>
         </View>
     )

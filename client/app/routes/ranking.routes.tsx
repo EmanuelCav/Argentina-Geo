@@ -20,7 +20,7 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
     const users = useSelector((state: IReducer) => selector(state).users)
     const games = useSelector((state: IReducer) => selector(state).games)
 
-    const [rankData, setRankData] = useState("total")
+    const [rankData, setRankData] = useState<string>("total")
     const [isProfile, setIsProfile] = useState<boolean>(false)
 
     return (

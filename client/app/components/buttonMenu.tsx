@@ -11,7 +11,7 @@ const ButtonMenu = ({ text, redirect, isAccept, isCategory }: ButtonGameProps) =
       {
         isCategory && 
         <View style={homeStyles.containerIconUnlockCategory}>
-          <AntDesign name="unlock" color={"#fff"} style={homeStyles.iconUnlockCategory} size={Dimensions.get('window').height / 37} />
+          <AntDesign name="unlock" selectable={undefined} color={"#fff"} style={homeStyles.iconUnlockCategory} size={Dimensions.get('window').height / 37} />
         </View>
       }
       <Text adjustsFontSizeToFit numberOfLines={1} style={homeStyles.textButtonOption}>{text}</Text>
