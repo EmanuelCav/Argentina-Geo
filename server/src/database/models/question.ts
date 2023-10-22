@@ -23,7 +23,12 @@ const questionSchema = new Schema({
         required: true
     },
     text: {
-        type: String
+        type: String,
+        trim: true
+    },
+    isAnswer: {
+        type: Boolean,
+        default: true
     }
     
 }, {

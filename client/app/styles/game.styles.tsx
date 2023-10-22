@@ -17,11 +17,35 @@ export const gameStyles = StyleSheet.create({
         borderColor: '#5d8cff',
         borderWidth: 4,
         borderStyle: 'solid',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
     imageQuestion: {
         width: '100%',
+        // height: Dimensions.get("window").height / 3.8
         height: '100%'
+    },
+
+    containerTextGame: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        flexDirection: 'column',
+        width: '100%',
+    },
+
+    textQuestionGame: {
+        fontSize: Dimensions.get("window").height / 33.64,
+        textAlign: 'center',
+        marginTop: Dimensions.get("window").height / 74
+    },
+
+    textTextGame: {
+        fontSize: Dimensions.get("window").height / 29.6,
+        textAlign: 'center',
+        marginTop: Dimensions.get("window").height / 74
     },
 
     containerOptions: {

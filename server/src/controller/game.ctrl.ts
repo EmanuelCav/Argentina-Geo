@@ -67,7 +67,7 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         for (let i = 0; i < categoriesSelected.length; i++) {
             categories.push(categoriesSelected[i].category)
-        }
+        }        
 
         const avaibleQuestions = await Question.find({ category: categories })
 

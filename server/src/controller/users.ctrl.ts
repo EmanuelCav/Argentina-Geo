@@ -728,16 +728,3 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
     }
 
 }
-
-export const updateExp = async (req: Request, res: Response) => {
-
-    
-    await Experience.updateMany({
-        lastGame: `2023-10-13`
-    })
-
-    const exps = await Experience.find()
-
-    return res.status(200).json(exps)
-
-}

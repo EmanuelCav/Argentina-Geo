@@ -73,12 +73,12 @@ export const menuStyles = StyleSheet.create({
     },
 
     textCategory: {
-        fontSize: Dimensions.get('window').height / 37,
+        fontSize: Dimensions.get('window').height / 43.53,
         color: '#597EEE'
     },
 
     textCategoryUnlocked: {
-        fontSize: Dimensions.get('window').height / 37,
+        fontSize: Dimensions.get('window').height / 43.53,
         color: '#FFFFFF'
     },
 

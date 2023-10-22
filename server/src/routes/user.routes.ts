@@ -35,8 +35,6 @@ router.put('/users/category/:id', auth, usersCtrl.unlockCategory)
 router.put('/users/experience/:id', auth, usersCtrl.updateExperience)
 router.get('/users/experience/date', auth, usersCtrl.getDate)
 
-router.put('/xp', usersCtrl.updateExp)
-
 // router.get('/levels', [auth, validRole], validLevel, levelsCtrl.levels)
 router.get('/levels', levelsCtrl.levels)
 // router.post('/levels', [auth, validRole], validLevel, levelsCtrl.createLevels)

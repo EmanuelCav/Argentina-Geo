@@ -66,6 +66,10 @@ export const createQuestions = async (req: Request, res: Response): Promise<Resp
 
         } else {
 
+            if(!text) {
+                return res.status(400).json({ message: "You have to upload a text as a question view" })
+            }
+
             const newQuestion = new Question({
                 question,
                 category: categorySelected._id,

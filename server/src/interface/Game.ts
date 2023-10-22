@@ -30,6 +30,7 @@ export interface IQuestion extends Document {
     image: imageType;
     answer: string;
     text: string;
+    isAnswer: boolean;
 }
 
 export interface IGame extends Document {
