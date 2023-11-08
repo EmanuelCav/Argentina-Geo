@@ -23,11 +23,11 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
                             <Text style={gameStyles.textDataGame}>¡Repaso realizado!</Text>
                         </>
                     ) : (
-                        <>
+                        <View>
                             <Text style={gameStyles.textDataGame}>Respuestas correctas: {corrects}</Text>
                             <Time seconds={seconds} minutes={minutes} specialText="Tiempo: " />
                             <Text style={gameStyles.textDataGame}>Total de puntos: {points}xp</Text>
-                        </>
+                        </View>
                     )
                 }
                 {

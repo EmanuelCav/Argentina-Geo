@@ -1,4 +1,4 @@
-import { View, Text, Image, ImageSourcePropType, PixelRatio } from "react-native";
+import { View, Text, Image } from "react-native";
 
 import { ShowQuestionProps } from "../../types/props.types";
 
@@ -9,7 +9,7 @@ const ShowQuestion = ({ questions, numberQuestion }: ShowQuestionProps) => {
         <View style={gameStyles.containerQuestion}>
             {
                 questions[numberQuestion].question.image ? (
-                    <Image source={questions[numberQuestion].question.image.image as ImageSourcePropType}
+                    <Image source={{ uri: questions[numberQuestion].question.image.image }}
                         style={gameStyles.imageQuestion} resizeMode={"contain"} />
                 ) : (
                     <View style={gameStyles.containerTextGame}>

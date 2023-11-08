@@ -47,8 +47,6 @@ export const authStyles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position: 'absolute',
-        left: 0,
-        top: 0,
         backgroundColor: 'rgba(89,126,238,0.7)',
         zIndex: 14,
         flex: 1,
@@ -56,7 +54,7 @@ export const authStyles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: Dimensions.get("window").width / 32.5
     },
-
+    
     containerForm: {
         width: '100%',
         padding: Dimensions.get("window").height / 62,
@@ -81,12 +79,10 @@ export const authStyles = StyleSheet.create({
     },
 
     inputAuthFocused: {
-        outlineStyle: 'none',
         shadowColor: "#597EEE",
-        shadowOffset: { width: 1, height: 2 },
-        shadowOpacity: 1,
-        shadowRadius: 6,
-        elevation: 5,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.8,
+        shadowRadius: 10,
         width: '100%',
         padding: Dimensions.get("window").height / 106,
         borderRadius: 12,

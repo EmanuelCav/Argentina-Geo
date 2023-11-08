@@ -12,6 +12,8 @@ export const menuStyles = StyleSheet.create({
         paddingVertical: Dimensions.get('window').height / 16.81,
         paddingHorizontal: Dimensions.get('window').width / 36,
         zIndex: 14,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
     categoriesContain: {

@@ -6,7 +6,8 @@ export const generalStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginVertical: Dimensions.get("window").height / 52.85
     },
 
     containSelector: {
@@ -23,7 +24,8 @@ export const generalStyles = StyleSheet.create({
 export const homeStyles = StyleSheet.create({
 
     containerHome: {
-        height: '100%'
+        height: '100%',
+        marginVertical: Dimensions.get("window").height / 52.85
     },
 
     // USER
@@ -170,7 +172,8 @@ export const homeStyles = StyleSheet.create({
     containerPlay: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: Dimensions.get("window").height / 52.85
     },
 
     containerIconUnlockCategory: {
@@ -193,7 +196,8 @@ export const rankingStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         width: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: Dimensions.get("window").height / 52.85
     },
 
     rankingContain: {
@@ -228,6 +232,20 @@ export const rankingStyles = StyleSheet.create({
         paddingHorizontal: Dimensions.get('window').height / 106,
         paddingVertical: Dimensions.get('window').height / 67.27,
         backgroundColor: '#fff',
+        borderWidth: 2,
+        borderColor: '#597EEE',
+        borderStyle: 'solid'
+    },
+
+    userRankingMe: {
+        flexDirection: 'row',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        paddingHorizontal: Dimensions.get('window').height / 106,
+        paddingVertical: Dimensions.get('window').height / 67.27,
+        backgroundColor: '#B0C4DE',
         borderWidth: 2,
         borderColor: '#597EEE',
         borderStyle: 'solid'

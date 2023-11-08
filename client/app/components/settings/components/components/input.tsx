@@ -12,7 +12,7 @@ const Input = ({ label, value, handleChange, isPassword }: InputProps) => {
     return (
         <View style={authStyles.separator}>
             <Text style={authStyles.labelForm}>{label}</Text>
-            <TextInput onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} 
+            <TextInput selectionColor={"#597EEE"} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} 
             style={isFocused ? authStyles.inputAuthFocused : authStyles.inputAuth} value={value} onChangeText={handleChange} autoComplete="off" secureTextEntry={isPassword} />
         </View>
     )

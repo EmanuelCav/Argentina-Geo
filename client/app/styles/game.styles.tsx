@@ -8,7 +8,8 @@ export const gameStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginVertical: Dimensions.get("window").height / 52.85
     },
 
     containerQuestion: {

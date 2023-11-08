@@ -703,7 +703,6 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
                 year: 0
             })
 
-            return res.status(200).json({ message: "Year points updated" })
         }
 
         if(new Date().getUTCDate() === 1) {
@@ -713,7 +712,6 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
                 month: 0
             })
 
-            return res.status(200).json({ message: "Month points updated" })
         }
         
         await await Experience.updateMany({
@@ -721,7 +719,6 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
         })
 
         return res.status(200).json({ message: "Day points updated" })
-
 
     } catch (error) {
         throw error

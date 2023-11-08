@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { ILogin, INickname, IOptions, IPassword, IPoints, ISetting } from '../../interface/User'
 
-const api = axios.create({ baseURL: 'http://localhost:4200' })
+const api = axios.create({ baseURL: 'http://192.168.0.4:4200' })
 
 export const usersApi = async (date: string, token: string) => {
     return await api.get(`/users/ranking/${date}`, {

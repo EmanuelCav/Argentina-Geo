@@ -164,7 +164,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
         setTimeout(() => {
             setIsCorrect(false)
             setIsIncorrect(false)
-        }, 100);
+        }, 225);
 
     }, [isCorrect, isIncorrect])
 

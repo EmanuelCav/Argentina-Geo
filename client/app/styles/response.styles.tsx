@@ -5,14 +5,13 @@ export const responseStyles = StyleSheet.create({
     // LOADING
 
     containerLoading: {
-        width: '100%',
+        width: Dimensions.get('window').width,
         height: '100%',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        left: 0,
-        top: 0,
+        backgroundColor: 'red',
         zIndex: 44
     },
 
