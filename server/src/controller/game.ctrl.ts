@@ -67,11 +67,25 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         for (let i = 0; i < categoriesSelected.length; i++) {
             categories.push(categoriesSelected[i].category)
-        }        
+        }
 
         const avaibleQuestions = await Question.find({ category: categories, isAnswer: true })
 
-        const shuffledQuestions = shuffle(avaibleQuestions).slice(0, user?.amountQuestions)
+        let amountQuestionsUser = user?.amountQuestions!
+
+        if (avaibleQuestions.length < user?.amountQuestions!) {
+
+            while (avaibleQuestions.length < amountQuestionsUser) {
+                amountQuestionsUser--
+            }
+
+            while (amountQuestionsUser % 5 !== 0) {
+                amountQuestionsUser--
+            }
+
+        }
+
+        const shuffledQuestions = shuffle(avaibleQuestions).slice(0, amountQuestionsUser)
 
         const newGame = new Game({
             user: req.user
@@ -79,14 +93,14 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         const gameSaved = await newGame.save()
 
-        for (let i = 0; i < user?.amountQuestions!; i++) {
+        for (let i = 0; i < amountQuestionsUser; i++) {
 
             const correctOption = Math.floor(Math.random() * user?.amountOptions!);
 
             const categoryQuestion = await Question.find({ category: shuffledQuestions[i].category })
             const shuffledCategoryQuestion = shuffle(categoryQuestion).filter((q: IQuestion) => q.answer !== shuffledQuestions[i].answer)
             const uniquesOptions = [...new Set(shuffledCategoryQuestion.map((option: IQuestion) => option.answer))];
-            
+
             const nameCategoryUser = await CategoryUser.findOne({ user: req.user, category: shuffledQuestions[i].category })
 
             if (!nameCategoryUser) {
