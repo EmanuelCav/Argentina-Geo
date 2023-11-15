@@ -4,7 +4,7 @@ import { UserInfoProps } from "../../types/props.types";
 
 import { homeStyles } from '../../styles/home.styles';
 
-const User = ({ user, users, games }: UserInfoProps) => {
+const User = ({ user, users }: UserInfoProps) => {
 
     const experienceGotStyle = StyleSheet.create({
         experienceGot: {
@@ -28,13 +28,15 @@ const User = ({ user, users, games }: UserInfoProps) => {
                         <Text> - {user.municipio.name}</Text>)}
                 </Text>
                 <Text style={homeStyles.userInfo}>Posición: {users.total!.map((user) => user._id).indexOf(user._id) + 1}°</Text>
-                <Text style={homeStyles.userInfo}>Partidas jugadas: {games.length}</Text>
                 <View style={homeStyles.containerLevel}>
                     <View style={experienceGotStyle.experienceGot} />
                     <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevel}>
                         <Text style={homeStyles.textLevel}>{user.level.level}</Text>
                     </ImageBackground>
-                    <Text style={homeStyles.textExp}>{user.points.levelExperience}/{user.level.max} xp</Text>
+                    {
+                        user.level.level !== 62 &&
+                        <Text style={homeStyles.textExp}>{user.points.levelExperience}/{user.level.max} xp</Text>
+                    }
                 </View>
             </View>
         </View>

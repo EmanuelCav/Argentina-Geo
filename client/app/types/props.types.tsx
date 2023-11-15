@@ -39,7 +39,6 @@ export type ShowStatisticsProps = {
 export type UserInfoProps = {
     user: IUser;
     users: IUsersRank;
-    games: IGame[];
 }
 
 export type ProfileProps = {

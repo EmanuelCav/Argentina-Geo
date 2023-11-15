@@ -25,9 +25,31 @@ export const questions = async (req: Request, res: Response): Promise<Response> 
 
 }
 
+export const questionsCategory = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+
+    try {
+
+        const showQuestions = await Question.find({
+            category: id
+        })
+
+        return res.status(200).json({
+            questions: showQuestions,
+            amount: showQuestions.length
+        })
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+
 export const createQuestions = async (req: Request, res: Response): Promise<Response> => {
 
-    const { question, category, answer, text } = req.body
+    const { question, category, answer, text, isAnswer } = req.body
 
     try {
 
@@ -66,7 +88,7 @@ export const createQuestions = async (req: Request, res: Response): Promise<Resp
 
         } else {
 
-            if(!text) {
+            if (!text) {
                 return res.status(400).json({ message: "You have to upload a text as a question view" })
             }
 
@@ -74,7 +96,8 @@ export const createQuestions = async (req: Request, res: Response): Promise<Resp
                 question,
                 category: categorySelected._id,
                 answer,
-                text
+                text,
+                isAnswer
             })
 
             questionSaved = await newQuestion.save()
@@ -124,7 +147,7 @@ export const gameQuestion = async (req: Request, res: Response) => {
 
     try {
 
-        const category = await Categoryuser.findById(id)        
+        const category = await Categoryuser.findById(id)
 
         if (!category) {
             return res.status(400).json({ message: "Category does not exists" })

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
+import Constants from 'expo-constants';
 
 import User from '../components/home/user'
 import Options from '../components/home/options'
@@ -101,7 +102,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                 isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
             }
             {
-                users.isLoggedIn && <User user={users.user.user} users={users.users} games={games.games} />
+                users.isLoggedIn && <User user={users.user.user} users={users.users} />
             }
             <Options navigation={navigation} setIsProfile={setIsProfile} user={users} />
         </View>

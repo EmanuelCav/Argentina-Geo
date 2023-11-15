@@ -650,22 +650,26 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
             return res.status(400).json({ message: "Level does not exists" })
         }
 
-        if (experienceUpdated?.levelExperience! >= level.max) {
+        const levels = await Level.find()
 
-            const nextLevel = await Level.findOne({ level: level.level + 1 })
-
-            await Experience.findByIdAndUpdate(experience._id, {
-                levelExperience: experienceUpdated?.levelExperience! - level.max
-            }, {
-                new: true
-            })
-
-            await User.findByIdAndUpdate(req.user, {
-                level: nextLevel?._id
-            }, {
-                new: true
-            })
-
+        if(level.level !== levels.length) {
+            if (experienceUpdated?.levelExperience! >= level.max) {
+    
+                const nextLevel = await Level.findOne({ level: level.level + 1 })
+    
+                await Experience.findByIdAndUpdate(experience._id, {
+                    levelExperience: experienceUpdated?.levelExperience! - level.max
+                }, {
+                    new: true
+                })
+    
+                await User.findByIdAndUpdate(req.user, {
+                    level: nextLevel?._id
+                }, {
+                    new: true
+                })
+    
+            }
         }
 
         const user = await User.findById(req.user)

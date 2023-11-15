@@ -1,4 +1,6 @@
-{
+import 'dotenv/config';
+
+export default {
   "expo": {
     "name": "client",
     "slug": "client",
@@ -25,6 +27,10 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "host": process.env.HOST,
+      "key": process.env.KEY
     }
   }
 }

@@ -1,8 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-// import storage from 'redux-persist/lib/storage'
 import { persistReducer } from "redux-persist";
 import thunk from 'redux-thunk';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Constants from 'expo-constants';
 
 import gameReducer from './features/game.features'
 import userReducer from './features/user.features'
@@ -15,7 +15,7 @@ const reducers = combineReducers({
 })
 
 const persistedReducers = persistReducer({
-    key: `arrgeo-user-games`,
+    key: `${Constants?.manifest?.extra?.key}`,
     version: 1,
     storage: AsyncStorage
 }, reducers)

@@ -1,6 +1,7 @@
 import axios from 'axios'
+import Constants from 'expo-constants';
 
-const api = axios.create({ baseURL: 'http://192.168.0.4:4200' })
+const api = axios.create({ baseURL: `${Constants?.manifest?.extra?.host}` })
 
 export const gamesApi = async (token: string) => {
     return await api.get('/games', {

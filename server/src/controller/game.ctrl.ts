@@ -69,7 +69,7 @@ export const createGames = async (req: Request, res: Response): Promise<Response
             categories.push(categoriesSelected[i].category)
         }        
 
-        const avaibleQuestions = await Question.find({ category: categories })
+        const avaibleQuestions = await Question.find({ category: categories, isAnswer: true })
 
         const shuffledQuestions = shuffle(avaibleQuestions).slice(0, user?.amountQuestions)
 
@@ -81,13 +81,12 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         for (let i = 0; i < user?.amountQuestions!; i++) {
 
-            let optionsAdded = []
-
             const correctOption = Math.floor(Math.random() * user?.amountOptions!);
 
             const categoryQuestion = await Question.find({ category: shuffledQuestions[i].category })
             const shuffledCategoryQuestion = shuffle(categoryQuestion).filter((q: IQuestion) => q.answer !== shuffledQuestions[i].answer)
-
+            const uniquesOptions = [...new Set(shuffledCategoryQuestion.map((option: IQuestion) => option.answer))];
+            
             const nameCategoryUser = await CategoryUser.findOne({ user: req.user, category: shuffledQuestions[i].category })
 
             if (!nameCategoryUser) {
@@ -106,8 +105,6 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
                 if (j === correctOption) {
 
-                    optionsAdded.push(shuffledQuestions[i].answer)
-
                     await QuestionGame.findByIdAndUpdate(questionSaved._id, {
                         $push: {
                             options: shuffledQuestions[i].answer
@@ -117,11 +114,9 @@ export const createGames = async (req: Request, res: Response): Promise<Response
                     })
                 } else {
 
-                    optionsAdded.push(shuffledCategoryQuestion[j].answer)
-
                     await QuestionGame.findByIdAndUpdate(questionSaved._id, {
                         $push: {
-                            options: shuffledCategoryQuestion[j].answer
+                            options: uniquesOptions[j]
                         }
                     }, {
                         new: true
