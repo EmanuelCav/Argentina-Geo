@@ -76,12 +76,14 @@ export const menuStyles = StyleSheet.create({
 
     textCategory: {
         fontSize: Dimensions.get('window').height / 43.53,
-        color: '#597EEE'
+        color: '#597EEE',
+        maxWidth: '90%'
     },
 
     textCategoryUnlocked: {
         fontSize: Dimensions.get('window').height / 43.53,
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        maxWidth: '90%'
     },
 
     // OPTIONS

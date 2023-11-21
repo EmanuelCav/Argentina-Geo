@@ -261,7 +261,8 @@ export const rankingStyles = StyleSheet.create({
     topUser: {
         alignItems: 'center',
         justifyContent: 'flex-start',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        width: '66%'
     },
 
     containerDateRank: {
@@ -298,10 +299,20 @@ export const rankingStyles = StyleSheet.create({
         marginRight: Dimensions.get("window").width / 60
     },
 
+    containExpUser: {
+        maxWidth: '34%'
+    },
+
     infoUserRank: {
         fontSize: Dimensions.get('window').height / 41.11,
         color: '#5d8cff',
         textAlign: 'center'
+    },
+
+    pointsUserRank: {
+        fontSize: Dimensions.get('window').height / 41.11,
+        color: '#5d8cff',
+        textAlign: 'right'
     },
 
     infoUserRankSelected: {

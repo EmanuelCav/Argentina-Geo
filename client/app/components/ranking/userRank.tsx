@@ -43,11 +43,13 @@ const UserRank = ({ index, user, users, rankData, setIsProfile }: UserRankingPro
         <TouchableOpacity  style={users.user.user._id === user._id ? rankingStyles.userRankingMe : rankingStyles.userRanking} 
         onPress={showProfile}>
             <View style={rankingStyles.containerUserRank}>
-                <View  style={rankingStyles.topUser}>
+                <View style={rankingStyles.topUser}>
                     <Text style={rankingStyles.topUserRank}>{index + 1}</Text>
                     <Text style={rankingStyles.infoUserRank}>{user.nickname}</Text>
                 </View>
-                <Text style={rankingStyles.infoUserRank}>{pointsRank()}xp</Text>
+                <View style={rankingStyles.containExpUser}>
+                    <Text style={rankingStyles.pointsUserRank}>{pointsRank()}xp</Text>
+                </View>
             </View>
         </TouchableOpacity>
     )
