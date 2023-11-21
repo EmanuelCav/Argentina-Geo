@@ -13,6 +13,7 @@ import { newStyles } from '../styles/settings.styles'
 import { selector } from "../helper/selector";
 import { getUserData } from "../helper/storage";
 import { loadingAction } from "../server/features/response.features";
+import { getLogin, newUser } from "../server/actions/user.actions";
 
 const New = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -20,7 +21,7 @@ const New = ({ navigation }: { navigation: StackNavigation }) => {
 
     const dispatch = useDispatch()
 
-    const [isAuth, setIsAuth] = useState<boolean>(false)
+    // const [isAuth, setIsAuth] = useState<boolean>(false)
 
     useEffect(() => {
 
@@ -29,29 +30,37 @@ const New = ({ navigation }: { navigation: StackNavigation }) => {
             await getUserData()
 
             if (users.isLoggedIn) {
-                navigation.navigate('Home')
+                dispatch(getLogin({
+                    navigation,
+                    users
+                }) as any)
+                return
             }
 
-            dispatch(loadingAction(true))
+            dispatch(newUser(navigation) as any)
 
-            setTimeout(() => {
-                dispatch(loadingAction(false))
-            }, 2000);
+            // dispatch(loadingAction(true))
+
+            // setTimeout(() => {
+            //     dispatch(loadingAction(false))
+            // }, 2000);
 
         })()
 
     }, [])
 
-    useEffect(() => {
-    }, [isAuth])
+    // useEffect(() => {
+    // }, [isAuth])
 
     return (
-        <View style={newStyles.containerNew}>
-            {
-                isAuth && <Auth navigation={navigation} setIsAuth={setIsAuth} dispatch={dispatch} />
-            }
-            <NewUser navigation={navigation} setIsAuth={setIsAuth} dispatch={dispatch} />
-        </View>
+        <>
+        </>
+        // <View style={newStyles.containerNew}>
+        //     {
+        //         isAuth && <Auth navigation={navigation} setIsAuth={setIsAuth} dispatch={dispatch} />
+        //     }
+        //     <NewUser navigation={navigation} setIsAuth={setIsAuth} dispatch={dispatch} />
+        // </View>
     )
 }
 

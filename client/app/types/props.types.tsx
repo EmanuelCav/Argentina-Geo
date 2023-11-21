@@ -192,3 +192,8 @@ export type RankingActionProps = {
     user: UserReducerType;
     navigation: StackNavigation;
 }
+
+export type GetLoginActionProps = {
+    users: UserType;
+    navigation: StackNavigation;
+}

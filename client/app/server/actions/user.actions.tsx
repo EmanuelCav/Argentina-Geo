@@ -5,9 +5,9 @@ import { IAuthAction, IGetUserAction } from "../../interface/User";
 import * as userApi from "../api/user.api"
 import * as gamesApi from "../api/game.api";
 
-import { firstTimeAction, getUserAction, loginAuthAction, usersAction } from "../features/user.features";
+import { firstTimeAction, getUserAction, loginAction, loginAuthAction, usersAction } from "../features/user.features";
 import { gamesAction } from "../features/game.features";
-import { RankingActionProps, StackNavigation } from "../../types/props.types";
+import { GetLoginActionProps, RankingActionProps, StackNavigation } from "../../types/props.types";
 
 export const auth = createAsyncThunk('users/login', async (userData: IAuthAction, { dispatch }) => {
 
@@ -78,7 +78,28 @@ export const getRanking = createAsyncThunk('users/ranking', async (rankingData: 
         dispatch(usersAction(data))
 
         rankingData.navigation.navigate("Ranking")
-        
+
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+export const getLogin = createAsyncThunk('/users/getLogin', async (userData: GetLoginActionProps, { dispatch }) => {
+
+    try {
+
+        const { data } = await userApi.loginApi(
+            {
+                nickname: userData.users.user.user.nickname,
+                password: userData.users.user.user.password
+            }
+        )
+
+        dispatch(loginAction(data))
+
+        userData.navigation.navigate('Home')
+
     } catch (error) {
         console.log(error);
     }

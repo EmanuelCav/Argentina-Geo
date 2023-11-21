@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { IResponse } from '../../interface/Response';
 
-import { auth, getRanking, getUser, newUser } from '../actions/user.actions';
+import { auth, getLogin, getRanking, getUser, newUser } from '../actions/user.actions';
 import { game } from '../actions/game.actions';
 
 const initialState: IResponse = {
@@ -50,6 +50,13 @@ const counterResponseSlice = createSlice({
             state.loading = true
         })
         builder.addCase(getRanking.fulfilled, (state) => {
+            state.loading = false
+        })
+
+        builder.addCase(getLogin.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(getLogin.fulfilled, (state) => {
             state.loading = false
         })
     }

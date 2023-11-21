@@ -2,7 +2,6 @@ import { View } from "react-native";
 
 import ButtonSettings from "./components/components/buttonSettings";
 
-import { loadingAction } from "../../server/features/response.features";
 import { newUser } from "../../server/actions/user.actions";
 
 import { NewProps } from "../../types/props.types";
