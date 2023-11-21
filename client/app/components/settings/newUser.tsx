@@ -12,12 +12,6 @@ import { newStyles } from '../../styles/settings.styles'
 const NewUser = ({ navigation, setIsAuth, dispatch }: NewProps) => {
 
     const redirectHome = () => {
-        // dispatch(loadingAction(true))
-        // navigation.navigate('Home')
-
-        // setTimeout(() => {
-        //     dispatch(loadingAction(false))
-        // }, 2000);
         dispatch(newUser(navigation) as any)
     }
 

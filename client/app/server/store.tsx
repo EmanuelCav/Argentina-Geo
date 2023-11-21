@@ -22,7 +22,7 @@ const persistedReducers = persistReducer({
 
 const store = configureStore({
     reducer: persistedReducers,
-    devTools: false,
+    devTools: true,
     middleware: [thunk]
 })
 
