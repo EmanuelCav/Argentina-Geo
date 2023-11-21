@@ -1,9 +1,9 @@
 import axios from 'axios'
-import Constants from 'expo-constants';
+import { EXPO_HOST } from '@env';
 
 import { ILogin, INickname, IOptions, IPassword, IPoints, ISetting } from '../../interface/User'
 
-const api = axios.create({ baseURL: `${Constants?.manifest?.extra?.host}` })
+const api = axios.create({ baseURL: `${EXPO_HOST}` })
 
 export const usersApi = async (date: string, token: string) => {
     return await api.get(`/users/ranking/${date}`, {

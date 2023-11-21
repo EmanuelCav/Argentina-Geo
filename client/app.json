@@ -1,16 +1,14 @@
-import 'dotenv/config';
-
-export default {
+{
   "expo": {
-    "name": "client",
-    "slug": "client",
+    "name": "Argentina Quiz - Trivia Game",
+    "slug": "ArgentinaQuiz",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
@@ -20,6 +18,8 @@ export default {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.argentinaquiz.triviagame",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -27,10 +27,6 @@ export default {
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "host": process.env.HOST,
-      "key": process.env.KEY
     }
   }
 }

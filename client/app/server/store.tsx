@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { persistReducer } from "redux-persist";
 import thunk from 'redux-thunk';
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import Constants from 'expo-constants';
+import { EXPO_KEY } from '@env';
 
 import gameReducer from './features/game.features'
 import userReducer from './features/user.features'
@@ -15,14 +15,14 @@ const reducers = combineReducers({
 })
 
 const persistedReducers = persistReducer({
-    key: `${Constants?.manifest?.extra?.key}`,
+    key: `${EXPO_KEY}`,
     version: 1,
     storage: AsyncStorage
 }, reducers)
 
 const store = configureStore({
     reducer: persistedReducers,
-    devTools: process.env.NODE_ENV !== 'production',
+    devTools: false,
     middleware: [thunk]
 })
 

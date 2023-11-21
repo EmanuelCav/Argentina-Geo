@@ -3,8 +3,14 @@
   "compilerOptions": {
     "strict": true,
     "outDir": "build",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "typeRoots": ["/types"],
   },
-  "exclude": ["node_modules"],
-  "include": ["app"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "app"
+  ],
+  "files": ["types/env.d.ts"]
 }

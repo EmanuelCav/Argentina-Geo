@@ -707,6 +707,8 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
                 year: 0
             })
 
+            return res.status(200).json({ message: "Year points updated" })
+
         }
 
         if(new Date().getUTCDate() === 1) {
@@ -715,6 +717,8 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
                 day: 0,
                 month: 0
             })
+
+            return res.status(200).json({ message: "Month points updated" })
 
         }
         
