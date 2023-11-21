@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
-import Constants from 'expo-constants';
 
 import User from '../components/home/user'
 import Options from '../components/home/options'
 import Profile from '../components/profile/profile';
 
 import { gamesApi } from '../server/api/game.api'
-import { getDateExperienceApi, loginApi, usersApi } from '../server/api/user.api'
-import { loginAction, usersAction } from '../server/features/user.features'
+import { getDateExperienceApi, usersApi } from '../server/api/user.api'
+import { usersAction } from '../server/features/user.features'
 import { gamesAction } from '../server/features/game.features'
 
 import { StackNavigation } from '../types/props.types'
@@ -48,21 +47,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         }
     }
 
-    const getLoginData = async () => {
-
-        try {
-            const { data } = await loginApi(
-                {
-                    nickname: users.user.user.nickname,
-                    password: users.user.user.password
-                }
-            )
-            dispatch(loginAction(data))
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     const getNewDate = async () => {
         try {
             await getDateExperienceApi(users.user.token)
@@ -74,7 +58,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     useEffect(() => {
 
         if (users.isLoggedIn) {
-            getLoginData()
             getUsers()
             getData()
 
