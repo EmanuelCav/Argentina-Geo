@@ -144,11 +144,7 @@ export const gameStyles = StyleSheet.create({
     },
 
     containerDataFinish: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: Dimensions.get("window").height / 106,
-        marginVertical: Dimensions.get("window").height / 46.25
+        padding: Dimensions.get("window").height / 106
     },
 
     textHeaderGame: {

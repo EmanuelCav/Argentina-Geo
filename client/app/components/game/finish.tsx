@@ -19,9 +19,7 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
             <View style={gameStyles.containerDataFinish}>
                 {
                     isGameError ? (
-                        <>
-                            <Text style={gameStyles.textDataGame}>¡Repaso realizado!</Text>
-                        </>
+                        <Text style={gameStyles.textDataGame}>¡Repaso realizado!</Text>
                     ) : (
                         <View>
                             <Text style={gameStyles.textDataGame}>Respuestas correctas: {corrects}</Text>
