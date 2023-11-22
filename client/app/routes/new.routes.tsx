@@ -1,18 +1,13 @@
-import { useEffect, useState } from "react";
-import { View } from 'react-native'
+import { useEffect } from "react";
+import { Dimensions, View } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-
-import NewUser from "../components/settings/newUser";
-import Auth from "../components/settings/components/auth";
 
 import { IReducer } from "../interface/Reducer";
 import { StackNavigation } from "../types/props.types";
 
-import { newStyles } from '../styles/settings.styles'
-
 import { selector } from "../helper/selector";
 import { getUserData } from "../helper/storage";
-import { loadingAction } from "../server/features/response.features";
+
 import { getLogin, newUser } from "../server/actions/user.actions";
 
 const New = ({ navigation }: { navigation: StackNavigation }) => {
@@ -20,8 +15,6 @@ const New = ({ navigation }: { navigation: StackNavigation }) => {
     const users = useSelector((state: IReducer) => selector(state).users)
 
     const dispatch = useDispatch()
-
-    // const [isAuth, setIsAuth] = useState<boolean>(false)
 
     useEffect(() => {
 
@@ -39,28 +32,12 @@ const New = ({ navigation }: { navigation: StackNavigation }) => {
 
             dispatch(newUser(navigation) as any)
 
-            // dispatch(loadingAction(true))
-
-            // setTimeout(() => {
-            //     dispatch(loadingAction(false))
-            // }, 2000);
-
         })()
 
     }, [])
 
-    // useEffect(() => {
-    // }, [isAuth])
-
     return (
-        <>
-        </>
-        // <View style={newStyles.containerNew}>
-        //     {
-        //         isAuth && <Auth navigation={navigation} setIsAuth={setIsAuth} dispatch={dispatch} />
-        //     }
-        //     <NewUser navigation={navigation} setIsAuth={setIsAuth} dispatch={dispatch} />
-        // </View>
+        <View style={{ backgroundColor: '#9edefa', width: Dimensions.get("window").width, height: Dimensions.get("window").height }} />
     )
 }
 
