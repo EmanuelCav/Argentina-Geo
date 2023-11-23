@@ -63,7 +63,9 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
             const isNewDate = users.users.total?.find((u) => {
                 if (u.points.lastGame) {
-                    if (u.points.lastGame.split("-")[2] === `${new Date().getDate()}` && u.points.lastGame.split("-")[1] === `${new Date().getUTCMonth() + 1}`) {
+                    if (u.points.lastGame.split("-")[2] === `${new Date().getDate()}`
+                        && u.points.lastGame.split("-")[1] === `${new Date().getUTCMonth() + 1}`
+                        && u.points.lastGame.split("-")[0] === `${new Date().getFullYear()}`) {
                         return true
                     }
                 }
