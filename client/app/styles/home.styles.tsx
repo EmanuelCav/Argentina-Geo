@@ -24,8 +24,9 @@ export const generalStyles = StyleSheet.create({
 export const homeStyles = StyleSheet.create({
 
     containerHome: {
-        height: '100%',
-        marginVertical: Dimensions.get("window").height / 52.85
+        marginVertical: Dimensions.get("window").height / 52.85,
+        flex: 1,
+        width: '100%',
     },
 
     // USER
