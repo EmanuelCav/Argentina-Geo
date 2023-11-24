@@ -6,18 +6,19 @@ export const responseStyles = StyleSheet.create({
 
     containerLoading: {
         width: Dimensions.get('window').width,
-        height: '100%',
+        height: Dimensions.get('window').height,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        top: 0,
+        left: 0,
         position: 'absolute',
-        backgroundColor: 'red',
         zIndex: 44
     },
 
     loadingIcon: {
-        width: Dimensions.get("window").width/2,
-        height: Dimensions.get("window").height/2
+        width: Dimensions.get("window").width / 2,
+        height: Dimensions.get("window").height / 2
     },
 
     // ERROR

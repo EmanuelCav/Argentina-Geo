@@ -25,7 +25,6 @@ export const gameStyles = StyleSheet.create({
 
     imageQuestion: {
         width: '100%',
-        // height: Dimensions.get("window").height / 3.8
         height: '100%'
     },
 

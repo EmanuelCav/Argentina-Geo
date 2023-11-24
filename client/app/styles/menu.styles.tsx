@@ -42,7 +42,6 @@ export const menuStyles = StyleSheet.create({
     showCategoriesContain: {
         width: '100%',
         flex: 1,
-        backgroundColor: 'red',
         flexDirection: 'column'
     },
 

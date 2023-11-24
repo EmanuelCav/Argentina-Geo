@@ -37,7 +37,10 @@ const New = ({ navigation }: { navigation: StackNavigation }) => {
     }, [])
 
     return (
-        <View style={{ backgroundColor: '#9edefa', width: Dimensions.get("window").width, height: Dimensions.get("window").height }} />
+        <View style={{
+            backgroundColor: '#9edefa', marginVertical: Dimensions.get("window").height / 52.85,
+            width: '100%', flex: 1
+        }} />
     )
 }
 

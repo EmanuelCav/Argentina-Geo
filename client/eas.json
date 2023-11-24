@@ -1,0 +1,31 @@
+{
+  "cli": {
+    "version": ">= 5.9.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "env": {
+        "EXPO_HOST": "https://server-argquiz.onrender.com",
+        "EXPO_KEY": "arrgeo-user-games",
+        "EXPO_STORAGE": "persist:arrgeo-user-games"
+      }
+    },
+    "test": {
+      "env": {
+        "EXPO_HOST": "http://192.168.0.4:4200",
+        "EXPO_KEY": "arrgeo-user-games",
+        "EXPO_STORAGE": "persist:arrgeo-user-games"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
