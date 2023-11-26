@@ -111,7 +111,8 @@ export const sectionStyle = StyleSheet.create({
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: Dimensions.get("window").height / 62
+        margin: Dimensions.get("window").height / 62,
+        height: Dimensions.get("window").height / 15
     },
 
     containerInputSettingsDisabled: {
@@ -124,7 +125,8 @@ export const sectionStyle = StyleSheet.create({
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: Dimensions.get("window").height / 62
+        margin: Dimensions.get("window").height / 62,
+        height: Dimensions.get("window").height / 15
     },
 
     textInput: {

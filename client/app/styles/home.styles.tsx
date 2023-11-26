@@ -235,7 +235,8 @@ export const rankingStyles = StyleSheet.create({
         backgroundColor: '#fff',
         borderWidth: 2,
         borderColor: '#597EEE',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        height: Dimensions.get("window").height / 15
     },
 
     userRankingMe: {
@@ -249,7 +250,8 @@ export const rankingStyles = StyleSheet.create({
         backgroundColor: '#B0C4DE',
         borderWidth: 2,
         borderColor: '#597EEE',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        height: Dimensions.get("window").height / 15
     },
 
     containerUserRank: {
@@ -274,14 +276,16 @@ export const rankingStyles = StyleSheet.create({
         borderWidth: 2,
         borderColor: "#597EEE",
         borderStyle: 'solid',
-        marginBottom: Dimensions.get('window').height / 360
+        marginBottom: Dimensions.get('window').height / 360,
+        height: Dimensions.get('window').height / 15
     },
 
     buttonDateRank: {
         padding: Dimensions.get('window').height / 106,
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '100%'
     },
 
     buttonDateRankSelected: {
@@ -289,7 +293,8 @@ export const rankingStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#5d8cff'
+        backgroundColor: '#5d8cff',
+        height: '100%'
     },
 
     topUserRank: {

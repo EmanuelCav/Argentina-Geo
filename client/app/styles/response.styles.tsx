@@ -14,6 +14,7 @@ export const responseStyles = StyleSheet.create({
     },
 
     containerLoading: {
+        width: '100%',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'

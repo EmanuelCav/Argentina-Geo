@@ -69,7 +69,7 @@ const Profile = ({ user, games, setIsProfile }: ProfileProps) => {
                     </ScrollView>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Aceptar" redirect={cancelProfile} isAccept={true} isCategory={false} />
+                    <ButtonMenu text="Regresar" redirect={cancelProfile} isAccept={true} isCategory={false} />
                 </View>
             </View>
         </View>

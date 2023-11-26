@@ -10,6 +10,7 @@ import { gamesApi } from '../server/api/game.api'
 import { getDateExperienceApi, usersApi } from '../server/api/user.api'
 import { usersAction } from '../server/features/user.features'
 import { gamesAction } from '../server/features/game.features'
+import { getLogin, newUser } from '../server/actions/user.actions';
 
 import { StackNavigation } from '../types/props.types'
 import { IReducer } from '../interface/Reducer';
@@ -17,6 +18,7 @@ import { IReducer } from '../interface/Reducer';
 import { homeStyles } from "../styles/home.styles";
 
 import { selector } from '../helper/selector';
+import { getUserData } from '../helper/storage';
 
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -26,6 +28,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     const dispatch = useDispatch()
 
     const [isProfile, setIsProfile] = useState<boolean>(false)
+    const [isGetLoggedIn, setIsGetLoggedIn] = useState<boolean>(false)
 
     const getData = async () => {
 
@@ -57,25 +60,39 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     useEffect(() => {
 
-        if (users.isLoggedIn) {
-            
-            getUsers()
-            getData()
+        (async () => {
 
-            const isNewDate = users.users.total?.find((u) => {
-                if (u.points.lastGame) {
-                    if (u.points.lastGame.split("-")[2] === `${new Date().getDate()}`
-                        && u.points.lastGame.split("-")[1] === `${new Date().getUTCMonth() + 1}`
-                        && u.points.lastGame.split("-")[0] === `${new Date().getFullYear()}`) {
-                        return true
+            if (users.isLoggedIn) {
+
+                await getUserData()
+
+                dispatch(getLogin(users) as any)
+                getUsers()
+                getData()
+
+                const isNewDate = users.users.total?.find((u) => {
+                    if (u.points.lastGame) {
+                        if (u.points.lastGame.split("-")[2] === `${new Date().getDate()}`
+                            && u.points.lastGame.split("-")[1] === `${new Date().getUTCMonth() + 1}`
+                            && u.points.lastGame.split("-")[0] === `${new Date().getFullYear()}`) {
+                            return true
+                        }
                     }
-                }
-            })
+                })
 
-            if (!isNewDate) {
-                getNewDate()
+                if (!isNewDate) {
+                    getNewDate()
+                }
+
+                setIsGetLoggedIn(true)
+
+                return
+
             }
-        }
+
+            dispatch(newUser() as any)
+
+        })()
 
     }, [dispatch, users.isLoggedIn])
 
@@ -85,12 +102,18 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerHome} >
             {
-                isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
+                users.isLoggedIn && isGetLoggedIn && (
+                    <>
+                        {
+                            isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
+                        }
+                        {
+                            users.isLoggedIn && <User user={users.user.user} users={users.users} />
+                        }
+                        <Options navigation={navigation} setIsProfile={setIsProfile} user={users} />
+                    </>
+                )
             }
-            {
-                users.isLoggedIn && <User user={users.user.user} users={users.users} />
-            }
-            <Options navigation={navigation} setIsProfile={setIsProfile} user={users} />
         </View>
     )
 }

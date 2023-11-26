@@ -111,7 +111,12 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
         }
 
         if (item !== (isGameError ? (errorsGame[numberQuestion].question.answer) : (games.game.questions[numberQuestion].question.answer))) {
-            setErrors([...errors, games.game.questions[numberQuestion]])
+            if(isGameError) {
+                setErrors([...errors, errorsGame[numberQuestion]])
+            } else {
+                setErrors([...errors, games.game.questions[numberQuestion]])
+            }
+
             setIsIncorrect(true)
         }
 

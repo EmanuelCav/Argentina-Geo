@@ -8,8 +8,8 @@ export const menuStyles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position: 'absolute',
-        backgroundColor: 'rgba(89, 205, 238, 0.9)',
-        paddingVertical: Dimensions.get('window').height / 16.81,
+        backgroundColor: '#9edefa',
+        paddingVertical: Dimensions.get("window").height / 46.25,
         paddingHorizontal: Dimensions.get('window').width / 36,
         zIndex: 14,
         justifyContent: 'center',
@@ -114,7 +114,8 @@ export const menuStyles = StyleSheet.create({
     },
 
     textQuestionOptions: {
-        fontSize: Dimensions.get('window').height / 37
+        fontSize: Dimensions.get('window').height / 28.45,
+        color: '#597EEE'
     },
 
     buttonOptions: {
@@ -124,7 +125,8 @@ export const menuStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#597EEE',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: Dimensions.get('window').height / 15
     },
 
     buttonOptionsSelected: {
@@ -135,7 +137,8 @@ export const menuStyles = StyleSheet.create({
         backgroundColor: '#597EEE',
         borderColor: '#FFFFFF',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: Dimensions.get('window').height / 15
     },
 
     textButtonOptions: {

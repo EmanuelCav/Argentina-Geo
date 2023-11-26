@@ -7,7 +7,6 @@ import { ICategoriesUser, IGame, IQuestion } from "../interface/Game";
 import { UserDataType, UserReducerType, UserType } from "./user.types";
 
 type RoutesProps = {
-    New: undefined;
     Home: undefined;
     Play: undefined;
     Playing: undefined;
@@ -190,10 +189,5 @@ export type UserRankingProps = {
 
 export type RankingActionProps = {
     user: UserReducerType;
-    navigation: StackNavigation;
-}
-
-export type GetLoginActionProps = {
-    users: UserType;
     navigation: StackNavigation;
 }

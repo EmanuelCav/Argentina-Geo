@@ -86,7 +86,8 @@ export const gameStyles = StyleSheet.create({
 
     textDataGame: {
         fontSize: Dimensions.get("window").height / 37,
-        color: '#597EEE'
+        color: '#597EEE',
+        textAlign: 'center'
     },
 
     containerCorrect: {
@@ -159,6 +160,7 @@ export const gameStyles = StyleSheet.create({
     },
 
     textErrorsGame: {
+        textAlign: 'center',
         fontSize: Dimensions.get("window").height / 29.63,
         color: '#597EEE',
         fontWeight: '600',
@@ -173,9 +175,9 @@ export const configGamesStyles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position: 'absolute',
-        backgroundColor: 'rgba(89, 205, 238, 0.9)',
         zIndex: 14,
-        paddingVertical: Dimensions.get("window").height / 16.81,
+        backgroundColor: '#9edefa',
+        paddingVertical: Dimensions.get("window").height / 46.25,
         paddingHorizontal: Dimensions.get("window").width / 36
     },
 

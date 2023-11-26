@@ -7,7 +7,8 @@ import * as gamesApi from "../api/game.api";
 
 import { firstTimeAction, getUserAction, loginAction, loginAuthAction, usersAction } from "../features/user.features";
 import { gamesAction } from "../features/game.features";
-import { GetLoginActionProps, RankingActionProps, StackNavigation } from "../../types/props.types";
+import { RankingActionProps } from "../../types/props.types";
+import { UserType } from "../../types/user.types";
 
 export const auth = createAsyncThunk('users/login', async (userData: IAuthAction, { dispatch }) => {
 
@@ -21,8 +22,6 @@ export const auth = createAsyncThunk('users/login', async (userData: IAuthAction
 
         userData.setIsAuth(false)
         userData.navigation.navigate('Home')
-
-        return resLogin.data
 
     } catch (error: any) {
         userData.setUserData({
@@ -49,7 +48,7 @@ export const getUser = createAsyncThunk("users/getUser", async (userData: IGetUs
 
 })
 
-export const newUser = createAsyncThunk("users/newUser", async (navigation: StackNavigation, { dispatch }) => {
+export const newUser = createAsyncThunk("users/newUser", async (_, { dispatch }) => {
 
     try {
 
@@ -58,10 +57,6 @@ export const newUser = createAsyncThunk("users/newUser", async (navigation: Stac
 
         dispatch(firstTimeAction(resFirst.data))
         dispatch(usersAction(resUsers.data))
-
-        navigation.navigate('Home')
-
-        return resFirst.data
 
     } catch (error) {
         console.log(error);
@@ -85,20 +80,18 @@ export const getRanking = createAsyncThunk('users/ranking', async (rankingData: 
 
 })
 
-export const getLogin = createAsyncThunk('/users/getLogin', async (userData: GetLoginActionProps, { dispatch }) => {
+export const getLogin = createAsyncThunk('/users/getLogin', async (users: UserType, { dispatch }) => {
 
     try {
 
         const { data } = await userApi.loginApi(
             {
-                nickname: userData.users.user.user.nickname,
-                password: userData.users.user.user.password
+                nickname: users.user.user.nickname,
+                password: users.user.user.password
             }
         )
 
         dispatch(loginAction(data))
-
-        userData.navigation.navigate('Home')
 
     } catch (error) {
         console.log(error);

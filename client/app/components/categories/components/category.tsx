@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { View, Text, Dimensions, Animated } from 'react-native'
+import { Text, Dimensions, Animated, Pressable } from 'react-native'
 import { useDispatch } from "react-redux";
 import CheckBox from 'expo-checkbox'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -67,7 +67,9 @@ const Category = ({ user, category }: CategoryProps) => {
     }, []);
 
     return (
-        <View style={category.isUnlocked ? menuStyles.categoryContainer : menuStyles.categoryContainerUnlocked}>
+        <Pressable style={category.isUnlocked ? menuStyles.categoryContainer : menuStyles.categoryContainerUnlocked}
+            onPress={category.isUnlocked ?
+                (selectCategory) : (user.user.categories.filter((u) => u.isUnlocked).length !== user.user.level.level ? (newUnlock) : null)}>
             <Text adjustsFontSizeToFit style={category.isUnlocked ? menuStyles.textCategory : menuStyles.textCategoryUnlocked}>
                 {category.category.name}
             </Text>
@@ -75,7 +77,6 @@ const Category = ({ user, category }: CategoryProps) => {
                 category.isUnlocked ? (
                     <CheckBox
                         value={category.isSelect}
-                        onValueChange={selectCategory}
                         color={category.isSelect ? '#597EEE' : undefined}
                         style={{ padding: Dimensions.get("window").height / 92.5 }}
                     />
@@ -95,14 +96,14 @@ const Category = ({ user, category }: CategoryProps) => {
                                         },
                                     ]
                                 }}>
-                                    <AntDesign name="unlock" color={"#fff"} size={Dimensions.get('window').height / 37} onPress={newUnlock} />
+                                    <AntDesign name="unlock" color={"#fff"} size={Dimensions.get('window').height / 37} />
                                 </Animated.View>
                             )
                         }
                     </>
                 )
             }
-        </View>
+        </Pressable>
     )
 }
 

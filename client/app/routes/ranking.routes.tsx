@@ -49,7 +49,7 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
                     </ScrollView>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} isCategory={false} />
+                    <ButtonMenu text="Regresar" redirect={() => navigation.navigate('Home')} isAccept={true} isCategory={false} />
                 </View>
             </View>
         </View >
