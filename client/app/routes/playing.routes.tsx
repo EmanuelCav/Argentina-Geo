@@ -194,7 +194,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
     }, [points])
 
     useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => false)
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
         return () => backHandler.remove()
     }, [])
 

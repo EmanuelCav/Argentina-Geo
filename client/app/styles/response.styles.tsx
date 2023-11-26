@@ -4,16 +4,19 @@ export const responseStyles = StyleSheet.create({
 
     // LOADING
 
-    containerLoading: {
+    containerMainLoading: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         top: 0,
         left: 0,
         position: 'absolute',
         zIndex: 44
+    },
+
+    containerLoading: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
     loadingIcon: {
