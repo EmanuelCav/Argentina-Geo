@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { View, Text, Dimensions, StyleSheet, Pressable } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, Pressable, BackHandler } from 'react-native'
 
 import Finish from '../components/game/finish'
 import DataGame from '../components/game/dataGame'
@@ -192,6 +192,11 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
             experienceUser()
         }
     }, [points])
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => false)
+        return () => backHandler.remove()
+    }, [])
 
     return (
         <View style={gameStyles.gameContainer}>

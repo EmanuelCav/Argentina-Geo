@@ -1,4 +1,5 @@
 import React from 'react'
+import { StatusBar } from "react-native";
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -37,6 +38,7 @@ export default function App() {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Container>
+            <StatusBar hidden backgroundColor={'#9edefa'} />
             <Loading />
             <Stack.Navigator initialRouteName='New' screenOptions={{
               headerShown: false

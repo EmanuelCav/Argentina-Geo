@@ -58,6 +58,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     useEffect(() => {
 
         if (users.isLoggedIn) {
+            
             getUsers()
             getData()
 
