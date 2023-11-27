@@ -107,9 +107,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                         {
                             isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
                         }
-                        {
-                            users.isLoggedIn && <User user={users.user.user} users={users.users} />
-                        }
+                        <User user={users.user.user} users={users.users} />
                         <Options navigation={navigation} setIsProfile={setIsProfile} user={users} />
                     </>
                 )

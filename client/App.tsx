@@ -28,29 +28,41 @@ export default function App() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: 'transparent'
+      background: 'transparent',
+      primary: 'transparent'
     },
   };
 
   return (
-    <NavigationContainer theme={MyTheme}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Container>
+    <Container>
+      <NavigationContainer theme={MyTheme}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
             <StatusBar backgroundColor={'#90d5f6'} />
             <Loading />
             <Stack.Navigator initialRouteName='Home' screenOptions={{
-              headerShown: false
-            }}>
-              <Stack.Screen name='Home' component={Home} />
-              <Stack.Screen name='Play' component={Play} />
-              <Stack.Screen name="Playing" component={Playing} />
-              <Stack.Screen name="Ranking" component={Ranking} />
-              <Stack.Screen name="Settings" component={Settings} />
+              headerShown: false,
+              presentation: 'transparentModal'
+            }} >
+              <Stack.Screen name='Home' component={Home} options={{
+                animation: 'none'
+              }} />
+              <Stack.Screen name='Play' component={Play} options={{
+                animation: 'fade'
+              }} />
+              <Stack.Screen name="Playing" component={Playing} options={{
+                animation: 'fade'
+              }} />
+              <Stack.Screen name="Ranking" component={Ranking} options={{
+                animation: 'fade'
+              }} />
+              <Stack.Screen name="Settings" component={Settings} options={{
+                animation: 'fade'
+              }} />
             </Stack.Navigator>
-          </Container>
-        </PersistGate>
-      </Provider>
-    </NavigationContainer >
+          </PersistGate>
+        </Provider>
+      </NavigationContainer >
+    </Container>
   );
 }

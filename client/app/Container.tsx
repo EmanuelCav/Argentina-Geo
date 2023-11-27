@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     container: {
         paddingVertical: Dimensions.get("window").height / 60,
         paddingHorizontal: Dimensions.get("window").width / 60,
-        flex: 1
+        flex: 1,
+        backgroundColor: '#90d5f6'
     }
 })

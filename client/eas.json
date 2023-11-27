@@ -12,13 +12,15 @@
     },
     "production": {
       "env": {
-        "EXPO_HOST": "https://server-argquiz.onrender.com",
+        "EXPO_URL": "https://server-argquiz.onrender.com",
+        "EXPO_HOST": "http://192.168.0.4:4200",
         "EXPO_KEY": "arrgeo-user-games",
         "EXPO_STORAGE": "persist:arrgeo-user-games"
       }
     },
     "test": {
       "env": {
+        "EXPO_URL": "https://server-argquiz.onrender.com",
         "EXPO_HOST": "http://192.168.0.4:4200",
         "EXPO_KEY": "arrgeo-user-games",
         "EXPO_STORAGE": "persist:arrgeo-user-games"
