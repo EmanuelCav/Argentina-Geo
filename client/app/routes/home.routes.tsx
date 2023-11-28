@@ -64,8 +64,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     useEffect(() => {
         fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
-    }, [])
-
+    }, [isConnection])
 
     useEffect(() => {
 
@@ -105,7 +104,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
         })()
 
-    }, [dispatch, users.isLoggedIn])
+    }, [dispatch, users.isLoggedIn, isConnection])
 
     useEffect(() => {
     }, [isProfile, users.users])

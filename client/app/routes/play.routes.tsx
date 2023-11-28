@@ -70,7 +70,6 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
         fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
     }, [isConnection])
 
-
     return (
         <View style={homeStyles.containerPlay}>
             {
