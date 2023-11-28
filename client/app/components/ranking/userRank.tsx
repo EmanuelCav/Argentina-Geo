@@ -7,16 +7,18 @@ import { getUser } from "../../server/actions/user.actions";
 
 import { rankingStyles } from "../../styles/home.styles";
 
-const UserRank = ({ index, user, users, rankData, setIsProfile }: UserRankingProps) => {
+const UserRank = ({ index, user, users, rankData, setIsProfile, isConnection }: UserRankingProps) => {
 
     const dispatch = useDispatch()
 
     const showProfile = () => {
-        dispatch(getUser({
-            id: user._id,
-            user: users,
-            setIsProfile
-        }) as any)
+        if(isConnection) {
+            dispatch(getUser({
+                id: user._id,
+                user: users,
+                setIsProfile
+            }) as any)
+        }
     }
 
     const pointsRank = () => {

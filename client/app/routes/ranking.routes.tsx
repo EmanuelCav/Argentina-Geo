@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Text, View, ScrollView } from 'react-native'
 import { useSelector } from "react-redux";
+import { fetch } from '@react-native-community/netinfo';
 
 import UserRank from "../components/ranking/userRank";
 import ButtonMenu from "../components/buttonMenu";
@@ -22,15 +23,20 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
 
     const [rankData, setRankData] = useState<string>("total")
     const [isProfile, setIsProfile] = useState<boolean>(false)
+    const [isConnection, setIsConnection] = useState<boolean | null>(true)
 
+    useEffect(() => {
+        fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
+    }, [isConnection])
+    
     return (
         <View style={rankingStyles.containerRanking}>
             {
-                isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
+                isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} isConnection={isConnection} />
             }
             <View style={rankingStyles.rankingContain}>
                 <View style={rankingStyles.containerScrollRanking}>
-                    <FilterRank users={users} setRankData={setRankData} />
+                    <FilterRank users={users} setRankData={setRankData} isConnection={isConnection} />
                     <ScrollView>
                         {
                             users.users.ranking?.length === 0 ? (
@@ -38,10 +44,17 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
                             ) : (
                                 <>
                                     {
-                                        users.users.ranking!.map((user: IUser, index: number) => {
-                                            return <UserRank user={user} users={users} index={index}
-                                                rankData={rankData} setIsProfile={setIsProfile} key={user._id} />
-                                        })
+                                        isConnection ? (
+                                            users.users.ranking!.map((user: IUser, index: number) => {
+                                                return <UserRank user={user} users={users} index={index}
+                                                    rankData={rankData} setIsProfile={setIsProfile} isConnection={isConnection} key={user._id} />
+                                            })
+                                        ) : (
+                                            users.users.total!.map((user: IUser, index: number) => {
+                                                return <UserRank user={user} users={users} index={index}
+                                                    rankData={rankData} setIsProfile={setIsProfile} isConnection={isConnection} key={user._id} />
+                                            })
+                                        )
                                     }
                                 </>
                             )

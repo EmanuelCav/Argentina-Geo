@@ -33,6 +33,7 @@ export type ShowStatisticsProps = {
     navigation: StackNavigation;
     setIsProfile: (isProfile: boolean) => void;
     user: UserReducerType;
+    isConnection: boolean | null;
 }
 
 export type UserInfoProps = {
@@ -44,12 +45,14 @@ export type ProfileProps = {
     user: UserType;
     games: IGame[];
     setIsProfile: (isProfile: boolean) => void;
+    isConnection: boolean | null
 }
 
 export type CategoriesProps = {
     user: UserDataType;
     categories: ICategoriesUser[];
     setIsCategories: (isCategories: boolean) => void;
+    isConnection: boolean | null;
 }
 
 export type NewProps = {
@@ -71,6 +74,7 @@ export type CodeProps = {
     setIsAuth: (isAuth: boolean) => void;
     setIsCode: (isCode: boolean) => void;
     setIsNickname: (isNickname: boolean) => void;
+    isConnection: boolean | null;
 }
 
 export type SelectOptionProps = {
@@ -78,6 +82,11 @@ export type SelectOptionProps = {
     optionsData: IOptions, 
     amountOptions: number;
     level: number;
+}
+
+export type GameOptionsType ={
+    setIsOptionsGame: (isOptionsGame: boolean) => void;
+    isConnection: boolean | null;
 }
 
 export type SelectQuestionProps = {
@@ -100,6 +109,7 @@ export type ChangeNicknameProps = {
 export type CategoryProps = {
     user: UserDataType;
     category: ICategoriesUser;
+    isConnection: boolean | null;
 }
 
 export type SelectSettingsProps = {
@@ -128,6 +138,7 @@ export type SelectProps = {
     setIsPais: (isLocation: boolean) => void;
     setIsProvincia: (isProvincia: boolean) => void;
     setIsMunicipio: (isMunicipio: boolean) => void;
+    isConnection: boolean | null;
 }
 
 export type LocationProps = {
@@ -177,6 +188,7 @@ export type ShowOptionGameProps = {
 export type RankingProps = {
     users: UserType;
     setRankData: (rankData: string) => void;
+    isConnection: boolean | null;
 }
 
 export type UserRankingProps = {
@@ -185,6 +197,7 @@ export type UserRankingProps = {
     users: UserReducerType;
     rankData: string;
     setIsProfile: (isProfile: boolean) => void;
+    isConnection: boolean | null;
 }
 
 export type RankingActionProps = {

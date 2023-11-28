@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { View } from "react-native";
 import { useSelector, useDispatch } from 'react-redux'
+import { fetch } from "@react-native-community/netinfo";
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
 
@@ -46,6 +47,8 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     const [isCode, setIsCode] = useState<boolean>(false)
     const [isNickname, setIsNickname] = useState<boolean>(false)
 
+    const [isConnection, setIsConnection] = useState<boolean | null>(true)
+
     const { pais, provincia, municipio } = settingsData
 
     const getPaises = async () => {
@@ -88,10 +91,14 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     }
 
     useEffect(() => {
+        fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
+    }, [isConnection])
+
+    useEffect(() => {
         getPaises()
         getProvincias()
 
-        if(provincia !== "") {
+        if (provincia !== "") {
             getMunicipios()
         }
     }, [isPais, isProvincia, isMunicipio])
@@ -99,16 +106,16 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={generalStyles.containerInfoSelect}>
             {
-                isPais && <Select loc="Pais" user={users.user} setSettingsData={setSettingsData} userLocation={pais} settingsData={settingsData} data={paises} 
-                setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
+                isPais && <Select loc="Pais" user={users.user} setSettingsData={setSettingsData} userLocation={pais} settingsData={settingsData} data={paises}
+                    setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} isConnection={isConnection} />
             }
             {
-                isProvincia && <Select loc="Provincia" user={users.user} setSettingsData={setSettingsData} settingsData={settingsData} userLocation={provincia} data={provincias} 
-                setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
+                isProvincia && <Select loc="Provincia" user={users.user} setSettingsData={setSettingsData} settingsData={settingsData} userLocation={provincia} data={provincias}
+                    setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} isConnection={isConnection} />
             }
             {
                 isMunicipio && <Select loc="Municipio" user={users.user} setSettingsData={setSettingsData} userLocation={municipio} settingsData={settingsData} data={municipios}
-                setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
+                    setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} isConnection={isConnection} />
             }
             {
                 isAuth && <Auth setIsAuth={setIsAuth} navigation={navigation} dispatch={dispatch} />
@@ -120,8 +127,8 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
                 isNickname && <ChangeName setIsNickname={setIsNickname} user={users.user} />
             }
             <Selector settingsData={settingsData} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
-            <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname} 
-            setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} />
+            <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname}
+                setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} isConnection={isConnection} />
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} isCategory={false} />
             </View>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, Dimensions, StyleSheet, Pressable, BackHandler } from 'react-native'
+import { fetch } from "@react-native-community/netinfo";
 
 import Finish from '../components/game/finish'
 import DataGame from '../components/game/dataGame'
@@ -9,7 +10,7 @@ import ShowQuestion from '../components/game/showQuestion'
 
 import { IReducer } from '../interface/Reducer'
 import { IPoints } from '../interface/User'
-import { IQuestion } from '../interface/Game'
+import { IGame, IQuestion } from '../interface/Game'
 import { StackNavigation } from '../types/props.types'
 
 import { questionsCorrectApi, questionsCountApi } from '../server/api/game.api'
@@ -21,6 +22,7 @@ import { loadingAction } from '../server/features/response.features'
 import { gameStyles } from '../styles/game.styles';
 
 import { selector } from '../helper/selector'
+import { gameWithoutInternet } from '../helper/generator';
 
 const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -78,6 +80,8 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
     const [isPreFinish, setIsPreFinish] = useState<boolean>(false)
     const [isFinish, setIsFinish] = useState<boolean>(false)
     const [isGameError, setIsGameError] = useState<boolean>(false)
+    const [isConnection, setIsConnection] = useState<boolean | null>(true)
+    const [questionsWithoutInt, setQuestionsWithoutInt] = useState<IQuestion[]>([])
 
     const { points } = pointsData
 
@@ -96,6 +100,41 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
         }, 800);
     }
 
+    const nextQuestionWihoutInternet = (item: string) => {
+        if (item === (isGameError ? (errorsGame[numberQuestion].question.answer) : (questionsWithoutInt[numberQuestion].question.answer))) {
+            setIsCorrect(true)
+        }
+
+        if (item !== (isGameError ? (errorsGame[numberQuestion].question.answer) : (questionsWithoutInt[numberQuestion].question.answer))) {
+            if (isGameError) {
+                setErrors([...errors, errorsGame[numberQuestion]])
+            } else {
+                setErrors([...errors, questionsWithoutInt[numberQuestion]])
+            }
+
+            setIsCorrect(true)
+        }
+
+        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (questionsWithoutInt.length - 1))) {
+            setIsPreFinish(true)
+
+            if (!isGameError) {
+                setRealSeconds(seconds)
+                setRealMinutes(minutes)
+
+                setPointsData({
+                    points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
+                        users.user.user.categories.filter(category => category.isUnlocked && category.isSelect).length * games.game.corrects) / (seconds + (60 * minutes)))
+                })
+            }
+
+            return
+
+        }
+
+        setNumberQuestion(numberQuestion + 1)
+    }
+
     const nextQuestion = async (item: string) => {
 
         if (!isGameError) {
@@ -111,7 +150,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
         }
 
         if (item !== (isGameError ? (errorsGame[numberQuestion].question.answer) : (games.game.questions[numberQuestion].question.answer))) {
-            if(isGameError) {
+            if (isGameError) {
                 setErrors([...errors, errorsGame[numberQuestion]])
             } else {
                 setErrors([...errors, games.game.questions[numberQuestion]])
@@ -142,7 +181,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const experienceUser = async () => {
 
-        if (points !== 0) {
+        if (points !== 0 && isConnection) {
             try {
                 const { data } = await updateExperienceApi(users.user.user.level._id, pointsData, users.user.token)
                 dispatch(updateOptionsAction(data))
@@ -163,6 +202,18 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
             dispatch(loadingAction(false))
         }, 1000);
     }
+
+    useEffect(() => {
+        fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
+
+        if (!isConnection) {
+
+            const allGames = games.games.map((game: IGame) => game.questions.filter((question: IQuestion) => question.question.text)).filter(arr => arr.length > 0)
+
+            setQuestionsWithoutInt(gameWithoutInternet(allGames))
+        }
+
+    }, [isConnection, questionsWithoutInt])
 
     useEffect(() => {
 
@@ -231,13 +282,15 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
                             isGameError ? (
                                 <>
                                     <ShowQuestion questions={errorsGame} numberQuestion={numberQuestion} />
-                                    <ShowOptionsGame questions={errorsGame} numberQuestion={numberQuestion} styles={styles} nextQuestion={nextQuestion} />
+                                    <ShowOptionsGame questions={errorsGame} numberQuestion={numberQuestion} styles={styles}
+                                        nextQuestion={isConnection ? nextQuestion : nextQuestionWihoutInternet} />
                                 </>
                             ) : (
                                 <>
                                     <ShowQuestion questions={games.game.questions} numberQuestion={numberQuestion} />
                                     <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} seconds={seconds} minutes={minutes} />
-                                    <ShowOptionsGame questions={games.game.questions} numberQuestion={numberQuestion} styles={styles} nextQuestion={nextQuestion} />
+                                    <ShowOptionsGame questions={games.game.questions} numberQuestion={numberQuestion} styles={styles}
+                                        nextQuestion={isConnection ? nextQuestion : nextQuestionWihoutInternet} />
                                 </>
                             )
                         }

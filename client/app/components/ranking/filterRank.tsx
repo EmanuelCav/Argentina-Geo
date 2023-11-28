@@ -9,7 +9,7 @@ import { rankingStyles } from '../../styles/home.styles';
 
 import { RankingProps } from "../../types/props.types";
 
-const FilterRank = ({ users, setRankData }: RankingProps) => {
+const FilterRank = ({ users, setRankData, isConnection }: RankingProps) => {
 
     const dispatch = useDispatch()
 
@@ -85,19 +85,19 @@ const FilterRank = ({ users, setRankData }: RankingProps) => {
             )}</Text>
             <View style={rankingStyles.containerDateRank}>
                 <Pressable style={isTotal ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showTotal} disabled={isTotal}>
+                    onPress={showTotal} disabled={isTotal && isConnection}>
                     <Text style={isTotal ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Total</Text>
                 </Pressable>
                 <Pressable style={isYear ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showYear} disabled={isYear}>
+                    onPress={showYear} disabled={isYear && isConnection}>
                     <Text style={isYear ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Año</Text>
                 </Pressable>
                 <Pressable style={isMonth ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showMonth} disabled={isMonth}>
+                    onPress={showMonth} disabled={isMonth && isConnection}>
                     <Text style={isMonth ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Mes</Text>
                 </Pressable>
                 <Pressable style={isDay ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showDay} disabled={isDay}>
+                    onPress={showDay} disabled={isDay && isConnection}>
                     <Text style={isDay ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Día</Text>
                 </Pressable>
             </View>

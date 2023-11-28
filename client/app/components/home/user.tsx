@@ -8,7 +8,7 @@ const User = ({ user, users }: UserInfoProps) => {
 
     const experienceGotStyle = StyleSheet.create({
         experienceGot: {
-            width: `${(user.points.levelExperience*100)/(user.level.max)}%`,
+            width: `${(user.points.levelExperience * 100) / (user.level.max)}%`,
             backgroundColor: '#a5b6e9',
             top: 0,
             position: 'absolute',
@@ -25,7 +25,8 @@ const User = ({ user, users }: UserInfoProps) => {
                 <Text style={homeStyles.userInfo}>{user.pais.name}</Text>
                 <Text style={homeStyles.userInfo} adjustsFontSizeToFit>{user.provincia && user.provincia.name}
                     {user.municipio && (
-                        <Text> - {user.municipio.name}</Text>)}
+                        <Text> - {user.municipio.name}</Text>
+                    )}
                 </Text>
                 <Text style={homeStyles.userInfo}>Posición: {users.total!.map((user) => user._id).indexOf(user._id) + 1}°</Text>
                 <View style={homeStyles.containerLevel}>
@@ -34,8 +35,11 @@ const User = ({ user, users }: UserInfoProps) => {
                         <Text style={homeStyles.textLevel}>{user.level.level}</Text>
                     </ImageBackground>
                     {
-                        user.level.level !== 62 &&
-                        <Text style={homeStyles.textExp}>{user.points.levelExperience}/{user.level.max} xp</Text>
+                        user.level.level !== 62 ? (
+                            <Text style={homeStyles.textExp}>{user.points.levelExperience}/{user.level.max} xp</Text>
+                        ) : (
+                            <Text style={homeStyles.textExp}>{user.points.levelExperience}xp</Text>
+                        )
                     }
                 </View>
             </View>

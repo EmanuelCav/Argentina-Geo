@@ -9,7 +9,7 @@ import { homeStyles } from "../../styles/home.styles";
 
 import { ShowStatisticsProps } from "../../types/props.types";
 
-const Options = ({ navigation, setIsProfile, user }: ShowStatisticsProps) => {
+const Options = ({ navigation, setIsProfile, user, isConnection }: ShowStatisticsProps) => {
 
     const dispatch = useDispatch()
 
@@ -18,6 +18,11 @@ const Options = ({ navigation, setIsProfile, user }: ShowStatisticsProps) => {
     }
 
     const showProfile = () => {
+        if (!isConnection) {
+            setIsProfile(true)
+            return
+        }
+
         dispatch(getUser({
             id: user.user.user._id,
             user,
@@ -26,6 +31,11 @@ const Options = ({ navigation, setIsProfile, user }: ShowStatisticsProps) => {
     }
 
     const redirectRanking = () => {
+        if (!isConnection) {
+            navigation.navigate("Ranking")
+            return
+        }
+
         dispatch(getRanking({
             user,
             navigation

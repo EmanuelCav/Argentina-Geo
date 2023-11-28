@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
+import { fetch } from "@react-native-community/netinfo";
 
 import User from '../components/home/user'
 import Options from '../components/home/options'
 import Profile from '../components/profile/profile';
+import Network from '../components/response/network';
 
 import { gamesApi } from '../server/api/game.api'
 import { getDateExperienceApi, usersApi } from '../server/api/user.api'
@@ -29,6 +31,8 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     const [isProfile, setIsProfile] = useState<boolean>(false)
     const [isGetLoggedIn, setIsGetLoggedIn] = useState<boolean>(false)
+    const [isInternet, setIsInternet] = useState<boolean>(true)
+    const [isConnection, setIsConnection] = useState<boolean | null>(true)
 
     const getData = async () => {
 
@@ -59,38 +63,45 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     }
 
     useEffect(() => {
+        fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
+    }, [])
+
+
+    useEffect(() => {
 
         (async () => {
 
-            if (users.isLoggedIn) {
+            if (isConnection) {
+                if (users.isLoggedIn) {
 
-                await getUserData()
+                    await getUserData()
 
-                dispatch(getLogin(users) as any)
-                getUsers()
-                getData()
+                    dispatch(getLogin(users) as any)
+                    getUsers()
+                    getData()
 
-                const isNewDate = users.users.total?.find((u) => {
-                    if (u.points.lastGame) {
-                        if (u.points.lastGame.split("-")[2] === `${new Date().getDate()}`
-                            && u.points.lastGame.split("-")[1] === `${new Date().getUTCMonth() + 1}`
-                            && u.points.lastGame.split("-")[0] === `${new Date().getFullYear()}`) {
-                            return true
+                    const isNewDate = users.users.total?.find((u) => {
+                        if (u.points.lastGame) {
+                            if (u.points.lastGame.split("-")[2] === `${new Date().getDate()}`
+                                && u.points.lastGame.split("-")[1] === `${new Date().getUTCMonth() + 1}`
+                                && u.points.lastGame.split("-")[0] === `${new Date().getFullYear()}`) {
+                                return true
+                            }
                         }
-                    }
-                })
+                    })
 
-                if (!isNewDate) {
-                    getNewDate()
+                    if (!isNewDate) {
+                        getNewDate()
+                    }
+
+                    setIsGetLoggedIn(true)
+
+                    return
+
                 }
 
-                setIsGetLoggedIn(true)
-
-                return
-
+                dispatch(newUser() as any)
             }
-
-            dispatch(newUser() as any)
 
         })()
 
@@ -102,13 +113,16 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerHome} >
             {
+                !isConnection && isInternet && <Network firstTime={!users.isLoggedIn} setIsInternet={setIsInternet} />
+            }
+            {
                 users.isLoggedIn && isGetLoggedIn && (
                     <>
                         {
-                            isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
+                            isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} isConnection={isConnection} />
                         }
                         <User user={users.user.user} users={users.users} />
-                        <Options navigation={navigation} setIsProfile={setIsProfile} user={users} />
+                        <Options navigation={navigation} setIsProfile={setIsProfile} user={users} isConnection={isConnection} />
                     </>
                 )
             }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Category from './components/category';
@@ -12,7 +12,7 @@ import { configGamesStyles } from "../../styles/game.styles";
 import { CategoriesProps } from '../../types/props.types';
 import { ICategoriesUser } from '../../interface/Game';
 
-const Categories = ({ user, categories, setIsCategories }: CategoriesProps) => {
+const Categories = ({ user, categories, setIsCategories, isConnection }: CategoriesProps) => {
 
     const [min, setMin] = useState<number>(0)
     const [max, setMax] = useState<number>(8)
@@ -49,7 +49,7 @@ const Categories = ({ user, categories, setIsCategories }: CategoriesProps) => {
                     <View style={menuStyles.showCategoriesContain}>
                         {
                             categories.map((category: ICategoriesUser, index: number) => {
-                                return <Category user={user} category={category} key={index} />
+                                return <Category user={user} category={category} isConnection={isConnection} key={index} />
                             }).slice(min, max)
                         }
                     </View>

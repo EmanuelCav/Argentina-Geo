@@ -12,10 +12,10 @@ import { ICategoriesUser } from "../../interface/Game";
 
 import { totalCorrects, totalQuestions } from "../../helper/statistic";
 
-const Profile = ({ user, games, setIsProfile }: ProfileProps) => {
+const Profile = ({ user, games, setIsProfile, isConnection }: ProfileProps) => {
 
-    const questions = useRef(totalQuestions(user.profile.categories)).current
-    const corrects = useRef(totalCorrects(user.profile.categories)).current
+    const questions = useRef(totalQuestions(isConnection ? user.profile.categories : user.user.user.categories)).current
+    const corrects = useRef(totalCorrects(isConnection ? user.profile.categories : user.user.user.categories)).current
 
     const cancelProfile = () => {
         setIsProfile(false)
@@ -28,23 +28,30 @@ const Profile = ({ user, games, setIsProfile }: ProfileProps) => {
                     <ScrollView>
                         <View style={menuStyles.containFlagNickname}>
                             <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevelProfile}>
-                                <Text style={homeStyles.textLevel}>{user.profile.level.level}</Text>
+                                <Text style={homeStyles.textLevel}>{isConnection ? user.profile.level.level : user.user.user.level.level}</Text>
                             </ImageBackground>
-                            <Text style={menuStyles.textNicknameProfile}>{user.profile.nickname}</Text>
+                            <Text style={menuStyles.textNicknameProfile}>{isConnection ? user.profile.nickname : user.user.user.nickname}</Text>
                         </View>
                         <View style={homeStyles.containerMainInfoProfile}>
-                            <Text style={homeStyles.userInfoProfile}>{user.profile.pais.name}</Text>
-                            <Text style={homeStyles.userInfoProfile} adjustsFontSizeToFit>{user.profile.provincia && user.profile.provincia.name}
-                                {user.profile.municipio && (
+                            <Text style={homeStyles.userInfoProfile}>{isConnection ? user.profile.pais.name : user.user.user.pais.name}</Text>
+                            <Text style={homeStyles.userInfoProfile} adjustsFontSizeToFit>{isConnection ? (user.profile.provincia && user.profile.provincia.name
+                            ) : (
+                                user.user.user.provincia && user.user.user.provincia.name
+                            )}
+                                {isConnection ? (user.profile.municipio && (
                                     <Text> - {user.profile.municipio.name}</Text>
+                                )) : (
+                                    (user.user.user.municipio && (
+                                        <Text> - {user.user.user.municipio.name}</Text>
+                                    ))
                                 )}
                             </Text>
-                            <Text style={homeStyles.userInfoProfile}>Posición: {user.users.total!.map((u) => u._id).indexOf(user.profile._id) + 1}°</Text>
-                            <Text style={homeStyles.userInfoProfile}>Puntaje: {user.profile.points.total}xp</Text>
-                            <Text style={homeStyles.userInfoProfile}>Mejor puntaje: {user.profile.points.bestPuntuation}xp</Text>
+                            <Text style={homeStyles.userInfoProfile}>Posición: {user.users.total!.map((u) => u._id).indexOf(isConnection ? user.profile._id : user.user.user._id) + 1}°</Text>
+                            <Text style={homeStyles.userInfoProfile}>Puntaje: {isConnection ? user.profile.points.total : user.user.user.points.total}xp</Text>
+                            <Text style={homeStyles.userInfoProfile}>Mejor puntaje: {isConnection ? user.profile.points.bestPuntuation : user.user.user.points.bestPuntuation}xp</Text>
                             <Text style={homeStyles.userInfoProfile}>
                                 {
-                                    user.profile._id === user.user.user._id &&
+                                    user.profile._id === user.user.user._id && isConnection &&
                                     <Text>
                                         Partidas jugadas: {games.length}
                                     </Text>
@@ -61,9 +68,15 @@ const Profile = ({ user, games, setIsProfile }: ProfileProps) => {
                         </View>
                         <View>
                             {
-                                user.profile.categories.map((category: ICategoriesUser) => {
-                                    return <CategoryUser category={category} key={category._id} />
-                                })
+                                isConnection ? (
+                                    user.profile.categories.map((category: ICategoriesUser) => {
+                                        return <CategoryUser category={category} key={category._id} />
+                                    })
+                                ) : (
+                                    user.user.user.categories.map((category: ICategoriesUser) => {
+                                        return <CategoryUser category={category} key={category._id} />
+                                    })
+                                )
                             }
                         </View>
                     </ScrollView>

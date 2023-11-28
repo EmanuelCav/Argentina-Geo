@@ -11,7 +11,7 @@ import { menuStyles } from '../../../styles/menu.styles'
 
 import { CategoryProps } from "../../../types/props.types";
 
-const Category = ({ user, category }: CategoryProps) => {
+const Category = ({ user, category, isConnection }: CategoryProps) => {
 
     const dispatch = useDispatch()
 
@@ -19,22 +19,26 @@ const Category = ({ user, category }: CategoryProps) => {
 
     const selectCategory = async () => {
 
-        try {
-            const { data } = await updateCategoryApi(category._id, user.token)
-            dispatch(updateOptionsAction(data))
-        } catch (error) {
-            console.log(error);
+        if(isConnection) {
+            try {
+                const { data } = await updateCategoryApi(category._id, user.token)
+                dispatch(updateOptionsAction(data))
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
     const newUnlock = async () => {
 
-        if (user.user.categories.filter((u) => u.isUnlocked).length !== user.user.level.level) {
-            try {
-                const { data } = await unlockCategoryApi(category._id, user.token)
-                dispatch(updateOptionsAction(data))
-            } catch (error) {
-                console.log(error);
+        if(isConnection) {
+            if (user.user.categories.filter((u) => u.isUnlocked).length !== user.user.level.level) {
+                try {
+                    const { data } = await unlockCategoryApi(category._id, user.token)
+                    dispatch(updateOptionsAction(data))
+                } catch (error) {
+                    console.log(error);
+                }
             }
         }
 

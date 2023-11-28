@@ -14,7 +14,12 @@ export const games = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const showGames = await Game.find({ user: req.user })
+        const showGames = await Game.find({ user: req.user }).populate({
+            path: 'questions',
+            populate: {
+                path: 'question'
+            }
+        })
 
         return res.status(200).json(showGames)
 

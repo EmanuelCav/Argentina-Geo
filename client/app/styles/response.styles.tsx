@@ -35,6 +35,19 @@ export const responseStyles = StyleSheet.create({
         textAlign: 'center',
         fontSize: Dimensions.get("window").height / 46.25,
         color: "#DD0000"
+    },
+
+    // NETWORK
+
+    containerNetwork: {
+        position: 'absolute',
+        zIndex: 38,
+        backgroundColor: '#90d5f6',
+        height: '100%',
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 
 })

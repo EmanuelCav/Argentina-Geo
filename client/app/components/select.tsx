@@ -24,7 +24,7 @@ const Location = ({ loc, settingsData, setSettingsData, location, userLocation }
             return
         }
 
-        if(loc === "Provincia") {
+        if (loc === "Provincia") {
             setSettingsData({
                 pais: settingsData.pais,
                 provincia: location,
@@ -33,7 +33,7 @@ const Location = ({ loc, settingsData, setSettingsData, location, userLocation }
             return
         }
 
-        if(loc === "Municipio") {
+        if (loc === "Municipio") {
             setSettingsData({
                 pais: settingsData.pais,
                 provincia: settingsData.provincia,
@@ -52,19 +52,21 @@ const Location = ({ loc, settingsData, setSettingsData, location, userLocation }
     )
 }
 
-const Select = ({ loc, user, setSettingsData, userLocation, settingsData, data, setIsPais, setIsProvincia, setIsMunicipio }: SelectProps) => {
+const Select = ({ loc, user, setSettingsData, userLocation, settingsData, data, setIsPais, setIsProvincia, setIsMunicipio, isConnection }: SelectProps) => {
 
     const dispatch = useDispatch()
 
     const acceptSelection = async () => {
 
-        try {
-            
-            const { data } = await updateLocationApi(user.user._id, settingsData, user.token)
-            dispatch(updateOptionsAction(data))
+        if (isConnection) {
+            try {
 
-        } catch (error) {
-            console.log(error);
+                const { data } = await updateLocationApi(user.user._id, settingsData, user.token)
+                dispatch(updateOptionsAction(data))
+
+            } catch (error) {
+                console.log(error);
+            }
         }
 
         setIsPais(false)

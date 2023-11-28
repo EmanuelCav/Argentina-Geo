@@ -28,8 +28,7 @@ export default function App() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: 'transparent',
-      primary: 'transparent'
+      background: 'transparent'
     },
   };
 
@@ -41,8 +40,7 @@ export default function App() {
             <StatusBar backgroundColor={'#90d5f6'} />
             <Loading />
             <Stack.Navigator initialRouteName='Home' screenOptions={{
-              headerShown: false,
-              presentation: 'transparentModal'
+              headerShown: false
             }} >
               <Stack.Screen name='Home' component={Home} options={{
                 animation: 'none'
