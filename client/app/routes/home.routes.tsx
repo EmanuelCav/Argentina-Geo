@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
 import { fetch } from "@react-native-community/netinfo";
+import { useRoute } from '@react-navigation/native';
 
 import User from '../components/home/user'
 import Options from '../components/home/options'
@@ -28,6 +29,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     const games = useSelector((state: IReducer) => selector(state).games)
 
     const dispatch = useDispatch()
+    const route = useRoute()
 
     const [isProfile, setIsProfile] = useState<boolean>(false)
     const [isGetLoggedIn, setIsGetLoggedIn] = useState<boolean>(false)
@@ -64,7 +66,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     useEffect(() => {
         fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
-    }, [isConnection])
+    }, [isConnection, isProfile, route.name])
 
     useEffect(() => {
 

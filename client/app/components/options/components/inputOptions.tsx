@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { View } from "react-native";
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -39,11 +39,12 @@ const InputOptions = ({ setIsOptionsGame, isConnection }: GameOptionsType) => {
             try {
                 const { data } = await updateOptionsApi(users.user.user._id, optionsData, users.user.token)
                 dispatch(updateOptionsAction(data))
-                setIsOptionsGame(false)
             } catch (error) {
                 console.log(error);
             }
         }
+
+        setIsOptionsGame(false)
     }
 
     return (

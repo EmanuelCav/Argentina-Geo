@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { View } from "react-native";
 import { useSelector, useDispatch } from 'react-redux'
 import { fetch } from "@react-native-community/netinfo";
+import { useRoute } from '@react-navigation/native';
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
 
@@ -26,6 +27,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     const users = useSelector((state: IReducer) => selector(state).users)
 
     const dispatch = useDispatch()
+    const route = useRoute()
 
     const initialState: ISetting = {
         pais: users.user.user.pais.name,
@@ -92,7 +94,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
 
     useEffect(() => {
         fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
-    }, [isConnection])
+    }, [isConnection, route.name])
 
     useEffect(() => {
         getPaises()
@@ -126,7 +128,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
             {
                 isNickname && <ChangeName setIsNickname={setIsNickname} user={users.user} />
             }
-            <Selector settingsData={settingsData} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
+            <Selector settingsData={settingsData} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} isConnection={isConnection} />
             <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname}
                 setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} isConnection={isConnection} />
             <View style={homeStyles.containerActionsView}>

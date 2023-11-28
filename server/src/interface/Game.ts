@@ -1,6 +1,6 @@
 import { Document, ObjectId } from "mongoose";
 
-import { imageType } from "../types/game.types";
+import { Image } from "./Image";
 
 export interface ICategory extends Document {
     createdAt: NativeDate;
@@ -27,7 +27,7 @@ export interface IQuestion extends Document {
     _id: ObjectId;
     question: string;
     category: String;
-    image: imageType;
+    image: Image;
     answer: string;
     text: string;
     isAnswer: boolean;

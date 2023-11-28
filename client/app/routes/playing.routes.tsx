@@ -259,7 +259,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
             {
                 isFinish ? (
                     <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points}
-                        navigation={navigation} viewErrors={viewErrors}
+                        navigation={navigation} viewErrors={viewErrors} isConnection={isConnection}
                         isGameError={isGameError} areErrors={errors.length === 0 ? false : true} />
                 ) : (
                     <>
@@ -287,9 +287,9 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
                                 </>
                             ) : (
                                 <>
-                                    <ShowQuestion questions={games.game.questions} numberQuestion={numberQuestion} />
+                                    <ShowQuestion questions={isConnection ? games.game.questions : questionsWithoutInt} numberQuestion={numberQuestion} />
                                     <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} seconds={seconds} minutes={minutes} />
-                                    <ShowOptionsGame questions={games.game.questions} numberQuestion={numberQuestion} styles={styles}
+                                    <ShowOptionsGame questions={isConnection ? games.game.questions : questionsWithoutInt} numberQuestion={numberQuestion} styles={styles}
                                         nextQuestion={isConnection ? nextQuestion : nextQuestionWihoutInternet} />
                                 </>
                             )

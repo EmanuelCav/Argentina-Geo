@@ -104,7 +104,7 @@ export const sectionStyle = StyleSheet.create({
     containerInputSettings: {
         width: '100%',
         backgroundColor: '#FFFFFF',
-        padding: Dimensions.get("window").height / 106,
+        padding: Dimensions.get("window").height / 74,
         borderRadius: 4,
         borderColor: '#597EEE',
         borderStyle: 'solid',
@@ -117,7 +117,7 @@ export const sectionStyle = StyleSheet.create({
     containerInputSettingsDisabled: {
         width: '100%',
         backgroundColor: '#888',
-        padding: Dimensions.get("window").height / 106,
+        padding: Dimensions.get("window").height / 74,
         borderRadius: 4,
         borderColor: '#597EEE',
         borderStyle: 'solid',

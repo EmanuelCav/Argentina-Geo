@@ -127,9 +127,9 @@ export const removeQuestions = async (req: Request, res: Response): Promise<Resp
             return res.status(400).json({ message: "Question does not exists" })
         }
 
-        if (question.image) {
-            await cloud.uploader.destroy(question.image.imageId)
-        }
+        // if (question.image) {
+        //     await cloud.uploader.destroy(question.image.imageId)
+        // }
 
         await Question.findByIdAndDelete(id)
 

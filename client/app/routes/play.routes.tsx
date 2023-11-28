@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { View } from "react-native";
 import { useDispatch, useSelector } from 'react-redux'
 import { fetch } from "@react-native-community/netinfo";
+import { useRoute } from '@react-navigation/native';
 
 import ButtonMenu from "../components/buttonMenu";
 import Categories from "../components/categories/categories";
@@ -25,6 +26,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
     const games = useSelector((state: IReducer) => selector(state).games)
 
     const dispatch = useDispatch()
+    const route = useRoute()
 
     const [isCategories, setIsCategories] = useState<boolean>(false)
     const [isOptionsGame, setIsOptionsGame] = useState<boolean>(false)
@@ -68,7 +70,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
     useEffect(() => {
         fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
-    }, [isConnection])
+    }, [isConnection, route.name])
 
     return (
         <View style={homeStyles.containerPlay}>

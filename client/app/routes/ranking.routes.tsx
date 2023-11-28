@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Text, View, ScrollView } from 'react-native'
 import { useSelector } from "react-redux";
 import { fetch } from '@react-native-community/netinfo';
+import { useRoute } from '@react-navigation/native';
 
 import UserRank from "../components/ranking/userRank";
 import ButtonMenu from "../components/buttonMenu";
@@ -21,13 +22,15 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
     const users = useSelector((state: IReducer) => selector(state).users)
     const games = useSelector((state: IReducer) => selector(state).games)
 
+    const route = useRoute()
+
     const [rankData, setRankData] = useState<string>("total")
     const [isProfile, setIsProfile] = useState<boolean>(false)
     const [isConnection, setIsConnection] = useState<boolean | null>(true)
 
     useEffect(() => {
         fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
-    }, [isConnection])
+    }, [isConnection, route.name])
     
     return (
         <View style={rankingStyles.containerRanking}>
@@ -50,7 +53,7 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
                                                     rankData={rankData} setIsProfile={setIsProfile} isConnection={isConnection} key={user._id} />
                                             })
                                         ) : (
-                                            users.users.total!.map((user: IUser, index: number) => {
+                                            users.users.total!.filter(u => u.points.total > 0)!.map((user: IUser, index: number) => {
                                                 return <UserRank user={user} users={users} index={index}
                                                     rankData={rankData} setIsProfile={setIsProfile} isConnection={isConnection} key={user._id} />
                                             })

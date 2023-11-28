@@ -117,6 +117,7 @@ export type SelectSettingsProps = {
     setIsPais: (isPais: boolean) => void;
     setIsProvincia: (isProvincia: boolean) => void;
     setIsMunicipio: (isMunicipio: boolean) => void;
+    isConnection: boolean | null;
 }
 
 export type InputSettingsType = {
@@ -126,6 +127,7 @@ export type InputSettingsType = {
     setIsMunicipio: (isMunicipio: boolean) => void;
     isDisabled: boolean;
     location: string;
+    isConnection: boolean | null;
 }
 
 export type SelectProps = {
@@ -171,6 +173,7 @@ export type FinishProps = {
     viewErrors: () => void;
     areErrors: boolean;
     isGameError: boolean;
+    isConnection: boolean | null;
 }
 
 export type ShowQuestionProps = {
