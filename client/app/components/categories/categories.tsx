@@ -10,7 +10,7 @@ import { homeStyles } from "../../styles/home.styles";
 import { configGamesStyles } from "../../styles/game.styles";
 
 import { CategoriesProps } from '../../types/props.types';
-import { ICategoriesUser } from '../../interface/Game';
+import { ICategories, ICategoriesUser } from '../../interface/Game';
 
 const Categories = ({ user, categories, setIsCategories, isConnection }: CategoriesProps) => {
 
@@ -48,7 +48,7 @@ const Categories = ({ user, categories, setIsCategories, isConnection }: Categor
                 <View style={configGamesStyles.containShowConfig}>
                     <View style={menuStyles.showCategoriesContain}>
                         {
-                            categories.map((category: ICategoriesUser, index: number) => {
+                            categories.map((category: ICategories, index: number) => {
                                 return <Category user={user} category={category} isConnection={isConnection} key={index} />
                             }).slice(min, max)
                         }

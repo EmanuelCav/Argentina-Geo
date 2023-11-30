@@ -9,11 +9,12 @@ import { homeStyles } from "../../styles/home.styles";
 
 import { ShowStatisticsProps } from "../../types/props.types";
 
-const Options = ({ navigation, setIsProfile, user, isConnection }: ShowStatisticsProps) => {
+const Options = ({ navigation, setIsProfile, user, isConnection, setIsChangeView, isChangeView }: ShowStatisticsProps) => {
 
     const dispatch = useDispatch()
 
     const redirectPlay = () => {
+        setIsChangeView(!isChangeView)
         navigation.navigate('Play')
     }
 
@@ -31,6 +32,8 @@ const Options = ({ navigation, setIsProfile, user, isConnection }: ShowStatistic
     }
 
     const redirectRanking = () => {
+        setIsChangeView(!isChangeView)
+
         if (!isConnection) {
             navigation.navigate("Ranking")
             return
@@ -43,6 +46,7 @@ const Options = ({ navigation, setIsProfile, user, isConnection }: ShowStatistic
     }
 
     const redirectSettings = () => {
+        setIsChangeView(!isChangeView)
         navigation.navigate('Settings')
     }
 

@@ -7,13 +7,33 @@ import Experience from '../database/models/experience'
 
 export const categoriesFromUser = async (id: ObjectId) => {
 
-    const categories = await Category.find()
+    
+    const category = await Category.findOne({ name: 'Provincias/Distritos' })
+
+    const categoryUser = new Categoryuser({
+        category: category?._id,
+        user: id,
+        isUnlocked: true
+    })
+
+    const categoryUserSaved = await categoryUser.save()
+
+    await User.findByIdAndUpdate(id, {
+        $push: {
+            categories: categoryUserSaved._id
+        }
+    }, {
+        new: true
+    })
+
+    /*
+    const categories = await Category.find().sort("createdAt")
 
     for (let i = 0; i < categories.length; i++) {
 
         let categoryUser
 
-        if(i === 0) {
+        if (i === 0) {
             categoryUser = new Categoryuser({
                 category: categories[i]._id,
                 user: id,
@@ -36,6 +56,8 @@ export const categoriesFromUser = async (id: ObjectId) => {
             new: true
         })
     }
+
+    */
 
 }
 

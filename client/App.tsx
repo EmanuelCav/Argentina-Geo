@@ -48,7 +48,7 @@ export default function App() {
               <Stack.Screen name='Play' component={Play} options={{
                 animation: 'fade'
               }} />
-              <Stack.Screen name="Playing" component={Playing} options={{
+              <Stack.Screen name="Playing" component={Playing as any} options={{
                 animation: 'fade'
               }} />
               <Stack.Screen name="Ranking" component={Ranking} options={{

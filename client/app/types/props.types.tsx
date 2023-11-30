@@ -3,13 +3,16 @@ import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IOptions, ISetting, IUser, IUsersRank } from "../interface/User";
-import { ICategoriesUser, IGame, IQuestion } from "../interface/Game";
+import { ICategories, ICategoriesUser, IGame, IQuestion } from "../interface/Game";
 import { UserDataType, UserReducerType, UserType } from "./user.types";
 
-type RoutesProps = {
+export type RoutesProps = {
     Home: undefined;
     Play: undefined;
-    Playing: undefined;
+    Playing: {
+        questionsWC: IQuestion[];
+        isConnection: boolean | null;
+    };
     Ranking: undefined;
     Settings: undefined;
 };
@@ -34,6 +37,8 @@ export type ShowStatisticsProps = {
     setIsProfile: (isProfile: boolean) => void;
     user: UserReducerType;
     isConnection: boolean | null;
+    setIsChangeView: (isChangeView: boolean) => void;
+    isChangeView: boolean;
 }
 
 export type UserInfoProps = {
@@ -50,7 +55,7 @@ export type ProfileProps = {
 
 export type CategoriesProps = {
     user: UserDataType;
-    categories: ICategoriesUser[];
+    categories: ICategories[];
     setIsCategories: (isCategories: boolean) => void;
     isConnection: boolean | null;
 }
@@ -108,7 +113,7 @@ export type ChangeNicknameProps = {
 
 export type CategoryProps = {
     user: UserDataType;
-    category: ICategoriesUser;
+    category: ICategories;
     isConnection: boolean | null;
 }
 
@@ -206,4 +211,11 @@ export type UserRankingProps = {
 export type RankingActionProps = {
     user: UserReducerType;
     navigation: StackNavigation;
+}
+
+export type FinishedGameProps = {
+    isGameError: boolean;
+    isConnection: boolean;
+    game: IGame;
+    token: string;
 }

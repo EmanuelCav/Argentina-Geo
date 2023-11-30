@@ -5,7 +5,7 @@ import { IAuthAction, IGetUserAction } from "../../interface/User";
 import * as userApi from "../api/user.api"
 import * as gamesApi from "../api/game.api";
 
-import { firstTimeAction, getUserAction, loginAction, loginAuthAction, usersAction } from "../features/user.features";
+import { firstTimeAction, getUserAction, loginAction, loginAuthAction, updateOptionsAction, usersAction } from "../features/user.features";
 import { gamesAction } from "../features/game.features";
 import { RankingActionProps } from "../../types/props.types";
 import { UserType } from "../../types/user.types";
@@ -43,7 +43,7 @@ export const getUser = createAsyncThunk("users/getUser", async (userData: IGetUs
         userData.setIsProfile(true)
 
     } catch (error) {
-        console.log(error);
+        userData.setIsProfile(true)
     }
 
 })
@@ -75,7 +75,7 @@ export const getRanking = createAsyncThunk('users/ranking', async (rankingData: 
         rankingData.navigation.navigate("Ranking")
 
     } catch (error) {
-        console.log(error);
+        rankingData.navigation.navigate("Ranking")
     }
 
 })

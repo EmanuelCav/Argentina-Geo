@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import User from '../database/models/users';
 import Role from '../database/models/roles';
 import Categoryuser from '../database/models/categoryUser';
+import Category from '../database/models/category';
 import Pais from '../database/models/pais';
 import Provincia from '../database/models/provincia';
 import Municipio from '../database/models/municipio';
@@ -484,18 +485,24 @@ export const updateCategory = async (req: Request, res: Response): Promise<Respo
 
     try {
 
-        const category = await Categoryuser.findById(id)
+        const category = await Category.findById(id)
 
         if (!category) {
             return res.status(400).json({ message: "Category does not exists" })
         }
 
-        if (category.user != req.user) {
+        const categoryUser = await Categoryuser.findOne({ category: category._id, user: req.user })
+
+        if (!categoryUser) {
+            return res.status(400).json({ message: "Category user does not exists" })
+        }
+
+        if (categoryUser.user != req.user) {
             return res.status(400).json({ message: "You cannot update this category" })
         }
 
-        await Categoryuser.findByIdAndUpdate(id, {
-            isSelect: !category.isSelect
+        await Categoryuser.findByIdAndUpdate(categoryUser._id, {
+            isSelect: !categoryUser.isSelect
         }, {
             new: true
         })
@@ -582,32 +589,43 @@ export const unlockCategory = async (req: Request, res: Response) => {
 
     try {
 
-        const category = await Categoryuser.findById(id)
+        const category = await Category.findById(id)
 
         if (!category) {
             return res.status(400).json({ message: "Category does not exists" })
         }
 
-        await Categoryuser.findByIdAndUpdate(id, {
+        const newCategoryUser = new Categoryuser({
+            category: category._id,
+            user: req.user,
             isUnlocked: true
-        }, {
-            new: true
         })
 
-        const user = await User.findById(req.user)
-            .populate({
-                path: "categories",
-                select: "category questions corrects isSelect isUnlocked",
-                populate: {
-                    path: 'category',
-                    select: "name"
-                }
-            })
+        const categoryUserSaved = await newCategoryUser.save()
+
+        const user = await User.findByIdAndUpdate(req.user, {
+            $push: {
+                categories: categoryUserSaved._id
+            }
+        }, {
+            new: true
+        }).populate({
+            path: "categories",
+            select: "category questions corrects isSelect isUnlocked",
+            populate: {
+                path: 'category',
+                select: "name"
+            }
+        })
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
             .populate("level")
             .populate("points")
+
+
+        console.log(user);
+
 
         return res.status(200).json(user)
 
@@ -652,23 +670,23 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
 
         const levels = await Level.find()
 
-        if(level.level !== levels.length) {
+        if (level.level !== levels.length) {
             if (experienceUpdated?.levelExperience! >= level.max) {
-    
+
                 const nextLevel = await Level.findOne({ level: level.level + 1 })
-    
+
                 await Experience.findByIdAndUpdate(experience._id, {
                     levelExperience: experienceUpdated?.levelExperience! - level.max
                 }, {
                     new: true
                 })
-    
+
                 await User.findByIdAndUpdate(req.user, {
                     level: nextLevel?._id
                 }, {
                     new: true
                 })
-    
+
             }
         }
 
@@ -699,7 +717,7 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
 
     try {
 
-        if(new Date().getUTCMonth() + 1 === 1) {
+        if (new Date().getUTCMonth() + 1 === 1) {
 
             await Experience.updateMany({
                 day: 0,
@@ -711,7 +729,7 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
 
         }
 
-        if(new Date().getUTCDate() === 1) {
+        if (new Date().getUTCDate() === 1) {
 
             await Experience.updateMany({
                 day: 0,
@@ -721,7 +739,7 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
             return res.status(200).json({ message: "Month points updated" })
 
         }
-        
+
         await await Experience.updateMany({
             day: 0
         })

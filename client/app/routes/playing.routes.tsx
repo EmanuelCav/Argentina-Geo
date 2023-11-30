@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, Dimensions, StyleSheet, Pressable, BackHandler } from 'react-native'
-import { fetch } from "@react-native-community/netinfo";
 
 import Finish from '../components/game/finish'
 import DataGame from '../components/game/dataGame'
@@ -10,8 +9,8 @@ import ShowQuestion from '../components/game/showQuestion'
 
 import { IReducer } from '../interface/Reducer'
 import { IPoints } from '../interface/User'
-import { IGame, IQuestion } from '../interface/Game'
-import { StackNavigation } from '../types/props.types'
+import { IQuestion } from '../interface/Game'
+import { PlayingType } from '../types/games.types'
 
 import { questionsCorrectApi, questionsCountApi } from '../server/api/game.api'
 import { getGameAction } from '../server/features/game.features'
@@ -22,9 +21,8 @@ import { loadingAction } from '../server/features/response.features'
 import { gameStyles } from '../styles/game.styles';
 
 import { selector } from '../helper/selector'
-import { gameWithoutInternet } from '../helper/generator';
 
-const Playing = ({ navigation }: { navigation: StackNavigation }) => {
+const Playing = ({ navigation, route }: PlayingType) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
     const games = useSelector((state: IReducer) => selector(state).games)
@@ -67,6 +65,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const [errors, setErrors] = useState<IQuestion[]>([])
     const [errorsGame, setErrorsGame] = useState<IQuestion[]>([])
+    const [numberCorrect, setNumberCorrect] = useState<number[]>([])
 
     const [seconds, setSeconds] = useState<number>(0)
     const [minutes, setMinutes] = useState<number>(0)
@@ -80,8 +79,6 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
     const [isPreFinish, setIsPreFinish] = useState<boolean>(false)
     const [isFinish, setIsFinish] = useState<boolean>(false)
     const [isGameError, setIsGameError] = useState<boolean>(false)
-    const [isConnection, setIsConnection] = useState<boolean | null>(true)
-    const [questionsWithoutInt, setQuestionsWithoutInt] = useState<IQuestion[]>([])
 
     const { points } = pointsData
 
@@ -101,31 +98,26 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
     }
 
     const nextQuestionWihoutInternet = (item: string) => {
-        if (item === (isGameError ? (errorsGame[numberQuestion].question.answer) : (questionsWithoutInt[numberQuestion].question.answer))) {
+        if (item === (isGameError ? (errorsGame[numberQuestion].question.answer) : (route.params.questionsWC[numberQuestion].question.answer))) {
             setIsCorrect(true)
         }
 
-        if (item !== (isGameError ? (errorsGame[numberQuestion].question.answer) : (questionsWithoutInt[numberQuestion].question.answer))) {
+        if (item !== (isGameError ? (errorsGame[numberQuestion].question.answer) : (route.params.questionsWC[numberQuestion].question.answer))) {
             if (isGameError) {
                 setErrors([...errors, errorsGame[numberQuestion]])
             } else {
-                setErrors([...errors, questionsWithoutInt[numberQuestion]])
+                setErrors([...errors, route.params.questionsWC[numberQuestion]])
             }
 
-            setIsCorrect(true)
+            setIsIncorrect(true)
         }
 
-        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (questionsWithoutInt.length - 1))) {
+        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (route.params.questionsWC.length - 1))) {
             setIsPreFinish(true)
 
             if (!isGameError) {
                 setRealSeconds(seconds)
                 setRealMinutes(minutes)
-
-                setPointsData({
-                    points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
-                        users.user.user.categories.filter(category => category.isUnlocked && category.isSelect).length * games.game.corrects) / (seconds + (60 * minutes)))
-                })
             }
 
             return
@@ -137,14 +129,9 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const nextQuestion = async (item: string) => {
 
-        if (!isGameError) {
-            await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
-        }
-
         if (item === (isGameError ? (errorsGame[numberQuestion].question.answer) : (games.game.questions[numberQuestion].question.answer))) {
             if (!isGameError) {
-                const { data } = await questionsCorrectApi(games.game.questions[numberQuestion].categoryUser, games.game._id, users.user.token)
-                dispatch(getGameAction(data))
+                setNumberCorrect([...numberCorrect, numberQuestion])
             }
             setIsCorrect(true)
         }
@@ -166,11 +153,6 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
             if (!isGameError) {
                 setRealSeconds(seconds)
                 setRealMinutes(minutes)
-
-                setPointsData({
-                    points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
-                        users.user.user.categories.filter(category => category.isUnlocked && category.isSelect).length * games.game.corrects) / (seconds + (60 * minutes)))
-                })
             }
 
             return
@@ -181,7 +163,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     const experienceUser = async () => {
 
-        if (points !== 0 && isConnection) {
+        if (points !== 0 && route.params.isConnection) {
             try {
                 const { data } = await updateExperienceApi(users.user.user.level._id, pointsData, users.user.token)
                 dispatch(updateOptionsAction(data))
@@ -192,28 +174,32 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
 
     }
 
-    const redirectFinish = () => {
+    const redirectFinish = async () => {
 
         dispatch(loadingAction(true))
-        setIsPreFinish(false)
-        setIsFinish(true)
 
-        setTimeout(() => {
-            dispatch(loadingAction(false))
-        }, 1000);
-    }
+        if (!isGameError && route.params.isConnection) {
+            for (let i = 0; i <= numberQuestion; i++) {
+                await questionsCountApi(games.game.questions[i].categoryUser, users.user.token)
+            }
 
-    useEffect(() => {
-        fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
-
-        if (!isConnection) {
-
-            const allGames = games.games.map((game: IGame) => game.questions.filter((question: IQuestion) => question.question.text)).filter(arr => arr.length > 0)
-
-            setQuestionsWithoutInt(gameWithoutInternet(allGames))
+            for (let i = 0; i < numberCorrect.length; i++) {
+                const { data } = await questionsCorrectApi(games.game.questions[numberCorrect[i]].categoryUser, games.game._id, users.user.token)
+                dispatch(getGameAction(data))
+            }
         }
 
-    }, [isConnection, questionsWithoutInt])
+        if (!isGameError) {
+            setPointsData({
+                points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
+                    users.user.user.categories.filter(category => category.isUnlocked && category.isSelect).length * numberCorrect.length) / (seconds + (60 * minutes)))
+            })
+        }
+
+        setIsPreFinish(false)
+        setIsFinish(true)
+        dispatch(loadingAction(false))
+    }
 
     useEffect(() => {
 
@@ -259,7 +245,7 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
             {
                 isFinish ? (
                     <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points}
-                        navigation={navigation} viewErrors={viewErrors} isConnection={isConnection}
+                        navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection}
                         isGameError={isGameError} areErrors={errors.length === 0 ? false : true} />
                 ) : (
                     <>
@@ -283,14 +269,14 @@ const Playing = ({ navigation }: { navigation: StackNavigation }) => {
                                 <>
                                     <ShowQuestion questions={errorsGame} numberQuestion={numberQuestion} />
                                     <ShowOptionsGame questions={errorsGame} numberQuestion={numberQuestion} styles={styles}
-                                        nextQuestion={isConnection ? nextQuestion : nextQuestionWihoutInternet} />
+                                        nextQuestion={route.params.isConnection ? nextQuestion : nextQuestionWihoutInternet} />
                                 </>
                             ) : (
                                 <>
-                                    <ShowQuestion questions={isConnection ? games.game.questions : questionsWithoutInt} numberQuestion={numberQuestion} />
+                                    <ShowQuestion questions={route.params.isConnection ? games.game.questions : route.params.questionsWC} numberQuestion={numberQuestion} />
                                     <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} seconds={seconds} minutes={minutes} />
-                                    <ShowOptionsGame questions={isConnection ? games.game.questions : questionsWithoutInt} numberQuestion={numberQuestion} styles={styles}
-                                        nextQuestion={isConnection ? nextQuestion : nextQuestionWihoutInternet} />
+                                    <ShowOptionsGame questions={route.params.isConnection ? games.game.questions : route.params.questionsWC} numberQuestion={numberQuestion} styles={styles}
+                                        nextQuestion={route.params.isConnection ? nextQuestion : nextQuestionWihoutInternet} />
                                 </>
                             )
                         }

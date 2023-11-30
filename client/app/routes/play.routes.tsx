@@ -38,12 +38,17 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
         if (!isConnection) {
 
-            const allGames = games.games.map((game: IGame) => game.questions.filter((question: IQuestion) => question.question.text)).filter(arr => arr.length > 0)
+            const allGames = games.games.map((game: IGame) => game.questions.filter((question: IQuestion) => question.question.text))
+                .filter(arr => arr.length > 0)
 
-            if(gameWithoutInternet(allGames).length >= 5) {
-                navigation.navigate('Playing')
+            if (gameWithoutInternet(allGames).length >= 5) {
+                navigation.navigate('Playing', {
+                    questionsWC: gameWithoutInternet(allGames)
+                    .slice(0, gameWithoutInternet(allGames).length < users.user.user.amountQuestions ? gameWithoutInternet(allGames).length : users.user.user.amountQuestions),
+                    isConnection
+                })
             }
-            
+
             return
         }
 
@@ -75,7 +80,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerPlay}>
             {
-                isCategories && <Categories user={users.user} categories={users.user.user.categories} setIsCategories={setIsCategories} isConnection={isConnection} />
+                isCategories && <Categories user={users.user} categories={games.categories} setIsCategories={setIsCategories} isConnection={isConnection} />
             }
             {
                 isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} isConnection={isConnection} />

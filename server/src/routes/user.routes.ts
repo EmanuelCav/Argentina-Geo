@@ -31,7 +31,7 @@ router.patch('/users/category/:id', auth, usersCtrl.updateCategory)
 router.put('/users/password/:id', auth, validPassword, usersCtrl.updatePassword)
 router.put('/users/nickname/:id', auth, validNickname, usersCtrl.updateNickname)
 router.put('/users/location/:id', auth, usersCtrl.updateLocation)
-router.put('/users/category/:id', auth, usersCtrl.unlockCategory)
+router.patch('/users/category/unlock/:id', auth, usersCtrl.unlockCategory)
 router.put('/users/experience/:id', auth, usersCtrl.updateExperience)
 router.get('/users/experience/date', auth, usersCtrl.getDate)
 

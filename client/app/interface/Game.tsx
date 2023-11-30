@@ -31,6 +31,7 @@ export interface ICategories {
 export interface ICounterGame {
     games: IGame[],
     game: object;
+    categories: ICategories[];
 }
 
 export interface IQuestion {

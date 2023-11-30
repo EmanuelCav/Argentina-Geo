@@ -14,9 +14,10 @@ export const game = createAsyncThunk('game/generateGame', async (gameData: IGame
         dispatch(createGameAction(data))
         dispatch(getGameAction(data))
 
-        gameData.navigation.navigate('Playing')
-
-        return data
+        gameData.navigation.navigate('Playing', {
+            isConnection: true,
+            questionsWC: []
+        })
 
     } catch (error: any) {
         gameData.setMessage(error.response.data.message)

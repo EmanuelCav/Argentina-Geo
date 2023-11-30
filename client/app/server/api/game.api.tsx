@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { EXPO_URL, EXPO_HOST, NODE_ENV } from '@env';
 
-const api = axios.create({ baseURL: NODE_ENV !== 'production' ? `${EXPO_HOST}` : `${EXPO_URL}`  })
+const api = axios.create({ baseURL: NODE_ENV !== 'production' ? `${EXPO_HOST}` : `${EXPO_URL}` })
 
 export const gamesApi = async (token: string) => {
     return await api.get('/games', {
@@ -34,4 +34,8 @@ export const questionsCorrectApi = async (id: string, idGame: string, token: str
             'Authorization': `Bearer ${token}`
         }
     })
+}
+
+export const categoriesApi = async () => {
+    return await api.get('/categories')
 }

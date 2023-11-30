@@ -1,19 +1,12 @@
 import { Request, Response } from "express";
 
 import Category from '../database/models/category';
-import User from '../database/models/users';
 
 export const categories = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const user = await User.findById(req.user).select("-password")
-
-        const showCategories = await Category.find({
-            _id: {
-                "$nin": user?.categories
-            }
-        })
+        const showCategories = await Category.find().sort("createdAt")
 
         return res.status(200).json(showCategories)
 

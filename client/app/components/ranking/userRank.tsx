@@ -12,7 +12,8 @@ const UserRank = ({ index, user, users, rankData, setIsProfile, isConnection }: 
     const dispatch = useDispatch()
 
     const showProfile = () => {
-        if(isConnection) {
+        if (isConnection) {
+
             dispatch(getUser({
                 id: user._id,
                 user: users,
@@ -42,8 +43,8 @@ const UserRank = ({ index, user, users, rankData, setIsProfile, isConnection }: 
     }
 
     return (
-        <TouchableOpacity  style={users.user.user._id === user._id ? rankingStyles.userRankingMe : rankingStyles.userRanking} 
-        onPress={showProfile}>
+        <TouchableOpacity style={users.user.user._id === user._id ? rankingStyles.userRankingMe : rankingStyles.userRanking}
+            onPress={showProfile}>
             <View style={rankingStyles.containerUserRank}>
                 <View style={rankingStyles.topUser}>
                     <Text style={rankingStyles.topUserRank}>{index + 1}</Text>

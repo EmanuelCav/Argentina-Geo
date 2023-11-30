@@ -3,7 +3,7 @@ import { EXPO_URL, EXPO_HOST, NODE_ENV } from '@env';
 
 import { ILogin, INickname, IOptions, IPassword, IPoints, ISetting } from '../../interface/User'
 
-const api = axios.create({ baseURL: NODE_ENV !== 'production' ? `${EXPO_HOST}` : `${EXPO_URL}`  })
+const api = axios.create({ baseURL: NODE_ENV !== 'production' ? `${EXPO_HOST}` : `${EXPO_URL}` })
 
 export const usersApi = async (date: string, token: string) => {
     return await api.get(`/users/ranking/${date}`, {
@@ -78,7 +78,7 @@ export const updateLocationApi = async (id: string, settingsData: ISetting, toke
 }
 
 export const unlockCategoryApi = async (id: string, token: string) => {
-    return await api.put(`/users/category/${id}`, null, {
+    return await api.patch(`/users/category/unlock/${id}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

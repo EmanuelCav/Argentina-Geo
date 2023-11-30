@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-import { ICounterGame, IGame } from '../../interface/Game'
+import { ICategories, ICounterGame, IGame } from '../../interface/Game'
 
 const initialState: ICounterGame = {
     games: [],
-    game: {}
+    game: {},
+    categories: []
 }
 
 const counterGameSlice = createSlice({
@@ -20,10 +21,13 @@ const counterGameSlice = createSlice({
         },
         createGameAction: (state, action: PayloadAction<IGame>) => {
             state.games = [...state.games, action.payload]
-        }
+        },
+        categoriesAction: (state, action: PayloadAction<ICategories[]>) => {
+            state.categories = action.payload
+        },
     }
 })
 
-export const { gamesAction, getGameAction, createGameAction } = counterGameSlice.actions
+export const { gamesAction, getGameAction, createGameAction, categoriesAction } = counterGameSlice.actions
 
 export default counterGameSlice.reducer
