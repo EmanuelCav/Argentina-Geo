@@ -10,7 +10,7 @@ import { homeStyles } from "../../styles/home.styles";
 import { configGamesStyles } from "../../styles/game.styles";
 
 import { CategoriesProps } from '../../types/props.types';
-import { ICategories, ICategoriesUser } from '../../interface/Game';
+import { ICategories } from '../../interface/Game';
 
 const Categories = ({ user, categories, setIsCategories, isConnection }: CategoriesProps) => {
 

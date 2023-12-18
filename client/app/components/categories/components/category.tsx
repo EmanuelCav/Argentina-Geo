@@ -4,12 +4,13 @@ import { useDispatch } from "react-redux";
 import CheckBox from 'expo-checkbox'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import { unlockCategoryApi, updateCategoryApi } from "../../../server/api/user.api";
+import { updateCategoryApi } from "../../../server/api/user.api";
 import { updateOptionsAction } from "../../../server/features/user.features";
 
 import { menuStyles } from '../../../styles/menu.styles'
 
 import { CategoryProps } from "../../../types/props.types";
+import { unlockCategory } from "../../../server/actions/user.actions";
 
 const Category = ({ user, category, isConnection }: CategoryProps) => {
 
@@ -32,13 +33,11 @@ const Category = ({ user, category, isConnection }: CategoryProps) => {
     const newUnlock = async () => {
 
         if (isConnection) {
-            if (user.user.categories.length !== user.user.level.level) {
-                try {
-                    const { data } = await unlockCategoryApi(category._id, user.token)
-                    dispatch(updateOptionsAction(data))
-                } catch (error) {
-                    console.log(error);
-                }
+            if (user.user.categories.length < user.user.level.level) {
+                dispatch(unlockCategory({
+                    id: category._id,
+                    token: user.token
+                }) as any)
             }
         }
 
@@ -46,9 +45,9 @@ const Category = ({ user, category, isConnection }: CategoryProps) => {
 
     const isUnlocked = () => {
         const categoryFound = user.user.categories.find(c => c.category._id === category._id)
-        
 
-        if(!categoryFound) return false
+
+        if (!categoryFound) return false
 
         return true
 
@@ -57,12 +56,12 @@ const Category = ({ user, category, isConnection }: CategoryProps) => {
     const isSelect = () => {
         const categoryFound = user.user.categories.find(c => c.category._id === category._id)
 
-        if(!categoryFound) return true
+        if (!categoryFound) return true
 
-        if(!categoryFound.isSelect) {
+        if (!categoryFound.isSelect) {
             return false
         }
-        
+
         return true
 
     }
@@ -71,7 +70,7 @@ const Category = ({ user, category, isConnection }: CategoryProps) => {
     }, [user.user, dispatch])
 
     useEffect(() => {
-        if (user.user.categories.length !== user.user.level.level) {
+        if (user.user.categories.length < user.user.level.level) {
             Animated.loop(
                 Animated.sequence([
                     Animated.timing(animate, {
@@ -96,7 +95,7 @@ const Category = ({ user, category, isConnection }: CategoryProps) => {
     return (
         <Pressable style={isUnlocked() ? menuStyles.categoryContainer : menuStyles.categoryContainerUnlocked}
             onPress={isUnlocked() ?
-                (selectCategory) : (user.user.categories.length !== user.user.level.level ? (newUnlock) : null)}>
+                (selectCategory) : (user.user.categories.length < user.user.level.level ? (newUnlock) : null)}>
             <Text adjustsFontSizeToFit style={isUnlocked() ? menuStyles.textCategory : menuStyles.textCategoryUnlocked}>
                 {category.name}
             </Text>

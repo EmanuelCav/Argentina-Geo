@@ -219,3 +219,8 @@ export type FinishedGameProps = {
     game: IGame;
     token: string;
 }
+
+export type UnlockCategoryProps = {
+    id: string;
+    token: string;
+}

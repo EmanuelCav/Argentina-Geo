@@ -7,7 +7,7 @@ import * as gamesApi from "../api/game.api";
 
 import { firstTimeAction, getUserAction, loginAction, loginAuthAction, updateOptionsAction, usersAction } from "../features/user.features";
 import { gamesAction } from "../features/game.features";
-import { RankingActionProps } from "../../types/props.types";
+import { RankingActionProps, UnlockCategoryProps } from "../../types/props.types";
 import { UserType } from "../../types/user.types";
 
 export const auth = createAsyncThunk('users/login', async (userData: IAuthAction, { dispatch }) => {
@@ -92,6 +92,19 @@ export const getLogin = createAsyncThunk('/users/getLogin', async (users: UserTy
         )
 
         dispatch(loginAction(data))
+
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+export const unlockCategory = createAsyncThunk('/users/unlock', async (userData: UnlockCategoryProps, { dispatch }) => {
+
+    try {
+
+        const { data } = await userApi.unlockCategoryApi(userData.id, userData.token)
+        dispatch(updateOptionsAction(data))
 
     } catch (error) {
         console.log(error);

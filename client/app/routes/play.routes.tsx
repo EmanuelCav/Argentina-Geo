@@ -89,7 +89,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
                 <Error msg={message} />
                 <ButtonMenu text="Iniciar juego" redirect={generateGame} isAccept={false} isCategory={false} />
                 <ButtonMenu text="Categorías" redirect={showCategories} isAccept={false}
-                    isCategory={users.user.user.categories.filter((u) => u.isUnlocked).length !== users.user.user.level.level ? true : false} />
+                    isCategory={users.user.user.categories.length < users.user.user.level.level} />
                 <ButtonMenu text="Opciones" redirect={showOptions} isAccept={false} isCategory={false} />
                 <ButtonMenu text="Regresar" redirect={back} isAccept={false} isCategory={false} />
             </View>

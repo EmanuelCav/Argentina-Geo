@@ -623,10 +623,6 @@ export const unlockCategory = async (req: Request, res: Response) => {
             .populate("level")
             .populate("points")
 
-
-        console.log(user);
-
-
         return res.status(200).json(user)
 
     } catch (error) {
