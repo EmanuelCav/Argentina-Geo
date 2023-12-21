@@ -72,7 +72,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
             console.log(error);
         }
     }
-    
+
     const isNewDate = () => {
 
         const dateFound = users.users.total?.find((u) => {
@@ -97,7 +97,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         if (isConnection) {
             if (users.isLoggedIn) {
 
-                dispatch(getLogin(users) as any)
+                dispatch(getLogin(users.user.user._id) as any)
                 getData()
 
                 if (isNewDate()) {
@@ -120,7 +120,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     useEffect(() => {
         getUsers()
     }, [isChangeView])
-
 
     return (
         <View style={homeStyles.containerHome} >

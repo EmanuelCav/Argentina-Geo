@@ -39,6 +39,9 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
                 $sort: {
                     "points.total": -1
                 }
+            },
+            {
+                $project: { password: 0 }
             }
         ])
 
@@ -68,6 +71,9 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
                     }
                 }
             },
+            {
+                $project: { password: 0 }
+            }
         ])
 
         return res.status(200).json({
@@ -205,9 +211,47 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
 }
 
+export const getLogin = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+
+    try {
+
+        const user = await User.findById(id)
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+            .populate("level")
+            .populate("points")
+
+        if (!user) {
+            return res.status(400).json({ message: "Los campos no coinciden" })
+        }
+
+        const token = generateToken(user._id)
+
+        return res.status(200).json({
+            user,
+            token
+        })
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
 export const login = async (req: Request, res: Response): Promise<Response> => {
 
-    const { nickname } = req.body
+    const { nickname, password } = req.body
 
     try {
 
@@ -227,6 +271,10 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             .populate("points")
 
         if (!user) {
+            return res.status(400).json({ message: "Los campos no coinciden" })
+        }
+
+        if (user.password !== password) {
             return res.status(400).json({ message: "Los campos no coinciden" })
         }
 

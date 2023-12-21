@@ -29,6 +29,10 @@ export const loginApi = async (userData: ILogin) => {
     })
 }
 
+export const getLoginApi = async (id: string) => {
+    return await api.get(`/login/${id}`)
+}
+
 export const firstTimeApi = async () => {
     return await api.post('/users/first')
 }

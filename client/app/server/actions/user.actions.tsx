@@ -80,16 +80,11 @@ export const getRanking = createAsyncThunk('users/ranking', async (rankingData: 
 
 })
 
-export const getLogin = createAsyncThunk('/users/getLogin', async (users: UserType, { dispatch }) => {
+export const getLogin = createAsyncThunk('/users/getLogin', async (id: string, { dispatch }) => {
 
     try {
 
-        const { data } = await userApi.loginApi(
-            {
-                nickname: users.user.user.nickname,
-                password: users.user.user.password
-            }
-        )
+        const { data } = await userApi.getLoginApi(id)
 
         dispatch(loginAction(data))
 
