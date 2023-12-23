@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { View, Text } from "react-native";
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 import { INTERSTITIAL_FINISH_ID } from '@env';
@@ -26,21 +26,15 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
         navigation.navigate('Home')
     }
 
-    const [loaded, setLoaded] = useState(false);
-
     useEffect(() => {
         const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-            setLoaded(true);
+            console.log("Loading add");
         });
 
         interstitial.load();
 
         return unsubscribe;
     }, []);
-
-    if (!loaded) {
-        return null;
-    }
 
     return (
         <View style={gameStyles.containerFinish}>

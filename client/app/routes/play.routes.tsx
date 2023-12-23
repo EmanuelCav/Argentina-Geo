@@ -88,12 +88,6 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
                 <BannerAd
                     unitId={adUnitId as string}
                     size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                    requestOptions={{
-                        networkExtras: {
-                            collapsible: 'top',
-                        },
-                        requestNonPersonalizedAdsOnly: true
-                    }}
                 />
             }
             {
