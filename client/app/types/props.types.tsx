@@ -1,9 +1,10 @@
 import { SetStateAction } from 'react'
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { InterstitialAd } from 'react-native-google-mobile-ads';
 
 import { IOptions, ISetting, IUser, IUsersRank } from "../interface/User";
-import { ICategories, ICategoriesUser, IGame, IQuestion } from "../interface/Game";
+import { ICategories, IGame, IQuestion } from "../interface/Game";
 import { UserDataType, UserReducerType, UserType } from "./user.types";
 
 export type RoutesProps = {
@@ -83,31 +84,31 @@ export type CodeProps = {
 }
 
 export type SelectOptionProps = {
-    setOptionsData: (optionData: SetStateAction<IOptions>) => void; 
-    optionsData: IOptions, 
+    setOptionsData: (optionData: SetStateAction<IOptions>) => void;
+    optionsData: IOptions,
     amountOptions: number;
     level: number;
 }
 
-export type GameOptionsType ={
+export type GameOptionsType = {
     setIsOptionsGame: (isOptionsGame: boolean) => void;
     isConnection: boolean | null;
 }
 
 export type SelectQuestionProps = {
-    setOptionsData: (optionData: SetStateAction<IOptions>) => void; 
-    optionsData: IOptions, 
+    setOptionsData: (optionData: SetStateAction<IOptions>) => void;
+    optionsData: IOptions,
     amountQuestions: number;
     level: number;
 }
 
 export type ChangeCodeProps = {
-    setIsCode:  (isCode: boolean) => void;
+    setIsCode: (isCode: boolean) => void;
     user: UserDataType;
 }
 
 export type ChangeNicknameProps = {
-    setIsNickname:  (isNickname: boolean) => void;
+    setIsNickname: (isNickname: boolean) => void;
     user: UserDataType;
 }
 
@@ -179,6 +180,7 @@ export type FinishProps = {
     areErrors: boolean;
     isGameError: boolean;
     isConnection: boolean | null;
+    interstitial: InterstitialAd;
 }
 
 export type ShowQuestionProps = {

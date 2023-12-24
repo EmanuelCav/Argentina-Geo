@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, Dimensions, StyleSheet, Pressable, BackHandler } from 'react-native'
+import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
+import { INTERSTITIAL_FINISH_ID } from '@env';
 
 import Finish from '../components/game/finish'
 import DataGame from '../components/game/dataGame'
@@ -21,6 +23,12 @@ import { loadingAction } from '../server/features/response.features'
 import { gameStyles } from '../styles/game.styles';
 
 import { selector } from '../helper/selector'
+
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : `${INTERSTITIAL_FINISH_ID}`;
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+    keywords: ['fashion', 'clothing'],
+});
 
 const Playing = ({ navigation, route }: PlayingType) => {
 
@@ -240,12 +248,22 @@ const Playing = ({ navigation, route }: PlayingType) => {
         return () => backHandler.remove()
     }, [])
 
+    useEffect(() => {
+        const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+            console.log("Loading add");
+        });
+
+        interstitial.load();
+
+        return unsubscribe;
+    }, []);
+
     return (
         <View style={gameStyles.gameContainer}>
             {
                 isFinish ? (
                     <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points}
-                        navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection}
+                        navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
                         isGameError={isGameError} areErrors={errors.length === 0 ? false : true} />
                 ) : (
                     <>

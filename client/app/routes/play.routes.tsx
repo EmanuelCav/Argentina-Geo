@@ -85,10 +85,12 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
         <View style={homeStyles.containerPlay}>
             {
                 isConnection &&
-                <BannerAd
-                    unitId={adUnitId as string}
-                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                />
+                <View>
+                    <BannerAd
+                        unitId={adUnitId as string}
+                        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    />
+                </View>
             }
             {
                 isCategories && <Categories user={users.user} categories={games.categories} setIsCategories={setIsCategories} isConnection={isConnection} />
