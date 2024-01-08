@@ -55,9 +55,9 @@ export const newUser = createAsyncThunk("users/newUser", async (_, { dispatch })
     try {
 
         const resFirst = await userApi.firstTimeApi()
-        dispatch(firstTimeAction(resFirst.data))
-
         const resUsers = await userApi.usersApi("total", resFirst.data.token)
+        
+        dispatch(firstTimeAction(resFirst.data))
         dispatch(usersAction(resUsers.data))
 
     } catch (error) {
@@ -88,12 +88,6 @@ export const getLogin = createAsyncThunk('/users/getLogin', async (id: string, {
 
         const { data } = await userApi.getLoginApi(id)
         dispatch(loginAction(data))
-
-        const resUsers = await userApi.usersApi("total", data.token)
-        dispatch(usersAction(resUsers.data))
-
-        const resGames = await gamesApi.gamesApi(data.token)
-        dispatch(gamesAction(resGames.data))
 
 
     } catch (error) {

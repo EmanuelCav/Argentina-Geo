@@ -8,9 +8,9 @@ import Options from '../components/home/options'
 import Profile from '../components/profile/profile';
 import Network from '../components/response/network';
 
-import { categoriesApi } from '../server/api/game.api'
-import { getDateExperienceApi } from '../server/api/user.api'
-import { categoriesAction } from '../server/features/game.features'
+import { categoriesApi, gamesApi } from '../server/api/game.api'
+import { getDateExperienceApi, usersApi } from '../server/api/user.api'
+import { categoriesAction, gamesAction } from '../server/features/game.features'
 import { getLogin, newUser } from '../server/actions/user.actions';
 
 import { StackNavigation } from '../types/props.types'
@@ -20,6 +20,7 @@ import { homeStyles } from "../styles/home.styles";
 
 import { selector } from '../helper/selector';
 import { getTime } from '../helper/time';
+import { usersAction } from '../server/features/user.features';
 
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -42,6 +43,17 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         } catch (error) {
             console.log(error);
         }
+
+    }
+
+    const getGames = async () => {
+        const { data } = await gamesApi(users.user.token)
+        dispatch(gamesAction(data))
+    }
+
+    const getUsers = async () => {
+        const { data } = await usersApi("total", users.user.token)
+        dispatch(usersAction(data))
 
     }
 
@@ -73,11 +85,16 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     }, [isConnection, isProfile, isChangeView])
 
     useEffect(() => {
+        getUsers()
+    }, [isChangeView])
+
+    useEffect(() => {
 
         if (isConnection) {
             if (users.isLoggedIn) {
 
                 dispatch(getLogin(users.user.user._id) as any)
+                getGames()
 
                 getTime().then((res) => {
                     if (isNewDate(res) && isConnection) {
