@@ -53,7 +53,7 @@ const ChangeCode = ({ setIsCode, user }: ChangeCodeProps) => {
         <View style={authStyles.containerAuth} >
             <View style={authStyles.containerForm}>
                 <Error msg={message} />
-                <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={false} />
+                <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={true} />
                 <View style={authStyles.separator}>
                     <ButtonSettings text="Aceptar" styles={null} redirect={handleSumbit} />
                     <ButtonSettings text="Regresar" styles={null} redirect={redirectSettings} />

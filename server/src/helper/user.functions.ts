@@ -7,7 +7,7 @@ import Experience from '../database/models/experience'
 
 export const categoriesFromUser = async (id: ObjectId) => {
 
-    
+
     const category = await Category.findOne({ name: 'Provincias/Distritos' })
 
     const categoryUser = new Categoryuser({
@@ -26,39 +26,6 @@ export const categoriesFromUser = async (id: ObjectId) => {
         new: true
     })
 
-    /*
-    const categories = await Category.find().sort("createdAt")
-
-    for (let i = 0; i < categories.length; i++) {
-
-        let categoryUser
-
-        if (i === 0) {
-            categoryUser = new Categoryuser({
-                category: categories[i]._id,
-                user: id,
-                isUnlocked: true
-            })
-        } else {
-            categoryUser = new Categoryuser({
-                category: categories[i]._id,
-                user: id
-            })
-        }
-
-        const categoryUserSaved = await categoryUser.save()
-
-        await User.findByIdAndUpdate(id, {
-            $push: {
-                categories: categoryUserSaved._id
-            }
-        }, {
-            new: true
-        })
-    }
-
-    */
-
 }
 
 export const experienceFromUser = async (id: ObjectId) => {
@@ -74,5 +41,23 @@ export const experienceFromUser = async (id: ObjectId) => {
     }, {
         new: true
     })
+
+}
+
+export const timeUser = async () => {
+
+    const url = "http://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires"
+
+    try {
+
+        const time = await fetch(url).then((res) => {
+            return res.json()
+        })
+
+        return time.datetime.split("T")[0]
+
+    } catch (error) {
+        console.log(error);
+    }
 
 }

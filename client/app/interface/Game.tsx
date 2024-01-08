@@ -1,5 +1,6 @@
 import { StackNavigation } from "../types/props.types";
-import { ILogin, IUser } from "./User";
+import { UserDataType } from "../types/user.types";
+import { ILogin, IPoints, IUser } from "./User";
 
 export interface IGame {
     _id: string;
@@ -67,4 +68,9 @@ export interface IGameGenerate {
     token: string;
     navigation: StackNavigation;
     setMessage: (message: string) => void;
+}
+
+export interface IExperienceGame {
+    pointsData: IPoints;
+    user: UserDataType;
 }

@@ -16,13 +16,12 @@ import { PlayingType } from '../types/games.types'
 
 import { questionsCorrectApi, questionsCountApi } from '../server/api/game.api'
 import { getGameAction } from '../server/features/game.features'
-import { updateExperienceApi } from '../server/api/user.api'
-import { updateOptionsAction } from '../server/features/user.features'
 import { loadingAction } from '../server/features/response.features'
 
 import { gameStyles } from '../styles/game.styles';
 
 import { selector } from '../helper/selector'
+import { experienceGame } from '../server/actions/game.actions';
 
 const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : `${INTERSTITIAL_FINISH_ID}`;
 
@@ -73,12 +72,12 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
     const [errors, setErrors] = useState<IQuestion[]>([])
     const [errorsGame, setErrorsGame] = useState<IQuestion[]>([])
-    const [numberCorrect, setNumberCorrect] = useState<number[]>([])
 
     const [seconds, setSeconds] = useState<number>(0)
     const [minutes, setMinutes] = useState<number>(0)
     const [realSeconds, setRealSeconds] = useState<number>(0)
     const [realMinutes, setRealMinutes] = useState<number>(0)
+    const [numberCorrect, setNumberCorrect] = useState<number>(0)
 
     const [numberQuestion, setNumberQuestion] = useState<number>(0)
 
@@ -139,7 +138,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
         if (item === (isGameError ? (errorsGame[numberQuestion].question.answer) : (games.game.questions[numberQuestion].question.answer))) {
             if (!isGameError) {
-                setNumberCorrect([...numberCorrect, numberQuestion])
+                setNumberCorrect(numberCorrect + 1)
             }
             setIsCorrect(true)
         }
@@ -171,42 +170,35 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
     const experienceUser = async () => {
 
-        if (points !== 0 && route.params.isConnection) {
-            try {
-                const { data } = await updateExperienceApi(users.user.user.level._id, pointsData, users.user.token)
-                dispatch(updateOptionsAction(data))
-            } catch (error) {
-                console.log(error);
+        if (points !== 0) {
+            if (route.params.isConnection) {
+                dispatch(experienceGame({
+                    pointsData,
+                    user: users.user
+                }) as any)
             }
+
+            setIsFinish(true)
+
         }
 
     }
 
     const redirectFinish = async () => {
 
-        dispatch(loadingAction(true))
-
-        if (!isGameError && route.params.isConnection) {
-            for (let i = 0; i <= numberQuestion; i++) {
-                await questionsCountApi(games.game.questions[i].categoryUser, users.user.token)
-            }
-
-            for (let i = 0; i < numberCorrect.length; i++) {
-                const { data } = await questionsCorrectApi(games.game.questions[numberCorrect[i]].categoryUser, games.game._id, users.user.token)
-                dispatch(getGameAction(data))
-            }
-        }
-
         if (!isGameError) {
             setPointsData({
                 points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
-                    users.user.user.categories.filter(category => category.isUnlocked && category.isSelect).length * numberCorrect.length) / (seconds + (60 * minutes)))
+                    users.user.user.categories.filter(category => category.isUnlocked && category.isSelect).length * numberCorrect) / (seconds + (60 * minutes)))
             })
         }
 
         setIsPreFinish(false)
-        setIsFinish(true)
-        dispatch(loadingAction(false))
+
+        if(isGameError) {
+            setIsFinish(true)
+        }
+
     }
 
     useEffect(() => {
@@ -258,11 +250,32 @@ const Playing = ({ navigation, route }: PlayingType) => {
         return unsubscribe;
     }, []);
 
+    const statisticsCount = async () => {
+        await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
+    }
+    const statisticsCorrect = async () => {
+        const { data } = await questionsCorrectApi(isPreFinish ? games.game.questions[games.game.questions.length - 1].categoryUser : games.game.questions[numberQuestion - 1].categoryUser,
+            games.game._id, users.user.token)
+        dispatch(getGameAction(data))
+    }
+
+    useEffect(() => {
+        if (!isGameError && route.params.isConnection) {
+            statisticsCount()
+        }
+    }, [numberQuestion])
+
+    useEffect(() => {
+        if (isCorrect) {
+            statisticsCorrect()
+        }
+    }, [numberCorrect])
+
     return (
         <View style={gameStyles.gameContainer}>
             {
                 isFinish ? (
-                    <Finish minutes={realMinutes} seconds={realSeconds} corrects={games.game.corrects} points={points}
+                    <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
                         navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
                         isGameError={isGameError} areErrors={errors.length === 0 ? false : true} />
                 ) : (

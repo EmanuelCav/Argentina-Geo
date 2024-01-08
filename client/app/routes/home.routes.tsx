@@ -8,10 +8,9 @@ import Options from '../components/home/options'
 import Profile from '../components/profile/profile';
 import Network from '../components/response/network';
 
-import { categoriesApi, gamesApi } from '../server/api/game.api'
-import { getDateExperienceApi, usersApi } from '../server/api/user.api'
-import { usersAction } from '../server/features/user.features'
-import { categoriesAction, gamesAction } from '../server/features/game.features'
+import { categoriesApi } from '../server/api/game.api'
+import { getDateExperienceApi } from '../server/api/user.api'
+import { categoriesAction } from '../server/features/game.features'
 import { getLogin, newUser } from '../server/actions/user.actions';
 
 import { StackNavigation } from '../types/props.types'
@@ -20,6 +19,7 @@ import { IReducer } from '../interface/Reducer';
 import { homeStyles } from "../styles/home.styles";
 
 import { selector } from '../helper/selector';
+import { getTime } from '../helper/time';
 
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -45,26 +45,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     }
 
-    const getData = async () => {
-
-        try {
-            const { data } = await gamesApi(users.user.token)
-            dispatch(gamesAction(data))
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const getUsers = async () => {
-
-        try {
-            const { data } = await usersApi("total", users.user.token)
-            dispatch(usersAction(data))
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     const getNewDate = async () => {
         try {
             await getDateExperienceApi(users.user.token)
@@ -73,11 +53,11 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         }
     }
 
-    const isNewDate = () => {
+    const isNewDate = (time: string) => {
 
         const dateFound = users.users.total?.find((u) => {
             if (u.points.lastGame) {
-                return u.points.lastGame === `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+                return u.points.lastGame === time
             }
         })
 
@@ -98,11 +78,12 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
             if (users.isLoggedIn) {
 
                 dispatch(getLogin(users.user.user._id) as any)
-                getData()
 
-                if (isNewDate()) {
-                    getNewDate()
-                }
+                getTime().then((res) => {
+                    if (isNewDate(res) && isConnection) {
+                        getNewDate()
+                    }
+                }).catch((err) => console.log(err))
 
                 setIsGetLoggedIn(true)
 
@@ -116,10 +97,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         }
 
     }, [dispatch, users.isLoggedIn])
-
-    useEffect(() => {
-        getUsers()
-    }, [isChangeView])
 
     return (
         <View style={homeStyles.containerHome} >

@@ -13,7 +13,7 @@ import Game from '../database/models/game'
 import QuestionGame from '../database/models/questionGame'
 
 import { generatePassword, generateToken, hashPassword } from "../helper/encrypt";
-import { categoriesFromUser, experienceFromUser } from "../helper/user.functions";
+import { categoriesFromUser, experienceFromUser, timeUser } from "../helper/user.functions";
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
 
@@ -694,6 +694,8 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
             return res.status(400).json({ message: "Experiece does not exists" })
         }
 
+        const lastGame = await timeUser()
+
         const experienceUpdated = await Experience.findByIdAndUpdate(experience._id, {
             bestPuntuation: points > experience.bestPuntuation ? points : experience.bestPuntuation,
             day: experience.day + points,
@@ -701,7 +703,7 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
             year: experience.year + points,
             total: experience.total + points,
             levelExperience: experience.levelExperience + points,
-            lastGame: `${new Date().getUTCFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+            lastGame
         }, {
             new: true
         })
@@ -761,7 +763,10 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
 
     try {
 
-        if (new Date().getUTCMonth() + 1 === 1) {
+        const time = await timeUser()
+        const datesTime = time.split("-")
+
+        if (datesTime[1] === 1 && datesTime[2] === 1) {
 
             await Experience.updateMany({
                 day: 0,
@@ -773,7 +778,7 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
 
         }
 
-        if (new Date().getUTCDate() === 1) {
+        if (datesTime[2] === 1) {
 
             await Experience.updateMany({
                 day: 0,

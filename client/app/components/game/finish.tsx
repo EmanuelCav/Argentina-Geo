@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { View, Text } from "react-native";
 
 import Time from "./components/time";

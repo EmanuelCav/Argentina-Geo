@@ -57,7 +57,7 @@ const Auth = ({ navigation, setIsAuth, dispatch }: NewProps) => {
             <View style={authStyles.containerForm}>
                 <Error msg={message} />
                 <Input label="Nombre de usuario" value={nickname} handleChange={handleChangeNickname} isPassword={false} />
-                <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={false} />
+                <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={true} />
                 <View style={authStyles.separator}>
                     <ButtonSettings text="Aceptar" styles={null} redirect={handleSumbit} />
                     <ButtonSettings text="Regresar" styles={null} redirect={redirectNew} />

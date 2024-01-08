@@ -8,16 +8,18 @@ import * as gamesApi from "../api/game.api";
 import { firstTimeAction, getUserAction, loginAction, loginAuthAction, updateOptionsAction, usersAction } from "../features/user.features";
 import { gamesAction } from "../features/game.features";
 import { RankingActionProps, UnlockCategoryProps } from "../../types/props.types";
-import { UserType } from "../../types/user.types";
 
 export const auth = createAsyncThunk('users/login', async (userData: IAuthAction, { dispatch }) => {
 
     try {
+
         const resLogin = await userApi.loginApi(userData.userData)
+        dispatch(loginAuthAction(resLogin.data))
+
+        const resUsers = await userApi.usersApi("total", resLogin.data.token)
+        dispatch(usersAction(resUsers.data))
 
         const resGames = await gamesApi.gamesApi(resLogin.data.token)
-
-        dispatch(loginAuthAction(resLogin.data))
         dispatch(gamesAction(resGames.data))
 
         userData.setIsAuth(false)
@@ -53,9 +55,9 @@ export const newUser = createAsyncThunk("users/newUser", async (_, { dispatch })
     try {
 
         const resFirst = await userApi.firstTimeApi()
-        const resUsers = await userApi.usersApi("total", resFirst.data.token)
-
         dispatch(firstTimeAction(resFirst.data))
+
+        const resUsers = await userApi.usersApi("total", resFirst.data.token)
         dispatch(usersAction(resUsers.data))
 
     } catch (error) {
@@ -85,8 +87,14 @@ export const getLogin = createAsyncThunk('/users/getLogin', async (id: string, {
     try {
 
         const { data } = await userApi.getLoginApi(id)
-
         dispatch(loginAction(data))
+
+        const resUsers = await userApi.usersApi("total", data.token)
+        dispatch(usersAction(resUsers.data))
+
+        const resGames = await gamesApi.gamesApi(data.token)
+        dispatch(gamesAction(resGames.data))
+
 
     } catch (error) {
         console.log(error);
