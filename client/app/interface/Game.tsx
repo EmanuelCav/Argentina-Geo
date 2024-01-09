@@ -1,5 +1,5 @@
 import { StackNavigation } from "../types/props.types";
-import { UserDataType } from "../types/user.types";
+import { UserDataType, UserType } from "../types/user.types";
 import { ILogin, IPoints, IUser } from "./User";
 
 export interface IGame {
@@ -73,4 +73,5 @@ export interface IGameGenerate {
 export interface IExperienceGame {
     pointsData: IPoints;
     user: UserDataType;
+    users: UserType;
 }

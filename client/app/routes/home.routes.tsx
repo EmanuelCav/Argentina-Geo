@@ -19,7 +19,7 @@ import { IReducer } from '../interface/Reducer';
 import { homeStyles } from "../styles/home.styles";
 
 import { selector } from '../helper/selector';
-import { getTime } from '../helper/time';
+import { getTime, isNewDate } from '../helper/time';
 import { usersAction } from '../server/features/user.features';
 
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
@@ -65,28 +65,15 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         }
     }
 
-    const isNewDate = (time: string) => {
-
-        const dateFound = users.users.total?.find((u) => {
-            if (u.points.lastGame) {
-                return u.points.lastGame === time
-            }
-        })
-
-        if (dateFound) {
-            return false
-        }
-
-        return true
-    }
-
     useEffect(() => {
         fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
     }, [isConnection, isProfile, isChangeView])
 
     useEffect(() => {
-        getUsers()
-    }, [isChangeView])
+        if (isConnection) {
+            getUsers()
+        }
+    }, [])
 
     useEffect(() => {
 
@@ -97,7 +84,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                 getGames()
 
                 getTime().then((res) => {
-                    if (isNewDate(res) && isConnection) {
+                    if (isNewDate(res, users) && isConnection) {
                         getNewDate()
                     }
                 }).catch((err) => console.log(err))

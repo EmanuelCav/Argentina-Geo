@@ -174,7 +174,8 @@ const Playing = ({ navigation, route }: PlayingType) => {
             if (route.params.isConnection) {
                 dispatch(experienceGame({
                     pointsData,
-                    user: users.user
+                    user: users.user,
+                    users: users
                 }) as any)
             }
 
