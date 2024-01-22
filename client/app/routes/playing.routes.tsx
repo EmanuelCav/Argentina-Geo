@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, Dimensions, StyleSheet, Pressable, BackHandler } from 'react-native'
-import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
-import { INTERSTITIAL_FINISH_ID } from '@env';
+// import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
+// import { INTERSTITIAL_FINISH_ID } from '@env';
 
 import Finish from '../components/game/finish'
 import DataGame from '../components/game/dataGame'
@@ -14,7 +14,7 @@ import { IPoints } from '../interface/User'
 import { IQuestion } from '../interface/Game'
 import { PlayingType } from '../types/games.types'
 
-import { questionsCorrectApi, questionsCountApi } from '../server/api/game.api'
+import { generateQuestionApi, questionsCorrectApi, questionsCountApi } from '../server/api/game.api'
 import { getGameAction } from '../server/features/game.features'
 import { loadingAction } from '../server/features/response.features'
 
@@ -23,11 +23,11 @@ import { gameStyles } from '../styles/game.styles';
 import { selector } from '../helper/selector'
 import { experienceGame } from '../server/actions/game.actions';
 
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : `${INTERSTITIAL_FINISH_ID}`;
+// const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : `${INTERSTITIAL_FINISH_ID}`;
 
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-    keywords: ['fashion', 'clothing'],
-});
+// const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+//     keywords: ['fashion', 'clothing'],
+// });
 
 const Playing = ({ navigation, route }: PlayingType) => {
 
@@ -174,9 +174,9 @@ const Playing = ({ navigation, route }: PlayingType) => {
             if (route.params.isConnection) {
                 dispatch(experienceGame({
                     pointsData,
-                    user: users.user,
-                    users: users
+                    user: users.user
                 }) as any)
+
             }
 
             setIsFinish(true)
@@ -196,7 +196,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
         setIsPreFinish(false)
 
-        if(isGameError) {
+        if (isGameError) {
             setIsFinish(true)
         }
 
@@ -241,15 +241,15 @@ const Playing = ({ navigation, route }: PlayingType) => {
         return () => backHandler.remove()
     }, [])
 
-    useEffect(() => {
-        const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-            console.log("Loading add");
-        });
+    // useEffect(() => {
+    //     const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+    //         console.log("Loading add");
+    //     });
 
-        interstitial.load();
+    //     interstitial.load();
 
-        return unsubscribe;
-    }, []);
+    //     return unsubscribe;
+    // }, []);
 
     const statisticsCount = async () => {
         await questionsCountApi(games.game.questions[numberQuestion].categoryUser, users.user.token)
@@ -257,6 +257,10 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const statisticsCorrect = async () => {
         const { data } = await questionsCorrectApi(isPreFinish ? games.game.questions[games.game.questions.length - 1].categoryUser : games.game.questions[numberQuestion - 1].categoryUser,
             games.game._id, users.user.token)
+        dispatch(getGameAction(data))
+    }
+    const generateQuestion = async (questionSelected: number) => {
+        const { data } = await generateQuestionApi(games.game._id, route.params.questionsWC[questionSelected]._id, users.user.token)
         dispatch(getGameAction(data))
     }
 
@@ -272,12 +276,24 @@ const Playing = ({ navigation, route }: PlayingType) => {
         }
     }, [numberCorrect])
 
+    useEffect(() => {
+        if (!isGameError && route.params.isConnection) {
+            let questionSelected = numberQuestion + 5;
+            if (questionSelected < users.user.user.amountQuestions) {
+                if (questionSelected >= route.params.questionsWC.length) {
+                    questionSelected = Math.floor(Math.random() * route.params.questionsWC.length)
+                }
+                generateQuestion(questionSelected)
+            }
+        }
+    }, [numberQuestion])
+
     return (
         <View style={gameStyles.gameContainer}>
             {
                 isFinish ? (
                     <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
-                        navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
+                        navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection}
                         isGameError={isGameError} areErrors={errors.length === 0 ? false : true} />
                 ) : (
                     <>

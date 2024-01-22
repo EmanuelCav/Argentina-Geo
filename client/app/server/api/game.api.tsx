@@ -39,3 +39,11 @@ export const questionsCorrectApi = async (id: string, idGame: string, token: str
 export const categoriesApi = async () => {
     return await api.get('/categories')
 }
+
+export const generateQuestionApi = async (id: string, questionId: string, token: string) => {
+    return await api.patch(`/questions/${questionId}/game/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

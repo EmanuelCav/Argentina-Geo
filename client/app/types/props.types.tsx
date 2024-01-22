@@ -3,9 +3,9 @@ import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { InterstitialAd } from 'react-native-google-mobile-ads';
 
-import { IOptions, ISetting, IUser, IUsersRank } from "../interface/User";
+import { ILocationRank, IOptions, ISetting, IUser, IUsersRank } from "../interface/User";
 import { ICategories, IGame, IQuestion } from "../interface/Game";
-import { UserDataType, UserReducerType, UserType } from "./user.types";
+import { DateRankType, UserDataType, UserReducerType, UserType } from "./user.types";
 
 export type RoutesProps = {
     Home: undefined;
@@ -45,6 +45,7 @@ export type ShowStatisticsProps = {
 export type UserInfoProps = {
     user: IUser;
     users: IUsersRank;
+    categoriesLength: number;
 }
 
 export type ProfileProps = {
@@ -180,7 +181,7 @@ export type FinishProps = {
     areErrors: boolean;
     isGameError: boolean;
     isConnection: boolean | null;
-    interstitial: InterstitialAd;
+    interstitial?: InterstitialAd;
 }
 
 export type ShowQuestionProps = {
@@ -197,15 +198,16 @@ export type ShowOptionGameProps = {
 
 export type RankingProps = {
     users: UserType;
-    setRankData: (rankData: string) => void;
+    setRankData: (rankData: DateRankType) => void;
     isConnection: boolean | null;
+    rankData: DateRankType;
 }
 
 export type UserRankingProps = {
     index: number;
     user: IUser;
     users: UserReducerType;
-    rankData: string;
+    rankData: DateRankType;
     setIsProfile: (isProfile: boolean) => void;
     isConnection: boolean | null;
 }
@@ -225,4 +227,9 @@ export type FinishedGameProps = {
 export type UnlockCategoryProps = {
     id: string;
     token: string;
+}
+
+export type LocationRankProps = {
+    location: ILocationRank;
+    index: number;
 }

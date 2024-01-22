@@ -98,7 +98,7 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         const gameSaved = await newGame.save()
 
-        for (let i = 0; i < amountQuestionsUser; i++) {
+        for (let i = 0; i < 5; i++) {
 
             const correctOption = Math.floor(Math.random() * user?.amountOptions!);
 
@@ -165,7 +165,10 @@ export const createGames = async (req: Request, res: Response): Promise<Response
             }
         })
 
-        return res.status(200).json(game)
+        return res.status(200).json({
+            game,
+            shuffledQuestions
+        })
 
     } catch (error) {
         throw error

@@ -12,10 +12,12 @@ import Profile from '../components/profile/profile';
 import { rankingStyles, homeStyles } from "../styles/home.styles";
 
 import { IReducer } from "../interface/Reducer";
-import { IUser } from "../interface/User";
+import { ILocationRank, IUser } from "../interface/User";
 import { StackNavigation } from "../types/props.types";
+import { DateRankType } from '../types/user.types';
 
 import { selector } from "../helper/selector";
+import LocationRank from '../components/ranking/locationRank';
 
 const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -24,14 +26,14 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
 
     const route = useRoute()
 
-    const [rankData, setRankData] = useState<string>("total")
+    const [rankData, setRankData] = useState<DateRankType>("total")
     const [isProfile, setIsProfile] = useState<boolean>(false)
     const [isConnection, setIsConnection] = useState<boolean | null>(true)
 
     useEffect(() => {
         fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
     }, [isConnection, route.name])
-    
+
     return (
         <View style={rankingStyles.containerRanking}>
             {
@@ -39,25 +41,39 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
             }
             <View style={rankingStyles.rankingContain}>
                 <View style={rankingStyles.containerScrollRanking}>
-                    <FilterRank users={users} setRankData={setRankData} isConnection={isConnection} />
+                    <FilterRank users={users} setRankData={setRankData} isConnection={isConnection} rankData={rankData} />
                     <ScrollView>
                         {
-                            users.users.ranking?.length === 0 ? (
-                                <Text style={rankingStyles.textNoUsers}>No hay usuarios en la clasificación</Text>
+                            users.users.locationRanking?.length === 0 ? (
+                                <>
+                                    {
+                                        users.users.ranking?.length === 0 ? (
+                                            <Text style={rankingStyles.textNoUsers}>No hay usuarios en la clasificación</Text>
+                                        ) : (
+                                            <>
+                                                {
+                                                    isConnection ? (
+                                                        users.users.ranking!.map((user: IUser, index: number) => {
+                                                            return <UserRank user={user} users={users} index={index}
+                                                                rankData={rankData} setIsProfile={setIsProfile} isConnection={isConnection} key={user._id} />
+                                                        })
+                                                    ) : (
+                                                        users.users.total!.filter(u => u.points.total > 0)!.map((user: IUser, index: number) => {
+                                                            return <UserRank user={user} users={users} index={index}
+                                                                rankData={rankData} setIsProfile={setIsProfile} isConnection={isConnection} key={user._id} />
+                                                        })
+                                                    )
+                                                }
+                                            </>
+                                        )
+                                    }
+                                </>
                             ) : (
                                 <>
                                     {
-                                        isConnection ? (
-                                            users.users.ranking!.map((user: IUser, index: number) => {
-                                                return <UserRank user={user} users={users} index={index}
-                                                    rankData={rankData} setIsProfile={setIsProfile} isConnection={isConnection} key={user._id} />
-                                            })
-                                        ) : (
-                                            users.users.total!.filter(u => u.points.total > 0)!.map((user: IUser, index: number) => {
-                                                return <UserRank user={user} users={users} index={index}
-                                                    rankData={rankData} setIsProfile={setIsProfile} isConnection={isConnection} key={user._id} />
-                                            })
-                                        )
+                                        users.users.locationRanking!.map((location: ILocationRank, index: number) => {
+                                            return <LocationRank location={location} index={index} />
+                                        })
                                     }
                                 </>
                             )

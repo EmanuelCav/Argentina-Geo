@@ -19,7 +19,7 @@ import { IReducer } from '../interface/Reducer';
 import { homeStyles } from "../styles/home.styles";
 
 import { selector } from '../helper/selector';
-import { getTime, isNewDate } from '../helper/time';
+import { isNewDate } from '../helper/time';
 import { usersAction } from '../server/features/user.features';
 
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
@@ -82,12 +82,10 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
                 dispatch(getLogin(users.user.user._id) as any)
                 getGames()
-
-                getTime().then((res) => {
-                    if (isNewDate(res, users) && isConnection) {
-                        getNewDate()
-                    }
-                }).catch((err) => console.log(err))
+                
+                if(isNewDate(new Date(new Date().setHours(new Date().getHours() - 3)).toISOString().split("T")[0], users)) {
+                    getNewDate()
+                }
 
                 setIsGetLoggedIn(true)
 
@@ -113,7 +111,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                         {
                             isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} isConnection={isConnection} />
                         }
-                        <User user={users.user.user} users={users.users} />
+                        <User user={users.user.user} users={users.users} categoriesLength={games.categories.length} />
                         <Options navigation={navigation} setIsProfile={setIsProfile} user={users} isConnection={isConnection}
                             setIsChangeView={setIsChangeView} isChangeView={isChangeView} />
                     </>

@@ -18,3 +18,7 @@ export type UserReducerType = {
     isLoggedIn: boolean;
     profile: IUser;
 }
+
+export type DateRankType = 'total' | 'year' | 'month' | 'day';
+export type RanksType = 'user-alt' | 'flag' | 'city' | 'location-arrow';
+export type LocationRankType = 'pais' | 'provincia' | 'municipio'

@@ -35,6 +35,7 @@ router.put('/users/location/:id', auth, usersCtrl.updateLocation)
 router.patch('/users/category/unlock/:id', auth, usersCtrl.unlockCategory)
 router.put('/users/experience/:id', auth, usersCtrl.updateExperience)
 router.get('/users/experience/date', auth, usersCtrl.getDate)
+router.get('/users/location/:location/date/:date', auth, usersCtrl.groupUsers)
 
 // router.get('/levels', [auth, validRole], validLevel, levelsCtrl.levels)
 router.get('/levels', levelsCtrl.levels)

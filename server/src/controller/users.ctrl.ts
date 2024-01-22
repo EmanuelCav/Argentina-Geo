@@ -13,7 +13,7 @@ import Game from '../database/models/game'
 import QuestionGame from '../database/models/questionGame'
 
 import { generatePassword, generateToken, hashPassword } from "../helper/encrypt";
-import { categoriesFromUser, experienceFromUser, timeUser } from "../helper/user.functions";
+import { categoriesFromUser, experienceFromUser, generateUserNumber, timeUser } from "../helper/user.functions";
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
 
@@ -80,6 +80,71 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
             total: totalUser,
             ranking: dateUser
         })
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const groupUsers = async (req: Request, res: Response): Promise<Response> => {
+
+    const { location, date } = req.params
+
+    try {
+
+        const countries = await User.aggregate([
+            {
+                $match: {
+                    [`${location}`]: {
+                        $ne: null
+                    }
+                }
+            },
+            {
+                $lookup: {
+                    from: location === 'pais' ? location : `${location}s`,
+                    localField: location,
+                    foreignField: '_id',
+                    as: location === 'pais' ? location : `${location}s`
+                }
+            },
+            {
+                $lookup: {
+                    from: Experience.collection.name,
+                    localField: 'points',
+                    foreignField: '_id',
+                    as: 'points'
+                }
+            },
+            {
+                $unwind: {
+                    path: "$points"
+                }
+            },
+            {
+                $unwind: {
+                    path: location === 'pais' ? `$${location}` : `$${location}s`
+                }
+            },
+            {
+                $group: {
+                    _id: location === 'pais' ? `$${location}.name` : `$${location}s.name`,
+                    points: { $sum: `$points.${date}` }
+                }
+            },
+            {
+                $match: {
+                    "points": {
+                        $gt: 0
+                    }
+                }
+            },
+        ]).sort({
+            "points": -1
+        })
+
+        return res.status(200).json(countries)
 
     } catch (error) {
         throw error
@@ -309,23 +374,8 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
 
         const pass = generatePassword()
 
-        let i = 1
-        let isUserCreated = false
-
-        while (!isUserCreated) {
-
-            const newUserExists = await User.findOne({ nickname: `usuario${users.length + i}` })
-
-            if (!newUserExists) {
-                isUserCreated = true
-            } else {
-                i++
-            }
-
-        }
-
         const newUser = new User({
-            nickname: `usuario${users.length + i}`,
+            nickname: `usuario${generateUserNumber()}`,
             password: pass,
             role: role?._id,
             pais: country._id,
@@ -694,7 +744,7 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
             return res.status(400).json({ message: "Experiece does not exists" })
         }
 
-        const lastGame = await timeUser()
+        // const lastGame = await timeUser()
 
         const experienceUpdated = await Experience.findByIdAndUpdate(experience._id, {
             bestPuntuation: points > experience.bestPuntuation ? points : experience.bestPuntuation,
@@ -703,7 +753,7 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
             year: experience.year + points,
             total: experience.total + points,
             levelExperience: experience.levelExperience + points,
-            lastGame
+            lastGame: new Date(new Date().setHours(new Date().getHours() - 3)).toISOString().split("T")[0]
         }, {
             new: true
         })
@@ -716,10 +766,14 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
 
         const levels = await Level.find()
 
-        if (level.level !== levels.length) {
+        if (level.level < levels.length) {
             if (experienceUpdated?.levelExperience! >= level.max) {
 
                 const nextLevel = await Level.findOne({ level: level.level + 1 })
+
+                if(!nextLevel) {
+                    return res.status(400).json({ message: "Level does noe exists" })
+                }
 
                 await Experience.findByIdAndUpdate(experience._id, {
                     levelExperience: experienceUpdated?.levelExperience! - level.max
@@ -763,10 +817,12 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
 
     try {
 
-        const time = await timeUser()
-        const datesTime = time.split("-")
+        // const time = await timeUser()
+        // const datesTime = time.split("-")
 
-        if (datesTime[1] === 1 && datesTime[2] === 1) {
+        const time = new Date().toISOString().split("T")[0].split("-")
+
+        if (time[1] === "01" && time[2] === "01") {
 
             await Experience.updateMany({
                 day: 0,
@@ -778,7 +834,7 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
 
         }
 
-        if (datesTime[2] === 1) {
+        if (time[2] === "01") {
 
             await Experience.updateMany({
                 day: 0,

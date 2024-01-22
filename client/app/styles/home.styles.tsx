@@ -309,6 +309,14 @@ export const rankingStyles = StyleSheet.create({
         maxWidth: '34%'
     },
 
+    containerHeaderRank: {
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
+        padding: Dimensions.get("window").height / 106
+    },
+
     infoUserRank: {
         fontSize: Dimensions.get('window').height / 41.11,
         color: '#5d8cff',

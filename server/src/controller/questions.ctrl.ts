@@ -4,12 +4,17 @@ import fs from 'fs-extra';
 import Question from '../database/models/question';
 import Category from '../database/models/category';
 import Categoryuser from '../database/models/categoryUser'
+import QuestionGame from '../database/models/questionGame';
+import User from '../database/models/users';
 import Image from '../database/models/image';
 import Game from '../database/models/game'
 
 import { cloud } from "../helper/cloud";
+import { shuffle } from "../helper/functions";
 
 import { folder } from "../config/config";
+
+import { IQuestion } from "../interface/Game";
 
 export const questions = async (req: Request, res: Response): Promise<Response> => {
 
@@ -204,6 +209,100 @@ export const correctQuestion = async (req: Request, res: Response) => {
 
         const gameUpdated = await Game.findByIdAndUpdate(gameId, {
             corrects: game.corrects + 1
+        }, {
+            new: true
+        })
+            .populate({
+                path: "questions",
+                populate: {
+                    path: "question",
+                    populate: {
+                        path: "image",
+                        select: "image"
+                    }
+                }
+            })
+
+        return res.status(200).json(gameUpdated)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const generateQuestion = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id, questionId } = req.params
+
+    try {
+
+        const game = await Game.findById(id)
+
+        if (!game) {
+            return res.status(400).json({ message: "Game does not exists" })
+        }
+
+        const question = await Question.findById(questionId)
+
+        if (!question) {
+            return res.status(400).json({ message: "Question does not exists" })
+        }
+
+        const user = await User.findById(req.user)
+
+        if (!user) {
+            return res.status(400).json({ message: "User does not exists" })
+        }
+
+        const correctOption = Math.floor(Math.random() * user.amountOptions!);
+
+        const categoryQuestion = await Question.find({ category: question.category })
+        const shuffledCategoryQuestion = shuffle(categoryQuestion).filter((q: IQuestion) => q.answer !== question.answer)
+        const uniquesOptions = [...new Set(shuffledCategoryQuestion.map((option: IQuestion) => option.answer))];
+
+        const nameCategoryUser = await Categoryuser.findOne({ user: req.user, category: question.category })
+
+        if (!nameCategoryUser) {
+            return res.status(400).json({ message: "User category does not exists" })
+        }
+
+        const newQuestionGame = new QuestionGame({
+            question: questionId,
+            categoryUser: nameCategoryUser._id,
+            user: req.user
+        })
+
+        const questionSaved = await newQuestionGame.save()
+
+        for (let j = 0; j < user?.amountOptions!; j++) {
+
+            if (j === correctOption) {
+
+                await QuestionGame.findByIdAndUpdate(questionSaved._id, {
+                    $push: {
+                        options: question.answer
+                    }
+                }, {
+                    new: true
+                })
+            } else {
+
+                await QuestionGame.findByIdAndUpdate(questionSaved._id, {
+                    $push: {
+                        options: uniquesOptions[j]
+                    }
+                }, {
+                    new: true
+                })
+            }
+
+        }
+
+        const gameUpdated = await Game.findByIdAndUpdate(id, {
+            $push: {
+                questions: questionSaved._id
+            }
         }, {
             new: true
         })

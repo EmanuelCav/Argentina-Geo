@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Category from './components/category';

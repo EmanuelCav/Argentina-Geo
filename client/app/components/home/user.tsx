@@ -4,7 +4,7 @@ import { UserInfoProps } from "../../types/props.types";
 
 import { homeStyles } from '../../styles/home.styles';
 
-const User = ({ user, users }: UserInfoProps) => {
+const User = ({ user, users, categoriesLength }: UserInfoProps) => {
 
     const experienceGotStyle = StyleSheet.create({
         experienceGot: {
@@ -35,7 +35,7 @@ const User = ({ user, users }: UserInfoProps) => {
                         <Text style={homeStyles.textLevel}>{user.level.level}</Text>
                     </ImageBackground>
                     {
-                        user.level.level !== 62 ? (
+                        user.level.level < categoriesLength ? (
                             <Text style={homeStyles.textExp}>{user.points.levelExperience}/{user.level.max} xp</Text>
                         ) : (
                             <Text style={homeStyles.textExp}>{user.points.levelExperience}xp</Text>

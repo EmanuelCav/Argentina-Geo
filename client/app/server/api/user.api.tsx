@@ -104,3 +104,11 @@ export const getDateExperienceApi = async (token: string) => {
         }
     })
 }
+
+export const rankingLocationApi = async (location: string, date: string, token: string) => {
+    return await api.get(`/users/location/${location}/date/${date}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

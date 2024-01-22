@@ -10,6 +10,12 @@ interface ICounterUserReducer {
 export interface IUsersRank {
     total?: IUser[],
     ranking?: IUser[];
+    locationRanking?: ILocationRank[];
+}
+
+export interface ILocationRank {
+    _id: string;
+    points: number;
 }
 
 export interface ICounterUser {

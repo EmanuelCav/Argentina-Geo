@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { useState, useEffect, useRef } from "react";
+import { View, Text, Pressable, Dimensions } from "react-native";
 import { useDispatch } from 'react-redux';
+import FilterIcon from 'react-native-vector-icons/FontAwesome5';
 
-import { usersApi } from "../../server/api/user.api";
-import { usersAction } from "../../server/features/user.features";
+import { rankingLocationApi, usersApi } from "../../server/api/user.api";
+import { locationRankAction, usersAction } from "../../server/features/user.features";
 
 import { rankingStyles } from '../../styles/home.styles';
 
 import { RankingProps } from "../../types/props.types";
+import { LocationRankType, RanksType } from "../../types/user.types";
 
-const FilterRank = ({ users, setRankData, isConnection }: RankingProps) => {
+const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps) => {
 
     const dispatch = useDispatch()
 
@@ -18,13 +20,27 @@ const FilterRank = ({ users, setRankData, isConnection }: RankingProps) => {
     const [isMonth, setIsMonth] = useState<boolean>(false)
     const [isDay, setIsDay] = useState<boolean>(false)
 
+    const rankState = useRef<RanksType[]>([
+        'user-alt', 'flag', 'city', 'location-arrow'
+    ])
+
+    const dateRank = useRef<LocationRankType[]>([
+        "pais", "provincia", "municipio"
+    ])
+
+    const [positionRank, setPositionRank] = useState<number>(1)
+
     const showTotal = async () => {
 
-        const { data } = await usersApi("total", users.user.token)
+        if (isConnection) {
+            if (positionRank === 1) {
+                const { data } = await usersApi("total", users.user.token)
+                dispatch(usersAction(data))
+            }
 
-        dispatch(usersAction(data))
+            setRankData("total")
+        }
 
-        setRankData("total")
         setIsTotal(true)
         setIsYear(false)
         setIsMonth(false)
@@ -33,9 +49,13 @@ const FilterRank = ({ users, setRankData, isConnection }: RankingProps) => {
 
     const showYear = async () => {
 
-        const { data } = await usersApi("year", users.user.token)
+        if (isConnection) {
 
-        dispatch(usersAction(data))
+            if (positionRank === 1) {
+                const { data } = await usersApi("year", users.user.token)
+                dispatch(usersAction(data))
+            }
+        }
 
         setRankData("year")
         setIsTotal(false)
@@ -46,11 +66,15 @@ const FilterRank = ({ users, setRankData, isConnection }: RankingProps) => {
 
     const showMonth = async () => {
 
-        const { data } = await usersApi("month", users.user.token)
+        if (isConnection) {
+            if (positionRank === 1) {
+                const { data } = await usersApi("month", users.user.token)
+                dispatch(usersAction(data))
+            }
 
-        dispatch(usersAction(data))
+            setRankData("month")
+        }
 
-        setRankData("month")
         setIsTotal(false)
         setIsYear(false)
         setIsMonth(true)
@@ -59,30 +83,81 @@ const FilterRank = ({ users, setRankData, isConnection }: RankingProps) => {
 
     const showDay = async () => {
 
-        const { data } = await usersApi("day", users.user.token)
+        if (isConnection) {
+            if (positionRank === 1) {
+                const { data } = await usersApi("day", users.user.token)
+                dispatch(usersAction(data))
+            }
 
-        dispatch(usersAction(data))
+            setRankData("day")
+        }
 
-        setRankData("day")
         setIsTotal(false)
         setIsYear(false)
         setIsMonth(false)
         setIsDay(true)
     }
 
+    const changeFilter = () => {
+        if (isConnection) {
+            if (positionRank === rankState.current.length - 1) {
+                setPositionRank(0)
+                return
+            }
+
+            setPositionRank(positionRank + 1)
+        }
+    }
+
+    const getRankLocation = async () => {
+
+        try {
+
+            const { data } = await rankingLocationApi(dateRank.current[(positionRank - 2) < 0 ? positionRank + 2 : positionRank - 2], rankData, users.user.token)
+
+            dispatch(locationRankAction(data))
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    const getUserRank = async () => {
+
+        const { data } = await usersApi(rankData, users.user.token)
+
+        dispatch(usersAction(data))
+
+    }
+
+    useEffect(() => {
+        if (rankState.current[positionRank - 1] !== 'user-alt') {
+            getRankLocation()
+            return
+        }
+
+        getUserRank()
+
+    }, [positionRank, rankData])
+
     return (
         <View>
-            <Text style={rankingStyles.infoUserRank}>{users.users.ranking!.map((u) => u._id)
-                .indexOf(users.user.user._id) + 1 === 0 ? (
-                <Text>
-                    Usted no se encuetra aquí
-                </Text>
-            ) : (
-                <Text>
-                    Su posición actual es {users.users.ranking!.map((u) => u._id)
-                        .indexOf(users.user.user._id) + 1}°
-                </Text>
-            )}</Text>
+            <View style={rankingStyles.containerHeaderRank}>
+                <FilterIcon onPress={changeFilter} name={rankState.current[positionRank]} color={'#5d8cff'} size={Dimensions.get("window").height / 33} />
+                {
+                    users.users.ranking?.length! > 0 &&
+                    <>
+                        {(users.users.ranking!.map((u) => u._id).indexOf(users.user.user._id) + 1 === 0) ? (
+                            <Text style={rankingStyles.infoUserRank}>Usted no se encuetra aquí</Text>
+                        ) : (
+                            <Text style={rankingStyles.infoUserRank}>Su posición actual es {users.users.ranking!.map((u) => u._id)
+                                .indexOf(users.user.user._id) + 1}°
+                            </Text>
+                        )}
+                    </>
+                }
+            </View>
             <View style={rankingStyles.containerDateRank}>
                 <Pressable style={isTotal ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
                     onPress={showTotal} disabled={isTotal || !isConnection}>

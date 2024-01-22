@@ -9,6 +9,6 @@ export type GameType = {
 }
 
 export type PlayingType = {
-    route: RouteProp<RoutesProps, 'Playing'>,
-    navigation: StackNavigation
+    route: RouteProp<RoutesProps, 'Playing'>;
+    navigation: StackNavigation;
 }

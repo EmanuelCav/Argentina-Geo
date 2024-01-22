@@ -19,5 +19,6 @@ router.post('/questions', upload.single("file"), validQuestion, questionsCtrl.cr
 router.delete('/questions/:id', questionsCtrl.removeQuestions)
 router.patch('/questions/count/:id', auth, questionsCtrl.gameQuestion)
 router.patch('/questions/correct/:id/:gameId', auth, questionsCtrl.correctQuestion)
+router.patch('/questions/:questionId/game/:id', auth, questionsCtrl.generateQuestion)
 
 export default router

@@ -4,10 +4,8 @@ import { IExperienceGame, IGameGenerate } from "../../interface/Game";
 
 import { createGameApi } from "../api/game.api";
 import { createGameAction, getGameAction } from "../features/game.features";
-import { getDateExperienceApi, updateExperienceApi, usersApi } from "../api/user.api";
+import { updateExperienceApi, usersApi } from "../api/user.api";
 import { updateOptionsAction, usersAction } from "../features/user.features";
-
-import { getTime, isNewDate } from "../../helper/time";
 
 export const game = createAsyncThunk('game/generateGame', async (gameData: IGameGenerate, { dispatch }) => {
 
@@ -15,12 +13,12 @@ export const game = createAsyncThunk('game/generateGame', async (gameData: IGame
 
         const { data } = await createGameApi(gameData.token)
 
-        dispatch(createGameAction(data))
-        dispatch(getGameAction(data))
+        dispatch(createGameAction(data.game))
+        dispatch(getGameAction(data.game))
 
         gameData.navigation.navigate('Playing', {
             isConnection: true,
-            questionsWC: []
+            questionsWC: data.shuffledQuestions
         })
 
     } catch (error: any) {
@@ -32,12 +30,6 @@ export const game = createAsyncThunk('game/generateGame', async (gameData: IGame
 export const experienceGame = createAsyncThunk('game/experienceGame', async (gameData: IExperienceGame, { dispatch }) => {
 
     try {
-
-        const time = await getTime()
-
-        if(isNewDate(time, gameData.users)) {
-            await getDateExperienceApi(gameData.user.token)
-        }
 
         const { data } = await updateExperienceApi(gameData.user.user.level._id, gameData.pointsData, gameData.user.token)
         dispatch(updateOptionsAction(data))

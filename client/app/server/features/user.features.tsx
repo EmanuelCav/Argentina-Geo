@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-import { ICounterUser, IUser, IUserReducer, IUsersRank } from '../../interface/User'
+import { ICounterUser, ILocationRank, IUser, IUserReducer, IUsersRank } from '../../interface/User'
 
 const initialState: ICounterUser = {
     user: {},
@@ -10,12 +10,13 @@ const initialState: ICounterUser = {
     profile: {}
 }
 
-const counterGameSlice = createSlice({
+const counterUserSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
         usersAction: (state, action: PayloadAction<IUsersRank>) => {
             state.users = action.payload
+            state.users.locationRanking = []
         },
         getUserAction: (state, action: PayloadAction<IUser>) => {
             state.profile = action.payload
@@ -37,10 +38,14 @@ const counterGameSlice = createSlice({
         },
         updateOptionsAction: (state, action: PayloadAction<IUser>) => {
             state.user.user = action.payload
+        },
+        locationRankAction: (state, action: PayloadAction<ILocationRank[]>) => {
+            state.users.ranking = []
+            state.users.locationRanking = action.payload
         }
     }
 })
 
-export const { usersAction, getUserAction, loginAuthAction, loginAction, firstTimeAction, updateOptionsAction } = counterGameSlice.actions
+export const { usersAction, getUserAction, loginAuthAction, loginAction, firstTimeAction, updateOptionsAction, locationRankAction } = counterUserSlice.actions
 
-export default counterGameSlice.reducer
+export default counterUserSlice.reducer
