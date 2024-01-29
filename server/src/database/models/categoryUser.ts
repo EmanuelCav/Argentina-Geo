@@ -26,11 +26,6 @@ const categoryUserSchema = new Schema({
         default: true
     },
 
-    isUnlocked: {
-        type: Boolean,
-        default: false
-    },
-
     user: {
         type: ObjectId,
         ref: 'User'

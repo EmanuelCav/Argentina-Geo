@@ -14,6 +14,26 @@ export function gameWithoutInternet(games: IQuestion[][]): IQuestion[] {
 
 }
 
+export const generateOptions = (options: string[], amountOptions: number): string[] => {
+
+    let arr = []
+
+    const correctOption = Math.floor(Math.random() * amountOptions)
+
+    const shuffledOptions: string[] = shuffle(options.slice(1, amountOptions + 1))
+
+    for (let i = 0; i < amountOptions; i++) {
+        if(i === correctOption) {
+            arr.push(options[0])
+        } else {
+            arr.push(shuffledOptions[i])
+        }
+    }
+
+    return arr
+
+}
+
 function shuffle(array: any[]) {
 
     let currentIndex = array.length, randomIndex;

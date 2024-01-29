@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { IResponse } from '../../interface/Response';
 
-import { auth, getLogin, getRanking, getUser, newUser, unlockCategory } from '../actions/user.actions';
+import { auth, getLogin, getRanking, getUser, newUser, rankingLocation, rankingUser, updateAllCategory, updateCategory } from '../actions/user.actions';
 import { experienceGame, game } from '../actions/game.actions';
 
 const initialState: IResponse = {
@@ -60,19 +60,41 @@ const counterResponseSlice = createSlice({
             state.loading = false
         })
 
-        builder.addCase(unlockCategory.pending, (state) => {
-            state.loading = true
-        })
-        builder.addCase(unlockCategory.fulfilled, (state) => {
-            state.loading = false
-        })
-
         builder.addCase(experienceGame.pending, (state) => {
             state.loading = true
         })
         builder.addCase(experienceGame.fulfilled, (state) => {
             state.loading = false
         })
+
+        builder.addCase(rankingLocation.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(rankingLocation.fulfilled, (state) => {
+            state.loading = false
+        })
+
+        builder.addCase(rankingUser.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(rankingUser.fulfilled, (state) => {
+            state.loading = false
+        })
+
+        builder.addCase(updateCategory.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(updateCategory.fulfilled, (state) => {
+            state.loading = false
+        })
+
+        builder.addCase(updateAllCategory.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(updateAllCategory.fulfilled, (state) => {
+            state.loading = false
+        })
+        
     }
 })
 

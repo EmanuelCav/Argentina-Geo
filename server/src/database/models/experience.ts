@@ -26,10 +26,6 @@ const experienceSchema = new Schema({
         type: ObjectId,
         ref: 'User'
     },
-    levelExperience: {
-        type: Number,
-        default: 0
-    },
     bestPuntuation: {
         type: Number,
         default: 0

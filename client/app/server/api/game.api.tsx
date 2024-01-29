@@ -20,7 +20,7 @@ export const createGameApi = async (token: string) => {
     })
 }
 
-export const questionsCountApi = async (id: string, token: string) => {
+export const questionsCountApi = async (id: string | undefined, token: string) => {
     return await api.patch(`/questions/count/${id}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -28,16 +28,12 @@ export const questionsCountApi = async (id: string, token: string) => {
     })
 }
 
-export const questionsCorrectApi = async (id: string, idGame: string, token: string) => {
+export const questionsCorrectApi = async (id: string | undefined, idGame: string, token: string) => {
     return await api.patch(`/questions/correct/${id}/${idGame}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     })
-}
-
-export const categoriesApi = async () => {
-    return await api.get('/categories')
 }
 
 export const generateQuestionApi = async (id: string, questionId: string, token: string) => {

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { EXPO_URL, EXPO_HOST, NODE_ENV } from '@env';
 
 import { ILogin, INickname, IOptions, IPassword, IPoints, ISetting } from '../../interface/User'
+import { SelectCategories } from '../../types/props.types';
 
 const api = axios.create({ baseURL: NODE_ENV !== 'production' ? `${EXPO_HOST}` : `${EXPO_URL}` })
 
@@ -81,16 +82,16 @@ export const updateLocationApi = async (id: string, settingsData: ISetting, toke
     })
 }
 
-export const unlockCategoryApi = async (id: string, token: string) => {
-    return await api.patch(`/users/category/unlock/${id}`, null, {
+export const updateExperienceApi = async (pointsData: IPoints, token: string) => {
+    return await api.put(`/users/experience`, pointsData, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     })
 }
 
-export const updateExperienceApi = async (id: string, pointsData: IPoints, token: string) => {
-    return await api.put(`/users/experience/${id}`, pointsData, {
+export const updateAllCategoryApi = async (categoryData: SelectCategories, token: string) => {
+    return await api.put('/users/category', categoryData, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

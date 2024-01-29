@@ -1,3 +1,4 @@
+import { Image } from "react-native";
 import { StackNavigation } from "../types/props.types";
 import { UserDataType } from "../types/user.types";
 import { IPoints, IUser } from "./User";
@@ -19,7 +20,6 @@ export interface ICategoriesUser {
     questions: number;
     corrects: number;
     isSelect: boolean;
-    isUnlocked: boolean;
 }
 
 export interface ICategories {
@@ -32,17 +32,17 @@ export interface ICategories {
 export interface ICounterGame {
     games: IGame[],
     game: object;
-    categories: ICategories[];
 }
 
 export interface IQuestion {
     _id: string;
     createdAt: string;
     updatedAt: string;
-    question: IQuestionGame;
+    question: string;
     options: string[];
-    user: IUser;
-    categoryUser: string;
+    category: ICategories;
+    answer: string;
+    image: IImage;
 }
 
 export interface IImage {
@@ -51,17 +51,6 @@ export interface IImage {
     updatedAt: string;
     image: string;
     imageId: string;
-}
-
-export interface IQuestionGame {
-    _id: string;
-    createdAt: string;
-    updatedAt: string;
-    question: string;
-    category: string;
-    image: IImage;
-    answer: string;
-    text: string;
 }
 
 export interface IGameGenerate {

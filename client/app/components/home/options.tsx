@@ -53,10 +53,10 @@ const Options = ({ navigation, setIsProfile, user, isConnection, setIsChangeView
     return (
         <View style={homeStyles.containerUserOption}>
             <View style={homeStyles.containerMenuButtons}>
-                <ButtonMenu text="Jugar" redirect={redirectPlay} isAccept={false} isCategory={false} />
-                <ButtonMenu text="Estadísticas" redirect={showProfile} isAccept={false} isCategory={false} />
-                <ButtonMenu text="Clasificación" redirect={redirectRanking} isAccept={false} isCategory={false} />
-                <ButtonMenu text="Ajustes" redirect={redirectSettings} isAccept={false} isCategory={false} />
+                <ButtonMenu text="Jugar" redirect={redirectPlay} isAccept={false} />
+                <ButtonMenu text="Estadísticas" redirect={showProfile} isAccept={false} />
+                <ButtonMenu text="Clasificación" redirect={redirectRanking} isAccept={false} />
+                <ButtonMenu text="Ajustes" redirect={redirectSettings} isAccept={false} />
             </View>
         </View>
     )

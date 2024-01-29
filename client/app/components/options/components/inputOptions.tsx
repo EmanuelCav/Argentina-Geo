@@ -35,7 +35,7 @@ const InputOptions = ({ setIsOptionsGame, isConnection }: GameOptionsType) => {
 
     const acceptOptions = async () => {
 
-        if(isConnection) {
+        if (isConnection) {
             try {
                 const { data } = await updateOptionsApi(users.user.user._id, optionsData, users.user.token)
                 dispatch(updateOptionsAction(data))
@@ -49,14 +49,14 @@ const InputOptions = ({ setIsOptionsGame, isConnection }: GameOptionsType) => {
 
     return (
         <View style={configGamesStyles.configGamesContain}>
-            <View style={configGamesStyles.containShowConfig}>
-                <SelectOption setOptionsData={setOptionsData} optionsData={optionsData} 
-                amountOptions={amountOptions} level={users.user.user.level.level} />
-                <SliderQuestion setOptionsData={setOptionsData} optionsData={optionsData} 
-                amountQuestions={amountQuestions} level={users.user.user.level.level} />
+            <View style={configGamesStyles.containShowConfigOptions}>
+                <SelectOption setOptionsData={setOptionsData}
+                    amountOptions={amountOptions} />
+                <SliderQuestion setOptionsData={setOptionsData}
+                    amountQuestions={amountQuestions} />
             </View>
             <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Aceptar" redirect={acceptOptions} isAccept={true} isCategory={false} />
+                <ButtonMenu text="Aceptar" redirect={acceptOptions} isAccept={true} />
             </View>
         </View>
     )

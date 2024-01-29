@@ -7,10 +7,8 @@ export interface IUser extends Document {
     updatedAt: NativeDate;
     _id: ObjectId;
     nickname: string;
-    phone: string;
     password: string;
     role: roleType;
-    level: ObjectId;
     points: IExperience;
     categories: ObjectId[];
     amountOptions: number;
@@ -18,14 +16,6 @@ export interface IUser extends Document {
     pais: ObjectId;
     provincia: ObjectId;
     municipio: ObjectId;
-}
-
-export interface ILevel extends Document {
-    createdAt: NativeDate;
-    updatedAt: NativeDate;
-    _id: ObjectId;
-    level: number;
-    max: number;
 }
 
 export interface IExperience extends Document {
@@ -37,7 +27,6 @@ export interface IExperience extends Document {
     year: number;
     total: number;
     user: ObjectId;
-    levelExperience: number;
     bestPuntuation: number;
     lastGame: string;
 }

@@ -12,8 +12,12 @@ const questionSchema = new Schema({
         trim: true
     },
     category: {
-        type: String
+        type: ObjectId,
+        ref: 'Category'
     },
+    options: [{
+        type: String
+    }],
     image: {
         type: ObjectId,
         ref: 'Image'
@@ -22,15 +26,7 @@ const questionSchema = new Schema({
         type: String,
         required: true
     },
-    text: {
-        type: String,
-        trim: true
-    },
-    isAnswer: {
-        type: Boolean,
-        default: true
-    }
-    
+
 }, {
     timestamps: true,
     versionKey: false

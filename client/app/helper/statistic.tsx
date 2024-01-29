@@ -23,3 +23,26 @@ export const totalCorrects = (categories: ICategoriesUser[]): number => {
     return total
 
 }
+
+export const categoryStatistic = (categories: ICategoriesUser[], questionCategory: string): string | undefined  => {
+
+    const category = categories.find(category => category.category.name === questionCategory)
+
+    if(!category){
+        return
+    }
+
+    return category._id
+
+}
+
+export const categoryStatisticCorrect = (categories: ICategoriesUser[], questionCategory: string, number: number) => {
+
+    const category = categories.find(category => category.category.name === questionCategory)
+
+    if(!category){
+        return
+    }
+
+
+}

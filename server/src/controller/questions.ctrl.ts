@@ -4,17 +4,12 @@ import fs from 'fs-extra';
 import Question from '../database/models/question';
 import Category from '../database/models/category';
 import Categoryuser from '../database/models/categoryUser'
-import QuestionGame from '../database/models/questionGame';
-import User from '../database/models/users';
 import Image from '../database/models/image';
 import Game from '../database/models/game'
 
 import { cloud } from "../helper/cloud";
-import { shuffle } from "../helper/functions";
 
 import { folder } from "../config/config";
-
-import { IQuestion } from "../interface/Game";
 
 export const questions = async (req: Request, res: Response): Promise<Response> => {
 
@@ -54,7 +49,7 @@ export const questionsCategory = async (req: Request, res: Response): Promise<Re
 
 export const createQuestions = async (req: Request, res: Response): Promise<Response> => {
 
-    const { question, category, answer, text, isAnswer } = req.body
+    const { question, category, answer } = req.body
 
     try {
 
@@ -93,16 +88,10 @@ export const createQuestions = async (req: Request, res: Response): Promise<Resp
 
         } else {
 
-            if (!text) {
-                return res.status(400).json({ message: "You have to upload a text as a question view" })
-            }
-
             const newQuestion = new Question({
                 question,
                 category: categorySelected._id,
-                answer,
-                text,
-                isAnswer
+                answer
             })
 
             questionSaved = await newQuestion.save()
@@ -214,13 +203,12 @@ export const correctQuestion = async (req: Request, res: Response) => {
         })
             .populate({
                 path: "questions",
-                populate: {
-                    path: "question",
-                    populate: {
-                        path: "image",
-                        select: "image"
-                    }
-                }
+                populate: [{
+                    path: "image",
+                    select: "image"
+                }, {
+                    path: "category"
+                }]
             })
 
         return res.status(200).json(gameUpdated)
@@ -249,75 +237,71 @@ export const generateQuestion = async (req: Request, res: Response): Promise<Res
             return res.status(400).json({ message: "Question does not exists" })
         }
 
-        const user = await User.findById(req.user)
-
-        if (!user) {
-            return res.status(400).json({ message: "User does not exists" })
-        }
-
-        const correctOption = Math.floor(Math.random() * user.amountOptions!);
-
-        const categoryQuestion = await Question.find({ category: question.category })
-        const shuffledCategoryQuestion = shuffle(categoryQuestion).filter((q: IQuestion) => q.answer !== question.answer)
-        const uniquesOptions = [...new Set(shuffledCategoryQuestion.map((option: IQuestion) => option.answer))];
-
-        const nameCategoryUser = await Categoryuser.findOne({ user: req.user, category: question.category })
-
-        if (!nameCategoryUser) {
-            return res.status(400).json({ message: "User category does not exists" })
-        }
-
-        const newQuestionGame = new QuestionGame({
-            question: questionId,
-            categoryUser: nameCategoryUser._id,
-            user: req.user
-        })
-
-        const questionSaved = await newQuestionGame.save()
-
-        for (let j = 0; j < user?.amountOptions!; j++) {
-
-            if (j === correctOption) {
-
-                await QuestionGame.findByIdAndUpdate(questionSaved._id, {
-                    $push: {
-                        options: question.answer
-                    }
-                }, {
-                    new: true
-                })
-            } else {
-
-                await QuestionGame.findByIdAndUpdate(questionSaved._id, {
-                    $push: {
-                        options: uniquesOptions[j]
-                    }
-                }, {
-                    new: true
-                })
-            }
-
-        }
-
         const gameUpdated = await Game.findByIdAndUpdate(id, {
             $push: {
-                questions: questionSaved._id
+                questions: question._id
             }
         }, {
             new: true
         })
             .populate({
                 path: "questions",
-                populate: {
-                    path: "question",
-                    populate: {
-                        path: "image",
-                        select: "image"
-                    }
-                }
+                populate: [{
+                    path: "image",
+                    select: "image"
+                }, {
+                    path: "category"
+                }]
             })
 
         return res.status(200).json(gameUpdated)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const generateOption = async (req: Request, res: Response): Promise<Response> => {
+
+    const { option } = req.body
+    const { id } = req.params
+
+    try {
+
+        // await Question.findByIdAndUpdate(id, {
+        //     $push: {
+        //         options: option
+        //     }
+        // }, {
+        //     new: true
+        // })
+
+        const question = await Question.findById(id)
+
+        if (!question) {
+            return res.status(400).json({ message: "Question does not exists" })
+        }
+
+        // let options = ["Aconcagua", "Monte Pissis", "Cerro Bonete Chico", "Cerro Catedral", "Cerro de los Siete Colores", "Cerro Torre", "Chañi", "Cerro Tronador", "Champaquí", "Volcán Lanín"]
+        // let options = ["Tucumán", "Santiago del Estero", "Chaco", "Córdoba", "Chubut", "Buenos Aires", "Jujuy", "Salta", "La Rioja", "Catamarca", "Formosa", "Misiones", "Corrientes", "Entre Ríos", "Santa Fe", "San Juan", "San Luis", "Ciudad Autónoma de Buenos Aires", "Mendoza", "La Pampa", "Neuquén", "Río Negro", "Santa Cruz", "Tierra del Fuego, Antártida e Islas del Atlántico Sur"]
+        // let options = ["Río Paraná", "Río Cuarto", "Río Uruguay", "Río Atuel", "Río de la Plata", "Río Bermejo", "Río Colorado", "Río Salado", "Río Paraguay", "Río Negro"]
+        // let options = ["Lago Argentino", "Lago Nahuel Huapi", "Lago Viedma", "Lago Lácar", "Lago Musters", "Lago Cardiel", "Lago Epecuén", "Lago Pellegrini", "Lago Buenos Aires", "Lago Aluminé"]
+
+        // let options = ["1816", "1853", "1810", "1812", "1794", "1804", "1914", "1888", "1867", "1891"]
+        // let options = ["1946", "1933", "1937", "1942", "1952", "1955", "1960", "1929", "1964", "1968"]
+        // let options = ["Batalla de la Vuelta de Obligado", "Batalla de Caseros", "Combate de San Lorenzo", "Batalla de Pavón", "Éxodo Jujeño", "Revolución de Mayo", "Declaración de la Independencia", "Fundación de Buenos Aires", "Creación de la Bandera", "Retorno a la democracía"]
+        let option = ["Manuel Belgrano", "", ""]
+
+        await Question.findByIdAndUpdate(id, {
+            $set: {
+                options
+            }
+        }, {
+            new: true
+        })
+
+        return res.status(200).json({ message: "Option created successfully" })
 
     } catch (error) {
         throw error

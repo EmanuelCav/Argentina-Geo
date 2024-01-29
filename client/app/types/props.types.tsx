@@ -4,7 +4,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { InterstitialAd } from 'react-native-google-mobile-ads';
 
 import { ILocationRank, IOptions, ISetting, IUser, IUsersRank } from "../interface/User";
-import { ICategories, IGame, IQuestion } from "../interface/Game";
+import { ICategories, ICategoriesUser, IGame, IQuestion } from "../interface/Game";
 import { DateRankType, UserDataType, UserReducerType, UserType } from "./user.types";
 
 export type RoutesProps = {
@@ -24,7 +24,6 @@ export type ButtonGameProps = {
     text: string;
     redirect: () => void;
     isAccept: boolean;
-    isCategory: boolean;
 }
 
 export type ButtonNavigateProps = {
@@ -45,7 +44,6 @@ export type ShowStatisticsProps = {
 export type UserInfoProps = {
     user: IUser;
     users: IUsersRank;
-    categoriesLength: number;
 }
 
 export type ProfileProps = {
@@ -57,7 +55,7 @@ export type ProfileProps = {
 
 export type CategoriesProps = {
     user: UserDataType;
-    categories: ICategories[];
+    categories: ICategoriesUser[];
     setIsCategories: (isCategories: boolean) => void;
     isConnection: boolean | null;
 }
@@ -86,9 +84,7 @@ export type CodeProps = {
 
 export type SelectOptionProps = {
     setOptionsData: (optionData: SetStateAction<IOptions>) => void;
-    optionsData: IOptions,
     amountOptions: number;
-    level: number;
 }
 
 export type GameOptionsType = {
@@ -98,9 +94,7 @@ export type GameOptionsType = {
 
 export type SelectQuestionProps = {
     setOptionsData: (optionData: SetStateAction<IOptions>) => void;
-    optionsData: IOptions,
     amountQuestions: number;
-    level: number;
 }
 
 export type ChangeCodeProps = {
@@ -181,7 +175,7 @@ export type FinishProps = {
     areErrors: boolean;
     isGameError: boolean;
     isConnection: boolean | null;
-    interstitial?: InterstitialAd;
+    interstitial: InterstitialAd;
 }
 
 export type ShowQuestionProps = {
@@ -190,8 +184,7 @@ export type ShowQuestionProps = {
 }
 
 export type ShowOptionGameProps = {
-    questions: IQuestion[];
-    numberQuestion: number;
+    options: string[];
     styles: any;
     nextQuestion: (item: string) => void;
 }
@@ -232,4 +225,29 @@ export type UnlockCategoryProps = {
 export type LocationRankProps = {
     location: ILocationRank;
     index: number;
+}
+
+export type LocationDataProps = {
+    positionRank: string;
+    rankData: DateRankType;
+    token: string;
+}
+
+export type RankingUserDataProps = {
+    token: string;
+    rankData: DateRankType;
+}
+
+export type UpdateCategoryDataProps = {
+    id: string;
+    token: string;
+}
+
+export type UpdateAllCategoryDataProps = {
+    query: SelectCategories;
+    token: string;
+}
+
+export type SelectCategories = {
+    query: 'quit' | 'select'
 }

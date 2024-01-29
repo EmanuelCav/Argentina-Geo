@@ -1,27 +1,19 @@
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import { View, Text, Image, Dimensions } from "react-native";
 
 import { UserInfoProps } from "../../types/props.types";
 
 import { homeStyles } from '../../styles/home.styles';
 
-const User = ({ user, users, categoriesLength }: UserInfoProps) => {
-
-    const experienceGotStyle = StyleSheet.create({
-        experienceGot: {
-            width: `${(user.points.levelExperience * 100) / (user.level.max)}%`,
-            backgroundColor: '#a5b6e9',
-            top: 0,
-            position: 'absolute',
-            left: 0,
-            height: '100%',
-            borderRadius: 20,
-        }
-    })
+const User = ({ user, users }: UserInfoProps) => {
 
     return (
         <View style={homeStyles.containerUserHome}>
             <View style={homeStyles.userInfoLevel}>
-                <Text style={homeStyles.userNickname}>{user.nickname}</Text>
+                <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
+                    <Image source={user.pais.name === "Argentina" ? require('../../../assets/argentina_bandera.png') : require('../../../assets/onu.png' )} 
+                    alt="flag" style={{ height: '100%', width: Dimensions.get("window").width / 8 }} />
+                    <Text style={homeStyles.userNickname}>{user.nickname}</Text>
+                </View>
                 <Text style={homeStyles.userInfo}>{user.pais.name}</Text>
                 <Text style={homeStyles.userInfo} adjustsFontSizeToFit>{user.provincia && user.provincia.name}
                     {user.municipio && (
@@ -29,19 +21,6 @@ const User = ({ user, users, categoriesLength }: UserInfoProps) => {
                     )}
                 </Text>
                 <Text style={homeStyles.userInfo}>Posición: {users.total!.map((user) => user._id).indexOf(user._id) + 1}°</Text>
-                <View style={homeStyles.containerLevel}>
-                    <View style={experienceGotStyle.experienceGot} />
-                    <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevel}>
-                        <Text style={homeStyles.textLevel}>{user.level.level}</Text>
-                    </ImageBackground>
-                    {
-                        user.level.level < categoriesLength ? (
-                            <Text style={homeStyles.textExp}>{user.points.levelExperience}/{user.level.max} xp</Text>
-                        ) : (
-                            <Text style={homeStyles.textExp}>{user.points.levelExperience}xp</Text>
-                        )
-                    }
-                </View>
             </View>
         </View>
     )

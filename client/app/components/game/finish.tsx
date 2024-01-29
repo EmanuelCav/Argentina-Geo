@@ -12,7 +12,7 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
 
     const navigateHome = () => {
         if (isConnection) {
-            // interstitial.show();
+            interstitial.show();
         }
         navigation.navigate('Home')
     }
@@ -39,7 +39,7 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
                 }
             </View>
             <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Continuar" redirect={navigateHome} isAccept={true} isCategory={false} />
+                <ButtonMenu text="Continuar" redirect={navigateHome} isAccept={true} />
             </View>
         </View>
     )

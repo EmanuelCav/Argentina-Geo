@@ -1,7 +1,6 @@
 import { Router } from "express";
 
 import * as usersCtrl from '../controller/users.ctrl';
-import * as levelsCtrl from '../controller/level.ctrl';
 
 import validRole from '../middleware/validation/role/validRole';
 
@@ -32,16 +31,9 @@ router.patch('/users/category/:id', auth, usersCtrl.updateCategory)
 router.put('/users/password/:id', auth, validPassword, usersCtrl.updatePassword)
 router.put('/users/nickname/:id', auth, validNickname, usersCtrl.updateNickname)
 router.put('/users/location/:id', auth, usersCtrl.updateLocation)
-router.patch('/users/category/unlock/:id', auth, usersCtrl.unlockCategory)
-router.put('/users/experience/:id', auth, usersCtrl.updateExperience)
+router.put('/users/experience', auth, usersCtrl.updateExperience)
+router.put('/users/category', auth, usersCtrl.allCategory)
 router.get('/users/experience/date', auth, usersCtrl.getDate)
 router.get('/users/location/:location/date/:date', auth, usersCtrl.groupUsers)
-
-// router.get('/levels', [auth, validRole], validLevel, levelsCtrl.levels)
-router.get('/levels', levelsCtrl.levels)
-// router.post('/levels', [auth, validRole], validLevel, levelsCtrl.createLevels)
-router.post('/levels', validLevel, levelsCtrl.createLevels)
-// router.post('/levels', [auth, validRole], validLevel, levelsCtrl.createLevels)
-router.put('/levels/:id', levelsCtrl.updateLevels)
 
 export default router

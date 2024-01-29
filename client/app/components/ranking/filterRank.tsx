@@ -10,6 +10,7 @@ import { rankingStyles } from '../../styles/home.styles';
 
 import { RankingProps } from "../../types/props.types";
 import { LocationRankType, RanksType } from "../../types/user.types";
+import { rankingLocation, rankingUser } from "../../server/actions/user.actions";
 
 const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps) => {
 
@@ -31,16 +32,7 @@ const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps
     const [positionRank, setPositionRank] = useState<number>(1)
 
     const showTotal = async () => {
-
-        if (isConnection) {
-            if (positionRank === 1) {
-                const { data } = await usersApi("total", users.user.token)
-                dispatch(usersAction(data))
-            }
-
-            setRankData("total")
-        }
-
+        setRankData("total")
         setIsTotal(true)
         setIsYear(false)
         setIsMonth(false)
@@ -48,15 +40,6 @@ const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps
     }
 
     const showYear = async () => {
-
-        if (isConnection) {
-
-            if (positionRank === 1) {
-                const { data } = await usersApi("year", users.user.token)
-                dispatch(usersAction(data))
-            }
-        }
-
         setRankData("year")
         setIsTotal(false)
         setIsYear(true)
@@ -65,16 +48,7 @@ const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps
     }
 
     const showMonth = async () => {
-
-        if (isConnection) {
-            if (positionRank === 1) {
-                const { data } = await usersApi("month", users.user.token)
-                dispatch(usersAction(data))
-            }
-
-            setRankData("month")
-        }
-
+        setRankData("month")
         setIsTotal(false)
         setIsYear(false)
         setIsMonth(true)
@@ -82,16 +56,7 @@ const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps
     }
 
     const showDay = async () => {
-
-        if (isConnection) {
-            if (positionRank === 1) {
-                const { data } = await usersApi("day", users.user.token)
-                dispatch(usersAction(data))
-            }
-
-            setRankData("day")
-        }
-
+        setRankData("day")
         setIsTotal(false)
         setIsYear(false)
         setIsMonth(false)
@@ -113,9 +78,11 @@ const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps
 
         try {
 
-            const { data } = await rankingLocationApi(dateRank.current[(positionRank - 2) < 0 ? positionRank + 2 : positionRank - 2], rankData, users.user.token)
-
-            dispatch(locationRankAction(data))
+            dispatch(rankingLocation({
+                positionRank: dateRank.current[(positionRank - 2) < 0 ? positionRank + 2 : positionRank - 2],
+                rankData,
+                token: users.user.token
+            }) as any)
 
         } catch (error) {
             console.log(error);
@@ -125,13 +92,15 @@ const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps
 
     const getUserRank = async () => {
 
-        const { data } = await usersApi(rankData, users.user.token)
-
-        dispatch(usersAction(data))
+        dispatch(rankingUser({
+            rankData,
+            token: users.user.token
+        }) as any)
 
     }
 
     useEffect(() => {
+
         if (rankState.current[positionRank - 1] !== 'user-alt') {
             getRankLocation()
             return
@@ -144,7 +113,7 @@ const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps
     return (
         <View>
             <View style={rankingStyles.containerHeaderRank}>
-                <FilterIcon onPress={changeFilter} name={rankState.current[positionRank]} color={'#5d8cff'} size={Dimensions.get("window").height / 33} />
+                <FilterIcon onPress={changeFilter} name={rankState.current[positionRank]} color={'#5d8cff'} size={Dimensions.get("window").height / 28} />
                 {
                     users.users.ranking?.length! > 0 &&
                     <>

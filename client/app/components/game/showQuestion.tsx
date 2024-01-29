@@ -7,20 +7,16 @@ import { gameStyles } from '../../styles/game.styles';
 const ShowQuestion = ({ questions, numberQuestion }: ShowQuestionProps) => {
     return (
         <View style={gameStyles.containerQuestion}>
+            <View style={[{ width: '100%', justifyContent: 'center', alignItems: 'center' }, { height: questions[numberQuestion].image && '20%' }]}>
+                <Text style={gameStyles.textQuestionGame}>{questions[numberQuestion].question}</Text>
+            </View>
             {
-                questions[numberQuestion].question.image ? (
-                    <Image source={{ uri: questions[numberQuestion].question.image.image }}
+
+                questions[numberQuestion].image &&
+                <View style={{ height: '80%', width: '100%' }}>
+                    <Image source={{ uri: questions[numberQuestion].image.image }}
                         style={gameStyles.imageQuestion} resizeMode={"contain"} />
-                ) : (
-                    <View style={gameStyles.containerTextGame}>
-                        <View style={{ height: '35%', width: '100%' }}>
-                            <Text style={gameStyles.textQuestionGame}>{questions[numberQuestion].question.question}</Text>
-                        </View>
-                        <View style={{ height: '65%', width: '100%' }}>
-                            <Text style={gameStyles.textTextGame}>{questions[numberQuestion].question.text}</Text>
-                        </View>
-                    </View>
-                )
+                </View>
             }
         </View>
     )

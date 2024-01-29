@@ -7,13 +7,11 @@ import Category from '../database/models/category';
 import Pais from '../database/models/pais';
 import Provincia from '../database/models/provincia';
 import Municipio from '../database/models/municipio';
-import Level from '../database/models/level';
 import Experience from '../database/models/experience';
 import Game from '../database/models/game'
-import QuestionGame from '../database/models/questionGame'
 
 import { generatePassword, generateToken, hashPassword } from "../helper/encrypt";
-import { categoriesFromUser, experienceFromUser, generateUserNumber, timeUser } from "../helper/user.functions";
+import { categoriesFromUser, experienceFromUser, generateUserNumber } from "../helper/user.functions";
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
 
@@ -170,7 +168,6 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
             .populate("points")
             .select("nickname level points pais provincia municipio categories")
 
@@ -241,8 +238,6 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
         const country = await Pais.findOne({ name: "Argentina" })
 
-        const level = await Level.findOne({ level: 1 })
-
         if (!country) {
             return res.status(401).json({ message: "Country does not exists" })
         }
@@ -252,8 +247,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
             phone,
             role: role?._id,
             password: pass,
-            pais: country._id,
-            level
+            pais: country._id
         })
 
         const userSaved = await newUser.save()
@@ -294,7 +288,6 @@ export const getLogin = async (req: Request, res: Response): Promise<Response> =
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
             .populate("points")
 
         if (!user) {
@@ -332,7 +325,6 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
             .populate("points")
 
         if (!user) {
@@ -360,13 +352,9 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
 
     try {
 
-        const users = await User.find()
-
         const country = await Pais.findOne({ name: "Argentina" })
 
         const role = await Role.findOne({ role: 'Player' })
-
-        const level = await Level.findOne({ level: 1 })
 
         if (!country) {
             return res.status(401).json({ message: "Country does not exists" })
@@ -378,8 +366,7 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
             nickname: `usuario${generateUserNumber()}`,
             password: pass,
             role: role?._id,
-            pais: country._id,
-            level: level?._id
+            pais: country._id
         })
 
         const userSaved = await newUser.save()
@@ -401,7 +388,6 @@ export const firstTime = async (req: Request, res: Response): Promise<Response> 
             .populate("pais", "name")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
             .populate("points")
 
         return res.status(200).json({
@@ -433,9 +419,6 @@ export const removeUser = async (req: Request, res: Response): Promise<Response>
             user: id
         })
         await Game.deleteMany({
-            user: id
-        })
-        await QuestionGame.deleteMany({
             user: id
         })
 
@@ -478,7 +461,6 @@ export const updateOptions = async (req: Request, res: Response): Promise<Respon
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
             .populate("points")
 
         return res.status(200).json(optionsUpdated)
@@ -522,7 +504,6 @@ export const updatePassword = async (req: Request, res: Response): Promise<Respo
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
             .populate("points")
 
         return res.status(200).json(userUpdated)
@@ -566,7 +547,6 @@ export const updateNickname = async (req: Request, res: Response): Promise<Respo
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
             .populate("points")
 
         return res.status(200).json(userUpdated)
@@ -617,7 +597,6 @@ export const updateCategory = async (req: Request, res: Response): Promise<Respo
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
             .populate("points")
 
         return res.status(200).json(user)
@@ -670,7 +649,6 @@ export const updateLocation = async (req: Request, res: Response): Promise<Respo
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
             .populate("points")
 
         return res.status(200).json(locationUpdated)
@@ -681,57 +659,8 @@ export const updateLocation = async (req: Request, res: Response): Promise<Respo
 
 }
 
-export const unlockCategory = async (req: Request, res: Response) => {
-
-    const { id } = req.params
-
-    try {
-
-        const category = await Category.findById(id)
-
-        if (!category) {
-            return res.status(400).json({ message: "Category does not exists" })
-        }
-
-        const newCategoryUser = new Categoryuser({
-            category: category._id,
-            user: req.user,
-            isUnlocked: true
-        })
-
-        const categoryUserSaved = await newCategoryUser.save()
-
-        const user = await User.findByIdAndUpdate(req.user, {
-            $push: {
-                categories: categoryUserSaved._id
-            }
-        }, {
-            new: true
-        }).populate({
-            path: "categories",
-            select: "category questions corrects isSelect isUnlocked",
-            populate: {
-                path: 'category',
-                select: "name"
-            }
-        })
-            .populate("pais")
-            .populate("provincia")
-            .populate("municipio")
-            .populate("level")
-            .populate("points")
-
-        return res.status(200).json(user)
-
-    } catch (error) {
-        throw error
-    }
-
-}
-
 export const updateExperience = async (req: Request, res: Response): Promise<Response> => {
 
-    const { id } = req.params
     const { points } = req.body
 
     try {
@@ -744,51 +673,16 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
             return res.status(400).json({ message: "Experiece does not exists" })
         }
 
-        // const lastGame = await timeUser()
-
-        const experienceUpdated = await Experience.findByIdAndUpdate(experience._id, {
+        await Experience.findByIdAndUpdate(experience._id, {
             bestPuntuation: points > experience.bestPuntuation ? points : experience.bestPuntuation,
             day: experience.day + points,
             month: experience.month + points,
             year: experience.year + points,
             total: experience.total + points,
-            levelExperience: experience.levelExperience + points,
             lastGame: new Date(new Date().setHours(new Date().getHours() - 3)).toISOString().split("T")[0]
         }, {
             new: true
         })
-
-        const level = await Level.findById(id)
-
-        if (!level) {
-            return res.status(400).json({ message: "Level does not exists" })
-        }
-
-        const levels = await Level.find()
-
-        if (level.level < levels.length) {
-            if (experienceUpdated?.levelExperience! >= level.max) {
-
-                const nextLevel = await Level.findOne({ level: level.level + 1 })
-
-                if(!nextLevel) {
-                    return res.status(400).json({ message: "Level does noe exists" })
-                }
-
-                await Experience.findByIdAndUpdate(experience._id, {
-                    levelExperience: experienceUpdated?.levelExperience! - level.max
-                }, {
-                    new: true
-                })
-
-                await User.findByIdAndUpdate(req.user, {
-                    level: nextLevel?._id
-                }, {
-                    new: true
-                })
-
-            }
-        }
 
         const user = await User.findById(req.user)
             .populate({
@@ -802,7 +696,44 @@ export const updateExperience = async (req: Request, res: Response): Promise<Res
             .populate("pais")
             .populate("provincia")
             .populate("municipio")
-            .populate("level")
+            .populate("points")
+
+        return res.status(200).json(user)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const allCategory = async (req: Request, res: Response): Promise<Response> => {
+
+    const { query } = req.body
+
+    try {
+
+        await Categoryuser.updateMany({
+            user: req.user,
+        }, {
+            $set: {
+                isSelect: query === "quit" ? false : true
+            }
+        }, {
+            new: true
+        })
+
+        const user = await User.findById(req.user)
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
             .populate("points")
 
         return res.status(200).json(user)
@@ -817,10 +748,7 @@ export const getDate = async (req: Request, res: Response): Promise<Response> =>
 
     try {
 
-        // const time = await timeUser()
-        // const datesTime = time.split("-")
-
-        const time = new Date().toISOString().split("T")[0].split("-")
+        const time = new Date(new Date().setHours(new Date().getHours() - 3)).toISOString().split("T")[0].split("-")
 
         if (time[1] === "01" && time[2] === "01") {
 

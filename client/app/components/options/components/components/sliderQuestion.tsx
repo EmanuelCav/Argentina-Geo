@@ -7,30 +7,7 @@ import { IOptions } from "../../../../interface/User";
 
 import { menuStyles } from '../../../../styles/menu.styles'
 
-const sliderQuestion = ({ setOptionsData, optionsData, amountQuestions, level }: SelectQuestionProps) => {
-
-    const maxValue = (): number => {
-        if (level <= 3) {
-            return 10
-        }
-
-        if (level <= 6) {
-            return 20
-        }
-
-        if (level <= 9) {
-            return 30
-        }
-
-        if (level <= 12) {
-            return 40
-        }
-
-        return 50
-    }
-
-    useEffect(() => {
-    }, [optionsData])
+const sliderQuestion = ({ setOptionsData, amountQuestions }: SelectQuestionProps) => {
 
     return (
         <View style={menuStyles.containQuestionSelector}>
@@ -40,7 +17,7 @@ const sliderQuestion = ({ setOptionsData, optionsData, amountQuestions, level }:
                 style={sliderStyle.slider}
                 thumbTintColor='#597EEE'
                 minimumValue={5}
-                maximumValue={maxValue()}
+                maximumValue={30}
                 value={amountQuestions}
                 minimumTrackTintColor="#597EEE"
                 maximumTrackTintColor="#4488BB"

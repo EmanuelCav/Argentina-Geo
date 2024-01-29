@@ -59,29 +59,9 @@ export const menuStyles = StyleSheet.create({
         padding: Dimensions.get('window').height / 106
     },
 
-    categoryContainerUnlocked: {
-        flex: 1,
-        width: '100%',
-        backgroundColor: '#597EEE',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        borderWidth: 1,
-        borderColor: '#FFFFFF',
-        borderStyle: 'solid',
-        padding: Dimensions.get('window').height / 106
-    },
-
     textCategory: {
         fontSize: Dimensions.get('window').height / 43.53,
         color: '#597EEE',
-        maxWidth: '90%'
-    },
-
-    textCategoryUnlocked: {
-        fontSize: Dimensions.get('window').height / 43.53,
-        color: '#FFFFFF',
         maxWidth: '90%'
     },
 

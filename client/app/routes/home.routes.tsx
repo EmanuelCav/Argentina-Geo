@@ -8,9 +8,9 @@ import Options from '../components/home/options'
 import Profile from '../components/profile/profile';
 import Network from '../components/response/network';
 
-import { categoriesApi, gamesApi } from '../server/api/game.api'
+import { gamesApi } from '../server/api/game.api'
 import { getDateExperienceApi, usersApi } from '../server/api/user.api'
-import { categoriesAction, gamesAction } from '../server/features/game.features'
+import { gamesAction } from '../server/features/game.features'
 import { getLogin, newUser } from '../server/actions/user.actions';
 
 import { StackNavigation } from '../types/props.types'
@@ -34,17 +34,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     const [isInternet, setIsInternet] = useState<boolean>(true)
     const [isConnection, setIsConnection] = useState<boolean | null>(true)
     const [isChangeView, setIsChangeView] = useState<boolean>(false)
-
-    const getCategories = async () => {
-
-        try {
-            const { data } = await categoriesApi()
-            dispatch(categoriesAction(data))
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
 
     const getGames = async () => {
         const { data } = await gamesApi(users.user.token)
@@ -94,7 +83,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
             }
 
             dispatch(newUser() as any)
-            getCategories()
 
         }
 
@@ -111,7 +99,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                         {
                             isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} isConnection={isConnection} />
                         }
-                        <User user={users.user.user} users={users.users} categoriesLength={games.categories.length} />
+                        <User user={users.user.user} users={users.users} />
                         <Options navigation={navigation} setIsProfile={setIsProfile} user={users} isConnection={isConnection}
                             setIsChangeView={setIsChangeView} isChangeView={isChangeView} />
                     </>

@@ -3,8 +3,8 @@ import { View } from "react-native";
 import { useDispatch, useSelector } from 'react-redux'
 import { fetch } from "@react-native-community/netinfo";
 import { useRoute } from '@react-navigation/native';
-// import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-// import { BANNER_PLAY_ID } from "@env";
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { BANNER_PLAY_ID } from "@env";
 
 import ButtonMenu from "../components/buttonMenu";
 import Categories from "../components/categories/categories";
@@ -22,7 +22,7 @@ import { homeStyles } from "../styles/home.styles";
 import { selector } from "../helper/selector";
 import { gameWithoutInternet } from "../helper/generator";
 
-// const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : `${BANNER_PLAY_ID}`;
+const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : `${BANNER_PLAY_ID}`;
 
 const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -42,7 +42,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
         if (!isConnection) {
 
-            const allGames = games.games.map((game: IGame) => game.questions.filter((question: IQuestion) => question.question.text))
+            const allGames = games.games.map((game: IGame) => game.questions.filter((question: IQuestion) => !question.image))
                 .filter(arr => arr.length > 0)
 
             if (gameWithoutInternet(allGames).length >= 5) {
@@ -83,7 +83,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
     return (
         <View style={homeStyles.containerPlay}>
-            {/* {
+            {
                 isConnection &&
                 <View>
                     <BannerAd
@@ -91,20 +91,19 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
                         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
                     />
                 </View>
-            } */}
+            }
             {
-                isCategories && <Categories user={users.user} categories={games.categories} setIsCategories={setIsCategories} isConnection={isConnection} />
+                isCategories && <Categories user={users.user} categories={users.user.user.categories} setIsCategories={setIsCategories} isConnection={isConnection} />
             }
             {
                 isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} isConnection={isConnection} />
             }
             <View style={homeStyles.containerMenuButtons}>
                 <Error msg={message} />
-                <ButtonMenu text="Iniciar juego" redirect={generateGame} isAccept={false} isCategory={false} />
-                <ButtonMenu text="Categorías" redirect={showCategories} isAccept={false}
-                    isCategory={users.user.user.categories.length < users.user.user.level.level} />
-                <ButtonMenu text="Opciones" redirect={showOptions} isAccept={false} isCategory={false} />
-                <ButtonMenu text="Regresar" redirect={back} isAccept={false} isCategory={false} />
+                <ButtonMenu text="Iniciar juego" redirect={generateGame} isAccept={false} />
+                <ButtonMenu text="Categorías" redirect={showCategories} isAccept={false} />
+                <ButtonMenu text="Opciones" redirect={showOptions} isAccept={false} />
+                <ButtonMenu text="Regresar" redirect={back} isAccept={false} />
             </View>
         </View>
     )

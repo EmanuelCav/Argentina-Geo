@@ -30,10 +30,8 @@ export interface IUser {
     createdAt: string;
     updatedAt: string;
     nickname: string;
-    phone: string;
     password: string;
     role: string;
-    level: ILevel;
     points: IExperience;
     categories: ICategoriesUser[];
     amountOptions: number;
@@ -85,14 +83,6 @@ export interface ISetting {
     pais?: string;
     provincia?: string;
     municipio?: string;
-}
-
-export interface ILevel {
-    _id: string;
-    createdAt: string;
-    updatedAt: string;
-    level: number;
-    max: number;
 }
 
 export interface IExperience {

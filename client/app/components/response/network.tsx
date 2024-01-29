@@ -26,7 +26,7 @@ const Network = ({ firstTime, setIsInternet }: InternetType) => {
                     Usted no esta conectado a internet. Es posible que algunas funciones no se ejecuten correctamente
                 </Text>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Continuar" redirect={exit} isAccept={true} isCategory={false} />
+                    <ButtonMenu text="Continuar" redirect={exit} isAccept={true} />
                 </View>
             </View>
         </View>

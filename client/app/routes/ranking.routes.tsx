@@ -8,6 +8,7 @@ import UserRank from "../components/ranking/userRank";
 import ButtonMenu from "../components/buttonMenu";
 import FilterRank from "../components/ranking/filterRank";
 import Profile from '../components/profile/profile';
+import LocationRank from '../components/ranking/locationRank';
 
 import { rankingStyles, homeStyles } from "../styles/home.styles";
 
@@ -17,7 +18,6 @@ import { StackNavigation } from "../types/props.types";
 import { DateRankType } from '../types/user.types';
 
 import { selector } from "../helper/selector";
-import LocationRank from '../components/ranking/locationRank';
 
 const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -72,7 +72,7 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
                                 <>
                                     {
                                         users.users.locationRanking!.map((location: ILocationRank, index: number) => {
-                                            return <LocationRank location={location} index={index} />
+                                            return <LocationRank location={location} index={index} key={index} />
                                         })
                                     }
                                 </>
@@ -81,7 +81,7 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
                     </ScrollView>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Regresar" redirect={() => navigation.navigate('Home')} isAccept={true} isCategory={false} />
+                    <ButtonMenu text="Regresar" redirect={() => navigation.navigate('Home')} isAccept={true} />
                 </View>
             </View>
         </View >

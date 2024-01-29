@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { View, Text, ImageBackground, ScrollView } from "react-native";
+import { View, Text, ScrollView, Image, Dimensions } from "react-native";
 
 import ButtonMenu from "../buttonMenu";
 import CategoryUser from "./components/categoryUser";
@@ -26,10 +26,9 @@ const Profile = ({ user, games, setIsProfile, isConnection }: ProfileProps) => {
             <View style={menuStyles.categoriesContain}>
                 <View style={menuStyles.containerScroll}>
                     <ScrollView>
-                        <View style={menuStyles.containFlagNickname}>
-                            <ImageBackground source={require('../../../assets/argentina_bandera_level.png')} style={homeStyles.imageLevelProfile}>
-                                <Text style={homeStyles.textLevel}>{isConnection ? user.profile.level.level : user.user.user.level.level}</Text>
-                            </ImageBackground>
+                        <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
+                            <Image source={user.profile.pais.name === "Argentina" ? require('../../../assets/argentina_bandera.png') : require('../../../assets/onu.png' )} 
+                            alt="flag" style={{ height: '100%', width: Dimensions.get("window").width / 8 }} />
                             <Text style={menuStyles.textNicknameProfile}>{isConnection ? user.profile.nickname : user.user.user.nickname}</Text>
                         </View>
                         <View style={homeStyles.containerMainInfoProfile}>
@@ -82,7 +81,7 @@ const Profile = ({ user, games, setIsProfile, isConnection }: ProfileProps) => {
                     </ScrollView>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Regresar" redirect={cancelProfile} isAccept={true} isCategory={false} />
+                    <ButtonMenu text="Regresar" redirect={cancelProfile} isAccept={true} />
                 </View>
             </View>
         </View>

@@ -18,7 +18,6 @@ export const gameStyles = StyleSheet.create({
         borderColor: '#5d8cff',
         borderWidth: 4,
         borderStyle: 'solid',
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -37,15 +36,8 @@ export const gameStyles = StyleSheet.create({
     },
 
     textQuestionGame: {
-        fontSize: Dimensions.get("window").height / 33.64,
-        textAlign: 'center',
-        marginTop: Dimensions.get("window").height / 74
-    },
-
-    textTextGame: {
-        fontSize: Dimensions.get("window").height / 29.6,
-        textAlign: 'center',
-        marginTop: Dimensions.get("window").height / 74
+        fontSize: Dimensions.get("window").height / 38,
+        textAlign: 'center'
     },
 
     containerOptions: {
@@ -193,6 +185,12 @@ export const configGamesStyles = StyleSheet.create({
     },
 
     containShowConfig: {
+        width: '100%',
+        flex: 1,
+        padding: Dimensions.get("window").height / 50
+    },
+
+    containShowConfigOptions: {
         width: '100%',
         flex: 1
     },

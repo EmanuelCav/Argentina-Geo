@@ -7,24 +7,25 @@ import Experience from '../database/models/experience'
 
 export const categoriesFromUser = async (id: ObjectId) => {
 
+    const categories = await Category.find()
 
-    const category = await Category.findOne({ name: 'Provincias/Distritos' })
+    for (let i = 0; i < categories.length; i++) {
+        
+        const categoryUser = new Categoryuser({
+            category: categories[i]._id,
+            user: id
+        })
 
-    const categoryUser = new Categoryuser({
-        category: category?._id,
-        user: id,
-        isUnlocked: true
-    })
+        const newCategoryUser = await categoryUser.save()
 
-    const categoryUserSaved = await categoryUser.save()
-
-    await User.findByIdAndUpdate(id, {
-        $push: {
-            categories: categoryUserSaved._id
-        }
-    }, {
-        new: true
-    })
+        await User.findByIdAndUpdate(id, {
+            $push: {
+                categories: newCategoryUser._id
+            }
+        }, {
+            new: true
+        })
+    }
 
 }
 

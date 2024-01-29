@@ -46,7 +46,8 @@ export const homeStyles = StyleSheet.create({
 
     userNickname: {
         fontSize: Dimensions.get("window").height / 34,
-        color: '#fff'
+        color: '#fff',
+        marginLeft: Dimensions.get("window").width / 36
     },
 
     userInfo: {
@@ -310,7 +311,6 @@ export const rankingStyles = StyleSheet.create({
     },
 
     containerHeaderRank: {
-        flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',

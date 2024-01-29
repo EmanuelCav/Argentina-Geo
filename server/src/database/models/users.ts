@@ -12,13 +12,6 @@ const userSchema = new Schema({
         unique: true,
         trim: true
     },
-    phone: {
-        type: String,
-        // required: true,
-        // unique: true,
-        trim: true,
-        default: null
-    },
     password: {
         type: String,
         required: true,
@@ -27,10 +20,6 @@ const userSchema = new Schema({
     role: {
         type: ObjectId,
         ref: 'Role'
-    },
-    level: {
-        type: ObjectId,
-        ref: 'Level'
     },
     points: {
         type: ObjectId,

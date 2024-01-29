@@ -31,7 +31,7 @@ export const experienceGame = createAsyncThunk('game/experienceGame', async (gam
 
     try {
 
-        const { data } = await updateExperienceApi(gameData.user.user.level._id, gameData.pointsData, gameData.user.token)
+        const { data } = await updateExperienceApi(gameData.pointsData, gameData.user.token)
         dispatch(updateOptionsAction(data))
 
         const res = await usersApi("total", gameData.user.token)

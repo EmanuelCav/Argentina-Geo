@@ -87,7 +87,7 @@ const Select = ({ loc, user, setSettingsData, userLocation, settingsData, data, 
                     </ScrollView>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Seleccionar" redirect={acceptSelection} isAccept={true} isCategory={false} />
+                    <ButtonMenu text="Seleccionar" redirect={acceptSelection} isAccept={true} />
                 </View>
             </View>
         </View>

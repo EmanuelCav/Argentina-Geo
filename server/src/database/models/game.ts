@@ -8,7 +8,7 @@ const gameSchema = new Schema({
 
     questions: [{
         type: ObjectId,
-        ref: 'QuestionGame'
+        ref: 'Question'
     }],
     corrects: {
         type: Number,
@@ -17,7 +17,7 @@ const gameSchema = new Schema({
     user: {
         type: ObjectId,
         ref: 'User'
-    }
+    },
 
 }, {
     timestamps: true,

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 
 import Game from '../database/models/game';
-import QuestionGame from '../database/models/questionGame';
 import Question from '../database/models/question';
 import User from '../database/models/users';
 import CategoryUser from '../database/models/categoryUser'
@@ -14,12 +13,16 @@ export const games = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const showGames = await Game.find({ user: req.user }).populate({
-            path: 'questions',
-            populate: {
-                path: 'question'
-            }
-        })
+        const showGames = await Game.find({ user: req.user })
+            .populate({
+                path: "questions",
+                populate: [{
+                    path: "image",
+                    select: "image"
+                }, {
+                    path: "category"
+                }]
+            })
 
         return res.status(200).json(showGames)
 
@@ -35,12 +38,16 @@ export const game = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const showGame = await Game.findById(id).populate(({
-            path: "questions",
-            populate: {
-                path: "question"
-            }
-        }))
+        const showGame = await Game.findById(id)
+            .populate({
+                path: "questions",
+                populate: [{
+                    path: "image",
+                    select: "image"
+                }, {
+                    path: "category"
+                }]
+            })
 
         if (!showGame) {
             return res.status(400).json({ message: "Game does not exists" })
@@ -62,35 +69,21 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         const user = await User.findById(req.user)
 
-        let categories = []
-
-        const categoriesSelected = await CategoryUser.find({ user: req.user, isSelect: true, isUnlocked: true })
+        const categoriesSelected = await CategoryUser.find({ user: req.user, isSelect: true })
 
         if (categoriesSelected.length === 0) {
             return res.status(401).json({ message: "Tienes que elegír algunas categorias para comenzar" })
         }
 
+        let categories = []
+
         for (let i = 0; i < categoriesSelected.length; i++) {
             categories.push(categoriesSelected[i].category)
         }
 
-        const avaibleQuestions = await Question.find({ category: categories, isAnswer: true })
+        const avaibleQuestions = await Question.find({ category: categories })
 
-        let amountQuestionsUser = user?.amountQuestions!
-
-        if (avaibleQuestions.length < user?.amountQuestions!) {
-
-            while (avaibleQuestions.length < amountQuestionsUser) {
-                amountQuestionsUser--
-            }
-
-            while (amountQuestionsUser % 5 !== 0) {
-                amountQuestionsUser--
-            }
-
-        }
-
-        const shuffledQuestions = shuffle(avaibleQuestions).slice(0, amountQuestionsUser)
+        const shuffledQuestions: IQuestion[] = shuffle(avaibleQuestions).slice(0, user?.amountQuestions!)
 
         const newGame = new Game({
             user: req.user
@@ -100,53 +93,9 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         for (let i = 0; i < 5; i++) {
 
-            const correctOption = Math.floor(Math.random() * user?.amountOptions!);
-
-            const categoryQuestion = await Question.find({ category: shuffledQuestions[i].category })
-            const shuffledCategoryQuestion = shuffle(categoryQuestion).filter((q: IQuestion) => q.answer !== shuffledQuestions[i].answer)
-            const uniquesOptions = [...new Set(shuffledCategoryQuestion.map((option: IQuestion) => option.answer))];
-
-            const nameCategoryUser = await CategoryUser.findOne({ user: req.user, category: shuffledQuestions[i].category })
-
-            if (!nameCategoryUser) {
-                return res.status(400).json({ message: "User category does not exists" })
-            }
-
-            const newQuestionGame = new QuestionGame({
-                question: shuffledQuestions[i]._id,
-                categoryUser: nameCategoryUser._id,
-                user: req.user
-            })
-
-            const questionSaved = await newQuestionGame.save()
-
-            for (let j = 0; j < user?.amountOptions!; j++) {
-
-                if (j === correctOption) {
-
-                    await QuestionGame.findByIdAndUpdate(questionSaved._id, {
-                        $push: {
-                            options: shuffledQuestions[i].answer
-                        }
-                    }, {
-                        new: true
-                    })
-                } else {
-
-                    await QuestionGame.findByIdAndUpdate(questionSaved._id, {
-                        $push: {
-                            options: uniquesOptions[j]
-                        }
-                    }, {
-                        new: true
-                    })
-                }
-
-            }
-
             await Game.findByIdAndUpdate(gameSaved._id, {
                 $push: {
-                    questions: questionSaved._id
+                    questions: shuffledQuestions[i]._id
                 }
             }, {
                 new: true
@@ -154,16 +103,16 @@ export const createGames = async (req: Request, res: Response): Promise<Response
 
         }
 
-        const game = await Game.findById(gameSaved._id).populate({
-            path: "questions",
-            populate: {
-                path: "question",
-                populate: {
+        const game = await Game.findById(gameSaved._id)
+            .populate({
+                path: "questions",
+                populate: [{
                     path: "image",
                     select: "image"
-                }
-            }
-        })
+                }, {
+                    path: "category"
+                }]
+            })
 
         return res.status(200).json({
             game,
