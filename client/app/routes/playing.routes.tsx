@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, Dimensions, StyleSheet, Pressable, BackHandler } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons';
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 import { INTERSTITIAL_FINISH_ID } from '@env';
 
@@ -79,6 +80,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const [minutes, setMinutes] = useState<number>(0)
     const [realSeconds, setRealSeconds] = useState<number>(0)
     const [realMinutes, setRealMinutes] = useState<number>(0)
+    const [totalSeconds, setTotalSeconds] = useState<number>(0)
     const [numberCorrect, setNumberCorrect] = useState<number>(0)
 
     const [numberQuestion, setNumberQuestion] = useState<number>(0)
@@ -96,6 +98,8 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const viewErrors = () => {
 
         dispatch(loadingAction(true))
+        setIsIncorrect(false)
+        setIsCorrect(false)
         setIsGameError(true)
         setIsFinish(false)
         setNumberQuestion(0)
@@ -123,19 +127,24 @@ const Playing = ({ navigation, route }: PlayingType) => {
             setIsIncorrect(true)
         }
 
-        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (route.params.questionsWC.length - 1))) {
-            setIsPreFinish(true)
-
-            if (!isGameError) {
-                setRealSeconds(seconds)
-                setRealMinutes(minutes)
+        if (!isGameError) {
+            if (numberQuestion < route.params.questionsWC.length - 1) {
+                setOptions(generateOptions(route.params.questionsWC[numberQuestion + 1].options, users.user.user.amountOptions))
             }
-
-            return
-
+            setRealSeconds(seconds)
+            setRealMinutes(minutes)
+        } else {
+            if (numberQuestion < errorsGame.length - 1) {
+                setOptions(generateOptions(errorsGame[numberQuestion + 1].options, users.user.user.amountOptions))
+            }
         }
 
-        setNumberQuestion(numberQuestion + 1)
+        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (route.params.questionsWC.length - 1))) {
+            if (errors.length > 0) {
+                setOptions(generateOptions(errors[0].options, users.user.user.amountOptions))
+            }
+            setIsPreFinish(true)
+        }
     }
 
     const nextQuestion = async (item: string) => {
@@ -157,19 +166,24 @@ const Playing = ({ navigation, route }: PlayingType) => {
             setIsIncorrect(true)
         }
 
-        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (games.game.questions.length - 1))) {
-
-            setIsPreFinish(true)
-
-            if (!isGameError) {
-                setRealSeconds(seconds)
-                setRealMinutes(minutes)
+        if (!isGameError) {
+            if (numberQuestion < games.game.questions.length - 1) {
+                setOptions(generateOptions(games.game.questions[numberQuestion + 1].options, users.user.user.amountOptions))
             }
-
-            return
+            setRealSeconds(seconds)
+            setRealMinutes(minutes)
+        } else {
+            if (numberQuestion < errorsGame.length - 1) {
+                setOptions(generateOptions(errorsGame[numberQuestion + 1].options, users.user.user.amountOptions))
+            }
         }
 
-        setNumberQuestion(numberQuestion + 1)
+        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (games.game.questions.length - 1))) {
+            setIsPreFinish(true)
+            if (errors.length > 0) {
+                setOptions(generateOptions(errors[0].options, users.user.user.amountOptions))
+            }
+        }
     }
 
     const experienceUser = async () => {
@@ -194,7 +208,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
         if (!isGameError) {
             setPointsData({
                 points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
-                    users.user.user.categories.filter(category => category.isSelect).length * numberCorrect) / (seconds + (60 * minutes)))
+                    users.user.user.categories.filter(category => category.isSelect).length * numberCorrect) / (totalSeconds + (60 * minutes)))
             })
         }
 
@@ -206,20 +220,30 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
     }
 
-    useEffect(() => {
-
-        setTimeout(() => {
-            setIsCorrect(false)
-            setIsIncorrect(false)
-        }, 225);
-
-    }, [isCorrect, isIncorrect])
+    const setCorrect = () => {
+        setIsCorrect(false)
+        setRealSeconds(0)
+        setRealMinutes(0)
+        if (numberQuestion !== (isGameError ? (errorsGame.length - 1) : (games.game.questions.length - 1))) {
+            setNumberQuestion(numberQuestion + 1)
+        }
+    }
+    const setIncorrect = () => {
+        setIsIncorrect(false)
+        setRealSeconds(0)
+        setRealMinutes(0)
+        if (numberQuestion !== (isGameError ? (errorsGame.length - 1) : (games.game.questions.length - 1))) {
+            setNumberQuestion(numberQuestion + 1)
+        }
+    }
 
     useEffect(() => {
         if (!isGameError) {
+
             if (seconds === 60) {
                 setSeconds(0)
                 setMinutes(minutes + 1)
+                return
             }
 
             if (minutes === 60) {
@@ -228,11 +252,14 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
             setTimeout(() => {
                 if (!isFinish && !isPreFinish) {
-                    setSeconds(seconds + 1)
+                    if (!isCorrect && !isIncorrect) {
+                        setTotalSeconds(totalSeconds + 1)
+                        setSeconds(seconds + 1)
+                    }
                 }
             }, 1000);
         }
-    }, [seconds])
+    }, [seconds, realSeconds])
 
     useEffect(() => {
         if (!isGameError) {
@@ -261,7 +288,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const statisticsCorrect = async () => {
         const { data } = await questionsCorrectApi(isPreFinish ?
             (categoryStatistic(users.user.user.categories, games.game.questions[games.game.questions.length - 1].category.name)) :
-            (categoryStatistic(users.user.user.categories, games.game.questions[numberQuestion - 1].category.name)),
+            (categoryStatistic(users.user.user.categories, games.game.questions[numberQuestion].category.name)),
             games.game._id, users.user.token)
         dispatch(getGameAction(data))
     }
@@ -272,13 +299,10 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
     useEffect(() => {
         if (!isGameError) {
-            setOptions(route.params.isConnection ? generateOptions(games.game.questions[numberQuestion].options, users.user.user.amountOptions) : generateOptions(route.params.questionsWC[numberQuestion].options, users.user.user.amountOptions))
             if (route.params.isConnection) {
                 statisticsCount()
             }
-            return
         }
-        setOptions(generateOptions(errorsGame[numberQuestion].options, users.user.user.amountOptions))
     }, [numberQuestion])
 
     useEffect(() => {
@@ -306,12 +330,6 @@ const Playing = ({ navigation, route }: PlayingType) => {
                 ) : (
                     <>
                         {
-                            isCorrect && <View style={gameStyles.containerCorrect} />
-                        }
-                        {
-                            isIncorrect && <View style={gameStyles.containerIncorrect} />
-                        }
-                        {
                             isPreFinish &&
                             <Pressable style={gameStyles.containerPreFinish} onPress={redirectFinish}>
                                 <View style={gameStyles.containPreFinish}>
@@ -324,15 +342,91 @@ const Playing = ({ navigation, route }: PlayingType) => {
                             isGameError ? (
                                 <>
                                     <ShowQuestion questions={errorsGame} numberQuestion={numberQuestion} />
-                                    <ShowOptionsGame options={options} styles={styles}
-                                        nextQuestion={route.params.isConnection ? nextQuestion : nextQuestionWihoutInternet} />
+                                    {
+                                        isCorrect ? (
+                                            <Pressable style={{
+                                                width: '100%', flex: 1, backgroundColor: 'rgb(89, 205, 238)', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column',
+                                                borderColor: '#0f0', borderWidth: 2, borderStyle: 'solid', paddingHorizontal: Dimensions.get("window").width / 60
+                                            }}
+                                                onPress={setCorrect}>
+                                                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                                    <Icon name='checkmark-circle' color={'#0f0'} size={Dimensions.get("window").height / 33} />
+                                                    <Text style={{ color: '#0f0', fontSize: Dimensions.get("window").height / 33 }}>Correcto</Text>
+                                                </View>
+                                                <Text style={{ color: '#0f0', fontSize: Dimensions.get("window").height / 37 }}>Toca para continuar</Text>
+                                            </Pressable>
+                                        ) : isIncorrect ? (
+                                            <Pressable style={{
+                                                width: '100%', flex: 1, backgroundColor: 'rgb(89, 205, 238)', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column',
+                                                borderColor: '#f00', borderWidth: 2, borderStyle: 'solid', paddingHorizontal: Dimensions.get("window").width / 60
+                                            }} onPress={setIncorrect}>
+                                                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                                    <Icon name='close-circle' color={'#f00'} size={Dimensions.get("window").height / 33} />
+                                                    <Text style={{ color: '#f00', fontSize: Dimensions.get("window").height / 33 }}>Incorrecto</Text>
+                                                </View>
+                                                <View style={{ width: '100%' }}>
+                                                    {
+                                                        route.params.isConnection &&
+                                                        <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                                            <Text style={{ color: '#f00', fontSize: Dimensions.get("window").height / 37 }}>Respuesta correcta</Text>
+                                                            <Text style={{ color: '#f00', fontSize: Dimensions.get("window").height / 37 }}>
+                                                                {errorsGame[numberQuestion].answer}
+                                                            </Text>
+                                                        </View>
+                                                    }
+                                                </View>
+                                                <Text style={{ color: '#f00', fontSize: Dimensions.get("window").height / 37 }}>Toca para continuar</Text>
+                                            </Pressable>
+                                        ) : (
+                                            <ShowOptionsGame options={options} styles={styles}
+                                                nextQuestion={route.params.isConnection ? nextQuestion : nextQuestionWihoutInternet} />
+                                        )
+                                    }
                                 </>
                             ) : (
                                 <>
                                     <ShowQuestion questions={route.params.isConnection ? games.game.questions : route.params.questionsWC} numberQuestion={numberQuestion} />
-                                    <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} seconds={seconds} minutes={minutes} />
-                                    <ShowOptionsGame options={options} styles={styles}
-                                        nextQuestion={route.params.isConnection ? nextQuestion : nextQuestionWihoutInternet} />
+                                    <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} seconds={(realSeconds > 0) ? realSeconds : (seconds === 60) ? 0 : seconds} minutes={(realMinutes > 0) ? realMinutes : minutes} />
+                                    {
+                                        isCorrect ? (
+                                            <Pressable style={{
+                                                width: '100%', flex: 1, backgroundColor: 'rgb(89, 205, 238)', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column',
+                                                borderColor: '#0f0', borderWidth: 2, borderStyle: 'solid', paddingHorizontal: Dimensions.get("window").width / 60
+                                            }}
+                                                onPress={setCorrect}>
+                                                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                                    <Icon name='checkmark-circle' color={'#0f0'} size={Dimensions.get("window").height / 33} />
+                                                    <Text style={{ color: '#0f0', fontSize: Dimensions.get("window").height / 33 }}>Correcto</Text>
+                                                </View>
+                                                <Text style={{ color: '#0f0', fontSize: Dimensions.get("window").height / 37 }}>Toca para continuar</Text>
+                                            </Pressable>
+                                        ) : isIncorrect ? (
+                                            <Pressable style={{
+                                                width: '100%', flex: 1, backgroundColor: 'rgb(89, 205, 238)', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column',
+                                                borderColor: '#f00', borderWidth: 2, borderStyle: 'solid', paddingHorizontal: Dimensions.get("window").width / 60
+                                            }} onPress={setIncorrect}>
+                                                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                                    <Icon name='close-circle' color={'#f00'} size={Dimensions.get("window").height / 33} />
+                                                    <Text style={{ color: '#f00', fontSize: Dimensions.get("window").height / 33 }}>Incorrecto</Text>
+                                                </View>
+                                                <View style={{ width: '100%' }}>
+                                                    {
+                                                        route.params.isConnection &&
+                                                        <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                                            <Text style={{ color: '#f00', fontSize: Dimensions.get("window").height / 37 }}>Respuesta correcta</Text>
+                                                            <Text style={{ color: '#f00', fontSize: Dimensions.get("window").height / 37 }}>
+                                                                {games.game.questions[numberQuestion].answer}
+                                                            </Text>
+                                                        </View>
+                                                    }
+                                                </View>
+                                                <Text style={{ color: '#f00', fontSize: Dimensions.get("window").height / 37 }}>Toca para continuar</Text>
+                                            </Pressable>
+                                        ) : (
+                                            <ShowOptionsGame options={options} styles={styles}
+                                                nextQuestion={route.params.isConnection ? nextQuestion : nextQuestionWihoutInternet} />
+                                        )
+                                    }
                                 </>
                             )
                         }

@@ -284,14 +284,62 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         }
 
         // let options = ["Aconcagua", "Monte Pissis", "Cerro Bonete Chico", "Cerro Catedral", "Cerro de los Siete Colores", "Cerro Torre", "Chañi", "Cerro Tronador", "Champaquí", "Volcán Lanín"]
-        // let options = ["Tucumán", "Santiago del Estero", "Chaco", "Córdoba", "Chubut", "Buenos Aires", "Jujuy", "Salta", "La Rioja", "Catamarca", "Formosa", "Misiones", "Corrientes", "Entre Ríos", "Santa Fe", "San Juan", "San Luis", "Ciudad Autónoma de Buenos Aires", "Mendoza", "La Pampa", "Neuquén", "Río Negro", "Santa Cruz", "Tierra del Fuego, Antártida e Islas del Atlántico Sur"]
+        // let options = ["Córdoba", "Tucumán", "Buenos Aires", "Santiago del Estero", "Jujuy", "Mendoza", "Salta", "Chaco", "Chubut", "La Rioja", "Catamarca", "Formosa", "Misiones", "Corrientes", "Entre Ríos", "Santa Fe", "San Juan", "San Luis", "Ciudad Autónoma de Buenos Aires", "La Pampa", "Neuquén", "Río Negro", "Santa Cruz", "Tierra del Fuego, Antártida e Islas del Atlántico Sur"]
         // let options = ["Río Paraná", "Río Cuarto", "Río Uruguay", "Río Atuel", "Río de la Plata", "Río Bermejo", "Río Colorado", "Río Salado", "Río Paraguay", "Río Negro"]
         // let options = ["Lago Argentino", "Lago Nahuel Huapi", "Lago Viedma", "Lago Lácar", "Lago Musters", "Lago Cardiel", "Lago Epecuén", "Lago Pellegrini", "Lago Buenos Aires", "Lago Aluminé"]
+        // let options = ["1", "3", "2", "5", "6", "Ninguno", "4", "8", "7", "9"]
 
-        // let options = ["1816", "1853", "1810", "1812", "1794", "1804", "1914", "1888", "1867", "1891"]
-        // let options = ["1946", "1933", "1937", "1942", "1952", "1955", "1960", "1929", "1964", "1968"]
+        // let options = ["Paula Pareto", "Marcela Acuña", "Cecilia Carranza Saroli", "Georgina Bardach", "Gabriela Sabatini", "Luciana Aymar", "Paola Sanchez", "Noemí Sarmiento", "Jeanette Campbell", "Cecilia Rognoni"]
+        // let options = ["Argentinos Juniors", "Newell's Old Boys", "Ferro", "Chacarita", "Boca Juniors", "San Lorenzo", "Banfield", "Independiente", "Rosario Central", "Talleres"]
+        // let options = ["Pascual Pérez", "Carlos Monzón", "Sergio Martinez", "Brian Castaño", "José María Gatica", "Nicolino Locche", "Omar Narváez", "Luis Ángel Firpo", "Victor Zalazar", "Marcos Maidana"]
+        // let options = ["La Tigresa", "La Leona", "La Garra", "La Pantera", "La Puma", "La Tiburona", "La Locomotora", "La Chita", "La Jirafa", "La Merluza"]
+        // let options = ["1978", "1986", "1982", "2002", "2010", "1962", "1966", "1930", "1938", "1954"]
+        // let options = ["Guillermo Vilas", "David Nalbandian", "Juan Martín del Potro", "Gastón Gaudio", "Guillermo Coria", "José Luis Clerc", "Juan Mónaco", "Guillermo Pérez Roldan", "Martín Jaite", "Diego Schwartzman"]
+        // let options = ["Mario Alberto Kempes", "Daniel Passarella", "Ricardo Bochini", "Jorge Burruchaga", "Diego Armando Maradona", "José Luis Brown", "Américo Gallego", "Gabriel Batistuta", "Jorge Valdano", "René Houseman"]
+        // let options = ["Lionel Messi", "Gabriel Batistuta", "Diego Armando Maradona", "Javier Zanetti", "Juan Sebastián Verón", "Sergio Agüero", "Carlos Tévez", "Mario Alberto Kempes", "Jorge Valdano", "Ariel Ortega"]
+        // let options = ["Rugby", "Tenis", "Natación", "Fútbol", "Tenis de mesa", "Automovilismo", "Voleibol", "Handball", "Atletismo", "Esgrima"]
+        // let options = ["Juan Manuel Fangio", "Delfo Cabrera", "Juan Cucuchet", "Roberto De Vicenzo", "Luis Scola", "Felipe Contepomi", "Alberto Demiddi", "Carlos Reutemann", "Hugo Porta", "Hugo Conte"]
+        // let options = ["Gigante de Arroyito", "Marcelo Bielsa", "Brigadier General Estanislao López", "Presidente Perón", "Florencio Sola", "Norberto Tomaghello", "15 de Abril", "José Amalfitani", "Arquitecto Ricardo Etcheverri", "Ciudad de Vicente López"]
+
+        // let options = ["Soda Stereo", "Divididos", "Tan Biónica", "Las Pelotas", "Los Abuelos de la Nada", "Virus", "Serú Girán", "Babasónicos", "Pescado Rabioso", "Almendra", "Los Auténticos Decadentes", "Los Twist", "Los Piojos", "La Renga", "Hermética", "Los Gatos", "Los Fabulosos Cadillacs", "Patricio Rey y Sus Redonditos de Ricota", "Pappo's Blues", "Los Pericos", "Callejeros", "Los Beatniks", "Rata Blanca", "Almafuerte", "Ratones Paranoicos", "Riff", "V8", "O'Connor", "La Bersuit", "Attaque 77", "Intoxicados", "Sui Generis", "Sumo", "Enanitos Verdes", "Ciro y Los Persas", "Catupecu Machu"]
+        // let options = ["Andrés Calamaro", "Vicentico", "Palito Ortega", "Fito Páez", "Diego Torres", "Pappo", "Patricia Sosa", "Luciano Pereyra", "Mercedes Sosa", "Fabiana Cantilo", "Gilda", "Valeria Lynch", "Sandra Mihanovich", "Soledad Pastorutti", "Tita Merello", "Dread Mar-I", "Alejandro Lerner", "Axel", "Abel Pintos", "Ulises Bueno", "Osvaldo Frascino", "Litto Nebbia", "Adrián Barilari", "Daniel Agostini", "Federico Moura", "Miguel Abuelo", "Gustavo Cerati", "Luis Alberto Spinetta", "Andrés Ciro Martínez", "Charly García", "León Gieco", "Sandro", "Ricardo Iorio", "Indio Solari", "Walter Olmos", "Rodrigo Bueno"]
+        // let options = ["Tango", "Música clásica", "Salsa", "Jazz", "Folklore", "Country", "Pop", "Rock", "Reggae", "Cuarteto", "Reggaetón"]
+        // let options = ["Astor Piazzolla", "Alberto Marino", "Enrique Santos Discépolo", "Tita Merello", "Carlos Gardel", "Horacio Salgan", "Ada Falcón", "Osvaldo Pugliese", "Eduardo Arolas", "Dino Saluzzi", "Roberto Goyeneche", "Edmundo Rivero", "Mercedes Sosa", "Julio Sosa"]
+        // let options = ["Guitarra", "Tambor", "Violín", "Saxofón", "Gaita", "Piano", "Flauta", "Trompeta", "Bandoneón", "Ukelele", "Dejembe"]
+        // let options = ["1991", "1986", "1979", "1983", "1994", "1974", "1988", "1993", "1997", "1998"]
+        // let options = ["Paulo Londra", "Duki", "Lit Killah", "Khea", "Maria Becerra", "Tini", "Trueno", "Thiago PZK", "Rusherking", "Nicki Nicole", "Luck Ra", "Cazzu", "Milo J", "Neo Pistea", "Emilia Mernes", "Wos"]
+
+        // let options = ["2", "Ninguno", "3", "4", "5", "6", "1", "8", "9", "7"]
+        // let options = ["Soledad Villamil", "Carla Quevedo", "Cecilia Dopazo", "Guillermo Francella", "Leonardo Sbaraglia", "Pablo Rago", "Luis Brandoni", "Ernesto Alterio", "Juan Carlos Altavista", "Ernesto Alterio", "Juan Diego Botto", "Rodrigo de la Serna", "Juan Minujín", "Alfredo Alcón", "Peter Lanzini", "Alejandra Flechner", "Héctor Alterio", "Hugo Arana", "Norma Alejandro", "Julio Chávez", "Chino Darín", "Facundo Arana", "Antonio Gasalla", "Luis Machín", "Alejandro Awada", "Graciela Borges", "Dolores Fonzi", "Cecilia Roth", "Carla Petersonn", "Julieta Díaz", "Ana María Pichio", "Federico Luppi"]
+        // let options = ["Relatos salvajes", "El secreto de sus ojos", "Nueve reinas", "La historia oficial", "Inseparables", "La odisea de los giles", "El aura", "El robo del siglo"]
+        // let options = ["Santiago Mitre", "Sergio Renán", "Damián Szifron", "Gaspar Noé", "Juan José Campanella", "Andrés Muschietti", "Fernando Ayala", "Luis Puenzo", "Sebastián Borensztein", "Juan José Jusid", "Ezequiel Acuña", "Lorena Muñoz", "Alejandro Agresti", "Susana Blaustein Muñoz", "Fabián Bielinsky", "Fernando Birri", "Leonardo Favio", "Eliseo Subiela", "Pablo Trapero", "Marcelo Piñeyro", "Diego Lerman", "Hugo del Carril", "Leopoldo Torre Nilsson", "Lucrecia Martel", "Adolfo Aristarain", "María Luisa Bemberg", "Carlos Saura", "Héctor Olivera", "Carlos Hugo Christensen", "Manuel Antín"]
+        // let options = ["No Toca Botón", "La Tuerca", "Hiperhumor", "Telecómicos", "Hora de reír", "Gran Cuñado", "Telecataplúm", "Operación Ja-Já"]
+        // let options = ["Sos mi vida", "Montecristo", "Valientes", "Los simuladores", "Son amores", "Graduados", "Malparida", "Soy gitano"]
+        // let options = ["Gustavo Santaolalla", "Lalo Schifrin", "Jorge Calandrelli", "Héctor Babenco", "Jorge Prelorán", "Norma Aleandro", "Bérénice Bejo", "Pablo Helman"]
+        // let options = ["1942", "1957", "1951", "1968", "1913", "1931", "1970", "1966"]
+        // let options = ["Comedia", "Aventura", "Fantasía", "Drama", "Ciencia Ficción", "Terror", "Musical", "Suspenso"]
+        // let options = ["Tato Bores", "Héctor Alterio", "Antonio Gasalla", "Roberto Moldavsky", "Alberto Olmedo", "Alfredo Alcón", "Federico Luppi", "Carlitos Bala"]
+        // let options = ["Violetta", "Floricienta", "Rincón de Luz", "Soy Luna", "Niní", "Casi Ángeles", "Rebelde Way", "Aliados"]
+        // let options = ["Mi obra maestra", "El bonaerense", "El hombre de al lado", "El suplente", "Kamchatka", "Re loca", "Doble discurso", "Permitidos"]
+        // let options = ["Quirino Cristiani", "Liniers", "Divito", "Luis Sandrini", "Quino", "Antonio Mingote", "Roberto Fontanarrosa", "Manuel García Ferré"]
+        // let options = ["Alberto Olmedo", "Tato Bores", "Jorge Porcel", "Javier Portales", "Antonio Gasalla", "Gerardo Sofovich", "Adolfo García Grau", "Juan Carlos Altavista"]
+
+        let options = ["Un asesinato", "Un incendio", "Una tormenta", "Un accidente aéreo", "Un casamiento", "Una guerra", "Un evento deportivo", "Un recital", "Un terremoto", "Un tsunami"]
+        // let options = ["Alejandra Pizarnik", "Alfonsna Storni", "Marco Denevi", "Leila Guerriero", "Liliana Bodoc", "José Hernández", "Ernesto Sábato", "Abelardo Castillo",  "Haroldo Conti", "Leopoldo Lugones", "Roberto Arlt", "Leónidas Barletta", "Macedonio Fernández", "Manuel Galvez", "Héctor Germán Oesterheld", "Gregorio Weinber", "Esteban Echeverría", "Antonio Di Benedetto", "Manuel Puig", "Juana Manzo", "Sara Gallardo", "Rodolfo Walsh", "Hebe Uhart", "Angélica Gorodischer", "Julio Cortázar", "Juan José Saer", "Ricardo Rojas", "Osvaldo Soriano", "Ricardo Piglia", "Juan Gelman", "Adolfo Bioy Casares", "Hector Tizón", "Ana María Shua", "Olga Orozco", "Carlos Guido", "Ricardo Guiraldes", "Maria Elena Walsh", "Leopoldo Marechal", "Jorge Luis Borges"]
+        // let options = ["4", "1", "8", "7", "Ninguno", "10", "5", "2", "9", "6"]
+        // let options = ["1871", "1910", "1834", "1850", "1945", "1940", "1814", "1828", "1922", "1931"]
+        // let options = ["La invención de Morel", "Ficciones", "El inmortal", "El Aleph", "La biblioteca de Babel", "Labyrinths", "El jardín de senderos que se bifurcan", "La casa de Asterión", "Funes el memorioso", "El otro"]
+        // let options = ["Los siete locos", "Plata quemada", "El túnel", "El tiempo de las moscas", "Rayuela", "El beso de la mujer araña", "El Aleph", "La furia", "El enterrado", "Sarmiento"]
+        // let options = ["Horacio Oliveira", "Juan Pablo Castel", "María Iribarne", "Camilo Canegato", "Juan Salvo", "Salvador Benesdra", "Philip Marlowe", "David Réguel", "Isabel Fúnes", "Ángel Ergueta"]
+        // let options = ["José León Suárez", "Caseros", "Bernal", "Tortuguitas", "San Fernando", "González Catán", "Ezeiza", "Luján", "Pilar", "Zárate"]
+        // let options = ["13 de junio", "28 de febrero", "14 de enero", "22 de octubre", "16 de agosto", "4 de noviembre", "20 de diciembre", "6 de julio", "4 de mayo", "22 de mayo"]
+        // let options = ["Kalpa imperial", "Historias de cronopios y de famas", "Rayuela", "Casa tomada", "Bestiario", "Los premios", "La señorita Cora", "La noche boca arriba", "Final del juego", "Las armas secretas"]
+
+        // let options = ["Yapeyú", "Gualeguay", "Tandil", "Venado Tuerto", "Quilmes", "Posadas", "Oberá", "La Banda", "Colón", "Clorinda"]
+        // let options = ["Operación Rosario", "Operación Georgias", "Batalla de San Carlos", "Operación Paraquet", "Revolución Argentina", "Revolución Libertadora", "Proceso de Reorganización Nacional", "Revolución del 43", "Éxodo Jujeño", "Batalla de Caseros"]
         // let options = ["Batalla de la Vuelta de Obligado", "Batalla de Caseros", "Combate de San Lorenzo", "Batalla de Pavón", "Éxodo Jujeño", "Revolución de Mayo", "Declaración de la Independencia", "Fundación de Buenos Aires", "Creación de la Bandera", "Retorno a la democracía"]
-        let option = ["Manuel Belgrano", "", ""]
+        // let options = ["Martín Miguel de Güemes", "Cornelio Saavedra", "Domingo Faustino Sarmiento", "Bartolomé Mitre", "Julio Argentino Roca", "Juan José Castelli", "Adolfo Alsina", "Manuel Belgrano", "Roque Sáenz Peña", "Nicolás Avellaneda"]
+        // let options = ["Mariquita Sánchez de Thompson", "Juana Azurduy", "Eva Perón", "Machacha Güemes", "José María Paz", "Alicia Moreau de Justo", "Manuel Alberti", "Jorge Newbery", "Carlos Saavedra Lamas", "Francisco Laprida"]
 
         await Question.findByIdAndUpdate(id, {
             $set: {
@@ -302,6 +350,33 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         })
 
         return res.status(200).json({ message: "Option created successfully" })
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const updateQuestion = async (req: Request, res: Response): Promise<Response> => {
+
+    const { question } = req.body
+    const { id } = req.params
+
+    try {
+
+        const questionFound = await Question.findById(id)
+
+        if (!questionFound) {
+            return res.status(400).json({ message: "Question does not exists" })
+        }
+
+        const questionUpdated = await Question.findByIdAndUpdate(id, {
+            question
+        }, {
+            new: true
+        })
+
+        return res.status(200).json(questionUpdated)
 
     } catch (error) {
         throw error

@@ -21,5 +21,6 @@ router.patch('/questions/count/:id', auth, questionsCtrl.gameQuestion)
 router.patch('/questions/correct/:id/:gameId', auth, questionsCtrl.correctQuestion)
 router.patch('/questions/:questionId/game/:id', auth, questionsCtrl.generateQuestion)
 router.patch('/questions/:id/options', questionsCtrl.generateOption)
+router.put('/questions/:id', questionsCtrl.updateQuestion)
 
 export default router

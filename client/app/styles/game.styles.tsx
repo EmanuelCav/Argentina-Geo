@@ -19,7 +19,8 @@ export const gameStyles = StyleSheet.create({
         borderWidth: 4,
         borderStyle: 'solid',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingHorizontal: Dimensions.get("window").width / 45
     },
 
     imageQuestion: {

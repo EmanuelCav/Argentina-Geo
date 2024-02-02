@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 
 import Category from '../database/models/category';
+import CategoryUser from '../database/models/categoryUser';
+import User from '../database/models/users';
 
 export const categories = async (req: Request, res: Response): Promise<Response> => {
 
@@ -58,6 +60,26 @@ export const removeCategories = async (req: Request, res: Response): Promise<Res
 
         return res.status(200).json({ message: "Category was removed successfully" })
 
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const patchCategory = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+
+    try {
+
+        await User.findByIdAndUpdate(id, {
+            $pull: {
+                categories: "65b7e08117f60c32e7e5a443"
+            }
+        })
+
+        return res.status(200).json("patched")
+        
     } catch (error) {
         throw error
     }
