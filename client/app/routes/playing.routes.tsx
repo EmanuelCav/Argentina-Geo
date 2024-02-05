@@ -208,7 +208,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
         if (!isGameError) {
             setPointsData({
                 points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
-                    users.user.user.categories.filter(category => category.isSelect).length * numberCorrect) / (totalSeconds + (60 * minutes)))
+                    users.user.user.categories.filter(category => category.isSelect).length * numberCorrect) / (totalSeconds))
             })
         }
 

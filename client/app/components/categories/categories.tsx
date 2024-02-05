@@ -42,10 +42,24 @@ const Categories = ({ user, categories, setIsCategories, isConnection }: Categor
         <View style={configGamesStyles.containerConfigGames}>
             <View style={configGamesStyles.configGamesContain}>
                 <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <Pressable onPress={selectAll} style={{ borderWidth: 1, borderColor: '#597EEE', borderStyle: 'solid', padding: Dimensions.get("window").height / 106, width: '50%', justifyContent: 'center', alignItems: 'center' }} >
+                    <Pressable onPress={selectAll} style={({ pressed }) => [
+                        {
+                            backgroundColor: pressed ? '#DDDDDD' : '#FFFFFF',
+                        },
+                        {
+                            borderWidth: 1, borderColor: '#597EEE', borderStyle: 'solid', padding: Dimensions.get("window").height / 106, width: '50%', justifyContent: 'center', alignItems: 'center'
+                        }
+                    ]}>
                         <Text style={{ fontSize: Dimensions.get("window").height / 46, color: '#597EEE' }}>Seleccionar todo</Text>
                     </Pressable>
-                    <Pressable onPress={quitAll} style={{ borderWidth: 1, borderColor: '#597EEE', borderStyle: 'solid', padding: Dimensions.get("window").height / 106, width: '50%', justifyContent: 'center', alignItems: 'center' }} >
+                    <Pressable onPress={quitAll} style={({ pressed }) => [
+                        {
+                            backgroundColor: pressed ? '#DDDDDD' : '#FFFFFF',
+                        },
+                        {
+                            borderWidth: 1, borderColor: '#597EEE', borderStyle: 'solid', padding: Dimensions.get("window").height / 106, width: '50%', justifyContent: 'center', alignItems: 'center'
+                        }
+                    ]} >
                         <Text style={{ fontSize: Dimensions.get("window").height / 46, color: '#597EEE' }}>Quitar todo</Text>
                     </Pressable>
                 </View>
@@ -62,7 +76,7 @@ const Categories = ({ user, categories, setIsCategories, isConnection }: Categor
                     <ButtonMenu text="Aceptar" redirect={acceptCategories} isAccept={true} />
                 </View>
             </View>
-        </View>
+        </View >
     )
 }
 

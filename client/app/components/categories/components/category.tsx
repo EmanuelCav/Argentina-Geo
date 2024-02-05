@@ -36,7 +36,12 @@ const Category = ({ user, category, isConnection }: CategoryProps) => {
     }
 
     return (
-        <Pressable style={menuStyles.categoryContainer}
+        <Pressable style={({ pressed }) => [
+            {
+                backgroundColor: pressed ? '#DDDDDD' : '#FFFFFF',
+            },
+            menuStyles.categoryContainer
+        ]}
             onPress={selectCategory}>
             <Text adjustsFontSizeToFit style={menuStyles.textCategory}>
                 {category.name}
@@ -46,6 +51,7 @@ const Category = ({ user, category, isConnection }: CategoryProps) => {
                     value={isSelect()}
                     color={isSelect() ? '#597EEE' : undefined}
                     style={{ padding: Dimensions.get("window").height / 92.5 }}
+                    onValueChange={selectCategory}
                 />
             }
         </Pressable>

@@ -284,10 +284,15 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         }
 
         // let options = ["Aconcagua", "Monte Pissis", "Cerro Bonete Chico", "Cerro Catedral", "Cerro de los Siete Colores", "Cerro Torre", "Chañi", "Cerro Tronador", "Champaquí", "Volcán Lanín"]
-        // let options = ["Córdoba", "Tucumán", "Buenos Aires", "Santiago del Estero", "Jujuy", "Mendoza", "Salta", "Chaco", "Chubut", "La Rioja", "Catamarca", "Formosa", "Misiones", "Corrientes", "Entre Ríos", "Santa Fe", "San Juan", "San Luis", "Ciudad Autónoma de Buenos Aires", "La Pampa", "Neuquén", "Río Negro", "Santa Cruz", "Tierra del Fuego, Antártida e Islas del Atlántico Sur"]
+
+        // let options = ["Salta", "Santa Fe", "Río Negro", "Tierra del Fuego, Antártida e Islas del Atlántico Sur", "Buenos Aires", "Entre Ríos", "Córdoba", "Corrientes", "Catamarca", "Tucumán", "Misiones", "San Luis", "Neuquén", "Mendoza", "Santiago del Estero", "La Pampa", "Chubut", "Formosa", "Jujuy", "Chaco", "Santa Cruz", "La Rioja", "San Juan", "Ciudad Autónoma de Buenos Aires"]
         // let options = ["Río Paraná", "Río Cuarto", "Río Uruguay", "Río Atuel", "Río de la Plata", "Río Bermejo", "Río Colorado", "Río Salado", "Río Paraguay", "Río Negro"]
         // let options = ["Lago Argentino", "Lago Nahuel Huapi", "Lago Viedma", "Lago Lácar", "Lago Musters", "Lago Cardiel", "Lago Epecuén", "Lago Pellegrini", "Lago Buenos Aires", "Lago Aluminé"]
         // let options = ["1", "3", "2", "5", "6", "Ninguno", "4", "8", "7", "9"]
+        // let options = ["", "", "", "", "", "", "", "", "", ""]
+        // let options = ["Glaciar Perito Moreno", "Glaciar Grey", "Monte Fitz Roy", "Glaciar Spegazzini", "Cerro Torre", "Mundo Marino", "Glaciar Seco", "Glaciar Onelli", "Cerro Tres Picos", "Monte Shipton"]
+        let options = ["Mar del Plata", "Necochea", "Las Grutas", "Punta Alta", "Vila Gesell", "Puerto Madryn", "Pinamar", "Comodoro Rivadavia", "Miramar", "Caleta Olivia", "Río Grande"]
+        // let options = ["Península Valdés", "Península Mitre", "Península San Antonio", "Bahía de Samborombón", "Península de Magallanes", "Península Viedma", "Bahía Grande", "Bahía San Antonio", "Bahía Blanca", "Península El Páramo"]
 
         // let options = ["Paula Pareto", "Marcela Acuña", "Cecilia Carranza Saroli", "Georgina Bardach", "Gabriela Sabatini", "Luciana Aymar", "Paola Sanchez", "Noemí Sarmiento", "Jeanette Campbell", "Cecilia Rognoni"]
         // let options = ["Argentinos Juniors", "Newell's Old Boys", "Ferro", "Chacarita", "Boca Juniors", "San Lorenzo", "Banfield", "Independiente", "Rosario Central", "Talleres"]
@@ -324,7 +329,7 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         // let options = ["Quirino Cristiani", "Liniers", "Divito", "Luis Sandrini", "Quino", "Antonio Mingote", "Roberto Fontanarrosa", "Manuel García Ferré"]
         // let options = ["Alberto Olmedo", "Tato Bores", "Jorge Porcel", "Javier Portales", "Antonio Gasalla", "Gerardo Sofovich", "Adolfo García Grau", "Juan Carlos Altavista"]
 
-        let options = ["Un asesinato", "Un incendio", "Una tormenta", "Un accidente aéreo", "Un casamiento", "Una guerra", "Un evento deportivo", "Un recital", "Un terremoto", "Un tsunami"]
+        // let options = ["Un asesinato", "Un incendio", "Una tormenta", "Un accidente aéreo", "Un casamiento", "Una guerra", "Un evento deportivo", "Un recital", "Un terremoto", "Un tsunami"]
         // let options = ["Alejandra Pizarnik", "Alfonsna Storni", "Marco Denevi", "Leila Guerriero", "Liliana Bodoc", "José Hernández", "Ernesto Sábato", "Abelardo Castillo",  "Haroldo Conti", "Leopoldo Lugones", "Roberto Arlt", "Leónidas Barletta", "Macedonio Fernández", "Manuel Galvez", "Héctor Germán Oesterheld", "Gregorio Weinber", "Esteban Echeverría", "Antonio Di Benedetto", "Manuel Puig", "Juana Manzo", "Sara Gallardo", "Rodolfo Walsh", "Hebe Uhart", "Angélica Gorodischer", "Julio Cortázar", "Juan José Saer", "Ricardo Rojas", "Osvaldo Soriano", "Ricardo Piglia", "Juan Gelman", "Adolfo Bioy Casares", "Hector Tizón", "Ana María Shua", "Olga Orozco", "Carlos Guido", "Ricardo Guiraldes", "Maria Elena Walsh", "Leopoldo Marechal", "Jorge Luis Borges"]
         // let options = ["4", "1", "8", "7", "Ninguno", "10", "5", "2", "9", "6"]
         // let options = ["1871", "1910", "1834", "1850", "1945", "1940", "1814", "1828", "1922", "1931"]

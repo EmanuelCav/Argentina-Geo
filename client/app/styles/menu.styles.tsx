@@ -48,7 +48,6 @@ export const menuStyles = StyleSheet.create({
     categoryContainer: {
         flex: 1,
         width: '100%',
-        backgroundColor: '#FFFFFF',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
