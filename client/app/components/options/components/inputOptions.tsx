@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { View } from "react-native";
 import { useSelector, useDispatch } from 'react-redux'
 
-import ButtonMenu from "../../buttonMenu";
-import SliderQuestion from './components/sliderQuestion';
-import SelectOption from './components/selectOption';
+import ButtonMenu from "../../ButtonMenu";
+import SliderQuestion from './components/SliderQuestion';
+import SelectOption from './components/SelectOption';
 
 import { updateOptionsApi } from '../../../server/api/user.api'
 import { updateOptionsAction } from '../../../server/features/user.features'

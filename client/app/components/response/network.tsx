@@ -5,7 +5,7 @@ import { gameStyles } from '../../styles/game.styles'
 
 import { InternetType } from '../../types/response.types'
 
-import ButtonMenu from '../buttonMenu'
+import ButtonMenu from '../ButtonMenu'
 import { responseStyles } from '../../styles/response.styles'
 
 const Network = ({ firstTime, setIsInternet }: InternetType) => {

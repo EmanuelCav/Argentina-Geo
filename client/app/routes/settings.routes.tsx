@@ -6,13 +6,13 @@ import { useRoute } from '@react-navigation/native';
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
 
-import ButtonMenu from "../components/buttonMenu";
-import Selector from "../components/settings/selector";
-import CodeSettings from "../components/settings/codeSettings";
-import Select from "../components/select";
-import Auth from "../components/settings/components/auth";
-import ChangeCode from "../components/settings/changeCode";
-import ChangeName from "../components/settings/changeName";
+import ButtonMenu from "../components/ButtonMenu";
+import Selector from "../components/settings/Selector";
+import CodeSettings from "../components/settings/CodeSettings";
+import Select from "../components/Select";
+import Auth from "../components/settings/components/Auth";
+import ChangeCode from "../components/settings/ChangeCode";
+import ChangeName from "../components/settings/ChangeName";
 
 import { IReducer } from "../interface/Reducer";
 import { ISetting } from "../interface/User";
@@ -132,7 +132,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
             <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname}
                 setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} isConnection={isConnection} />
             <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} isCategory={false} />
+                <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} />
             </View>
         </View>
     )

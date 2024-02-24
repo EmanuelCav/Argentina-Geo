@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 import { fetch } from '@react-native-community/netinfo';
 import { useRoute } from '@react-navigation/native';
 
-import UserRank from "../components/ranking/userRank";
-import ButtonMenu from "../components/buttonMenu";
-import FilterRank from "../components/ranking/filterRank";
-import Profile from '../components/profile/profile';
-import LocationRank from '../components/ranking/locationRank';
+import UserRank from "../components/ranking/UserRank";
+import ButtonMenu from "../components/ButtonMenu";
+import FilterRank from "../components/ranking/FilterRank";
+import Profile from '../components/profile/Profile';
+import LocationRank from '../components/ranking/LocationRank';
 
 import { rankingStyles, homeStyles } from "../styles/home.styles";
 

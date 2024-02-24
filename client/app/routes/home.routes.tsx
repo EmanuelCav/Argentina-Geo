@@ -3,10 +3,10 @@ import { View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
 import { fetch } from "@react-native-community/netinfo";
 
-import User from '../components/home/user'
-import Options from '../components/home/options'
-import Profile from '../components/profile/profile';
-import Network from '../components/response/network';
+import User from '../components/home/User'
+import Options from '../components/home/Options'
+import Profile from '../components/profile/Profile';
+import Network from '../components/response/Network';
 
 import { gamesApi } from '../server/api/game.api'
 import { getDateExperienceApi, usersApi } from '../server/api/user.api'

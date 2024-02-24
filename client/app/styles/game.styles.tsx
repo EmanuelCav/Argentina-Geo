@@ -158,6 +158,42 @@ export const gameStyles = StyleSheet.create({
         color: '#597EEE',
         fontWeight: '600',
         marginVertical: Dimensions.get("window").height / 37
+    },
+
+    containerAnswer: {
+        width: '100%',
+        flex: 1,
+        backgroundColor: '#ffffff',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'column',
+        borderWidth: 2,
+        borderStyle: 'solid',
+        paddingHorizontal: Dimensions.get("window").width / 60
+    },
+
+    headerAnswer: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    showCorrect: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    containerHeaderQuestion: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    containDataGame: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 
 })
@@ -214,6 +250,6 @@ export const configGamesStyles = StyleSheet.create({
         fontSize: Dimensions.get("window").height / 33.63,
         fontWeight: '900',
         color: '#888'
-    }
+    },
 
 })

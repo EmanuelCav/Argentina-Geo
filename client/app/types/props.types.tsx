@@ -29,7 +29,12 @@ export type ButtonGameProps = {
 export type ButtonNavigateProps = {
     text: string;
     redirect: () => void;
-    styles: any;
+}
+
+export type OptionGamePropsType = {
+    text: string;
+    nextQuestion: (item: string) => void;
+    amountOptions: number;
 }
 
 export type ShowStatisticsProps = {
@@ -159,13 +164,12 @@ export type GameDataProps = {
     minutes: number;
 }
 
-export type TimeProps = {
+export type TimePropsType = {
     seconds: number;
     minutes: number;
-    specialText: string;
 }
 
-export type FinishProps = {
+export type FinishPropsType = {
     seconds: number;
     minutes: number;
     corrects: number;
@@ -175,7 +179,7 @@ export type FinishProps = {
     areErrors: boolean;
     isGameError: boolean;
     isConnection: boolean | null;
-    interstitial: InterstitialAd;
+    interstitial?: InterstitialAd;
 }
 
 export type ShowQuestionProps = {
@@ -185,8 +189,8 @@ export type ShowQuestionProps = {
 
 export type ShowOptionGameProps = {
     options: string[];
-    styles: any;
     nextQuestion: (item: string) => void;
+    amountOptions: number;
 }
 
 export type RankingProps = {
@@ -246,6 +250,25 @@ export type UpdateCategoryDataProps = {
 export type UpdateAllCategoryDataProps = {
     query: SelectCategories;
     token: string;
+}
+
+export type AnswerPropsType = {
+    isCorrect: boolean; 
+    answer: string;  
+    continueGame: () => void;
+}
+
+export type QuestionPositionPropsType = {
+    numberQuestion: number; 
+    amountQuestions: number;
+}
+
+export type DataFinishPropsType = {
+    seconds: number;
+    minutes: number;
+    corrects: number;
+    points: number;
+    isGameError: boolean;
 }
 
 export type SelectCategories = {

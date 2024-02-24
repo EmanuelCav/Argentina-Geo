@@ -50,6 +50,10 @@ const userSchema = new Schema({
         type: ObjectId,
         ref: 'Municipio',
         default: null
+    },
+    helps: {
+        type: Number,
+        default: 3
     }
 
 }, {

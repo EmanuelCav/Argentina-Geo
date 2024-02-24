@@ -1,4 +1,7 @@
-import { View, Text, Image } from "react-native";
+import { View } from "react-native";
+
+import HeaderQuestion from "./components/showQuestion/HeaderQuestion";
+import ImageQuestion from "./components/showQuestion/ImageQuestion";
 
 import { ShowQuestionProps } from "../../types/props.types";
 
@@ -7,16 +10,10 @@ import { gameStyles } from '../../styles/game.styles';
 const ShowQuestion = ({ questions, numberQuestion }: ShowQuestionProps) => {
     return (
         <View style={gameStyles.containerQuestion}>
-            <View style={[{ width: '100%', justifyContent: 'center', alignItems: 'center' }, { height: questions[numberQuestion].image && '33%' }]}>
-                <Text style={gameStyles.textQuestionGame}>{questions[numberQuestion].question}</Text>
-            </View>
+            <HeaderQuestion question={questions[numberQuestion]} />
             {
-
                 questions[numberQuestion].image &&
-                <View style={{ height: '67%', width: '100%' }}>
-                    <Image source={{ uri: questions[numberQuestion].image.image }}
-                        style={gameStyles.imageQuestion} resizeMode={"contain"} />
-                </View>
+                <ImageQuestion question={questions[numberQuestion]} />
             }
         </View>
     )

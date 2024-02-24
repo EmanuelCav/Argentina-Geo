@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { View } from 'react-native'
 
-import ButtonSettings from "./components/buttonSettings";
-import Input from "./components/input";
-import Error from '../../../components/response/error';
+import ButtonSettings from "./components/ButtonSettings";
+import Input from "./components/Input";
+import Error from '../../response/Error';
 
 import { auth } from "../../../server/actions/user.actions";
 

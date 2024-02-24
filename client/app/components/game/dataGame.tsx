@@ -1,6 +1,8 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
-import Time from './components/time';
+import Time from './components/dataGame/Time';
+import QuestionPosition from './components/dataGame/QuestionPosition';
+import Helps from './components/dataGame/Helps';
 
 import { gameStyles } from '../../styles/game.styles';
 
@@ -9,8 +11,9 @@ import { GameDataProps } from '../../types/props.types';
 const DataGame = ({ numberQuestion, amountQuestions, seconds, minutes }: GameDataProps) => {
   return (
     <View style={gameStyles.containerDataGame}>
-      <Text style={gameStyles.textDataGame}>{numberQuestion + 1}/{amountQuestions}</Text>
-      <Time seconds={seconds} minutes={minutes} specialText='' />
+      <QuestionPosition numberQuestion={numberQuestion + 1} amountQuestions={amountQuestions} />
+      <Helps />
+      <Time seconds={seconds} minutes={minutes} />
     </View>
   )
 }

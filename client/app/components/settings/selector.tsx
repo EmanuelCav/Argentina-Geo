@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 
-import InputSelect from './components/inputSelect'
+import InputSelect from './components/InputSelect'
 
 import { generalStyles } from '../../styles/home.styles'
 import { authStyles } from '../../styles/settings.styles'

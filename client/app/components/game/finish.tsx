@@ -1,43 +1,28 @@
 import { View, Text } from "react-native";
 
-import Time from "./components/time";
-import ButtonMenu from "../buttonMenu";
+import ButtonMenu from "../ButtonMenu";
+import DataFinish from "./components/finish/DataFinish";
 
 import { gameStyles } from '../../styles/game.styles';
 import { homeStyles } from '../../styles/home.styles';
 
-import { FinishProps } from "../../types/props.types";
+import { FinishPropsType } from "../../types/props.types";
 
-const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, areErrors, isGameError, isConnection, interstitial }: FinishProps) => {
+const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, areErrors, isGameError, isConnection, interstitial }: FinishPropsType) => {
 
     const navigateHome = () => {
         if (isConnection) {
-            interstitial.show();
+            // interstitial.show();
         }
         navigation.navigate('Home')
     }
 
     return (
         <View style={gameStyles.containerFinish}>
-            <View style={gameStyles.containerDataFinish}>
-                {
-                    isGameError ? (
-                        <Text style={gameStyles.textDataGame}>¡Repaso realizado!</Text>
-                    ) : (
-                        <View>
-                            {
-                                isConnection &&
-                                <Text style={gameStyles.textDataGame}>Respuestas correctas: {corrects}</Text>
-                            }
-                            <Time seconds={seconds} minutes={minutes} specialText="Tiempo: " />
-                            <Text style={gameStyles.textDataGame}>Total de puntos: {points}xp</Text>
-                        </View>
-                    )
-                }
-                {
-                    areErrors && <Text style={gameStyles.textErrorsGame} onPress={viewErrors}>Repasar errores</Text>
-                }
-            </View>
+            <DataFinish minutes={minutes} seconds={seconds} corrects={corrects} points={points} isGameError={isGameError} />
+            {
+                areErrors && <Text style={gameStyles.textErrorsGame} onPress={viewErrors}>Repasar errores</Text>
+            }
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Continuar" redirect={navigateHome} isAccept={true} />
             </View>

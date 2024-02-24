@@ -1,28 +1,16 @@
 import { View } from "react-native";
 
-import OptionGame from './optionGame';
+import OptionsSection from "./components/optionGame/OptionsSection";
 
 import { ShowOptionGameProps } from "../../types/props.types";
 
 import { gameStyles } from '../../styles/game.styles';
 
-const ShowOptionsGame = ({ options, styles, nextQuestion }: ShowOptionGameProps) => {
+const ShowOptionsGame = ({ options, nextQuestion, amountOptions }: ShowOptionGameProps) => {
     return (
         <View style={gameStyles.containerOptions}>
-            <View style={gameStyles.containerSectionOptions}>
-                {
-                    options.map((item: string, index: number) => {
-                        return <OptionGame styles={styles} text={item} key={index} redirect={() => nextQuestion(item)} />
-                    }).slice(0, options.length / 2)
-                }
-            </View>
-            <View style={gameStyles.containerSectionOptions}>
-                {
-                    options.map((item: string, index: number) => {
-                        return <OptionGame styles={styles} text={item} key={index} redirect={() => nextQuestion(item)} />
-                    }).slice(options.length / 2, options.length)
-                }
-            </View>
+            <OptionsSection options={options.slice(0, options.length / 2)} nextQuestion={nextQuestion} amountOptions={amountOptions} />
+            <OptionsSection options={options.slice(options.length / 2, options.length)} nextQuestion={nextQuestion} amountOptions={amountOptions} />
         </View>
     )
 }

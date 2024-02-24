@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native'
 
-import ButtonMenu from './buttonMenu';
+import ButtonMenu from './ButtonMenu';
 
 import { LocationProps, SelectProps } from '../types/props.types';
 

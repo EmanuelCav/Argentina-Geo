@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import InputOptions from "./components/inputOptions";
+import InputOptions from "./components/InputOptions";
 
 import { GameOptionsType } from "../../types/props.types";
 

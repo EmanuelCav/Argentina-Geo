@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { useDispatch } from "react-redux";
 
-import ButtonMenu from "../buttonMenu";
+import ButtonMenu from "../ButtonMenu";
 
 import { getRanking, getUser } from "../../server/actions/user.actions";
 

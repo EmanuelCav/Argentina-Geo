@@ -1,8 +1,8 @@
 import { Dimensions, Pressable, View, Text } from 'react-native'
 import { useDispatch } from "react-redux";
 
-import Category from './components/category';
-import ButtonMenu from '../buttonMenu';
+import Category from './components/Category';
+import ButtonMenu from '../ButtonMenu';
 
 import { menuStyles } from "../../styles/menu.styles";
 import { homeStyles } from "../../styles/home.styles";

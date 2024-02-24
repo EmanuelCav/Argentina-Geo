@@ -285,26 +285,36 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
 
         // let options = ["Aconcagua", "Monte Pissis", "Cerro Bonete Chico", "Cerro Catedral", "Cerro de los Siete Colores", "Cerro Torre", "Chañi", "Cerro Tronador", "Champaquí", "Volcán Lanín"]
 
-        // let options = ["Salta", "Santa Fe", "Río Negro", "Tierra del Fuego, Antártida e Islas del Atlántico Sur", "Buenos Aires", "Entre Ríos", "Córdoba", "Corrientes", "Catamarca", "Tucumán", "Misiones", "San Luis", "Neuquén", "Mendoza", "Santiago del Estero", "La Pampa", "Chubut", "Formosa", "Jujuy", "Chaco", "Santa Cruz", "La Rioja", "San Juan", "Ciudad Autónoma de Buenos Aires"]
+        // let options = ["Mendoza", "Río Negro", "Tucumán", "Neuquén", "Buenos Aires", "La Rioja", "La Pampa", "Corrientes", "Entre Ríos", "Catamarca", "Salta", "San Juan", "Córdoba", "Tierra del Fuego, Antártida e Islas del Atlántico Sur", "Jujuy", "Santa Cruz", "Chubut", "Chaco", "Santiago del Estero", "Santa Fe", "Misiones", "San Luis", "Formosa", "Ciudad Autónoma de Buenos Aires"]
         // let options = ["Río Paraná", "Río Cuarto", "Río Uruguay", "Río Atuel", "Río de la Plata", "Río Bermejo", "Río Colorado", "Río Salado", "Río Paraguay", "Río Negro"]
         // let options = ["Lago Argentino", "Lago Nahuel Huapi", "Lago Viedma", "Lago Lácar", "Lago Musters", "Lago Cardiel", "Lago Epecuén", "Lago Pellegrini", "Lago Buenos Aires", "Lago Aluminé"]
-        // let options = ["1", "3", "2", "5", "6", "Ninguno", "4", "8", "7", "9"]
-        // let options = ["", "", "", "", "", "", "", "", "", ""]
+        // let options = ["5", "7", "2", "6", "4", "8", "10", "3", "1", "9"]
+        // let options = ["80", "140", "50", "110", "120", "90", "100", "70", "60", "130"]
         // let options = ["Glaciar Perito Moreno", "Glaciar Grey", "Monte Fitz Roy", "Glaciar Spegazzini", "Cerro Torre", "Mundo Marino", "Glaciar Seco", "Glaciar Onelli", "Cerro Tres Picos", "Monte Shipton"]
-        let options = ["Mar del Plata", "Necochea", "Las Grutas", "Punta Alta", "Vila Gesell", "Puerto Madryn", "Pinamar", "Comodoro Rivadavia", "Miramar", "Caleta Olivia", "Río Grande"]
+        // let options = ["Mar del Plata", "Necochea", "Las Grutas", "Punta Alta", "Vila Gesell", "Puerto Madryn", "Pinamar", "Comodoro Rivadavia", "Miramar", "Caleta Olivia", "Río Grande"]
         // let options = ["Península Valdés", "Península Mitre", "Península San Antonio", "Bahía de Samborombón", "Península de Magallanes", "Península Viedma", "Bahía Grande", "Bahía San Antonio", "Bahía Blanca", "Península El Páramo"]
+        // let options = ["Cerro de los Siete Colores", "Cerro Tronador", "Cerro Zapaleri", "Cerro Torre", "Cerro Bonete Chico", "Cerro Aracar", "Cerro Tupungato", "Cerro Luracatao", "Cerro Malcante", "Cerro de las Ovejas"]
+        // let options = ["6.961", "5.439", "7.104", "6.320", "7.467", "6.103", "5.888", "6.541", "4.865", "4.412"]
+        // let options = ["Obelisco", "Monumento a la Bandera", "Floralis Generica", "Plaza General San Martín", "Basílica de Luján", "Casa Histórica de la Independencia", "Palacio San José", "Teatro Colón", "Puente de la Mujer", "Cristo de las Sierras"]
+        let options = ["Bandera", "", "", "", "", "", "", "", "", ""]
 
+        // let options = ["Alejandro Sabella", "Diego Armando Maradona", "Gerardo Martino", "Marcelo Bielsa", "Jorge Sampaoli", "Daniel Passarella", "Sergio Batista", "Alfio Basile", "Omar Sívori", "José Néstor Pekerman"]
         // let options = ["Paula Pareto", "Marcela Acuña", "Cecilia Carranza Saroli", "Georgina Bardach", "Gabriela Sabatini", "Luciana Aymar", "Paola Sanchez", "Noemí Sarmiento", "Jeanette Campbell", "Cecilia Rognoni"]
-        // let options = ["Argentinos Juniors", "Newell's Old Boys", "Ferro", "Chacarita", "Boca Juniors", "San Lorenzo", "Banfield", "Independiente", "Rosario Central", "Talleres"]
+        // let options = ["La Academia", "El Canalla", "El Globo", "El Granate", "El Viaducto", "El Millinario", "El Funebrero", "La Lepra", "El Ciclón", "El Pirata"]
+        // let options = ["El Fideo", "La Pulga", "Pipita", "El Huevo", "Papu", "Pelusa", "El Toro", "La Araña", "El Dibu", "Carucha"]
+        // let options = ["Colón", "Newell's Old Boys", "Argentinos Juniors", "Lanús", "Gimnasia La Plata", "Belgrano", "Rosario Central", "Platense", "Atlanta", "Gimnasia de Jujuy"]
         // let options = ["Pascual Pérez", "Carlos Monzón", "Sergio Martinez", "Brian Castaño", "José María Gatica", "Nicolino Locche", "Omar Narváez", "Luis Ángel Firpo", "Victor Zalazar", "Marcos Maidana"]
         // let options = ["La Tigresa", "La Leona", "La Garra", "La Pantera", "La Puma", "La Tiburona", "La Locomotora", "La Chita", "La Jirafa", "La Merluza"]
         // let options = ["1978", "1986", "1982", "2002", "2010", "1962", "1966", "1930", "1938", "1954"]
         // let options = ["Guillermo Vilas", "David Nalbandian", "Juan Martín del Potro", "Gastón Gaudio", "Guillermo Coria", "José Luis Clerc", "Juan Mónaco", "Guillermo Pérez Roldan", "Martín Jaite", "Diego Schwartzman"]
         // let options = ["Mario Alberto Kempes", "Daniel Passarella", "Ricardo Bochini", "Jorge Burruchaga", "Diego Armando Maradona", "José Luis Brown", "Américo Gallego", "Gabriel Batistuta", "Jorge Valdano", "René Houseman"]
         // let options = ["Lionel Messi", "Gabriel Batistuta", "Diego Armando Maradona", "Javier Zanetti", "Juan Sebastián Verón", "Sergio Agüero", "Carlos Tévez", "Mario Alberto Kempes", "Jorge Valdano", "Ariel Ortega"]
-        // let options = ["Rugby", "Tenis", "Natación", "Fútbol", "Tenis de mesa", "Automovilismo", "Voleibol", "Handball", "Atletismo", "Esgrima"]
+        // let options = ["Taekwondo", "Boxeo", "Esgrima", "Natación", "Atletismo", "Ciclismo", "Tiro con arco", "Tenis de mesa", "Badminton", "Judo"]
         // let options = ["Juan Manuel Fangio", "Delfo Cabrera", "Juan Cucuchet", "Roberto De Vicenzo", "Luis Scola", "Felipe Contepomi", "Alberto Demiddi", "Carlos Reutemann", "Hugo Porta", "Hugo Conte"]
         // let options = ["Gigante de Arroyito", "Marcelo Bielsa", "Brigadier General Estanislao López", "Presidente Perón", "Florencio Sola", "Norberto Tomaghello", "15 de Abril", "José Amalfitani", "Arquitecto Ricardo Etcheverri", "Ciudad de Vicente López"]
+        // let options = ["Ninguno", "2", "1", "3", "4", "5", "6", "7", "8", "9"]
+        // let options = ["Rosario", "Córdoba", "Mendoza", "Mar del Plata", "La Plata", "Bahía Blanca", "Gualeguaychú", "Corrientes", "Comodoro Rivadavia", "Resistencia"]
+        // let options = ["La Bombonera", "El Monumental", "El Cilindro de Avellaneda", "El Nuevo Gasómetro", "La Fortaleza", "El Fortín", "Cementerio de los Elefantes", "Estadio del Bosque", "El Coloso del Parque", "El Globo"]
 
         // let options = ["Soda Stereo", "Divididos", "Tan Biónica", "Las Pelotas", "Los Abuelos de la Nada", "Virus", "Serú Girán", "Babasónicos", "Pescado Rabioso", "Almendra", "Los Auténticos Decadentes", "Los Twist", "Los Piojos", "La Renga", "Hermética", "Los Gatos", "Los Fabulosos Cadillacs", "Patricio Rey y Sus Redonditos de Ricota", "Pappo's Blues", "Los Pericos", "Callejeros", "Los Beatniks", "Rata Blanca", "Almafuerte", "Ratones Paranoicos", "Riff", "V8", "O'Connor", "La Bersuit", "Attaque 77", "Intoxicados", "Sui Generis", "Sumo", "Enanitos Verdes", "Ciro y Los Persas", "Catupecu Machu"]
         // let options = ["Andrés Calamaro", "Vicentico", "Palito Ortega", "Fito Páez", "Diego Torres", "Pappo", "Patricia Sosa", "Luciano Pereyra", "Mercedes Sosa", "Fabiana Cantilo", "Gilda", "Valeria Lynch", "Sandra Mihanovich", "Soledad Pastorutti", "Tita Merello", "Dread Mar-I", "Alejandro Lerner", "Axel", "Abel Pintos", "Ulises Bueno", "Osvaldo Frascino", "Litto Nebbia", "Adrián Barilari", "Daniel Agostini", "Federico Moura", "Miguel Abuelo", "Gustavo Cerati", "Luis Alberto Spinetta", "Andrés Ciro Martínez", "Charly García", "León Gieco", "Sandro", "Ricardo Iorio", "Indio Solari", "Walter Olmos", "Rodrigo Bueno"]
@@ -313,6 +323,13 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         // let options = ["Guitarra", "Tambor", "Violín", "Saxofón", "Gaita", "Piano", "Flauta", "Trompeta", "Bandoneón", "Ukelele", "Dejembe"]
         // let options = ["1991", "1986", "1979", "1983", "1994", "1974", "1988", "1993", "1997", "1998"]
         // let options = ["Paulo Londra", "Duki", "Lit Killah", "Khea", "Maria Becerra", "Tini", "Trueno", "Thiago PZK", "Rusherking", "Nicki Nicole", "Luck Ra", "Cazzu", "Milo J", "Neo Pistea", "Emilia Mernes", "Wos"]
+        // let options = ["Alfonsina y el mar", "Todo cambia", "Como la cigarra", "La Maza", "Gracias a la vida", "Ojos de cielo", "Zona de promesas", "Solo le pido a Dios", "Zamba para olvidarte", "Razón de vivir"]
+
+        // let options = ["Museo Nacional de Bellas Artes", "Palacio San José", "Museo de Arqueología de Alta Montaña", "Museo de Ciencias Naturales", "Museo Marítimo y del Presidio", "Planetario Galileo Galilei", "Museo Histórico Nacional", "Museo Casa Rosada", "Museo Mitre", "Museo Moderno"]
+        // let options = ["Pintura", "Danza", "Arquitectura", "Literatura", "Cine", "Poesía", "Música", "Cómic", "Fotografía", "Escultura"]
+        // let options = ["Ballet", "Chachachá", "Bachata", "Samba", "Salsa", "Vals", "Polka", "Tango", "Bolero", "Merengue"]
+        // let options = ["Ceibo", "Margarita", "Dalia", "Tulipán", "Rosa", "Bugambilia", "Lirio", "Orquídea", "Hortensia", "Peonias"]
+        // let options = ["Hornero", "Chingolo", "Ñandú común", "Pingüino", "Chimango", "Gaviota Cocinera", "Chajá", "Cóndor andino", "Muitú", "Pato de torrente", "Bailarín azul"]
 
         // let options = ["2", "Ninguno", "3", "4", "5", "6", "1", "8", "9", "7"]
         // let options = ["Soledad Villamil", "Carla Quevedo", "Cecilia Dopazo", "Guillermo Francella", "Leonardo Sbaraglia", "Pablo Rago", "Luis Brandoni", "Ernesto Alterio", "Juan Carlos Altavista", "Ernesto Alterio", "Juan Diego Botto", "Rodrigo de la Serna", "Juan Minujín", "Alfredo Alcón", "Peter Lanzini", "Alejandra Flechner", "Héctor Alterio", "Hugo Arana", "Norma Alejandro", "Julio Chávez", "Chino Darín", "Facundo Arana", "Antonio Gasalla", "Luis Machín", "Alejandro Awada", "Graciela Borges", "Dolores Fonzi", "Cecilia Roth", "Carla Petersonn", "Julieta Díaz", "Ana María Pichio", "Federico Luppi"]
@@ -330,7 +347,7 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         // let options = ["Alberto Olmedo", "Tato Bores", "Jorge Porcel", "Javier Portales", "Antonio Gasalla", "Gerardo Sofovich", "Adolfo García Grau", "Juan Carlos Altavista"]
 
         // let options = ["Un asesinato", "Un incendio", "Una tormenta", "Un accidente aéreo", "Un casamiento", "Una guerra", "Un evento deportivo", "Un recital", "Un terremoto", "Un tsunami"]
-        // let options = ["Alejandra Pizarnik", "Alfonsna Storni", "Marco Denevi", "Leila Guerriero", "Liliana Bodoc", "José Hernández", "Ernesto Sábato", "Abelardo Castillo",  "Haroldo Conti", "Leopoldo Lugones", "Roberto Arlt", "Leónidas Barletta", "Macedonio Fernández", "Manuel Galvez", "Héctor Germán Oesterheld", "Gregorio Weinber", "Esteban Echeverría", "Antonio Di Benedetto", "Manuel Puig", "Juana Manzo", "Sara Gallardo", "Rodolfo Walsh", "Hebe Uhart", "Angélica Gorodischer", "Julio Cortázar", "Juan José Saer", "Ricardo Rojas", "Osvaldo Soriano", "Ricardo Piglia", "Juan Gelman", "Adolfo Bioy Casares", "Hector Tizón", "Ana María Shua", "Olga Orozco", "Carlos Guido", "Ricardo Guiraldes", "Maria Elena Walsh", "Leopoldo Marechal", "Jorge Luis Borges"]
+        // let options = ["Ricardo Rojas", "Julio Cortázar", "Ricardo Piglia", "Juan Gelman", "Tomás Eloy Martínez", "Abelardo Castillo", "Haroldo Conti", "Olga Orozco", "Carlos Guido", "Leopoldo Marechal", "Marco Denevi", "José Hernández", "Osvaldo Soriano", "Liliana Bodoc", "Juan José Saer", "Alejandra Pizarnik", "Alfonsna Storni", "Leila Guerriero", "Ernesto Sábato", "Leopoldo Lugones", "Roberto Arlt", "Leónidas Barletta", "Macedonio Fernández", "Manuel Galvez", "Héctor Germán Oesterheld", "Gregorio Weinber", "Esteban Echeverría", "Antonio Di Benedetto", "Manuel Puig", "Rodolfo Walsh", "Hebe Uhart", "Adolfo Bioy Casares", "Hector Tizón", "Ana María Shua", "Ricardo Guiraldes", "Maria Elena Walsh", "Jorge Luis Borges"]
         // let options = ["4", "1", "8", "7", "Ninguno", "10", "5", "2", "9", "6"]
         // let options = ["1871", "1910", "1834", "1850", "1945", "1940", "1814", "1828", "1922", "1931"]
         // let options = ["La invención de Morel", "Ficciones", "El inmortal", "El Aleph", "La biblioteca de Babel", "Labyrinths", "El jardín de senderos que se bifurcan", "La casa de Asterión", "Funes el memorioso", "El otro"]
@@ -345,6 +362,9 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         // let options = ["Batalla de la Vuelta de Obligado", "Batalla de Caseros", "Combate de San Lorenzo", "Batalla de Pavón", "Éxodo Jujeño", "Revolución de Mayo", "Declaración de la Independencia", "Fundación de Buenos Aires", "Creación de la Bandera", "Retorno a la democracía"]
         // let options = ["Martín Miguel de Güemes", "Cornelio Saavedra", "Domingo Faustino Sarmiento", "Bartolomé Mitre", "Julio Argentino Roca", "Juan José Castelli", "Adolfo Alsina", "Manuel Belgrano", "Roque Sáenz Peña", "Nicolás Avellaneda"]
         // let options = ["Mariquita Sánchez de Thompson", "Juana Azurduy", "Eva Perón", "Machacha Güemes", "José María Paz", "Alicia Moreau de Justo", "Manuel Alberti", "Jorge Newbery", "Carlos Saavedra Lamas", "Francisco Laprida"]
+
+        // let options = ["5", "3", "7", "9", "11", "4", "1", "6", "2", "12"]
+        // let options = ["Asado", "Arroz", "Hamburguesa", "Taco", "Burrito", "Ceviche", "Pachamanca", "Pabellón", "Arepas", "Cazuela"]
 
         await Question.findByIdAndUpdate(id, {
             $set: {

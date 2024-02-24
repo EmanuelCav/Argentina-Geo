@@ -14,7 +14,7 @@ import Play from './app/routes/play.routes';
 import Playing from "./app/routes/playing.routes";
 import Ranking from "./app/routes/ranking.routes";
 import Settings from './app/routes/settings.routes'
-import Loading from './app/components/response/loading';
+import Loading from './app/components/response/Loading';
 
 import store from "./app/server/store";
 

@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { View, Text, ScrollView, Image, Dimensions } from "react-native";
 
-import ButtonMenu from "../buttonMenu";
-import CategoryUser from "./components/categoryUser";
+import ButtonMenu from "../ButtonMenu";
+import CategoryUser from "./components/CategoryUser";
 
 import { menuStyles } from '../../styles/menu.styles'
 import { homeStyles } from '../../styles/home.styles'

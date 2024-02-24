@@ -6,4 +6,5 @@ declare module '@env' {
     export const NODE_ENV: string;
     export const BANNER_PLAY_ID: string;
     export const INTERSTITIAL_FINISH_ID: string;
+    export const RECOMPENSADO_ID: string;
 }

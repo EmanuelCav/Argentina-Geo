@@ -2,9 +2,9 @@ import { useState } from "react";
 import { View } from "react-native";
 import { useDispatch } from 'react-redux'
 
-import Input from "./components/components/input";
-import ButtonSettings from "./components/components/buttonSettings";
-import Error from "../../components/response/error";
+import Input from "./components/components/Input";
+import ButtonSettings from "./components/components/ButtonSettings";
+import Error from "../response/Error";
 
 import { updateNicknameApi } from '../../server/api/user.api'
 import { updateOptionsAction } from '../../server/features/user.features'
