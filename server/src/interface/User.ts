@@ -16,6 +16,7 @@ export interface IUser extends Document {
     pais: ObjectId;
     provincia: ObjectId;
     municipio: ObjectId;
+    helps: number;
 }
 
 export interface IExperience extends Document {

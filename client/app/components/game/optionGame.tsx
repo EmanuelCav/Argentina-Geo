@@ -1,10 +1,10 @@
-import { TouchableOpacity, Text, Dimensions, StyleSheet } from "react-native";
+import { Text, Dimensions, StyleSheet, Pressable } from "react-native";
 
 import { OptionGamePropsType } from "../../types/props.types";
 
 import { gameStyles } from '../../styles/game.styles';
 
-const OptionGame = ({ text, nextQuestion, amountOptions }: OptionGamePropsType) => {
+const OptionGame = ({ text, nextQuestion, amountOptions, disabled }: OptionGamePropsType) => {
 
     const usersOptions = (): number => {
         if (amountOptions === 2) {
@@ -35,9 +35,16 @@ const OptionGame = ({ text, nextQuestion, amountOptions }: OptionGamePropsType) 
     })
 
     return (
-        <TouchableOpacity onPress={() => nextQuestion(text)} style={gameStyles.buttonOptions}>
+        <Pressable style={({ pressed }) => [
+            {
+                backgroundColor: pressed ? '#5d8cff' : `${disabled ? '#dddddd' : '#597EEE'}`,
+            },
+            gameStyles.buttonOptions
+        ]} 
+        onPress={() => nextQuestion(text)} 
+        disabled={disabled}>
             <Text adjustsFontSizeToFit style={styles.textButtonOptions}>{text}</Text>
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 

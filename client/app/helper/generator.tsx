@@ -34,6 +34,14 @@ export const generateOptions = (options: string[], amountOptions: number): strin
 
 }
 
+export const helpsOptions = (options: string[], question: IQuestion, amountOptions: number): string[] => {
+
+    const optionsFiltered = shuffle(options.filter(o => o !== question.answer)).slice(0, amountOptions / 2)
+
+    return optionsFiltered
+
+}
+
 function shuffle(array: any[]) {
 
     let currentIndex = array.length, randomIndex;

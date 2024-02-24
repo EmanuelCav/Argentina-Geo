@@ -744,6 +744,44 @@ export const allCategory = async (req: Request, res: Response): Promise<Response
 
 }
 
+export const updateHelps = async (req: Request, res: Response): Promise<Response> => {
+
+    const { type } = req.params
+
+    try {
+
+        const user = await User.findById(req.user)
+
+        if (!user) {
+            return res.status(400).json({ message: "User does not exists" })
+        }
+
+        const userUpdated = await User.findByIdAndUpdate(req.user, {
+            helps: type === 'add' ? user.helps + 2 : user.helps - 1
+        }, {
+            new: true
+        })
+            .populate({
+                path: "categories",
+                select: "category questions corrects isSelect isUnlocked",
+                populate: {
+                    path: 'category',
+                    select: "name"
+                }
+            })
+            .populate("pais")
+            .populate("provincia")
+            .populate("municipio")
+            .populate("points")
+
+        return res.status(200).json(userUpdated)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
 export const getDate = async (req: Request, res: Response): Promise<Response> => {
 
     try {

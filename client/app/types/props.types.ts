@@ -5,7 +5,7 @@ import { InterstitialAd } from 'react-native-google-mobile-ads';
 
 import { ILocationRank, IOptions, ISetting, IUser, IUsersRank } from "../interface/User";
 import { ICategories, ICategoriesUser, IGame, IQuestion } from "../interface/Game";
-import { DateRankType, UserDataType, UserReducerType, UserType } from "./user.types";
+import { DateRankType, HelpType, UserDataType, UserReducerType, UserType } from "./user.types";
 
 export type RoutesProps = {
     Home: undefined;
@@ -35,6 +35,7 @@ export type OptionGamePropsType = {
     text: string;
     nextQuestion: (item: string) => void;
     amountOptions: number;
+    disabled: boolean
 }
 
 export type ShowStatisticsProps = {
@@ -162,6 +163,10 @@ export type GameDataProps = {
     amountQuestions: number;
     seconds: number;
     minutes: number;
+    helps: number;
+    isHelped: boolean; 
+    changeHelp: (type: HelpType) => void;
+    isGameError: boolean;
 }
 
 export type TimePropsType = {
@@ -179,6 +184,8 @@ export type FinishPropsType = {
     areErrors: boolean;
     isGameError: boolean;
     isConnection: boolean | null;
+    isAdd: boolean;
+    changeHelp: (type: HelpType) => void;
     interstitial?: InterstitialAd;
 }
 
@@ -191,6 +198,8 @@ export type ShowOptionGameProps = {
     options: string[];
     nextQuestion: (item: string) => void;
     amountOptions: number;
+    isHelped: boolean;
+    optionsHelped: string[];
 }
 
 export type RankingProps = {
@@ -269,6 +278,12 @@ export type DataFinishPropsType = {
     corrects: number;
     points: number;
     isGameError: boolean;
+}
+
+export type HelpsPropsType = {
+    changeHelp: (type: HelpType) => void; 
+    helps: number; 
+    isHelped: boolean;
 }
 
 export type SelectCategories = {

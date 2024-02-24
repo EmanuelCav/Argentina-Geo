@@ -17,7 +17,7 @@ const Answer = ({ isCorrect, answer, continueGame }: AnswerPropsType) => {
             {
                 !isCorrect && <ShowCorrect answer={answer} />
             }
-            <Text style={{ color: isCorrect ? '#f00' : '#0f0', fontSize: Dimensions.get("window").height / 37 }}>Toca para continuar</Text>
+            <Text style={{ color: isCorrect ? '#0f0' : '#f00', fontSize: Dimensions.get("window").height / 37 }}>Toca para continuar</Text>
         </Pressable>
     )
 }

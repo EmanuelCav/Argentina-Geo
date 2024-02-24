@@ -58,7 +58,6 @@ export const gameStyles = StyleSheet.create({
     buttonOptions: {
         padding: Dimensions.get("window").height / 106,
         borderRadius: 12,
-        backgroundColor: '#597EEE',
         borderWidth: 2,
         borderColor: '#FFFFFF',
         borderStyle: 'solid',
@@ -131,9 +130,27 @@ export const gameStyles = StyleSheet.create({
     },
 
     containerFinish: {
-        backgroundColor: '#fff',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(89,126,238,0.5)',
         width: '100%',
+        height: '100%',
         padding: Dimensions.get("window").height / 46.25,
+        zIndex: 22
+    },
+
+    containFinish: {
+        width: '88%',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        borderColor: '#597EEE',
+        backgroundColor: '#ffffff',
+        borderStyle: 'solid',
+        borderWidth: 3,
+        padding: Dimensions.get("window").height / 106
     },
 
     containerDataFinish: {
@@ -194,6 +211,37 @@ export const gameStyles = StyleSheet.create({
     containDataGame: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+
+    buttonHelpFinish: {
+        borderRadius: 10,
+        padding: Dimensions.get("window").height / 106,
+        width: '66.66%',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginVertical: Dimensions.get("window").height / 37
+    },
+
+    containHelpText: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+
+    buttonHelp: {
+        padding: Dimensions.get("window").height / 106,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        borderColor: '#ffffff',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        flexDirection: 'row'
+    },
+
+    textGame: {
+        fontSize: Dimensions.get("window").height / 41,
+        color: '#ffffff'
     }
 
 })

@@ -8,13 +8,23 @@ import { gameStyles } from '../../styles/game.styles';
 
 import { GameDataProps } from '../../types/props.types';
 
-const DataGame = ({ numberQuestion, amountQuestions, seconds, minutes }: GameDataProps) => {
+const DataGame = ({ numberQuestion, amountQuestions, seconds, minutes, changeHelp, helps, isHelped, isGameError }: GameDataProps) => {
   return (
-    <View style={gameStyles.containerDataGame}>
-      <QuestionPosition numberQuestion={numberQuestion + 1} amountQuestions={amountQuestions} />
-      <Helps />
-      <Time seconds={seconds} minutes={minutes} />
-    </View>
+    <>
+      {
+        isGameError ? (
+          <View style={gameStyles.containerDataGame}>
+            <Helps changeHelp={changeHelp} helps={helps} isHelped={isHelped} />
+          </View>
+        ) : (
+          <View style={gameStyles.containerDataGame}>
+            <QuestionPosition numberQuestion={numberQuestion + 1} amountQuestions={amountQuestions} />
+            <Helps changeHelp={changeHelp} helps={helps} isHelped={isHelped} />
+            <Time seconds={seconds} minutes={minutes} />
+          </View>
+        )
+      }
+    </>
   )
 }
 

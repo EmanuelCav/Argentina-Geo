@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, BackHandler } from 'react-native'
-// import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
-// import { INTERSTITIAL_FINISH_ID } from '@env';
+import { InterstitialAd, AdEventType, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
+import { INTERSTITIAL_FINISH_ID, RECOMPENSADO_ID } from '@env';
 
 import Finish from '../components/game/Finish'
 import DataGame from '../components/game/dataGame'
@@ -15,22 +15,31 @@ import { IReducer } from '../interface/Reducer'
 import { IPoints } from '../interface/User'
 import { IQuestion } from '../interface/Game'
 import { PlayingType } from '../types/games.types'
+import { HelpType } from '../types/user.types'
 
 import { generateQuestionApi, questionsCorrectApi, questionsCountApi } from '../server/api/game.api'
 import { getGameAction } from '../server/features/game.features'
 import { loadingAction } from '../server/features/response.features'
 import { experienceGame } from '../server/actions/game.actions';
+import { helpsApi } from '../server/api/user.api';
+import { updateOptionsAction } from '../server/features/user.features';
 
 import { gameStyles } from '../styles/game.styles';
 
 import { selector } from '../helper/selector'
 import { categoryStatistic } from '../helper/statistic'
-import { generateOptions } from '../helper/generator'
+import { generateOptions, helpsOptions } from '../helper/generator'
 
 // const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : `${INTERSTITIAL_FINISH_ID}`;
 
 // const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
 //     keywords: ['fashion', 'clothing'],
+// });
+
+// const adUnitIdReward = __DEV__ ? TestIds.REWARDED : `${RECOMPENSADO_ID}`;
+
+// const rewarded = RewardedAd.createForAdRequest(adUnitIdReward, {
+//   keywords: ['fashion', 'clothing'],
 // });
 
 const Playing = ({ navigation, route }: PlayingType) => {
@@ -63,8 +72,13 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const [isPreFinish, setIsPreFinish] = useState<boolean>(false)
     const [isFinish, setIsFinish] = useState<boolean>(false)
     const [isGameError, setIsGameError] = useState<boolean>(false)
+    const [isHelped, setIsHelped] = useState<boolean>(false)
+    const [isAdd, setIsAdd] = useState<boolean>(false)
+
+    const [helpType, setHelpType] = useState<HelpType>('help')
 
     const [options, setOptions] = useState<string[]>(generateOptions(games.game.questions[numberQuestion].options, users.user.user.amountOptions))
+    const [optionsHelped, setOptionsHelped] = useState<string[]>(helpsOptions(options, games.game.questions[numberQuestion], users.user.user.amountOptions))
 
     const { points } = pointsData
 
@@ -79,6 +93,9 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
         setErrorsGame(errors)
         setErrors([])
+
+        setOptionsHelped([])
+        setIsHelped(false)
 
         setTimeout(() => {
             dispatch(loadingAction(false))
@@ -123,9 +140,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const nextQuestion = async (item: string) => {
 
         if (item === (isGameError ? (errorsGame[numberQuestion].answer) : (games.game.questions[numberQuestion].answer))) {
-            if (!isGameError) {
-                setNumberCorrect(numberCorrect + 1)
-            }
+            setNumberCorrect(numberCorrect + 1)
             setIsCorrect(true)
         }
 
@@ -196,6 +211,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const continueGame = () => {
         setIsCorrect(false)
         setIsIncorrect(false)
+        setIsHelped(false)
         setRealSeconds(0)
         setRealMinutes(0)
 
@@ -249,6 +265,25 @@ const Playing = ({ navigation, route }: PlayingType) => {
     //     return unsubscribe;
     // }, []);
 
+    // useEffect(() => {
+    //     const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+    //       console.log("Loading add");
+    //     });
+    //     const unsubscribeEarned = rewarded.addAdEventListener(
+    //       RewardedAdEventType.EARNED_REWARD,
+    //       reward => {
+    //         console.log('User earned reward of ', reward);
+    //       },
+    //     );
+    
+    //     rewarded.load();
+    
+    //     return () => {
+    //       unsubscribeLoaded();
+    //       unsubscribeEarned();
+    //     };
+    //   }, []);
+
     const statisticsCount = async () => {
         await questionsCountApi(categoryStatistic(users.user.user.categories, games.game.questions[numberQuestion].category.name), users.user.token)
     }
@@ -266,16 +301,44 @@ const Playing = ({ navigation, route }: PlayingType) => {
         dispatch(getGameAction(data))
     }
 
+    const changeHelp = async (type: HelpType) => {
+        setIsHelped(true)
+        setHelpType(type)
+
+        if (type === 'add') {
+            //   rewarded.show()
+            setIsAdd(true)
+        }
+    }
+
+    const handleHelp = async (type: HelpType) => {
+
+        try {
+
+            const { data } = await helpsApi(type, users.user.token)
+            dispatch(updateOptionsAction(data))
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         if (!isGameError) {
             if (route.params.isConnection) {
                 statisticsCount()
             }
+            setOptionsHelped(helpsOptions(options, games.game.questions[numberQuestion], users.user.user.amountOptions))
+
+            return
         }
+
+        setOptionsHelped(helpsOptions(options, errorsGame[numberQuestion], users.user.user.amountOptions))
+
     }, [numberQuestion])
 
     useEffect(() => {
-        if (isCorrect) {
+        if (isCorrect && !isGameError) {
             statisticsCorrect()
         }
     }, [numberCorrect])
@@ -289,24 +352,32 @@ const Playing = ({ navigation, route }: PlayingType) => {
         }
     }, [numberQuestion])
 
+    useEffect(() => {
+        if (isHelped) {
+            handleHelp(helpType)
+        }
+    }, [isHelped])
+
     return (
         <View style={gameStyles.gameContainer}>
             {
                 isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
                     navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection}
-                    isGameError={isGameError} areErrors={errors.length !== 0} />
+                    isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd} />
             }
             {
                 isPreFinish && <PreFinish redirectFinish={redirectFinish} />
             }
             <ShowQuestion questions={isGameError ? errorsGame : games.game.questions} numberQuestion={numberQuestion} />
-            <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} 
-            seconds={(realSeconds > 0) ? realSeconds : (seconds === 60) ? 0 : seconds} minutes={(realMinutes > 0) ? realMinutes : minutes} />
+            <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions}
+                seconds={(realSeconds > 0) ? realSeconds : (seconds === 60) ? 0 : seconds} minutes={(realMinutes > 0) ? realMinutes : minutes}
+                helps={users.user.user.helps} isHelped={isCorrect || isIncorrect || isHelped || users.user.user.helps === 0} changeHelp={changeHelp} isGameError={isGameError} />
             {
-                isCorrect || isIncorrect ? (
+                (isCorrect || isIncorrect) ? (
                     <Answer answer={isGameError ? errorsGame[numberQuestion].answer : games.game.questions[numberQuestion].answer} isCorrect={isCorrect} continueGame={continueGame} />
                 ) : (
-                    <ShowOptionsGame options={options} nextQuestion={route.params.isConnection ? nextQuestion : nextQuestionWihoutInternet} amountOptions={users.user.user.amountOptions} />
+                    <ShowOptionsGame options={options} nextQuestion={route.params.isConnection ? nextQuestion : nextQuestionWihoutInternet} amountOptions={users.user.user.amountOptions}
+                        isHelped={isHelped} optionsHelped={optionsHelped} />
                 )
             }
         </View>

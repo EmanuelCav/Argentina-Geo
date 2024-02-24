@@ -18,7 +18,7 @@ export const comparePassword = async (password: string, hash: string): Promise<b
 
 export const generateToken = (id: ObjectId): string => {
     const token: string = jwt.sign({ id }, `${jwToken}`, {
-        expiresIn: '30d'
+        expiresIn: '90d'
     })
 
     return token

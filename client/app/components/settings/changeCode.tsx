@@ -55,8 +55,8 @@ const ChangeCode = ({ setIsCode, user }: ChangeCodeProps) => {
                 <Error msg={message} />
                 <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={true} />
                 <View style={authStyles.separator}>
-                    <ButtonSettings text="Aceptar" styles={null} redirect={handleSumbit} />
-                    <ButtonSettings text="Regresar" styles={null} redirect={redirectSettings} />
+                    <ButtonSettings text="Aceptar" redirect={handleSumbit} />
+                    <ButtonSettings text="Regresar" redirect={redirectSettings} />
                 </View>
             </View>
         </View>

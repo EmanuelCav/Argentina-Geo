@@ -3,6 +3,7 @@ import { EXPO_URL, EXPO_HOST, NODE_ENV } from '@env';
 
 import { ILogin, INickname, IOptions, IPassword, IPoints, ISetting } from '../../interface/User'
 import { SelectCategories } from '../../types/props.types';
+import { HelpType } from '../../types/user.types';
 
 const api = axios.create({ baseURL: NODE_ENV !== 'production' ? `${EXPO_HOST}` : `${EXPO_URL}` })
 
@@ -108,6 +109,14 @@ export const getDateExperienceApi = async (token: string) => {
 
 export const rankingLocationApi = async (location: string, date: string, token: string) => {
     return await api.get(`/users/location/${location}/date/${date}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const helpsApi = async (type: HelpType, token: string) => {
+    return await api.put(`/users/helps/${type}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

@@ -39,6 +39,7 @@ export interface IUser {
     pais: IPais;
     provincia: IProvincia;
     municipio: IMunicipio;
+    helps: number;
 }
 
 export interface IUserReducer {
