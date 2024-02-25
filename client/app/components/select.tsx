@@ -52,21 +52,19 @@ const Location = ({ loc, settingsData, setSettingsData, location, userLocation }
     )
 }
 
-const Select = ({ loc, user, setSettingsData, userLocation, settingsData, data, setIsPais, setIsProvincia, setIsMunicipio, isConnection }: SelectProps) => {
+const Select = ({ loc, user, setSettingsData, userLocation, settingsData, data, setIsPais, setIsProvincia, setIsMunicipio }: SelectProps) => {
 
     const dispatch = useDispatch()
 
     const acceptSelection = async () => {
 
-        if (isConnection) {
-            try {
+        try {
 
-                const { data } = await updateLocationApi(user.user._id, settingsData, user.token)
-                dispatch(updateOptionsAction(data))
+            const { data } = await updateLocationApi(user.user._id, settingsData, user.token)
+            dispatch(updateOptionsAction(data))
 
-            } catch (error) {
-                console.log(error);
-            }
+        } catch (error) {
+            console.log(error);
         }
 
         setIsPais(false)
@@ -87,7 +85,7 @@ const Select = ({ loc, user, setSettingsData, userLocation, settingsData, data, 
                     </ScrollView>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Seleccionar" redirect={acceptSelection} isAccept={true} />
+                    <ButtonMenu text="Seleccionar" redirect={acceptSelection} isAccept={true} disabled={false} />
                 </View>
             </View>
         </View>

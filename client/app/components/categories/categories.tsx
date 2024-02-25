@@ -4,15 +4,16 @@ import { useDispatch } from "react-redux";
 import Category from './components/Category';
 import ButtonMenu from '../ButtonMenu';
 
+import { updateAllCategory } from '../../server/actions/user.actions';
+
 import { menuStyles } from "../../styles/menu.styles";
 import { homeStyles } from "../../styles/home.styles";
 import { configGamesStyles } from "../../styles/game.styles";
 
 import { CategoriesProps } from '../../types/props.types';
 import { ICategoriesUser } from '../../interface/Game';
-import { updateAllCategory } from '../../server/actions/user.actions';
 
-const Categories = ({ user, categories, setIsCategories, isConnection }: CategoriesProps) => {
+const Categories = ({ user, categories, setIsCategories }: CategoriesProps) => {
 
     const dispatch = useDispatch()
 
@@ -67,13 +68,13 @@ const Categories = ({ user, categories, setIsCategories, isConnection }: Categor
                     <View style={menuStyles.showCategoriesContain}>
                         {
                             categories.map((category: ICategoriesUser, index: number) => {
-                                return <Category user={user} category={category.category} isConnection={isConnection} key={index} />
+                                return <Category user={user} category={category.category} key={index} />
                             })
                         }
                     </View>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Aceptar" redirect={acceptCategories} isAccept={true} />
+                    <ButtonMenu text="Aceptar" redirect={acceptCategories} isAccept={true} disabled={false} />
                 </View>
             </View>
         </View >

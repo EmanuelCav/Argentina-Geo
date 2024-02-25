@@ -4,7 +4,7 @@ import { sectionStyle } from "../../../styles/settings.styles";
 
 import { InputSettingsType } from "../../../types/props.types";
 
-const InputSelect = ({ value, setIsPais, setIsProvincia, setIsMunicipio, isDisabled, location, isConnection }: InputSettingsType) => {
+const InputSelect = ({ value, setIsPais, setIsProvincia, setIsMunicipio, isDisabled, location }: InputSettingsType) => {
 
     const setLocation = () => {
     
@@ -35,7 +35,7 @@ const InputSelect = ({ value, setIsPais, setIsProvincia, setIsMunicipio, isDisab
 
     return (
         <Pressable style={isDisabled ? sectionStyle.containerInputSettingsDisabled : sectionStyle.containerInputSettings} 
-        onPress={setLocation} disabled={isDisabled || !isConnection}>
+        onPress={setLocation} disabled={isDisabled}>
             <Text style={sectionStyle.textInput}>{value}</Text>
         </Pressable>
     )

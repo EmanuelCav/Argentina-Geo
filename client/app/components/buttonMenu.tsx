@@ -4,9 +4,11 @@ import { homeStyles } from '../styles/home.styles'
 
 import { ButtonGameProps } from "../types/props.types";
 
-const ButtonMenu = ({ text, redirect, isAccept }: ButtonGameProps) => {
+const ButtonMenu = ({ text, redirect, isAccept, disabled }: ButtonGameProps) => {
   return (
-    <TouchableOpacity style={isAccept ? homeStyles.buttonAcceptOption : homeStyles.buttonMenu } onPress={redirect} >
+    <TouchableOpacity style={isAccept ? [homeStyles.buttonAcceptOption, { backgroundColor: disabled ? '#dddddd' : '#597EEE' }] 
+    : [homeStyles.buttonMenu, { backgroundColor: disabled ? '#dddddd' : '#5d8cff' }]} 
+    onPress={redirect} disabled={disabled}>
       <Text adjustsFontSizeToFit numberOfLines={1} style={homeStyles.textButtonOption}>{text}</Text>
     </TouchableOpacity>
   )

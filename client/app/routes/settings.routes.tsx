@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { View } from "react-native";
 import { useSelector, useDispatch } from 'react-redux'
-import { fetch } from "@react-native-community/netinfo";
-import { useRoute } from '@react-navigation/native';
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
 
@@ -27,7 +25,6 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     const users = useSelector((state: IReducer) => selector(state).users)
 
     const dispatch = useDispatch()
-    const route = useRoute()
 
     const initialState: ISetting = {
         pais: users.user.user.pais.name,
@@ -48,8 +45,6 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     const [isAuth, setIsAuth] = useState<boolean>(false)
     const [isCode, setIsCode] = useState<boolean>(false)
     const [isNickname, setIsNickname] = useState<boolean>(false)
-
-    const [isConnection, setIsConnection] = useState<boolean | null>(true)
 
     const { pais, provincia, municipio } = settingsData
 
@@ -93,10 +88,6 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     }
 
     useEffect(() => {
-        fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
-    }, [isConnection, route.name])
-
-    useEffect(() => {
         getPaises()
         getProvincias()
 
@@ -109,15 +100,15 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
         <View style={generalStyles.containerInfoSelect}>
             {
                 isPais && <Select loc="Pais" user={users.user} setSettingsData={setSettingsData} userLocation={pais} settingsData={settingsData} data={paises}
-                    setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} isConnection={isConnection} />
+                    setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
             }
             {
                 isProvincia && <Select loc="Provincia" user={users.user} setSettingsData={setSettingsData} settingsData={settingsData} userLocation={provincia} data={provincias}
-                    setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} isConnection={isConnection} />
+                    setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
             }
             {
                 isMunicipio && <Select loc="Municipio" user={users.user} setSettingsData={setSettingsData} userLocation={municipio} settingsData={settingsData} data={municipios}
-                    setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} isConnection={isConnection} />
+                    setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
             }
             {
                 isAuth && <Auth setIsAuth={setIsAuth} navigation={navigation} dispatch={dispatch} />
@@ -128,11 +119,11 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
             {
                 isNickname && <ChangeName setIsNickname={setIsNickname} user={users.user} />
             }
-            <Selector settingsData={settingsData} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} isConnection={isConnection} />
+            <Selector settingsData={settingsData} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
             <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname}
-                setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} isConnection={isConnection} />
+                setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} />
             <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} />
+                <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} disabled={false} />
             </View>
         </View>
     )

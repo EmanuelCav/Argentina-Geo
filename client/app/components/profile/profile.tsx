@@ -12,10 +12,10 @@ import { ICategoriesUser } from "../../interface/Game";
 
 import { totalCorrects, totalQuestions } from "../../helper/statistic";
 
-const Profile = ({ user, games, setIsProfile, isConnection }: ProfileProps) => {
+const Profile = ({ user, games, setIsProfile }: ProfileProps) => {
 
-    const questions = useRef(totalQuestions(isConnection ? user.profile.categories : user.user.user.categories)).current
-    const corrects = useRef(totalCorrects(isConnection ? user.profile.categories : user.user.user.categories)).current
+    const questions = useRef(totalQuestions(user.profile.categories)).current
+    const corrects = useRef(totalCorrects(user.profile.categories)).current
 
     const cancelProfile = () => {
         setIsProfile(false)
@@ -27,30 +27,25 @@ const Profile = ({ user, games, setIsProfile, isConnection }: ProfileProps) => {
                 <View style={menuStyles.containerScroll}>
                     <ScrollView>
                         <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                            <Image source={user.profile.pais.name === "Argentina" ? require('../../../assets/argentina_bandera.png') : require('../../../assets/onu.png' )} 
-                            alt="flag" style={{ height: '100%', width: Dimensions.get("window").width / 8 }} />
-                            <Text style={menuStyles.textNicknameProfile}>{isConnection ? user.profile.nickname : user.user.user.nickname}</Text>
+                            <Image source={user.profile.pais.name === "Argentina" ? require('../../../assets/argentina_bandera.png') : require('../../../assets/onu.png')}
+                                alt="flag" style={{ height: '100%', width: Dimensions.get("window").width / 8 }} />
+                            <Text style={menuStyles.textNicknameProfile}>{user.profile.nickname}</Text>
                         </View>
                         <View style={homeStyles.containerMainInfoProfile}>
-                            <Text style={homeStyles.userInfoProfile}>{isConnection ? user.profile.pais.name : user.user.user.pais.name}</Text>
-                            <Text style={homeStyles.userInfoProfile} adjustsFontSizeToFit>{isConnection ? (user.profile.provincia && user.profile.provincia.name
-                            ) : (
-                                user.user.user.provincia && user.user.user.provincia.name
-                            )}
-                                {isConnection ? (user.profile.municipio && (
+                            <Text style={homeStyles.userInfoProfile}>{user.profile.pais.name}</Text>
+                            <Text style={homeStyles.userInfoProfile} adjustsFontSizeToFit>
+                                {user.profile.provincia && user.profile.provincia.name}
+                                {(user.profile.municipio && (
                                     <Text> - {user.profile.municipio.name}</Text>
-                                )) : (
-                                    (user.user.user.municipio && (
-                                        <Text> - {user.user.user.municipio.name}</Text>
-                                    ))
-                                )}
+                                ))
+                                }
                             </Text>
-                            <Text style={homeStyles.userInfoProfile}>Posición: {user.users.total!.map((u) => u._id).indexOf(isConnection ? user.profile._id : user.user.user._id) + 1}°</Text>
-                            <Text style={homeStyles.userInfoProfile}>Puntaje: {isConnection ? user.profile.points.total : user.user.user.points.total}xp</Text>
-                            <Text style={homeStyles.userInfoProfile}>Mejor puntaje: {isConnection ? user.profile.points.bestPuntuation : user.user.user.points.bestPuntuation}xp</Text>
+                            <Text style={homeStyles.userInfoProfile}>Posición: {user.users.total!.map((u) => u._id).indexOf(user.profile._id) + 1}°</Text>
+                            <Text style={homeStyles.userInfoProfile}>Puntaje: {user.profile.points.total}xp</Text>
+                            <Text style={homeStyles.userInfoProfile}>Mejor puntaje: {user.profile.points.bestPuntuation}xp</Text>
                             <Text style={homeStyles.userInfoProfile}>
                                 {
-                                    user.profile._id === user.user.user._id && isConnection &&
+                                    user.profile._id === user.user.user._id &&
                                     <Text>
                                         Partidas jugadas: {games.length}
                                     </Text>
@@ -67,21 +62,15 @@ const Profile = ({ user, games, setIsProfile, isConnection }: ProfileProps) => {
                         </View>
                         <View>
                             {
-                                isConnection ? (
-                                    user.profile.categories.map((category: ICategoriesUser) => {
-                                        return <CategoryUser category={category} key={category._id} />
-                                    })
-                                ) : (
-                                    user.user.user.categories.map((category: ICategoriesUser) => {
-                                        return <CategoryUser category={category} key={category._id} />
-                                    })
-                                )
+                                user.profile.categories.map((category: ICategoriesUser) => {
+                                    return <CategoryUser category={category} key={category._id} />
+                                })
                             }
                         </View>
                     </ScrollView>
                 </View>
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Regresar" redirect={cancelProfile} isAccept={true} />
+                    <ButtonMenu text="Regresar" redirect={cancelProfile} isAccept={true} disabled={false} />
                 </View>
             </View>
         </View>

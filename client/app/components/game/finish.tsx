@@ -26,12 +26,17 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
                     areErrors && <Text style={gameStyles.textErrorsGame} onPress={viewErrors}>Repasar errores</Text>
                 }
                 {
-                    !isAdd ?
-                        <HelpAdd changeHelp={changeHelp} />
-                        : <Text style={gameStyles.textErrorsGame}>¡Ayudas entregadas!</Text>
+                    isConnection &&
+                    <>
+                        {
+                            !isAdd ?
+                                <HelpAdd changeHelp={changeHelp} />
+                                : <Text style={gameStyles.textErrorsGame}>¡Ayudas entregadas!</Text>
+                        }
+                    </>
                 }
                 <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Continuar" redirect={navigateHome} isAccept={true} />
+                    <ButtonMenu text="Continuar" redirect={navigateHome} isAccept={true} disabled={false} />
                 </View>
             </View>
         </View>

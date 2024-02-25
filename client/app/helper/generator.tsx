@@ -1,26 +1,12 @@
 import { IQuestion } from "../interface/Game";
 
-export function gameWithoutInternet(games: IQuestion[][]): IQuestion[] {
-
-    let questions: IQuestion[] = []
-
-    for (let i = 0; i < games.length; i++) {
-        for (let j = 0; j < games[i].length; j++) {
-            questions.push(games[i][j])
-        }
-    }
-
-    return shuffle(questions)
-
-}
-
 export const generateOptions = (options: string[], amountOptions: number): string[] => {
 
     let arr = []
 
     const correctOption = Math.floor(Math.random() * amountOptions)
 
-    const shuffledOptions: string[] = shuffle(options.slice(1, amountOptions + 1))
+    const shuffledOptions: string[] = shuffle(options.slice(1, options.length)).slice(0, amountOptions + 1)
 
     for (let i = 0; i < amountOptions; i++) {
         if(i === correctOption) {

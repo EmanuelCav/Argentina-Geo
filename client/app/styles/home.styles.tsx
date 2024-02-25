@@ -142,7 +142,6 @@ export const homeStyles = StyleSheet.create({
 
     buttonAcceptOption: {
         width: '100%',
-        backgroundColor: '#597EEE',
         padding: Dimensions.get("window").height / 61.66,
         borderRadius: 4,
         justifyContent: 'center',
@@ -151,7 +150,6 @@ export const homeStyles = StyleSheet.create({
 
     buttonMenu: {
         width: '88%',
-        backgroundColor: '#5d8cff',
         padding: Dimensions.get("window").height / 61.66,
         borderRadius: 4,
         borderColor: '#fff',

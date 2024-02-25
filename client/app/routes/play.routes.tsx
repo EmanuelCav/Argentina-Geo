@@ -15,19 +15,16 @@ import { game } from "../server/actions/game.actions";
 
 import { StackNavigation } from "../types/props.types";
 import { IReducer } from "../interface/Reducer";
-import { IGame, IQuestion } from "../interface/Game";
 
 import { homeStyles } from "../styles/home.styles";
 
 import { selector } from "../helper/selector";
-import { gameWithoutInternet } from "../helper/generator";
 
 // const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : `${BANNER_PLAY_ID}`;
 
 const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
-    const games = useSelector((state: IReducer) => selector(state).games)
 
     const dispatch = useDispatch()
     const route = useRoute()
@@ -42,16 +39,10 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
         if (!isConnection) {
 
-            const allGames = games.games.map((game: IGame) => game.questions.filter((question: IQuestion) => !question.image))
-                .filter(arr => arr.length > 0)
-
-            if (gameWithoutInternet(allGames).length >= 5) {
-                navigation.navigate('Playing', {
-                    questionsWC: gameWithoutInternet(allGames)
-                        .slice(0, gameWithoutInternet(allGames).length < users.user.user.amountQuestions ? gameWithoutInternet(allGames).length : users.user.user.amountQuestions),
-                    isConnection
-                })
-            }
+            navigation.navigate('Playing', {
+                questionsWC: [],
+                isConnection
+            })
 
             return
         }
@@ -93,17 +84,17 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
                 </View>
             } */}
             {
-                isCategories && <Categories user={users.user} categories={users.user.user.categories} setIsCategories={setIsCategories} isConnection={isConnection} />
+                isCategories && <Categories user={users.user} categories={users.user.user.categories} setIsCategories={setIsCategories} />
             }
             {
-                isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} isConnection={isConnection} />
+                isOptionsGame && <OptionsGame setIsOptionsGame={setIsOptionsGame} />
             }
             <View style={homeStyles.containerMenuButtons}>
                 <Error msg={message} />
-                <ButtonMenu text="Iniciar juego" redirect={generateGame} isAccept={false} />
-                <ButtonMenu text="Categorías" redirect={showCategories} isAccept={false} />
-                <ButtonMenu text="Opciones" redirect={showOptions} isAccept={false} />
-                <ButtonMenu text="Regresar" redirect={back} isAccept={false} />
+                <ButtonMenu text="Iniciar juego" redirect={generateGame} isAccept={false} disabled={false} />
+                <ButtonMenu text="Categorías" redirect={showCategories} isAccept={false} disabled={!isConnection} />
+                <ButtonMenu text="Opciones" redirect={showOptions} isAccept={false} disabled={!isConnection} />
+                <ButtonMenu text="Regresar" redirect={back} isAccept={false} disabled={false} />
             </View>
         </View>
     )

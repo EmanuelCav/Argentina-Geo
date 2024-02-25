@@ -11,14 +11,13 @@ import { updateOptionsAction } from '../../../server/features/user.features'
 
 import { IOptions } from '../../../interface/User';
 import { IReducer } from '../../../interface/Reducer';
-import { GameOptionsType } from '../../../types/props.types';
 
 import { homeStyles } from '../../../styles/home.styles'
 import { configGamesStyles } from '../../../styles/game.styles'
 
 import { selector } from '../../../helper/selector';
 
-const InputOptions = ({ setIsOptionsGame, isConnection }: GameOptionsType) => {
+const InputOptions = ({ setIsOptionsGame }: { setIsOptionsGame: (isOptionsGame: boolean) => void }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
 
@@ -35,16 +34,14 @@ const InputOptions = ({ setIsOptionsGame, isConnection }: GameOptionsType) => {
 
     const acceptOptions = async () => {
 
-        if (isConnection) {
-            try {
-                const { data } = await updateOptionsApi(users.user.user._id, optionsData, users.user.token)
-                dispatch(updateOptionsAction(data))
-            } catch (error) {
-                console.log(error);
-            }
+        try {
+            const { data } = await updateOptionsApi(users.user.user._id, optionsData, users.user.token)
+            dispatch(updateOptionsAction(data))
+            setIsOptionsGame(false)
+        } catch (error) {
+            console.log(error);
         }
 
-        setIsOptionsGame(false)
     }
 
     return (
@@ -56,7 +53,7 @@ const InputOptions = ({ setIsOptionsGame, isConnection }: GameOptionsType) => {
                     amountQuestions={amountQuestions} />
             </View>
             <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Aceptar" redirect={acceptOptions} isAccept={true} />
+                <ButtonMenu text="Aceptar" redirect={acceptOptions} isAccept={true} disabled={false} />
             </View>
         </View>
     )

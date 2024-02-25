@@ -102,41 +102,6 @@ const Playing = ({ navigation, route }: PlayingType) => {
         }, 800);
     }
 
-    const nextQuestionWihoutInternet = (item: string) => {
-        if (item === (isGameError ? (errorsGame[numberQuestion].answer) : (route.params.questionsWC[numberQuestion].answer))) {
-            setIsCorrect(true)
-        }
-
-        if (item !== (isGameError ? (errorsGame[numberQuestion].answer) : (route.params.questionsWC[numberQuestion].answer))) {
-            if (isGameError) {
-                setErrors([...errors, errorsGame[numberQuestion]])
-            } else {
-                setErrors([...errors, route.params.questionsWC[numberQuestion]])
-            }
-
-            setIsIncorrect(true)
-        }
-
-        if (!isGameError) {
-            if (numberQuestion < route.params.questionsWC.length - 1) {
-                setOptions(generateOptions(route.params.questionsWC[numberQuestion + 1].options, users.user.user.amountOptions))
-            }
-            setRealSeconds(seconds)
-            setRealMinutes(minutes)
-        } else {
-            if (numberQuestion < errorsGame.length - 1) {
-                setOptions(generateOptions(errorsGame[numberQuestion + 1].options, users.user.user.amountOptions))
-            }
-        }
-
-        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (route.params.questionsWC.length - 1))) {
-            if (errors.length > 0) {
-                setOptions(generateOptions(errors[0].options, users.user.user.amountOptions))
-            }
-            setIsPreFinish(true)
-        }
-    }
-
     const nextQuestion = async (item: string) => {
 
         if (item === (isGameError ? (errorsGame[numberQuestion].answer) : (games.game.questions[numberQuestion].answer))) {
@@ -177,13 +142,10 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const experienceUser = async () => {
 
         if (points !== 0) {
-            if (route.params.isConnection) {
-                dispatch(experienceGame({
-                    pointsData,
-                    user: users.user
-                }) as any)
-
-            }
+            dispatch(experienceGame({
+                pointsData,
+                user: users.user
+            }) as any)
 
             setIsFinish(true)
 
@@ -245,7 +207,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }, [seconds, realSeconds])
 
     useEffect(() => {
-        if (!isGameError) {
+        if (!isGameError && route.params.isConnection) {
             experienceUser()
         }
     }, [points])
@@ -275,9 +237,9 @@ const Playing = ({ navigation, route }: PlayingType) => {
     //         console.log('User earned reward of ', reward);
     //       },
     //     );
-    
+
     //     rewarded.load();
-    
+
     //     return () => {
     //       unsubscribeLoaded();
     //       unsubscribeEarned();
@@ -328,6 +290,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
             if (route.params.isConnection) {
                 statisticsCount()
             }
+
             setOptionsHelped(helpsOptions(options, games.game.questions[numberQuestion], users.user.user.amountOptions))
 
             return
@@ -338,7 +301,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }, [numberQuestion])
 
     useEffect(() => {
-        if (isCorrect && !isGameError) {
+        if (isCorrect && !isGameError && route.params.isConnection) {
             statisticsCorrect()
         }
     }, [numberCorrect])
@@ -371,12 +334,13 @@ const Playing = ({ navigation, route }: PlayingType) => {
             <ShowQuestion questions={isGameError ? errorsGame : games.game.questions} numberQuestion={numberQuestion} />
             <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions}
                 seconds={(realSeconds > 0) ? realSeconds : (seconds === 60) ? 0 : seconds} minutes={(realMinutes > 0) ? realMinutes : minutes}
-                helps={users.user.user.helps} isHelped={isCorrect || isIncorrect || isHelped || users.user.user.helps === 0} changeHelp={changeHelp} isGameError={isGameError} />
+                helps={users.user.user.helps} isHelped={isCorrect || isIncorrect || isHelped || users.user.user.helps === 0} changeHelp={changeHelp} isGameError={isGameError}
+                isConnection={route.params.isConnection!} />
             {
                 (isCorrect || isIncorrect) ? (
                     <Answer answer={isGameError ? errorsGame[numberQuestion].answer : games.game.questions[numberQuestion].answer} isCorrect={isCorrect} continueGame={continueGame} />
                 ) : (
-                    <ShowOptionsGame options={options} nextQuestion={route.params.isConnection ? nextQuestion : nextQuestionWihoutInternet} amountOptions={users.user.user.amountOptions}
+                    <ShowOptionsGame options={options} nextQuestion={nextQuestion} amountOptions={users.user.user.amountOptions}
                         isHelped={isHelped} optionsHelped={optionsHelped} />
                 )
             }

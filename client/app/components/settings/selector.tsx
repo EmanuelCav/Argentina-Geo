@@ -7,18 +7,18 @@ import { authStyles } from '../../styles/settings.styles'
 
 import { SelectSettingsProps } from '../../types/props.types'
 
-const Selector = ({ settingsData, setIsPais, setIsProvincia, setIsMunicipio, isConnection }: SelectSettingsProps) => {
+const Selector = ({ settingsData, setIsPais, setIsProvincia, setIsMunicipio }: SelectSettingsProps) => {
     return (
         <View style={generalStyles.containSelector}>
             <Text style={authStyles.labelForm}>País</Text>
             <InputSelect value={settingsData.pais} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
-            isDisabled={false} location="Pais" isConnection={isConnection} />
+            isDisabled={false} location="Pais" />
             <Text style={authStyles.labelForm}>Provincia/Distrito</Text>
             <InputSelect value={settingsData.provincia} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
-            isDisabled={settingsData.pais === "Argentina" ? false : true} location="Provincia" isConnection={isConnection} />
+            isDisabled={settingsData.pais === "Argentina" ? false : true} location="Provincia" />
             <Text style={authStyles.labelForm}>Departamento/Partido/barrio</Text>
             <InputSelect value={settingsData.municipio} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
-            isDisabled={settingsData.provincia === "" ? true : false} location="Municipio" isConnection={isConnection} />
+            isDisabled={settingsData.provincia === "" ? true : false} location="Municipio" />
         </View>
     )
 }

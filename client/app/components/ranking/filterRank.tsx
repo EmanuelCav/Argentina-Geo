@@ -3,16 +3,13 @@ import { View, Text, Pressable, Dimensions } from "react-native";
 import { useDispatch } from 'react-redux';
 import FilterIcon from 'react-native-vector-icons/FontAwesome5';
 
-import { rankingLocationApi, usersApi } from "../../server/api/user.api";
-import { locationRankAction, usersAction } from "../../server/features/user.features";
-
 import { rankingStyles } from '../../styles/home.styles';
 
 import { RankingProps } from "../../types/props.types";
 import { LocationRankType, RanksType } from "../../types/user.types";
 import { rankingLocation, rankingUser } from "../../server/actions/user.actions";
 
-const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps) => {
+const FilterRank = ({ users, setRankData, rankData }: RankingProps) => {
 
     const dispatch = useDispatch()
 
@@ -64,14 +61,12 @@ const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps
     }
 
     const changeFilter = () => {
-        if (isConnection) {
-            if (positionRank === rankState.current.length - 1) {
-                setPositionRank(0)
-                return
-            }
-
-            setPositionRank(positionRank + 1)
+        if (positionRank === rankState.current.length - 1) {
+            setPositionRank(0)
+            return
         }
+
+        setPositionRank(positionRank + 1)
     }
 
     const getRankLocation = async () => {
@@ -129,19 +124,19 @@ const FilterRank = ({ users, setRankData, isConnection, rankData }: RankingProps
             </View>
             <View style={rankingStyles.containerDateRank}>
                 <Pressable style={isTotal ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showTotal} disabled={isTotal || !isConnection}>
+                    onPress={showTotal} disabled={isTotal}>
                     <Text style={isTotal ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Total</Text>
                 </Pressable>
                 <Pressable style={isYear ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showYear} disabled={isYear || !isConnection}>
+                    onPress={showYear} disabled={isYear}>
                     <Text style={isYear ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Año</Text>
                 </Pressable>
                 <Pressable style={isMonth ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showMonth} disabled={isMonth || !isConnection}>
+                    onPress={showMonth} disabled={isMonth}>
                     <Text style={isMonth ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Mes</Text>
                 </Pressable>
                 <Pressable style={isDay ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showDay} disabled={isDay || !isConnection}>
+                    onPress={showDay} disabled={isDay}>
                     <Text style={isDay ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Día</Text>
                 </Pressable>
             </View>

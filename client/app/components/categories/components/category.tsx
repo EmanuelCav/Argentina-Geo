@@ -8,18 +8,15 @@ import { CategoryProps } from "../../../types/props.types";
 
 import { updateCategory } from '../../../server/actions/user.actions';
 
-const Category = ({ user, category, isConnection }: CategoryProps) => {
+const Category = ({ user, category }: CategoryProps) => {
 
     const dispatch = useDispatch()
 
     const selectCategory = async () => {
-
-        if (isConnection) {
-            dispatch(updateCategory({
-                id: category._id,
-                token: user.token
-            }) as any)
-        }
+        dispatch(updateCategory({
+            id: category._id,
+            token: user.token
+        }) as any)
     }
 
     const isSelect = () => {

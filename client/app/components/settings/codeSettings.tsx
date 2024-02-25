@@ -4,7 +4,7 @@ import { CodeProps } from "../../types/props.types";
 
 import { sectionStyle } from '../../styles/settings.styles'
 
-const CodeSettings = ({ password, nickname, setIsAuth, setIsCode, setIsNickname, isConnection }: CodeProps) => {
+const CodeSettings = ({ password, nickname, setIsAuth, setIsCode, setIsNickname }: CodeProps) => {
 
     const isChangeNickname = (): boolean => {
         const isUsuario = nickname.startsWith("usuario")
@@ -33,23 +33,17 @@ const CodeSettings = ({ password, nickname, setIsAuth, setIsCode, setIsNickname,
             <View style={sectionStyle.containCode}>
                 <Text style={sectionStyle.textCode}>Nombre de usuario: {nickname}</Text>
                 {
-                    isChangeNickname() && isConnection &&
+                    isChangeNickname() &&
                     <Text style={sectionStyle.changeTextCode} onPress={ChangeNickname}>Cambiar nombre de usuario</Text>
                 }
             </View>
             <View style={sectionStyle.containCode}>
                 <Text style={sectionStyle.textCode}>Código de entrada: {password}</Text>
-                {
-                    isConnection &&
-                    <Text style={sectionStyle.changeTextCode} onPress={changeCode}>
-                        Cambiar código
-                    </Text>
-                }
+                <Text style={sectionStyle.changeTextCode} onPress={changeCode}>
+                    Cambiar código
+                </Text>
             </View>
-            {
-                isConnection &&
-                <Text style={sectionStyle.changeTextCode} onPress={changeUser}>Cambiar de usuario</Text>
-            }
+            <Text style={sectionStyle.changeTextCode} onPress={changeUser}>Cambiar de usuario</Text>
         </View>
     )
 }

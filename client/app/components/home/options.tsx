@@ -19,11 +19,6 @@ const Options = ({ navigation, setIsProfile, user, isConnection, setIsChangeView
     }
 
     const showProfile = () => {
-        if (!isConnection) {
-            setIsProfile(true)
-            return
-        }
-
         dispatch(getUser({
             id: user.user.user._id,
             user,
@@ -33,11 +28,6 @@ const Options = ({ navigation, setIsProfile, user, isConnection, setIsChangeView
 
     const redirectRanking = () => {
         setIsChangeView(!isChangeView)
-
-        if (!isConnection) {
-            navigation.navigate("Ranking")
-            return
-        }
 
         dispatch(getRanking({
             user,
@@ -53,10 +43,10 @@ const Options = ({ navigation, setIsProfile, user, isConnection, setIsChangeView
     return (
         <View style={homeStyles.containerUserOption}>
             <View style={homeStyles.containerMenuButtons}>
-                <ButtonMenu text="Jugar" redirect={redirectPlay} isAccept={false} />
-                <ButtonMenu text="Estadísticas" redirect={showProfile} isAccept={false} />
-                <ButtonMenu text="Clasificación" redirect={redirectRanking} isAccept={false} />
-                <ButtonMenu text="Ajustes" redirect={redirectSettings} isAccept={false} />
+                <ButtonMenu text="Jugar" redirect={redirectPlay} isAccept={false} disabled={false} />
+                <ButtonMenu text="Estadísticas" redirect={showProfile} isAccept={false} disabled={!isConnection} />
+                <ButtonMenu text="Clasificación" redirect={redirectRanking} isAccept={false} disabled={!isConnection} />
+                <ButtonMenu text="Ajustes" redirect={redirectSettings} isAccept={false} disabled={!isConnection} />
             </View>
         </View>
     )

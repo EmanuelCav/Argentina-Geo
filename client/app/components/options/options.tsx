@@ -2,15 +2,13 @@ import { View } from "react-native";
 
 import InputOptions from "./components/InputOptions";
 
-import { GameOptionsType } from "../../types/props.types";
-
 import { configGamesStyles } from '../../styles/game.styles'
 
-const OptionsGame = ({ setIsOptionsGame, isConnection }: GameOptionsType) => {
+const OptionsGame = ({ setIsOptionsGame }: { setIsOptionsGame: (isOptionsGame: boolean) => void }) => {
 
     return (
         <View style={configGamesStyles.containerConfigGames}>
-            <InputOptions setIsOptionsGame={setIsOptionsGame} isConnection={isConnection} />
+            <InputOptions setIsOptionsGame={setIsOptionsGame} />
         </View>
     )
 }

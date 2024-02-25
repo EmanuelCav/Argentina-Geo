@@ -6,7 +6,6 @@ import { fetch } from "@react-native-community/netinfo";
 import User from '../components/home/User'
 import Options from '../components/home/Options'
 import Profile from '../components/profile/Profile';
-import Network from '../components/response/Network';
 
 import { gamesApi } from '../server/api/game.api'
 import { getDateExperienceApi, usersApi } from '../server/api/user.api'
@@ -30,8 +29,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     const dispatch = useDispatch()
 
     const [isProfile, setIsProfile] = useState<boolean>(false)
-    const [isGetLoggedIn, setIsGetLoggedIn] = useState<boolean>(false)
-    const [isInternet, setIsInternet] = useState<boolean>(true)
     const [isConnection, setIsConnection] = useState<boolean | null>(true)
     const [isChangeView, setIsChangeView] = useState<boolean>(false)
 
@@ -76,8 +73,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                     getNewDate()
                 }
 
-                setIsGetLoggedIn(true)
-
                 return
 
             }
@@ -91,13 +86,10 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerHome} >
             {
-                !isConnection && isInternet && <Network firstTime={!users.isLoggedIn} setIsInternet={setIsInternet} />
-            }
-            {
-                users.isLoggedIn && isGetLoggedIn && (
+                users.isLoggedIn && (
                     <>
                         {
-                            isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} isConnection={isConnection} />
+                            isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
                         }
                         <User user={users.user.user} users={users.users} />
                         <Options navigation={navigation} setIsProfile={setIsProfile} user={users} isConnection={isConnection}

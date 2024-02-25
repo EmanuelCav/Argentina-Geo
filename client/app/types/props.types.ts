@@ -24,6 +24,7 @@ export type ButtonGameProps = {
     text: string;
     redirect: () => void;
     isAccept: boolean;
+    disabled: boolean;
 }
 
 export type ButtonNavigateProps = {
@@ -56,14 +57,12 @@ export type ProfileProps = {
     user: UserType;
     games: IGame[];
     setIsProfile: (isProfile: boolean) => void;
-    isConnection: boolean | null
 }
 
 export type CategoriesProps = {
     user: UserDataType;
     categories: ICategoriesUser[];
     setIsCategories: (isCategories: boolean) => void;
-    isConnection: boolean | null;
 }
 
 export type NewProps = {
@@ -85,17 +84,11 @@ export type CodeProps = {
     setIsAuth: (isAuth: boolean) => void;
     setIsCode: (isCode: boolean) => void;
     setIsNickname: (isNickname: boolean) => void;
-    isConnection: boolean | null;
 }
 
 export type SelectOptionProps = {
     setOptionsData: (optionData: SetStateAction<IOptions>) => void;
     amountOptions: number;
-}
-
-export type GameOptionsType = {
-    setIsOptionsGame: (isOptionsGame: boolean) => void;
-    isConnection: boolean | null;
 }
 
 export type SelectQuestionProps = {
@@ -116,7 +109,6 @@ export type ChangeNicknameProps = {
 export type CategoryProps = {
     user: UserDataType;
     category: ICategories;
-    isConnection: boolean | null;
 }
 
 export type SelectSettingsProps = {
@@ -124,7 +116,6 @@ export type SelectSettingsProps = {
     setIsPais: (isPais: boolean) => void;
     setIsProvincia: (isProvincia: boolean) => void;
     setIsMunicipio: (isMunicipio: boolean) => void;
-    isConnection: boolean | null;
 }
 
 export type InputSettingsType = {
@@ -134,7 +125,6 @@ export type InputSettingsType = {
     setIsMunicipio: (isMunicipio: boolean) => void;
     isDisabled: boolean;
     location: string;
-    isConnection: boolean | null;
 }
 
 export type SelectProps = {
@@ -147,7 +137,6 @@ export type SelectProps = {
     setIsPais: (isLocation: boolean) => void;
     setIsProvincia: (isProvincia: boolean) => void;
     setIsMunicipio: (isMunicipio: boolean) => void;
-    isConnection: boolean | null;
 }
 
 export type LocationProps = {
@@ -167,6 +156,7 @@ export type GameDataProps = {
     isHelped: boolean; 
     changeHelp: (type: HelpType) => void;
     isGameError: boolean;
+    isConnection: boolean;
 }
 
 export type TimePropsType = {
@@ -205,7 +195,6 @@ export type ShowOptionGameProps = {
 export type RankingProps = {
     users: UserType;
     setRankData: (rankData: DateRankType) => void;
-    isConnection: boolean | null;
     rankData: DateRankType;
 }
 
@@ -215,7 +204,6 @@ export type UserRankingProps = {
     users: UserReducerType;
     rankData: DateRankType;
     setIsProfile: (isProfile: boolean) => void;
-    isConnection: boolean | null;
 }
 
 export type RankingActionProps = {
