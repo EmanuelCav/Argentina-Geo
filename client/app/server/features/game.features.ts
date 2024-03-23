@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-import { ICategories, ICounterGame, IGame } from '../../interface/Game'
+import { ICounterGame, IGame } from '../../interface/Game'
 
 const initialState: ICounterGame = {
     games: [],

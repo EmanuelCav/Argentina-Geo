@@ -3,8 +3,8 @@ import { View } from "react-native";
 import { useDispatch, useSelector } from 'react-redux'
 import { fetch } from "@react-native-community/netinfo";
 import { useRoute } from '@react-navigation/native';
-// import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-// import { BANNER_PLAY_ID } from "@env";
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { BANNER_PLAY_ID } from "@env";
 
 import ButtonMenu from "../components/ButtonMenu";
 import Categories from "../components/categories/Categories";
@@ -20,7 +20,7 @@ import { homeStyles } from "../styles/home.styles";
 
 import { selector } from "../helper/selector";
 
-// const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : `${BANNER_PLAY_ID}`;
+const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : `${BANNER_PLAY_ID}`;
 
 const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -74,7 +74,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
     return (
         <View style={homeStyles.containerPlay}>
-            {/* {
+            {
                 isConnection &&
                 <View>
                     <BannerAd
@@ -82,7 +82,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
                         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
                     />
                 </View>
-            } */}
+            }
             {
                 isCategories && <Categories user={users.user} categories={users.user.user.categories} setIsCategories={setIsCategories} />
             }

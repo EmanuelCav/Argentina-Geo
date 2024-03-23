@@ -6,6 +6,7 @@ import { fetch } from "@react-native-community/netinfo";
 import User from '../components/home/User'
 import Options from '../components/home/Options'
 import Profile from '../components/profile/Profile';
+import UserNoConnection from '../components/home/UserNoConnection';
 
 import { gamesApi } from '../server/api/game.api'
 import { getDateExperienceApi, usersApi } from '../server/api/user.api'
@@ -56,22 +57,22 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     }, [isConnection, isProfile, isChangeView])
 
     useEffect(() => {
-        if (isConnection) {
+        if (isConnection && users.isLoggedIn) {
+            
             getUsers()
+
+            if (isNewDate(new Date(new Date().setHours(new Date().getHours() - 3)).toISOString().split("T")[0], users)) {
+                getNewDate()
+            }
         }
     }, [])
 
     useEffect(() => {
-
         if (isConnection) {
             if (users.isLoggedIn) {
 
                 dispatch(getLogin(users.user.user._id) as any)
                 getGames()
-                
-                if(isNewDate(new Date(new Date().setHours(new Date().getHours() - 3)).toISOString().split("T")[0], users)) {
-                    getNewDate()
-                }
 
                 return
 
@@ -86,18 +87,29 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerHome} >
             {
-                users.isLoggedIn && (
+                isConnection ? (
                     <>
                         {
-                            isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
+                            users.isLoggedIn && 
+                            <>
+                                {
+                                    isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />
+                                }
+                                <User user={users.user.user} users={users.users} />
+                                <Options navigation={navigation} setIsProfile={setIsProfile} user={users} isConnection={isConnection}
+                                    setIsChangeView={setIsChangeView} isChangeView={isChangeView} />
+                            </>
                         }
-                        <User user={users.user.user} users={users.users} />
+                    </>
+                ) : (
+                    <>
+                        <UserNoConnection />
                         <Options navigation={navigation} setIsProfile={setIsProfile} user={users} isConnection={isConnection}
                             setIsChangeView={setIsChangeView} isChangeView={isChangeView} />
                     </>
                 )
             }
-        </View>
+        </View >
     )
 }
 

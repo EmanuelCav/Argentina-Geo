@@ -30,17 +30,17 @@ import { selector } from '../helper/selector'
 import { categoryStatistic } from '../helper/statistic'
 import { generateOptions, helpsOptions } from '../helper/generator'
 
-// const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : `${INTERSTITIAL_FINISH_ID}`;
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : `${INTERSTITIAL_FINISH_ID}`;
 
-// const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-//     keywords: ['fashion', 'clothing'],
-// });
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+    keywords: ['fashion', 'clothing'],
+});
 
-// const adUnitIdReward = __DEV__ ? TestIds.REWARDED : `${RECOMPENSADO_ID}`;
+const adUnitIdReward = __DEV__ ? TestIds.REWARDED : `${RECOMPENSADO_ID}`;
 
-// const rewarded = RewardedAd.createForAdRequest(adUnitIdReward, {
-//   keywords: ['fashion', 'clothing'],
-// });
+const rewarded = RewardedAd.createForAdRequest(adUnitIdReward, {
+  keywords: ['fashion', 'clothing'],
+});
 
 const Playing = ({ navigation, route }: PlayingType) => {
 
@@ -217,34 +217,34 @@ const Playing = ({ navigation, route }: PlayingType) => {
         return () => backHandler.remove()
     }, [])
 
-    // useEffect(() => {
-    //     const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-    //         console.log("Loading add");
-    //     });
+    useEffect(() => {
+        const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+            console.log("Loading add");
+        });
 
-    //     interstitial.load();
+        interstitial.load();
 
-    //     return unsubscribe;
-    // }, []);
+        return unsubscribe;
+    }, []);
 
-    // useEffect(() => {
-    //     const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-    //       console.log("Loading add");
-    //     });
-    //     const unsubscribeEarned = rewarded.addAdEventListener(
-    //       RewardedAdEventType.EARNED_REWARD,
-    //       reward => {
-    //         console.log('User earned reward of ', reward);
-    //       },
-    //     );
+    useEffect(() => {
+        const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+          console.log("Loading add");
+        });
+        const unsubscribeEarned = rewarded.addAdEventListener(
+          RewardedAdEventType.EARNED_REWARD,
+          reward => {
+            console.log('User earned reward of ', reward);
+          },
+        );
 
-    //     rewarded.load();
+        rewarded.load();
 
-    //     return () => {
-    //       unsubscribeLoaded();
-    //       unsubscribeEarned();
-    //     };
-    //   }, []);
+        return () => {
+          unsubscribeLoaded();
+          unsubscribeEarned();
+        };
+      }, []);
 
     const statisticsCount = async () => {
         await questionsCountApi(categoryStatistic(users.user.user.categories, games.game.questions[numberQuestion].category.name), users.user.token)
@@ -268,7 +268,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
         setHelpType(type)
 
         if (type === 'add') {
-            //   rewarded.show()
+              rewarded.show()
             setIsAdd(true)
         }
     }
@@ -325,7 +325,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
         <View style={gameStyles.gameContainer}>
             {
                 isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
-                    navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection}
+                    navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
                     isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd} />
             }
             {

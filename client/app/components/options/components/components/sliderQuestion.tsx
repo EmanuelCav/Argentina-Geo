@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Slider from '@react-native-community/slider';
 
@@ -17,7 +16,7 @@ const sliderQuestion = ({ setOptionsData, amountQuestions }: SelectQuestionProps
                 style={sliderStyle.slider}
                 thumbTintColor='#597EEE'
                 minimumValue={5}
-                maximumValue={30}
+                maximumValue={20}
                 value={amountQuestions}
                 minimumTrackTintColor="#597EEE"
                 maximumTrackTintColor="#4488BB"

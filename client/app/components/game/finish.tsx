@@ -13,7 +13,7 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
 
     const navigateHome = () => {
         if (isConnection) {
-            // interstitial.show();
+            interstitial.show();
         }
         navigation.navigate('Home')
     }

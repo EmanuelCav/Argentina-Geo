@@ -10,8 +10,8 @@ const User = ({ user, users }: UserInfoProps) => {
         <View style={homeStyles.containerUserHome}>
             <View style={homeStyles.userInfoLevel}>
                 <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                    <Image source={user.pais.name === "Argentina" ? require('../../../assets/argentina_bandera.png') : require('../../../assets/onu.png' )} 
-                    alt="flag" style={{ height: '100%', width: Dimensions.get("window").width / 8 }} />
+                    <Image source={user.pais.name === "Argentina" ? require('../../../assets/argentina_bandera.png') : require('../../../assets/onu.png')}
+                        alt="flag" style={{ height: '100%', width: Dimensions.get("window").width / 8 }} />
                     <Text style={homeStyles.userNickname}>{user.nickname}</Text>
                 </View>
                 <Text style={homeStyles.userInfo}>{user.pais.name}</Text>
@@ -20,7 +20,7 @@ const User = ({ user, users }: UserInfoProps) => {
                         <Text> - {user.municipio.name}</Text>
                     )}
                 </Text>
-                <Text style={homeStyles.userInfo}>Posición: {users.total!.map((user) => user._id).indexOf(user._id) + 1}°</Text>
+                <Text style={homeStyles.userInfo}>Posición: {users.total?.map((user) => user._id).indexOf(user._id)! + 1}°</Text>
             </View>
         </View>
     )

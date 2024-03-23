@@ -176,7 +176,7 @@ export type FinishPropsType = {
     isConnection: boolean | null;
     isAdd: boolean;
     changeHelp: (type: HelpType) => void;
-    interstitial?: InterstitialAd;
+    interstitial: InterstitialAd;
 }
 
 export type ShowQuestionProps = {

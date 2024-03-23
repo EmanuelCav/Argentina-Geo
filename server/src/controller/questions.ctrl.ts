@@ -284,7 +284,6 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         }
 
         // let options = ["Aconcagua", "Monte Pissis", "Cerro Bonete Chico", "Cerro Catedral", "Cerro de los Siete Colores", "Cerro Torre", "Chañi", "Cerro Tronador", "Champaquí", "Volcán Lanín"]
-
         // let options = ["Mendoza", "Río Negro", "Tucumán", "Neuquén", "Buenos Aires", "La Rioja", "La Pampa", "Corrientes", "Entre Ríos", "Catamarca", "Salta", "San Juan", "Córdoba", "Tierra del Fuego, Antártida e Islas del Atlántico Sur", "Jujuy", "Santa Cruz", "Chubut", "Chaco", "Santiago del Estero", "Santa Fe", "Misiones", "San Luis", "Formosa", "Ciudad Autónoma de Buenos Aires"]
         // let options = ["Río Paraná", "Río Cuarto", "Río Uruguay", "Río Atuel", "Río de la Plata", "Río Bermejo", "Río Colorado", "Río Salado", "Río Paraguay", "Río Negro"]
         // let options = ["Lago Argentino", "Lago Nahuel Huapi", "Lago Viedma", "Lago Lácar", "Lago Musters", "Lago Cardiel", "Lago Epecuén", "Lago Pellegrini", "Lago Buenos Aires", "Lago Aluminé"]
@@ -296,7 +295,7 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         // let options = ["Cerro de los Siete Colores", "Cerro Tronador", "Cerro Zapaleri", "Cerro Torre", "Cerro Bonete Chico", "Cerro Aracar", "Cerro Tupungato", "Cerro Luracatao", "Cerro Malcante", "Cerro de las Ovejas"]
         // let options = ["6.961", "5.439", "7.104", "6.320", "7.467", "6.103", "5.888", "6.541", "4.865", "4.412"]
         // let options = ["Obelisco", "Monumento a la Bandera", "Floralis Generica", "Plaza General San Martín", "Basílica de Luján", "Casa Histórica de la Independencia", "Palacio San José", "Teatro Colón", "Puente de la Mujer", "Cristo de las Sierras"]
-        let options = ["Bandera", "", "", "", "", "", "", "", "", ""]
+        // let options = ["Avenida 9 de Julio", "Avenida de Mayo", "Avenida Santa Fe", "Avenida Rivadavia", "Avenida Pueyrredón", "Avenida del Libertador", "Avenida Paseo Colón", "Avenida Corrientes", "Avenida Boedo", "Avenida San Martín"]
 
         // let options = ["Alejandro Sabella", "Diego Armando Maradona", "Gerardo Martino", "Marcelo Bielsa", "Jorge Sampaoli", "Daniel Passarella", "Sergio Batista", "Alfio Basile", "Omar Sívori", "José Néstor Pekerman"]
         // let options = ["Paula Pareto", "Marcela Acuña", "Cecilia Carranza Saroli", "Georgina Bardach", "Gabriela Sabatini", "Luciana Aymar", "Paola Sanchez", "Noemí Sarmiento", "Jeanette Campbell", "Cecilia Rognoni"]
@@ -324,6 +323,7 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         // let options = ["1991", "1986", "1979", "1983", "1994", "1974", "1988", "1993", "1997", "1998"]
         // let options = ["Paulo Londra", "Duki", "Lit Killah", "Khea", "Maria Becerra", "Tini", "Trueno", "Thiago PZK", "Rusherking", "Nicki Nicole", "Luck Ra", "Cazzu", "Milo J", "Neo Pistea", "Emilia Mernes", "Wos"]
         // let options = ["Alfonsina y el mar", "Todo cambia", "Como la cigarra", "La Maza", "Gracias a la vida", "Ojos de cielo", "Zona de promesas", "Solo le pido a Dios", "Zamba para olvidarte", "Razón de vivir"]
+        // let options = ["Tarragó Ros", "Chaqueño Palavecino", "Ramón Ayala", "Turco Cafrune", "Horacio Guarany", "Atahualpa Yupanqui", "Ramona Galarza", "Joselo Schuap", "Mercedes Sosa", "Gilberto Vaca"]
 
         // let options = ["Museo Nacional de Bellas Artes", "Palacio San José", "Museo de Arqueología de Alta Montaña", "Museo de Ciencias Naturales", "Museo Marítimo y del Presidio", "Planetario Galileo Galilei", "Museo Histórico Nacional", "Museo Casa Rosada", "Museo Mitre", "Museo Moderno"]
         // let options = ["Pintura", "Danza", "Arquitectura", "Literatura", "Cine", "Poesía", "Música", "Cómic", "Fotografía", "Escultura"]
@@ -364,7 +364,13 @@ export const generateOption = async (req: Request, res: Response): Promise<Respo
         // let options = ["Mariquita Sánchez de Thompson", "Juana Azurduy", "Eva Perón", "Machacha Güemes", "José María Paz", "Alicia Moreau de Justo", "Manuel Alberti", "Jorge Newbery", "Carlos Saavedra Lamas", "Francisco Laprida"]
 
         // let options = ["5", "3", "7", "9", "11", "4", "1", "6", "2", "12"]
-        // let options = ["Asado", "Arroz", "Hamburguesa", "Taco", "Burrito", "Ceviche", "Pachamanca", "Pabellón", "Arepas", "Cazuela"]
+        // let options = ["Humita", "Provoleta", "Fugazzetta rellena", "Tamales", "Locro", "Asado", "Choripán", "Milanesa a la napolitana", "Empanadas", "Revuelto Gramajo"]
+        // let options = ["Luis Federico Leloir", "Manuel Sadosky", "César Milstein", "Enrique Gaviola", "Bernardo Houssay", "René Favaloro", "Florentino Ameghino", "Juan Martín Maldacena", "Luis Agote", "Salvador Mazza"]
+        // let options = ["Rogel", "Mantecol", "Pionono", "Berlinesa", "Alfajor", "Chocotorta", "Pastafrola", "Churro", "Arrope", "Budín de pan", "Cassata", "Mazamorra", "Imperial ruso", "Achilata", "Garrapiñada", "Bon o Bon", "Bolanchao", "Nucrem"]
+        let options = ["Clericó", "Fernet", "Añapa", "Aloja", "Carrulim", "Chicha", "Cerveza", "Caña", "Muday", "Liso"]
+        // let options = ["Teatro Colón", "Teatro San Martín", "Teatro Gran Rex", "Teatro Independencia", "Teatro Ópera Orbis", "Teatro El Nacional", "Teatro Nacional Cervantes", "Teatro Lola Membrives", "Multiteatro Comafi", "Microteatro"]
+        // let options = ["Gauchito Gil", "Ángel Gallardo", "Chaqueño Palavecino", "El Colorao Herrera", "Antonio Ríos", "Mercedes Sosa", "Domingo Cura", "Isaco Abitbol", "Hugo Leiva", "Zamba Quipildor"]
+        // let options = ["Cataratas del Iguazú", "Glaciar Perito Moreno", "Península Valdés", "Cerro de los Siete Colores", "Quebrada de Cafayate", "Quebrada de Humahuaca", "Salinas Grandes", "Ruinas Quilmes", "Laguna Esmeralda", "Esteros del Iberá"]
 
         await Question.findByIdAndUpdate(id, {
             $set: {
