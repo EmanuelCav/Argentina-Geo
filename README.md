@@ -7,7 +7,7 @@
 
 ## Production ##
 
-- Android: https://play.google.com/store/apps/details?id=com.preguntasculturageneral.quizculturageneral
+- Android: https://play.google.com/store/apps/details?id=com.argentinaquiz.triviagame
 
 ## Tools ##
   
