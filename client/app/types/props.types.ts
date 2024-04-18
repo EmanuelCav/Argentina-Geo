@@ -156,7 +156,6 @@ export type GameDataProps = {
     isHelped: boolean; 
     changeHelp: (type: HelpType) => void;
     isGameError: boolean;
-    isConnection: boolean;
 }
 
 export type TimePropsType = {

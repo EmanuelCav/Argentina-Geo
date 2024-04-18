@@ -28,7 +28,7 @@ export const helpsOptions = (options: string[], question: IQuestion, amountOptio
 
 }
 
-function shuffle(array: any[]) {
+export function shuffle(array: any[]) {
 
     let currentIndex = array.length, randomIndex;
 

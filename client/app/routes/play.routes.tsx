@@ -5,6 +5,7 @@ import { fetch } from "@react-native-community/netinfo";
 import { useRoute } from '@react-navigation/native';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import { BANNER_PLAY_ID } from "@env";
+import questionsJson from '../../assets/questions.json'
 
 import ButtonMenu from "../components/ButtonMenu";
 import Categories from "../components/categories/Categories";
@@ -12,6 +13,7 @@ import OptionsGame from "../components/options/Options";
 import Error from '../components/response/Error';
 
 import { game } from "../server/actions/game.actions";
+import { getDateExperienceApi } from "../server/api/user.api";
 
 import { StackNavigation } from "../types/props.types";
 import { IReducer } from "../interface/Reducer";
@@ -19,6 +21,8 @@ import { IReducer } from "../interface/Reducer";
 import { homeStyles } from "../styles/home.styles";
 
 import { selector } from "../helper/selector";
+import { isNewDate } from "../helper/time";
+import { shuffle } from "../helper/generator";
 
 const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : `${BANNER_PLAY_ID}`;
 
@@ -40,7 +44,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
         if (!isConnection) {
 
             navigation.navigate('Playing', {
-                questionsWC: [],
+                questionsWC: shuffle(questionsJson.filter((q) => q.image === undefined) as any[]),
                 isConnection
             })
 
@@ -68,9 +72,25 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
         navigation.goBack()
     }
 
+    const getNewDate = async () => {
+        try {
+            await getDateExperienceApi(users.user.token)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         fetch().then(conn => conn).then(state => setIsConnection(state.isConnected));
     }, [isConnection, route.name])
+
+    useEffect(() => {
+        if (isConnection && users.isLoggedIn) {
+            if (isNewDate(new Date(new Date().setHours(new Date().getHours() - 3)).toISOString().split("T")[0], users)) {
+                getNewDate()
+            }
+        }
+    }, [isConnection])
 
     return (
         <View style={homeStyles.containerPlay}>

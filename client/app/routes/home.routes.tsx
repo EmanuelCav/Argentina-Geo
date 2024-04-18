@@ -9,9 +9,10 @@ import Profile from '../components/profile/Profile';
 import UserNoConnection from '../components/home/UserNoConnection';
 
 import { gamesApi } from '../server/api/game.api'
-import { getDateExperienceApi, usersApi } from '../server/api/user.api'
+import { usersApi } from '../server/api/user.api'
 import { gamesAction } from '../server/features/game.features'
 import { getLogin, newUser } from '../server/actions/user.actions';
+import { usersAction } from '../server/features/user.features';
 
 import { StackNavigation } from '../types/props.types'
 import { IReducer } from '../interface/Reducer';
@@ -19,8 +20,6 @@ import { IReducer } from '../interface/Reducer';
 import { homeStyles } from "../styles/home.styles";
 
 import { selector } from '../helper/selector';
-import { isNewDate } from '../helper/time';
-import { usersAction } from '../server/features/user.features';
 
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -34,22 +33,29 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     const [isChangeView, setIsChangeView] = useState<boolean>(false)
 
     const getGames = async () => {
-        const { data } = await gamesApi(users.user.token)
-        dispatch(gamesAction(data))
-    }
 
-    const getUsers = async () => {
-        const { data } = await usersApi("total", users.user.token)
-        dispatch(usersAction(data))
-
-    }
-
-    const getNewDate = async () => {
         try {
-            await getDateExperienceApi(users.user.token)
+
+            const { data } = await gamesApi(users.user.token)
+            dispatch(gamesAction(data))
+
         } catch (error) {
             console.log(error);
         }
+
+    }
+
+    const getUsers = async () => {
+
+        try {
+
+            const { data } = await usersApi("total", users.user.token)
+            dispatch(usersAction(data))
+
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     useEffect(() => {
@@ -58,12 +64,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     useEffect(() => {
         if (isConnection && users.isLoggedIn) {
-            
             getUsers()
-
-            if (isNewDate(new Date(new Date().setHours(new Date().getHours() - 3)).toISOString().split("T")[0], users)) {
-                getNewDate()
-            }
         }
     }, [])
 
@@ -90,7 +91,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                 isConnection ? (
                     <>
                         {
-                            users.isLoggedIn && 
+                            users.isLoggedIn &&
                             <>
                                 {
                                     isProfile && <Profile user={users} games={games.games} setIsProfile={setIsProfile} />

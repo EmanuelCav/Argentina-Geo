@@ -21,7 +21,9 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
     return (
         <View style={gameStyles.containerFinish}>
             <View style={gameStyles.containFinish}>
-                <DataFinish minutes={minutes} seconds={seconds} corrects={corrects} points={points} isGameError={isGameError} />
+                {
+                    isConnection && <DataFinish minutes={minutes} seconds={seconds} corrects={corrects} points={points} isGameError={isGameError} />
+                }
                 {
                     areErrors && <Text style={gameStyles.textErrorsGame} onPress={viewErrors}>Repasar errores</Text>
                 }

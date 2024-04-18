@@ -39,7 +39,7 @@ const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
 const adUnitIdReward = __DEV__ ? TestIds.REWARDED : `${RECOMPENSADO_ID}`;
 
 const rewarded = RewardedAd.createForAdRequest(adUnitIdReward, {
-  keywords: ['fashion', 'clothing'],
+    keywords: ['fashion', 'clothing'],
 });
 
 const Playing = ({ navigation, route }: PlayingType) => {
@@ -77,8 +77,8 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
     const [helpType, setHelpType] = useState<HelpType>('help')
 
-    const [options, setOptions] = useState<string[]>(generateOptions(games.game.questions[numberQuestion].options, users.user.user.amountOptions))
-    const [optionsHelped, setOptionsHelped] = useState<string[]>(helpsOptions(options, games.game.questions[numberQuestion], users.user.user.amountOptions))
+    const [options, setOptions] = useState<string[]>(generateOptions(route.params.isConnection ? games.game.questions[numberQuestion].options : route.params.questionsWC[numberQuestion].options, route.params.isConnection ? users.user.user.amountOptions : 4))
+    const [optionsHelped, setOptionsHelped] = useState<string[]>(helpsOptions(options, route.params.isConnection ? games.game.questions[numberQuestion] : route.params.questionsWC[numberQuestion], route.params.isConnection ? users.user.user.amountOptions : 4))
 
     const { points } = pointsData
 
@@ -104,37 +104,37 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
     const nextQuestion = async (item: string) => {
 
-        if (item === (isGameError ? (errorsGame[numberQuestion].answer) : (games.game.questions[numberQuestion].answer))) {
+        if (item === (isGameError ? (errorsGame[numberQuestion].answer) : (route.params.isConnection ? games.game.questions[numberQuestion].answer : route.params.questionsWC[numberQuestion].answer))) {
             setNumberCorrect(numberCorrect + 1)
             setIsCorrect(true)
         }
 
-        if (item !== (isGameError ? (errorsGame[numberQuestion].answer) : (games.game.questions[numberQuestion].answer))) {
+        if (item !== (isGameError ? (errorsGame[numberQuestion].answer) : (route.params.isConnection ? games.game.questions[numberQuestion].answer : route.params.questionsWC[numberQuestion].answer))) {
             if (isGameError) {
                 setErrors([...errors, errorsGame[numberQuestion]])
             } else {
-                setErrors([...errors, games.game.questions[numberQuestion]])
+                setErrors([...errors, route.params.isConnection ? games.game.questions[numberQuestion] : route.params.questionsWC[numberQuestion]])
             }
 
             setIsIncorrect(true)
         }
 
         if (!isGameError) {
-            if (numberQuestion < games.game.questions.length - 1) {
-                setOptions(generateOptions(games.game.questions[numberQuestion + 1].options, users.user.user.amountOptions))
+            if (numberQuestion < (route.params.isConnection ? games.game.questions.length - 1 : route.params.questionsWC.length - 1)) {
+                setOptions(generateOptions(route.params.isConnection ? games.game.questions[numberQuestion + 1].options : route.params.questionsWC[numberQuestion + 1].options, route.params.isConnection ? users.user.user.amountOptions : 4))
             }
             setRealSeconds(seconds)
             setRealMinutes(minutes)
         } else {
             if (numberQuestion < errorsGame.length - 1) {
-                setOptions(generateOptions(errorsGame[numberQuestion + 1].options, users.user.user.amountOptions))
+                setOptions(generateOptions(errorsGame[numberQuestion + 1].options, route.params.isConnection ? users.user.user.amountOptions : 4))
             }
         }
 
-        if (numberQuestion === (isGameError ? (errorsGame.length - 1) : (games.game.questions.length - 1))) {
+        if (numberQuestion === (isGameError ? errorsGame.length - 1 : route.params.isConnection ? games.game.questions.length - 1 : route.params.questionsWC.length - 1)) {
             setIsPreFinish(true)
             if (errors.length > 0) {
-                setOptions(generateOptions(errors[0].options, users.user.user.amountOptions))
+                setOptions(generateOptions(errors[0].options, route.params.isConnection ? users.user.user.amountOptions : 4))
             }
         }
     }
@@ -155,7 +155,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
     const redirectFinish = async () => {
 
-        if (!isGameError) {
+        if (!isGameError && route.params.isConnection) {
             setPointsData({
                 points: Math.ceil((users.user.user.amountOptions * users.user.user.amountQuestions *
                     users.user.user.categories.filter(category => category.isSelect).length * numberCorrect) / (totalSeconds))
@@ -164,7 +164,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
         setIsPreFinish(false)
 
-        if (isGameError) {
+        if (isGameError || !route.params.isConnection) {
             setIsFinish(true)
         }
 
@@ -177,8 +177,14 @@ const Playing = ({ navigation, route }: PlayingType) => {
         setRealSeconds(0)
         setRealMinutes(0)
 
-        if (numberQuestion !== (isGameError ? (errorsGame.length - 1) : (games.game.questions.length - 1))) {
-            setNumberQuestion(numberQuestion + 1)
+        if (route.params.isConnection) {
+            if (numberQuestion !== (isGameError ? (errorsGame.length - 1) : (games.game.questions.length - 1))) {
+                setNumberQuestion(numberQuestion + 1)
+            }
+        } else {
+            if (numberQuestion !== (isGameError ? (errorsGame.length - 1) : (route.params.questionsWC.length - 1))) {
+                setNumberQuestion(numberQuestion + 1)
+            }
         }
     }
 
@@ -229,22 +235,22 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
     useEffect(() => {
         const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-          console.log("Loading add");
+            console.log("Loading add");
         });
         const unsubscribeEarned = rewarded.addAdEventListener(
-          RewardedAdEventType.EARNED_REWARD,
-          reward => {
-            console.log('User earned reward of ', reward);
-          },
+            RewardedAdEventType.EARNED_REWARD,
+            reward => {
+                console.log('User earned reward of ', reward);
+            },
         );
 
         rewarded.load();
 
         return () => {
-          unsubscribeLoaded();
-          unsubscribeEarned();
+            unsubscribeLoaded();
+            unsubscribeEarned();
         };
-      }, []);
+    }, []);
 
     const statisticsCount = async () => {
         await questionsCountApi(categoryStatistic(users.user.user.categories, games.game.questions[numberQuestion].category.name), users.user.token)
@@ -268,7 +274,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
         setHelpType(type)
 
         if (type === 'add') {
-              rewarded.show()
+            rewarded.show()
             setIsAdd(true)
         }
     }
@@ -291,12 +297,12 @@ const Playing = ({ navigation, route }: PlayingType) => {
                 statisticsCount()
             }
 
-            setOptionsHelped(helpsOptions(options, games.game.questions[numberQuestion], users.user.user.amountOptions))
+            setOptionsHelped(helpsOptions(options, route.params.isConnection ? games.game.questions[numberQuestion] : route.params.questionsWC[numberQuestion], route.params.isConnection ? users.user.user.amountOptions : 4))
 
             return
         }
 
-        setOptionsHelped(helpsOptions(options, errorsGame[numberQuestion], users.user.user.amountOptions))
+        setOptionsHelped(helpsOptions(options, errorsGame[numberQuestion], route.params.isConnection ? users.user.user.amountOptions : 4))
 
     }, [numberQuestion])
 
@@ -316,7 +322,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }, [numberQuestion])
 
     useEffect(() => {
-        if (isHelped) {
+        if (isHelped && route.params.isConnection) {
             handleHelp(helpType)
         }
     }, [isHelped])
@@ -331,16 +337,18 @@ const Playing = ({ navigation, route }: PlayingType) => {
             {
                 isPreFinish && <PreFinish redirectFinish={redirectFinish} />
             }
-            <ShowQuestion questions={isGameError ? errorsGame : games.game.questions} numberQuestion={numberQuestion} />
-            <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions}
-                seconds={(realSeconds > 0) ? realSeconds : (seconds === 60) ? 0 : seconds} minutes={(realMinutes > 0) ? realMinutes : minutes}
-                helps={users.user.user.helps} isHelped={isCorrect || isIncorrect || isHelped || users.user.user.helps === 0} changeHelp={changeHelp} isGameError={isGameError}
-                isConnection={route.params.isConnection!} />
+            <ShowQuestion questions={isGameError ? errorsGame : route.params.isConnection ? games.game.questions : route.params.questionsWC} numberQuestion={numberQuestion} />
+            {
+                route.params.isConnection &&
+                <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions}
+                    seconds={(realSeconds > 0) ? realSeconds : (seconds === 60) ? 0 : seconds} minutes={(realMinutes > 0) ? realMinutes : minutes}
+                    helps={users.user.user.helps} isHelped={isCorrect || isIncorrect || isHelped || users.user.user.helps === 0} changeHelp={changeHelp} isGameError={isGameError} />
+            }
             {
                 (isCorrect || isIncorrect) ? (
-                    <Answer answer={isGameError ? errorsGame[numberQuestion].answer : games.game.questions[numberQuestion].answer} isCorrect={isCorrect} continueGame={continueGame} />
+                    <Answer answer={isGameError ? errorsGame[numberQuestion].answer : route.params.isConnection ? games.game.questions[numberQuestion].answer : route.params.questionsWC[numberQuestion].answer} isCorrect={isCorrect} continueGame={continueGame} />
                 ) : (
-                    <ShowOptionsGame options={options} nextQuestion={nextQuestion} amountOptions={users.user.user.amountOptions}
+                    <ShowOptionsGame options={options} nextQuestion={nextQuestion} amountOptions={route.params.isConnection ? users.user.user.amountOptions : 4}
                         isHelped={isHelped} optionsHelped={optionsHelped} />
                 )
             }
