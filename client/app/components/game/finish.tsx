@@ -9,12 +9,16 @@ import { homeStyles } from '../../styles/home.styles';
 
 import { FinishPropsType } from "../../types/props.types";
 
-const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, areErrors, isGameError, isConnection, changeHelp, isAdd, interstitial }: FinishPropsType) => {
+const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, areErrors, isGameError, isConnection, changeHelp, isAdd, interstitial, isRecompensadoLoaded, isIntersitialLoaded, setIsRecompensadoLoaded }: FinishPropsType) => {
 
     const navigateHome = () => {
         if (isConnection) {
-            interstitial.show();
+            if (interstitial.loaded && isIntersitialLoaded) {
+                interstitial.show();
+            }
         }
+
+        setIsRecompensadoLoaded(false)
         navigation.navigate('Home')
     }
 
@@ -28,7 +32,7 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
                     areErrors && <Text style={gameStyles.textErrorsGame} onPress={viewErrors}>Repasar errores</Text>
                 }
                 {
-                    isConnection &&
+                    isConnection && isRecompensadoLoaded &&
                     <>
                         {
                             !isAdd ?

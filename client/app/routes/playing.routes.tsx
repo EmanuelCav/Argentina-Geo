@@ -74,6 +74,8 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const [isGameError, setIsGameError] = useState<boolean>(false)
     const [isHelped, setIsHelped] = useState<boolean>(false)
     const [isAdd, setIsAdd] = useState<boolean>(false)
+    const [isIntersitialLoaded, setIsIntersitialLoaded] = useState<boolean>(false)
+    const [isRecompensadoLoaded, setIsRecompensadoLoaded] = useState<boolean>(false)
 
     const [helpType, setHelpType] = useState<HelpType>('help')
 
@@ -224,23 +226,31 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }, [])
 
     useEffect(() => {
-        const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-            console.log("Loading add");
+        const unsubscribeLoaded = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+            setIsIntersitialLoaded(true)
+        });
+
+        const unsubscribedClosed = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
+            setIsIntersitialLoaded(false)
+            interstitial.load();
         });
 
         interstitial.load();
 
-        return unsubscribe;
+        return () => {
+            unsubscribeLoaded()
+            unsubscribedClosed()
+        };
     }, []);
 
     useEffect(() => {
         const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-            console.log("Loading add");
+            setIsRecompensadoLoaded(true)
         });
         const unsubscribeEarned = rewarded.addAdEventListener(
             RewardedAdEventType.EARNED_REWARD,
-            reward => {
-                console.log('User earned reward of ', reward);
+            () => {
+                setIsRecompensadoLoaded(false)
             },
         );
 
@@ -274,8 +284,14 @@ const Playing = ({ navigation, route }: PlayingType) => {
         setHelpType(type)
 
         if (type === 'add') {
-            rewarded.show()
-            setIsAdd(true)
+            if (route.params.isConnection) {
+                if (rewarded.loaded || isRecompensadoLoaded) {
+                    rewarded.show()
+                    setIsAdd(true)
+                } else {
+                    navigation.navigate('Home')
+                }
+            }
         }
     }
 
@@ -332,7 +348,8 @@ const Playing = ({ navigation, route }: PlayingType) => {
             {
                 isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
                     navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
-                    isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd} />
+                    isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd} 
+                    isRecompensadoLoaded={rewarded.loaded} setIsRecompensadoLoaded={setIsRecompensadoLoaded} isIntersitialLoaded={isIntersitialLoaded} />
             }
             {
                 isPreFinish && <PreFinish redirectFinish={redirectFinish} />

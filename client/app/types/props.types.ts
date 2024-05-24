@@ -176,6 +176,9 @@ export type FinishPropsType = {
     isAdd: boolean;
     changeHelp: (type: HelpType) => void;
     interstitial: InterstitialAd;
+    isRecompensadoLoaded: boolean;
+    setIsRecompensadoLoaded: (isRecompensadoLoaded: boolean) => void;
+    isIntersitialLoaded: boolean;
 }
 
 export type ShowQuestionProps = {
