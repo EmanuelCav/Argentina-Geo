@@ -16,6 +16,8 @@ import questionRoute from './routes/questions.routes';
 import categoryRoute from './routes/category.routes';
 import gameRoute from './routes/game.routes';
 import localidadRoute from './routes/localidad.routes';
+import paymentRoute from './routes/payment.routes';
+import tentRoute from './routes/tent.routes';
 
 const app = express()
 
@@ -36,6 +38,8 @@ app.use(questionRoute)
 app.use(categoryRoute)
 app.use(gameRoute)
 app.use(localidadRoute)
+app.use(paymentRoute)
+app.use(tentRoute)
 
 app.use(express.static(path.join(__dirname, "../public")))
 

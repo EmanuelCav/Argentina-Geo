@@ -54,6 +54,10 @@ const userSchema = new Schema({
     helps: {
         type: Number,
         default: 3
+    },
+    isAdd: {
+        type: Boolean,
+        default: true
     }
 
 }, {

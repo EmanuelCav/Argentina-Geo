@@ -9,14 +9,10 @@ import auth from '../middleware/auth/auth';
 
 const router = Router()
 
-// router.get('/categories', auth, categoriesCtrl.categories)
-router.get('/categories', categoriesCtrl.categories)
-// router.post('/categories', [auth, validRole], validCategory, categoriesCtrl.createCategories)
-router.post('/categories', validCategory, categoriesCtrl.createCategories)
-// router.delete('/categories/:id', [auth, validRole], categoriesCtrl.removeCategories)
+router.get('/categories', auth, categoriesCtrl.categories)
+router.post('/categories', [auth, validRole], validCategory, categoriesCtrl.createCategories)
+router.delete('/categories/:id', [auth, validRole], categoriesCtrl.removeCategories)
 router.patch('/categoriesuser/:id', categoriesCtrl.patchCategory)
-router.delete('/categories/:id', categoriesCtrl.removeCategories)
-// router.put('/categories/:id', [auth, validRole], validCategory, categoriesCtrl.removeCategories)
-router.put('/categories/:id', validCategory, categoriesCtrl.updateCategory)
+router.put('/categories/:id', [auth, validRole], validCategory, categoriesCtrl.removeCategories)
 
 export default router

@@ -17,6 +17,7 @@ export interface IUser extends Document {
     provincia: ObjectId;
     municipio: ObjectId;
     helps: number;
+    isAdd: boolean;
 }
 
 export interface IExperience extends Document {
@@ -32,3 +33,13 @@ export interface IExperience extends Document {
     lastGame: string;
 }
 
+export interface ITent extends Document {
+    _id: ObjectId;
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
+    title: string;
+    description: string;
+    quantity: number;
+    price: number;
+    isAdd: boolean;
+}

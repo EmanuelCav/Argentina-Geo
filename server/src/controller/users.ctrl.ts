@@ -10,7 +10,7 @@ import Municipio from '../database/models/municipio';
 import Experience from '../database/models/experience';
 import Game from '../database/models/game'
 
-import { generatePassword, generateToken, hashPassword } from "../helper/encrypt";
+import { generatePassword, generateToken, hashPassword, comparePassword } from "../helper/encrypt";
 import { categoriesFromUser, experienceFromUser, generateUserNumber } from "../helper/user.functions";
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
@@ -331,7 +331,9 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             return res.status(400).json({ message: "Los campos no coinciden" })
         }
 
-        if (user.password !== password) {
+        const validation = await comparePassword(password, user.password)
+
+        if(!validation) {
             return res.status(400).json({ message: "Los campos no coinciden" })
         }
 
