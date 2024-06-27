@@ -125,3 +125,10 @@ export interface IGetUserAction {
     user: UserReducerType;
     setIsProfile: (isProfile: boolean) => void;
 }
+
+export interface ITent {
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+}

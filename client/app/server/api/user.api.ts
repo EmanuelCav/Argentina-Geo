@@ -122,3 +122,11 @@ export const helpsApi = async (type: HelpType, token: string) => {
         }
     })
 }
+
+export const tentsApi = async (token: string) => {
+    return await api.get('/tents', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

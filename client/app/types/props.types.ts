@@ -3,7 +3,7 @@ import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { InterstitialAd } from 'react-native-google-mobile-ads';
 
-import { ILocationRank, IOptions, ISetting, IUser, IUsersRank } from "../interface/User";
+import { ILocationRank, IOptions, ISetting, ITent, IUser, IUsersRank } from "../interface/User";
 import { ICategories, ICategoriesUser, IGame, IQuestion } from "../interface/Game";
 import { DateRankType, HelpType, UserDataType, UserReducerType, UserType } from "./user.types";
 
@@ -278,4 +278,9 @@ export type HelpsPropsType = {
 
 export type SelectCategories = {
     query: 'quit' | 'select'
+}
+
+export type ElementTentPropsType = {
+    handleTent: (tent: ITent) => void;
+    element: ITent;
 }
