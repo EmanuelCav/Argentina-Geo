@@ -35,19 +35,22 @@ const Options = ({ navigation, setIsProfile, user, isConnection, setIsChangeView
         }) as any)
     }
 
+    const redirectTent = () => {
+        navigation.navigate('Tent')
+    }
+
     const redirectSettings = () => {
         setIsChangeView(!isChangeView)
         navigation.navigate('Settings')
     }
 
     return (
-        <View style={homeStyles.containerUserOption}>
-            <View style={homeStyles.containerMenuButtons}>
-                <ButtonMenu text="Jugar" redirect={redirectPlay} isAccept={false} disabled={false} />
-                <ButtonMenu text="Estadísticas" redirect={showProfile} isAccept={false} disabled={!isConnection} />
-                <ButtonMenu text="Clasificación" redirect={redirectRanking} isAccept={false} disabled={!isConnection} />
-                <ButtonMenu text="Ajustes" redirect={redirectSettings} isAccept={false} disabled={!isConnection} />
-            </View>
+        <View style={homeStyles.containerMenuButtons}>
+            <ButtonMenu text="Jugar" redirect={redirectPlay} isAccept={false} disabled={false} />
+            <ButtonMenu text="Estadísticas" redirect={showProfile} isAccept={false} disabled={!isConnection} />
+            <ButtonMenu text="Clasificación" redirect={redirectRanking} isAccept={false} disabled={!isConnection} />
+            <ButtonMenu text="Tienda" redirect={redirectTent} isAccept={false} disabled={!isConnection} />
+            <ButtonMenu text="Ajustes" redirect={redirectSettings} isAccept={false} disabled={!isConnection} />
         </View>
     )
 }

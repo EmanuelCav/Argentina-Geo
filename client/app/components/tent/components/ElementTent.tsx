@@ -11,7 +11,7 @@ const ElementTent = ({ element, handleTent }: ElementTentPropsType) => {
             <Text style={tentStyle.priceElement}>${element.price}</Text>
             <Pressable onPress={() => handleTent(element)} style={({ pressed }) => [
                 {
-                    backgroundColor: pressed ? '#5cc197' : '#5dc1b9',
+                    backgroundColor: pressed ? '#5d8cff' : '#597EEE',
                 },
                 tentStyle.buttonMenu]}>
                 <Text style={tentStyle.buttonMenuText}>Comprar</Text>

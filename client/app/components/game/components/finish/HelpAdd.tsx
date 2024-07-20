@@ -14,9 +14,8 @@ const HelpAdd = ({ changeHelp }: { changeHelp: (type: HelpType) => void }) => {
             gameStyles.buttonHelpFinish
         ]} onPress={() => changeHelp('add')}>
             <View style={gameStyles.containHelpText}>
-                <Text style={gameStyles.textGame}>Ayudas</Text>
-                <Text style={gameStyles.textGame}>x2</Text>
                 <Icon name='help' color={'#ffffff'} size={Dimensions.get("window").height / 39} />
+                <Text style={gameStyles.textGame}>Ayudas x2</Text>
             </View>
             <Icon name='video' color={'#ffffff'} size={Dimensions.get("window").height / 37} />
         </Pressable>

@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev src/index.ts",
-    "start": "node build/index"
+    "dev": "set NODE_ENV=development && ts-node-dev src/index.ts",
+    "start:dev": "set NODE_ENV=production && ts-node-dev src/index.ts",
+    "start": "set NODE_ENV=production && node build/index.js"
   },
   "keywords": [],
   "author": "",

@@ -54,7 +54,7 @@ export const newUser = createAsyncThunk("users/newUser", async (_, { dispatch })
 
     try {
 
-        const resFirst = await userApi.firstTimeApi()
+        const resFirst = await userApi.firstTimeApi()        
         const resUsers = await userApi.usersApi("total", resFirst.data.token)
 
         dispatch(firstTimeAction(resFirst.data))

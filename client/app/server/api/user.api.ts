@@ -130,3 +130,13 @@ export const tentsApi = async (token: string) => {
         }
     })
 }
+
+export const createPaymentApi = async (id: string, token: string) => {
+
+    return await api.post(`/payments/tents/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+}

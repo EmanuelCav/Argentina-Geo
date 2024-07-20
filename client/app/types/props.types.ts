@@ -16,6 +16,7 @@ export type RoutesProps = {
     };
     Ranking: undefined;
     Settings: undefined;
+    Tent: undefined;
 };
 
 export type StackNavigation = NativeStackNavigationProp<RoutesProps>;
@@ -283,4 +284,9 @@ export type SelectCategories = {
 export type ElementTentPropsType = {
     handleTent: (tent: ITent) => void;
     element: ITent;
+}
+
+export type MenuTentPropsType = {
+    tents: ITent[];
+    user: UserReducerType;
 }

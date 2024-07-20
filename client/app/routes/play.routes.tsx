@@ -95,7 +95,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerPlay}>
             {
-                isConnection &&
+                isConnection && users.user.user.isAdd &&
                 <View>
                     <BannerAd
                         unitId={adUnitId as string}

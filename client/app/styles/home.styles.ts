@@ -32,7 +32,7 @@ export const homeStyles = StyleSheet.create({
     // USER
 
     containerUserHome: {
-        height: '30%',
+        height: '26%',
         backgroundColor: '#597EEE',
         padding: Dimensions.get("window").height / 46.25
     },
@@ -129,15 +129,14 @@ export const homeStyles = StyleSheet.create({
     },
 
     containerMenuButtons: {
-        justifyContent: 'flex-start',
+        height: '75%',
+        justifyContent: 'space-around',
         alignItems: 'center',
         flexDirection: 'column',
         borderColor: '#597EEE',
         borderStyle: 'solid',
         borderWidth: 4,
-        width: '100%',
-        paddingBottom: Dimensions.get("window").height / 18.5,
-        marginTop: Dimensions.get("window").height / 123.66,
+        width: '100%'
     },
 
     buttonAcceptOption: {
@@ -157,7 +156,6 @@ export const homeStyles = StyleSheet.create({
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: Dimensions.get("window").height / 18.5,
     },
 
     textButtonOption: {

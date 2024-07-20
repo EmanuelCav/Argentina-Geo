@@ -69,16 +69,17 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     }, [])
 
     useEffect(() => {
+        
         if (isConnection) {
             if (users.isLoggedIn) {
-
+                
                 dispatch(getLogin(users.user.user._id) as any)
                 getGames()
-
+                
                 return
-
+                
             }
-
+        
             dispatch(newUser() as any)
 
         }

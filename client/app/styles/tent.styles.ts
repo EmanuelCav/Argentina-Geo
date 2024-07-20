@@ -12,7 +12,7 @@ export const tentStyle = StyleSheet.create({
 
     textTitleTent: {
         fontSize: Dimensions.get("window").height / 31,
-        color: '#5dc1b9',
+        color: '#597EEE',
         fontWeight: '500',
         textAlign: 'center'
     },

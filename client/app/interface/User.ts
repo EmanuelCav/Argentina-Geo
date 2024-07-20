@@ -40,6 +40,7 @@ export interface IUser {
     provincia: IProvincia;
     municipio: IMunicipio;
     helps: number;
+    isAdd: boolean;
 }
 
 export interface IUserReducer {
@@ -127,6 +128,7 @@ export interface IGetUserAction {
 }
 
 export interface ITent {
+    _id: string;
     title: string;
     description: string;
     price: number;

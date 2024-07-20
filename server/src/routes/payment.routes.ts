@@ -10,6 +10,6 @@ router.post('/payments/tents/:id', auth, paymentCtrl.orderPayment)
 router.get('/payments/success', auth, paymentCtrl.successPayment)
 router.get('/payments/pending', auth, paymentCtrl.pendingPayment)
 router.get('/payments/failure', auth, paymentCtrl.failurePayment)
-router.post('/payments/webhook/tents/:id', paymentCtrl.webhookPayment)
+router.post('/payments/webhook/tents/:id/users/:uid', paymentCtrl.webhookPayment)
 
 export default router

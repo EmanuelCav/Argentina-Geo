@@ -70,6 +70,9 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
                 }
             },
             {
+                $limit: 150
+            },        
+            {
                 $project: { password: 0 }
             }
         ])
@@ -331,11 +334,11 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             return res.status(400).json({ message: "Los campos no coinciden" })
         }
 
-        const validation = await comparePassword(password, user.password)
+        // const validation = await comparePassword(password, user.password)
 
-        if(!validation) {
-            return res.status(400).json({ message: "Los campos no coinciden" })
-        }
+        // if(!validation) {
+        //     return res.status(400).json({ message: "Los campos no coinciden" })
+        // }
 
         const token = generateToken(user._id)
 

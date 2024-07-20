@@ -1,6 +1,7 @@
 export const port = process.env.PORT
 
 export const host = process.env.HOST
+export const ngrok = process.env.NGROK
 
 export const database = process.env.DATABASE
 

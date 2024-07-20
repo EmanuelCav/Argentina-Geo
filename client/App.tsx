@@ -14,6 +14,7 @@ import Play from './app/routes/play.routes';
 import Playing from "./app/routes/playing.routes";
 import Ranking from "./app/routes/ranking.routes";
 import Settings from './app/routes/settings.routes'
+import Tent from './app/routes/tent.routes'
 import Loading from './app/components/response/Loading';
 
 import store from "./app/server/store";
@@ -55,6 +56,9 @@ export default function App() {
                 animation: 'fade'
               }} />
               <Stack.Screen name="Settings" component={Settings} options={{
+                animation: 'fade'
+              }} />
+              <Stack.Screen name="Tent" component={Tent} options={{
                 animation: 'fade'
               }} />
             </Stack.Navigator>

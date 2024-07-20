@@ -289,7 +289,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
                     rewarded.show()
                     setIsAdd(true)
                 } else {
-                    navigation.navigate('Home')
+                navigation.navigate('Home')
                 }
             }
         }
@@ -348,8 +348,8 @@ const Playing = ({ navigation, route }: PlayingType) => {
             {
                 isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
                     navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
-                    isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd} 
-                    isRecompensadoLoaded={rewarded.loaded} setIsRecompensadoLoaded={setIsRecompensadoLoaded} isIntersitialLoaded={isIntersitialLoaded} />
+                    isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd}
+                    isRecompensadoLoaded={isRecompensadoLoaded} setIsRecompensadoLoaded={setIsRecompensadoLoaded} isIntersitialLoaded={isIntersitialLoaded && users.user.user.isAdd} />
             }
             {
                 isPreFinish && <PreFinish redirectFinish={redirectFinish} />

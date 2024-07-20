@@ -15,12 +15,13 @@ export const gameStyles = StyleSheet.create({
     containerQuestion: {
         width: '100%',
         height: '50%',
-        borderColor: '#5d8cff',
+        borderColor: '#ffffff',
         borderWidth: 4,
         borderStyle: 'solid',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: Dimensions.get("window").width / 45
+        paddingHorizontal: Dimensions.get("window").width / 45,
+        backgroundColor: '#597EEE'
     },
 
     imageQuestion: {
@@ -38,7 +39,9 @@ export const gameStyles = StyleSheet.create({
 
     textQuestionGame: {
         fontSize: Dimensions.get("window").height / 38,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: '#ffffff',
+        fontWeight: '500'
     },
 
     containerOptions: {

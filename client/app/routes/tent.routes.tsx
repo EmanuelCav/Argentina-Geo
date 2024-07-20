@@ -11,18 +11,15 @@ import { ITent } from '../interface/User'
 import { IReducer } from '../interface/Reducer'
 
 import { tentsApi } from '../server/api/user.api'
-import { selector } from '../helper/selector'
 import { homeStyles } from '../styles/home.styles'
+
+import { selector } from '../helper/selector'
 
 const Tent = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
 
     const [tents, setTents] = useState<ITent[]>([])
-
-    const goBack = () => {
-        navigation.goBack()
-    }
 
     const getData = async () => {
 
@@ -44,7 +41,7 @@ const Tent = ({ navigation }: { navigation: StackNavigation }) => {
     return (
         <View style={homeStyles.containerHome}>
             <HeaderTent />
-            <MenuTent tents={tents} />
+            <MenuTent tents={tents} user={users} />
             <View style={homeStyles.containerActionsView}>
                 <ButtonMenu text="Regresar" redirect={() => navigation.navigate('Home')} isAccept={true} disabled={false} />
             </View>

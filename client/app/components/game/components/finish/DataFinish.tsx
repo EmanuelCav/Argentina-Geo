@@ -14,10 +14,7 @@ const DataFinish = ({ minutes, seconds, isGameError, corrects, points }: DataFin
                     <View>
                         <Text style={gameStyles.textDataGame}>Respuestas correctas: {corrects}</Text>
                         <Text style={gameStyles.textDataGame}>
-                            Tiempo:
-                            {minutes <= 9 ? `0${minutes}` : `${minutes}`}
-                            :
-                            {seconds <= 9 ? `0${seconds}` : `${seconds}`}
+                            Tiempo: {minutes <= 9 ? `0${minutes}` : `${minutes}`}:{seconds <= 9 ? `0${seconds}` : `${seconds}`}
                         </Text>
                         <Text style={gameStyles.textDataGame}>Total de puntos: {points}xp</Text>
                     </View>
