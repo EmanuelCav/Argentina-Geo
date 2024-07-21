@@ -38,9 +38,9 @@ export const orderPayment = async (req: Request, res: Response): Promise<Respons
                 }
             ],
             back_urls: {
-                success: `${process.env.NODE_ENV?.trim() === 'production' ? host : ngrok}/payments/success`,
-                pending: `${process.env.NODE_ENV?.trim() === 'production' ? host : ngrok}/payments/pending`,
-                failure: `${process.env.NODE_ENV?.trim() === 'production' ? host : ngrok}/payments/failure`
+                success: `${host}/payments/success`,
+                pending: `${host}/payments/pending`,
+                failure: `${host}/payments/failure`
             },
             notification_url: `${process.env.NODE_ENV?.trim() === 'production' ? host : ngrok}/payments/webhook/tents/${id}/users/${req.user}`
         };
