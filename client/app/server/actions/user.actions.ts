@@ -7,7 +7,7 @@ import * as gamesApi from "../api/game.api";
 
 import { firstTimeAction, getUserAction, locationRankAction, loginAction, loginAuthAction, updateOptionsAction, usersAction } from "../features/user.features";
 import { gamesAction } from "../features/game.features";
-import { LocationDataProps, RankingActionProps, RankingUserDataProps, UpdateAllCategoryDataProps, UpdateCategoryDataProps } from "../../types/props.types";
+import { GetTentProps, LocationDataProps, RankingActionProps, RankingUserDataProps, UpdateAllCategoryDataProps, UpdateCategoryDataProps } from "../../types/props.types";
 
 export const auth = createAsyncThunk('users/login', async (userData: IAuthAction, { dispatch }) => {
 
@@ -146,6 +146,20 @@ export const updateAllCategory = createAsyncThunk('users/allcategory', async (us
         const { data } = await userApi.updateAllCategoryApi(userData.query, userData.token)
 
         dispatch(updateOptionsAction(data))
+
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+export const getTents = createAsyncThunk('users/tent', async (userData: GetTentProps, { dispatch }) => {
+
+    try {
+
+        const { data } = await userApi.tentsApi(userData.token)
+
+        userData.setTents(data)
 
     } catch (error) {
         console.log(error);

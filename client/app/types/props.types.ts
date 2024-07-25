@@ -252,6 +252,11 @@ export type UpdateAllCategoryDataProps = {
     token: string;
 }
 
+export type GetTentProps = {
+    setTents: (tents: ITent[]) => void;
+    token: string;
+}
+
 export type AnswerPropsType = {
     isCorrect: boolean; 
     answer: string;  

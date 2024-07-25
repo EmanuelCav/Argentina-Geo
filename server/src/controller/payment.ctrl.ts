@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { MercadoPagoConfig, Preference } from 'mercadopago';
 import { PreferenceRequest } from "mercadopago/dist/clients/preference/commonTypes";
+import { io } from "../server";
 
 import Tent from '../database/models/tent';
 import User from '../database/models/users';
@@ -33,7 +34,7 @@ export const orderPayment = async (req: Request, res: Response): Promise<Respons
                     description: tent.description,
                     currency_id: "ARS",
                     quantity: tent.quantity,
-                    unit_price: tent.price / tent.quantity,
+                    unit_price: Math.ceil(tent.price / tent.quantity),
                     picture_url: "https://res.cloudinary.com/projects-emanuek/image/upload/v1706790450/favicon_tvx4ge.png"
                 }
             ],
@@ -145,6 +146,11 @@ export const webhookPayment = async (req: Request, res: Response): Promise<Respo
                 .populate("provincia")
                 .populate("municipio")
                 .populate("points")
+
+            io.emit('payment', {
+                message: "¡Pago realizado exitosamente!",
+                user: userUpdated
+            })
 
             return res.status(200).json(userUpdated)
         }

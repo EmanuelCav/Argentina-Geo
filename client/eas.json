@@ -12,7 +12,7 @@
     },
     "production": {
       "env": {
-        "EXPO_URL": "https://server-argquiz.onrender.com",
+        "EXPO_URL": "https://backendargquiz-production.up.railway.app",
         "EXPO_HOST": "http://localhost:4200",
         "EXPO_KEY": "arrgeo-user-games",
         "BANNER_PLAY_ID": "ca-app-pub-8789796567862358/2621753316",
@@ -22,7 +22,7 @@
     },
     "test": {
       "env": {
-        "EXPO_URL": "https://server-argquiz.onrender.com",
+        "EXPO_URL": "https://backendargquiz-production.up.railway.app",
         "EXPO_HOST": "http://localhost:4200",
         "EXPO_KEY": "arrgeo-user-games",
         "BANNER_PLAY_ID": "ca-app-pub-8789796567862358/2621753316",

@@ -19,7 +19,7 @@ import localidadRoute from './routes/localidad.routes';
 import paymentRoute from './routes/payment.routes';
 import tentRoute from './routes/tent.routes';
 
-const app = express()
+import { app, server } from "./server";
 
 app.set('port', port)
 
@@ -43,6 +43,6 @@ app.use(tentRoute)
 
 app.use(express.static(path.join(__dirname, "../public")))
 
-app.listen(app.get('port'), () => {
+server.listen(app.get('port'), () => {
     console.log("Server on port", app.get('port'));
 })

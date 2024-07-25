@@ -5,7 +5,7 @@ import { InterstitialAd, AdEventType, RewardedAd, RewardedAdEventType, TestIds }
 import { INTERSTITIAL_FINISH_ID, RECOMPENSADO_ID } from '@env';
 
 import Finish from '../components/game/Finish'
-import DataGame from '../components/game/dataGame'
+import DataGame from '../components/game/DataGame'
 import ShowOptionsGame from '../components/game/ShowOptionsGame'
 import ShowQuestion from '../components/game/ShowQuestion'
 import Answer from '../components/game/Answer';
@@ -348,7 +348,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
             {
                 isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
                     navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
-                    isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd}
+                    isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd} 
                     isRecompensadoLoaded={isRecompensadoLoaded} setIsRecompensadoLoaded={setIsRecompensadoLoaded} isIntersitialLoaded={isIntersitialLoaded && users.user.user.isAdd} />
             }
             {
@@ -357,7 +357,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
             <ShowQuestion questions={isGameError ? errorsGame : route.params.isConnection ? games.game.questions : route.params.questionsWC} numberQuestion={numberQuestion} />
             {
                 route.params.isConnection &&
-                <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions}
+                <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} 
                     seconds={(realSeconds > 0) ? realSeconds : (seconds === 60) ? 0 : seconds} minutes={(realMinutes > 0) ? realMinutes : minutes}
                     helps={users.user.user.helps} isHelped={isCorrect || isIncorrect || isHelped || users.user.user.helps === 0} changeHelp={changeHelp} isGameError={isGameError} />
             }

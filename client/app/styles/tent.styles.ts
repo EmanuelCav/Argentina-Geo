@@ -83,4 +83,23 @@ export const tentStyle = StyleSheet.create({
         fontWeight: '500'
     },
 
+    containerTextPayment: {
+        width: '100%',
+        borderStyle: 'solid',
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: Dimensions.get("window").height / 106,
+        borderColor: '#00ff00',
+        borderWidth: 2
+    },
+
+    textPayment: {
+        color: '#0f0',
+        fontWeight: '500',
+        fontSize: Dimensions.get("window").height / 49,
+        textAlign: 'center',
+        marginVertical: Dimensions.get("window").height / 140
+    }
+
 })
