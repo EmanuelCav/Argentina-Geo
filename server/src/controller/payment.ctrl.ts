@@ -6,12 +6,10 @@ import { io } from "../server";
 import Tent from '../database/models/tent';
 import User from '../database/models/users';
 
-import { access_token_prod, access_token_test, host, ngrok } from "../config/config";
+import { access_token_prod, host } from "../config/config";
 
 const client = new MercadoPagoConfig({
-    accessToken: process.env.NODE_ENV?.trim() === 'production'
-        ? `${access_token_prod}`
-        : `${access_token_test}`
+    accessToken: `${access_token_prod}`
 });
 
 export const orderPayment = async (req: Request, res: Response): Promise<Response> => {
@@ -43,7 +41,7 @@ export const orderPayment = async (req: Request, res: Response): Promise<Respons
                 pending: `${host}/payments/pending`,
                 failure: `${host}/payments/failure`
             },
-            notification_url: `${process.env.NODE_ENV?.trim() === 'production' ? host : ngrok}/payments/webhook/tents/${id}/users/${req.user}`
+            notification_url: `${host}/payments/webhook/tents/${id}/users/${req.user}`
         };
 
         const preference = await new Preference(client).create({ body })
