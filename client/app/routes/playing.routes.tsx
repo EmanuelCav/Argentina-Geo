@@ -190,6 +190,87 @@ const Playing = ({ navigation, route }: PlayingType) => {
         }
     }
 
+    const statisticsCount = async () => {
+        await questionsCountApi(categoryStatistic(users.user.user.categories, games.game.questions[numberQuestion].category.name), users.user.token)
+    }
+
+    const statisticsCorrect = async () => {
+        const { data } = await questionsCorrectApi(isPreFinish ?
+            (categoryStatistic(users.user.user.categories, games.game.questions[games.game.questions.length - 1].category.name)) :
+            (categoryStatistic(users.user.user.categories, games.game.questions[numberQuestion].category.name)),
+            games.game._id, users.user.token)
+        dispatch(getGameAction(data))
+    }
+
+    const generateQuestion = async (questionSelected: number) => {
+        const { data } = await generateQuestionApi(games.game._id, route.params.questionsWC[questionSelected]._id, users.user.token)
+        dispatch(getGameAction(data))
+    }
+
+    const changeHelp = async (type: HelpType) => {
+        setIsHelped(true)
+        setHelpType(type)
+
+        if (type === 'add') {
+            if (route.params.isConnection) {
+                if (rewarded.loaded || isRecompensadoLoaded) {
+                    rewarded.show()
+                    setIsAdd(true)
+                } else {
+                    navigation.navigate('Home')
+                }
+            }
+        }
+    }
+
+    const handleHelp = async (type: HelpType) => {
+
+        try {
+
+            const { data } = await helpsApi(type, users.user.token)
+            dispatch(updateOptionsAction(data))
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        if (!isGameError) {
+            if (route.params.isConnection) {
+                statisticsCount()
+            }
+
+            setOptionsHelped(helpsOptions(options, route.params.isConnection ? games.game.questions[numberQuestion] : route.params.questionsWC[numberQuestion], route.params.isConnection ? users.user.user.amountOptions : 4))
+
+            return
+        }
+
+        setOptionsHelped(helpsOptions(options, errorsGame[numberQuestion], route.params.isConnection ? users.user.user.amountOptions : 4))
+
+    }, [numberQuestion])
+
+    useEffect(() => {
+        if (isCorrect && !isGameError && route.params.isConnection) {
+            statisticsCorrect()
+        }
+    }, [numberCorrect])
+
+    useEffect(() => {
+        if (!isGameError && route.params.isConnection) {
+            let questionSelected = numberQuestion + 5;
+            if (questionSelected < users.user.user.amountQuestions) {
+                generateQuestion(questionSelected)
+            }
+        }
+    }, [numberQuestion])
+
+    useEffect(() => {
+        if (isHelped && route.params.isConnection) {
+            handleHelp(helpType)
+        }
+    }, [isHelped])
+
     useEffect(() => {
         if (!isGameError) {
 
@@ -262,93 +343,12 @@ const Playing = ({ navigation, route }: PlayingType) => {
         };
     }, []);
 
-    const statisticsCount = async () => {
-        await questionsCountApi(categoryStatistic(users.user.user.categories, games.game.questions[numberQuestion].category.name), users.user.token)
-    }
-
-    const statisticsCorrect = async () => {
-        const { data } = await questionsCorrectApi(isPreFinish ?
-            (categoryStatistic(users.user.user.categories, games.game.questions[games.game.questions.length - 1].category.name)) :
-            (categoryStatistic(users.user.user.categories, games.game.questions[numberQuestion].category.name)),
-            games.game._id, users.user.token)
-        dispatch(getGameAction(data))
-    }
-
-    const generateQuestion = async (questionSelected: number) => {
-        const { data } = await generateQuestionApi(games.game._id, route.params.questionsWC[questionSelected]._id, users.user.token)
-        dispatch(getGameAction(data))
-    }
-
-    const changeHelp = async (type: HelpType) => {
-        setIsHelped(true)
-        setHelpType(type)
-
-        if (type === 'add') {
-            if (route.params.isConnection) {
-                if (rewarded.loaded || isRecompensadoLoaded) {
-                    rewarded.show()
-                    setIsAdd(true)
-                } else {
-                navigation.navigate('Home')
-                }
-            }
-        }
-    }
-
-    const handleHelp = async (type: HelpType) => {
-
-        try {
-
-            const { data } = await helpsApi(type, users.user.token)
-            dispatch(updateOptionsAction(data))
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    useEffect(() => {
-        if (!isGameError) {
-            if (route.params.isConnection) {
-                statisticsCount()
-            }
-
-            setOptionsHelped(helpsOptions(options, route.params.isConnection ? games.game.questions[numberQuestion] : route.params.questionsWC[numberQuestion], route.params.isConnection ? users.user.user.amountOptions : 4))
-
-            return
-        }
-
-        setOptionsHelped(helpsOptions(options, errorsGame[numberQuestion], route.params.isConnection ? users.user.user.amountOptions : 4))
-
-    }, [numberQuestion])
-
-    useEffect(() => {
-        if (isCorrect && !isGameError && route.params.isConnection) {
-            statisticsCorrect()
-        }
-    }, [numberCorrect])
-
-    useEffect(() => {
-        if (!isGameError && route.params.isConnection) {
-            let questionSelected = numberQuestion + 5;
-            if (questionSelected < users.user.user.amountQuestions) {
-                generateQuestion(questionSelected)
-            }
-        }
-    }, [numberQuestion])
-
-    useEffect(() => {
-        if (isHelped && route.params.isConnection) {
-            handleHelp(helpType)
-        }
-    }, [isHelped])
-
     return (
         <View style={gameStyles.gameContainer}>
             {
                 isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
                     navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
-                    isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd} 
+                    isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd}
                     isRecompensadoLoaded={isRecompensadoLoaded} setIsRecompensadoLoaded={setIsRecompensadoLoaded} isIntersitialLoaded={isIntersitialLoaded && users.user.user.isAdd} />
             }
             {
@@ -357,7 +357,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
             <ShowQuestion questions={isGameError ? errorsGame : route.params.isConnection ? games.game.questions : route.params.questionsWC} numberQuestion={numberQuestion} />
             {
                 route.params.isConnection &&
-                <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions} 
+                <DataGame numberQuestion={numberQuestion} amountQuestions={users.user.user.amountQuestions}
                     seconds={(realSeconds > 0) ? realSeconds : (seconds === 60) ? 0 : seconds} minutes={(realMinutes > 0) ? realMinutes : minutes}
                     helps={users.user.user.helps} isHelped={isCorrect || isIncorrect || isHelped || users.user.user.helps === 0} changeHelp={changeHelp} isGameError={isGameError} />
             }
