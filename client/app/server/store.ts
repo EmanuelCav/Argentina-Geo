@@ -4,13 +4,11 @@ import thunk from 'redux-thunk';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { EXPO_KEY, NODE_ENV } from '@env';
 
-import gameReducer from './features/game.features'
 import userReducer from './features/user.features'
 import responseReducer from './features/response.features'
 
 const reducers = combineReducers({
     users: userReducer,
-    games: gameReducer,
     response: responseReducer
 })
 

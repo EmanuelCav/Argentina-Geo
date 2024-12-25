@@ -1,8 +1,8 @@
 import { Pressable, Text, View } from 'react-native'
 
-import { ElementTentPropsType } from '../../../types/props.types'
-
 import { tentStyle } from '../../../styles/tent.styles'
+
+import { ElementTentPropsType } from '../../../types/tent.types'
 
 const ElementTent = ({ element, handleTent }: ElementTentPropsType) => {
     return (

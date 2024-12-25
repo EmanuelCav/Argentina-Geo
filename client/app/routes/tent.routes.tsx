@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 
 import MenuTent from '../components/tent/MenuTent'
 import HeaderTent from '../components/tent/HeaderTent'
-import ButtonMenu from '../components/ButtonMenu'
+import ButtonAccept from '../components/general/ButtonAccept'
 
 import { StackNavigation } from '../types/props.types'
 import { ITent } from '../interface/User'
@@ -12,12 +12,13 @@ import { IReducer } from '../interface/Reducer'
 
 import { socket } from '../server/socket'
 
-import { homeStyles } from '../styles/home.styles'
 import { tentStyle } from '../styles/tent.styles'
+import { generalStyles } from '../styles/general.styles'
 
-import { selector } from '../helper/selector'
 import { getTents } from '../server/actions/user.actions'
 import { updateOptionsAction } from '../server/features/user.features'
+
+import { selector } from '../helper/selector'
 
 const Tent = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -31,7 +32,7 @@ const Tent = ({ navigation }: { navigation: StackNavigation }) => {
     useEffect(() => {
         dispatch(getTents({
             setTents,
-            token: users.user.token
+            token: users.user.token!
         }) as any)
     }, [])
 
@@ -43,7 +44,7 @@ const Tent = ({ navigation }: { navigation: StackNavigation }) => {
     }, [])
 
     return (
-        <View style={homeStyles.containerHome}>
+        <View style={generalStyles.containerGeneral}>
             <HeaderTent />
             {
                 isPayed && <View style={tentStyle.containerTextPayment}>
@@ -51,9 +52,7 @@ const Tent = ({ navigation }: { navigation: StackNavigation }) => {
                 </View>
             }
             <MenuTent tents={tents} user={users} />
-            <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Regresar" redirect={() => navigation.navigate('Home')} isAccept={true} disabled={false} />
-            </View>
+            <ButtonAccept text='REGRESAR' func={() => navigation.navigate('Home')} isCategory={false} />
         </View>
     )
 }

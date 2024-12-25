@@ -1,56 +1,28 @@
-import { Text, Dimensions, Pressable } from 'react-native'
-import { useDispatch } from "react-redux";
-import CheckBox from 'expo-checkbox'
+import { Dimensions, Pressable, Text, View } from 'react-native'
+import Checkbox from 'expo-checkbox'
 
-import { menuStyles } from '../../../styles/menu.styles'
+import { CategoryPropsType } from '../../../types/categories.types'
 
-import { CategoryProps } from "../../../types/props.types";
+import { categoriesStyles } from '../../../styles/categories.styles'
 
-import { updateCategory } from '../../../server/actions/user.actions';
-
-const Category = ({ user, category }: CategoryProps) => {
-
-    const dispatch = useDispatch()
-
-    const selectCategory = async () => {
-        dispatch(updateCategory({
-            id: category._id,
-            token: user.token
-        }) as any)
-    }
-
-    const isSelect = () => {
-        const categoryFound = user.user.categories.find(c => c.category._id === category._id)
-
-        if (!categoryFound) return true
-
-        if (!categoryFound.isSelect) {
-            return false
-        }
-
-        return true
-
-    }
+const Category = ({ category, changeCategory }: CategoryPropsType) => {
 
     return (
         <Pressable style={({ pressed }) => [
             {
-                backgroundColor: pressed ? '#DDDDDD' : '#FFFFFF',
+                backgroundColor: pressed ? '#6b8cf2' : '#597EEE'
             },
-            menuStyles.categoryContainer
-        ]}
-            onPress={selectCategory}>
-            <Text adjustsFontSizeToFit style={menuStyles.textCategory}>
-                {category.name}
-            </Text>
-            {
-                <CheckBox
-                    value={isSelect()}
-                    color={isSelect() ? '#597EEE' : undefined}
-                    style={{ padding: Dimensions.get("window").height / 92.5 }}
-                    onValueChange={selectCategory}
-                />
-            }
+            categoriesStyles.containCategory
+        ]} onPress={() => changeCategory(category.category._id)}>
+            <View style={{ width: '94%' }}>
+                <Text style={categoriesStyles.categoryText}>{category.category.name}</Text>
+            </View>
+            <Checkbox
+                value={category.isSelect}
+                style={{ padding: Dimensions.get("window").height / 92.5 }}
+                onValueChange={() => changeCategory(category.category._id)}
+                color={"#7aadf0"}
+            />
         </Pressable>
     )
 }

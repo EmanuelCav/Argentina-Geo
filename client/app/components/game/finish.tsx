@@ -1,25 +1,35 @@
 import { View, Text } from "react-native";
 
-import ButtonMenu from "../ButtonMenu";
 import DataFinish from "./components/finish/DataFinish";
 import HelpAdd from "./components/finish/HelpAdd";
+import ButtonFinish from "./components/finish/ButtonFinish";
 
 import { gameStyles } from '../../styles/game.styles';
-import { homeStyles } from '../../styles/home.styles';
 
-import { FinishPropsType } from "../../types/props.types";
+import { FinishPropsType } from "../../types/playing.types";
 
-const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, areErrors, isGameError, isConnection, changeHelp, isAdd, interstitial, isRecompensadoLoaded, isIntersitialLoaded, setIsRecompensadoLoaded }: FinishPropsType) => {
+const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors,
+    areErrors, isGameError, isConnection, changeHelp, isAdd, interstitial,
+    isRecompensadoLoaded, isIntersitialLoaded, setIsRecompensadoLoaded }: FinishPropsType) => {
 
     const navigateHome = () => {
-        if (isConnection) {
-            if (interstitial.loaded && isIntersitialLoaded) {
-                interstitial.show();
-            }
-        }
 
-        setIsRecompensadoLoaded(false)
-        navigation.navigate('Home')
+        try {
+
+            if (isConnection) {
+                if (isIntersitialLoaded) {
+                    interstitial.show();
+                }
+            }
+
+            setIsRecompensadoLoaded(false)
+            navigation.navigate('Home')
+
+        } catch (error) {
+            console.error("Error showing interstitial ad or navigate:", error);
+            navigation.navigate('Home')
+        }
+        
     }
 
     return (
@@ -37,13 +47,11 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors, ar
                         {
                             !isAdd ?
                                 <HelpAdd changeHelp={changeHelp} />
-                                : <Text style={gameStyles.textErrorsGame}>¡Ayudas entregadas!</Text>
+                                : <Text style={gameStyles.textDataGame}>¡Ayudas entregadas!</Text>
                         }
                     </>
                 }
-                <View style={homeStyles.containerActionsView}>
-                    <ButtonMenu text="Continuar" redirect={navigateHome} isAccept={true} disabled={false} />
-                </View>
+                <ButtonFinish func={navigateHome} />
             </View>
         </View>
     )

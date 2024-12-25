@@ -6,9 +6,9 @@ import Helps from './components/dataGame/Helps';
 
 import { gameStyles } from '../../styles/game.styles';
 
-import { GameDataProps } from '../../types/props.types';
+import { GameDataPropsType } from '../../types/playing.types';
 
-const DataGame = ({ numberQuestion, amountQuestions, seconds, minutes, changeHelp, helps, isHelped, isGameError }: GameDataProps) => {
+const DataGame = ({ numberQuestion, amountQuestions, seconds, minutes, changeHelp, helps, isHelped, isGameError }: GameDataPropsType) => {
   return (
     <>
       {

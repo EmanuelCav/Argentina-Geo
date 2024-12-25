@@ -10,16 +10,16 @@ import { updatePasswordApi } from '../../server/api/user.api'
 import { updateOptionsAction } from '../../server/features/user.features'
 
 import { IPassword } from "../../interface/User";
-import { ChangeCodeProps } from "../../types/props.types";
+import { ChangeCodePropsType } from "../../types/settings.types";
 
-import { authStyles } from '../../styles/settings.styles'
+import { settingsStyles } from '../../styles/settings.styles'
 
-const ChangeCode = ({ setIsCode, user }: ChangeCodeProps) => {
+const ChangeCode = ({ setIsCode, user }: ChangeCodePropsType) => {
 
     const dispatch = useDispatch()
 
     const initialState: IPassword = {
-        password: user.user.password
+        password: user.user?.password!
     }
 
     const [passwordData, setPasswordData] = useState<IPassword>(initialState)
@@ -37,9 +37,11 @@ const ChangeCode = ({ setIsCode, user }: ChangeCodeProps) => {
     const handleSumbit = async () => {
 
         try {
-            const { data } = await updatePasswordApi(user.user._id, passwordData, user.token)
+            
+            const { data } = await updatePasswordApi(user.user?._id!, passwordData, user.token!)
             dispatch(updateOptionsAction(data))
             setIsCode(false)
+
         } catch (error: any) {
             setMessage(error.response.data.message)
         }
@@ -50,11 +52,13 @@ const ChangeCode = ({ setIsCode, user }: ChangeCodeProps) => {
     }
 
     return (
-        <View style={authStyles.containerAuth} >
-            <View style={authStyles.containerForm}>
-                <Error msg={message} />
+        <View style={settingsStyles.containerAuth} >
+            <View style={settingsStyles.containerForm}>
+                {
+                    message && <Error msg={message} />
+                }
                 <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={true} />
-                <View style={authStyles.separator}>
+                <View style={settingsStyles.separator}>
                     <ButtonSettings text="Aceptar" redirect={handleSumbit} />
                     <ButtonSettings text="Regresar" redirect={redirectSettings} />
                 </View>

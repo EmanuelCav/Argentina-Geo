@@ -1,6 +1,6 @@
 import { Text, Dimensions, StyleSheet, Pressable } from "react-native";
 
-import { OptionGamePropsType } from "../../types/props.types";
+import { OptionGamePropsType } from "../../types/playing.types";
 
 import { gameStyles } from '../../styles/game.styles';
 

@@ -1,9 +1,7 @@
-import { GameType } from "../types/games.types";
-import { UserType } from "../types/user.types";
-import { ResponseType } from "../types/response.types";
+import { ICounterUser } from "./User";
+import { IResponse } from "./Response";
 
 export interface IReducer {
-    games: GameType;
-    users: UserType;
-    response: ResponseType;
+    users: ICounterUser;
+    response: IResponse;
 }

@@ -1,11 +1,6 @@
-import { SetStateAction } from 'react'
-import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { InterstitialAd } from 'react-native-google-mobile-ads';
 
-import { ILocationRank, IOptions, ISetting, ITent, IUser, IUsersRank } from "../interface/User";
-import { ICategories, ICategoriesUser, IGame, IQuestion } from "../interface/Game";
-import { DateRankType, HelpType, UserDataType, UserReducerType, UserType } from "./user.types";
+import { IQuestion } from "../interface/Game";
 
 export type RoutesProps = {
     Home: undefined;
@@ -17,281 +12,26 @@ export type RoutesProps = {
     Ranking: undefined;
     Settings: undefined;
     Tent: undefined;
+    Options: undefined;
+    Categories: undefined;
+    Profile: undefined;
 };
 
 export type StackNavigation = NativeStackNavigationProp<RoutesProps>;
 
-export type ButtonGameProps = {
+export type ButtonMenuPropsType = {
     text: string;
     redirect: () => void;
-    isAccept: boolean;
     disabled: boolean;
 }
 
-export type ButtonNavigateProps = {
+export type ButtonAcceptPropsType = {
+    isCategory: boolean;
+    func: () => void;
     text: string;
-    redirect: () => void;
 }
 
-export type OptionGamePropsType = {
-    text: string;
-    nextQuestion: (item: string) => void;
-    amountOptions: number;
-    disabled: boolean
-}
-
-export type ShowStatisticsProps = {
-    navigation: StackNavigation;
-    setIsProfile: (isProfile: boolean) => void;
-    user: UserReducerType;
-    isConnection: boolean | null;
-    setIsChangeView: (isChangeView: boolean) => void;
-    isChangeView: boolean;
-}
-
-export type UserInfoProps = {
-    user: IUser;
-    users: IUsersRank;
-}
-
-export type ProfileProps = {
-    user: UserType;
-    games: IGame[];
-    setIsProfile: (isProfile: boolean) => void;
-}
-
-export type CategoriesProps = {
-    user: UserDataType;
-    categories: ICategoriesUser[];
-    setIsCategories: (isCategories: boolean) => void;
-}
-
-export type NewProps = {
-    navigation: StackNavigation;
-    setIsAuth: (isAuth: boolean) => void;
-    dispatch: Dispatch<AnyAction>
-}
-
-export type InputProps = {
-    label: string;
-    value: string;
-    handleChange: (value: string) => void;
-    isPassword: boolean;
-}
-
-export type CodeProps = {
-    password: string;
-    nickname: string;
-    setIsAuth: (isAuth: boolean) => void;
-    setIsCode: (isCode: boolean) => void;
-    setIsNickname: (isNickname: boolean) => void;
-}
-
-export type SelectOptionProps = {
-    setOptionsData: (optionData: SetStateAction<IOptions>) => void;
-    amountOptions: number;
-}
-
-export type SelectQuestionProps = {
-    setOptionsData: (optionData: SetStateAction<IOptions>) => void;
-    amountQuestions: number;
-}
-
-export type ChangeCodeProps = {
-    setIsCode: (isCode: boolean) => void;
-    user: UserDataType;
-}
-
-export type ChangeNicknameProps = {
-    setIsNickname: (isNickname: boolean) => void;
-    user: UserDataType;
-}
-
-export type CategoryProps = {
-    user: UserDataType;
-    category: ICategories;
-}
-
-export type SelectSettingsProps = {
-    settingsData: ISetting;
-    setIsPais: (isPais: boolean) => void;
-    setIsProvincia: (isProvincia: boolean) => void;
-    setIsMunicipio: (isMunicipio: boolean) => void;
-}
-
-export type InputSettingsType = {
-    value: string | undefined;
-    setIsPais: (isLocation: boolean) => void;
-    setIsProvincia: (isProvincia: boolean) => void;
-    setIsMunicipio: (isMunicipio: boolean) => void;
-    isDisabled: boolean;
-    location: string;
-}
-
-export type SelectProps = {
-    loc: string;
-    user: UserDataType;
-    setSettingsData: (userLocation: ISetting) => void;
-    userLocation: string | undefined;
-    settingsData: ISetting;
-    data: string[];
-    setIsPais: (isLocation: boolean) => void;
-    setIsProvincia: (isProvincia: boolean) => void;
-    setIsMunicipio: (isMunicipio: boolean) => void;
-}
-
-export type LocationProps = {
-    loc: string;
-    settingsData: ISetting;
-    setSettingsData: (userLocation: ISetting) => void;
-    location: string;
-    userLocation: string | undefined;
-}
-
-export type GameDataProps = {
-    numberQuestion: number;
-    amountQuestions: number;
-    seconds: number;
-    minutes: number;
-    helps: number;
-    isHelped: boolean; 
-    changeHelp: (type: HelpType) => void;
-    isGameError: boolean;
-}
-
-export type TimePropsType = {
-    seconds: number;
-    minutes: number;
-}
-
-export type FinishPropsType = {
-    seconds: number;
-    minutes: number;
-    corrects: number;
-    points: number;
-    navigation: StackNavigation;
-    viewErrors: () => void;
-    areErrors: boolean;
-    isGameError: boolean;
-    isConnection: boolean | null;
-    isAdd: boolean;
-    changeHelp: (type: HelpType) => void;
-    interstitial: InterstitialAd;
-    isRecompensadoLoaded: boolean;
-    setIsRecompensadoLoaded: (isRecompensadoLoaded: boolean) => void;
-    isIntersitialLoaded: boolean;
-}
-
-export type ShowQuestionProps = {
-    questions: IQuestion[];
-    numberQuestion: number;
-}
-
-export type ShowOptionGameProps = {
-    options: string[];
-    nextQuestion: (item: string) => void;
-    amountOptions: number;
-    isHelped: boolean;
-    optionsHelped: string[];
-}
-
-export type RankingProps = {
-    users: UserType;
-    setRankData: (rankData: DateRankType) => void;
-    rankData: DateRankType;
-}
-
-export type UserRankingProps = {
-    index: number;
-    user: IUser;
-    users: UserReducerType;
-    rankData: DateRankType;
-    setIsProfile: (isProfile: boolean) => void;
-}
-
-export type RankingActionProps = {
-    user: UserReducerType;
-    navigation: StackNavigation;
-}
-
-export type FinishedGameProps = {
-    isGameError: boolean;
-    isConnection: boolean;
-    game: IGame;
-    token: string;
-}
-
-export type UnlockCategoryProps = {
-    id: string;
-    token: string;
-}
-
-export type LocationRankProps = {
-    location: ILocationRank;
-    index: number;
-}
-
-export type LocationDataProps = {
-    positionRank: string;
-    rankData: DateRankType;
-    token: string;
-}
-
-export type RankingUserDataProps = {
-    token: string;
-    rankData: DateRankType;
-}
-
-export type UpdateCategoryDataProps = {
-    id: string;
-    token: string;
-}
-
-export type UpdateAllCategoryDataProps = {
-    query: SelectCategories;
-    token: string;
-}
-
-export type GetTentProps = {
-    setTents: (tents: ITent[]) => void;
-    token: string;
-}
-
-export type AnswerPropsType = {
-    isCorrect: boolean; 
-    answer: string;  
-    continueGame: () => void;
-}
-
-export type QuestionPositionPropsType = {
-    numberQuestion: number; 
-    amountQuestions: number;
-}
-
-export type DataFinishPropsType = {
-    seconds: number;
-    minutes: number;
-    corrects: number;
-    points: number;
-    isGameError: boolean;
-}
-
-export type HelpsPropsType = {
-    changeHelp: (type: HelpType) => void; 
-    helps: number; 
-    isHelped: boolean;
-}
-
-export type SelectCategories = {
-    query: 'quit' | 'select'
-}
-
-export type ElementTentPropsType = {
-    handleTent: (tent: ITent) => void;
-    element: ITent;
-}
-
-export type MenuTentPropsType = {
-    tents: ITent[];
-    user: UserReducerType;
-}
+export type DateRankType = 'total' | 'year' | 'month' | 'day';
+export type RanksType = 'user-alt' | 'flag' | 'city' | 'location-arrow';
+export type LocationRankType = 'pais' | 'provincia' | 'municipio';
+export type HelpType = 'add' | 'help';

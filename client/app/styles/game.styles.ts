@@ -2,16 +2,6 @@ import { StyleSheet, Dimensions } from "react-native";
 
 export const gameStyles = StyleSheet.create({
 
-    gameContainer: {
-        width: '100%',
-        height: '100%',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        marginVertical: Dimensions.get("window").height / 52.85
-    },
-
     containerQuestion: {
         width: '100%',
         height: '50%',
@@ -22,6 +12,31 @@ export const gameStyles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: Dimensions.get("window").width / 45,
         backgroundColor: '#597EEE'
+    },
+
+    buttonFinish: {
+        padding: Dimensions.get("window").height / 74,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#ffffff',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        width: '100%',
+        marginTop: Dimensions.get("window").height / 92,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+        elevation: 7,
+    },
+
+    textButtonFinish: {
+        fontSize: Dimensions.get("window").height / 41,
+        color: '#ffffff',
+        fontWeight: '500'
     },
 
     imageQuestion: {
@@ -93,7 +108,7 @@ export const gameStyles = StyleSheet.create({
         backgroundColor: '#0f0',
         opacity: 0.4,
         width: '100%',
-        height: '100%'
+        height: '100%',
     },
 
     containerIncorrect: {
@@ -117,7 +132,8 @@ export const gameStyles = StyleSheet.create({
         height: '100%',
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: Dimensions.get("window").height / 74
     },
 
     containPreFinish: {
@@ -141,12 +157,12 @@ export const gameStyles = StyleSheet.create({
         backgroundColor: 'rgba(89,126,238,0.5)',
         width: '100%',
         height: '100%',
-        padding: Dimensions.get("window").height / 46.25,
-        zIndex: 22
+        zIndex: 22,
+        margin: Dimensions.get("window").height / 74
     },
 
     containFinish: {
-        width: '88%',
+        width: '100%',
         justifyContent: 'space-evenly',
         alignItems: 'center',
         borderColor: '#597EEE',
@@ -176,8 +192,7 @@ export const gameStyles = StyleSheet.create({
         textAlign: 'center',
         fontSize: Dimensions.get("window").height / 29.63,
         color: '#597EEE',
-        fontWeight: '600',
-        marginVertical: Dimensions.get("window").height / 37
+        fontWeight: '600'
     },
 
     containerAnswer: {
@@ -211,19 +226,13 @@ export const gameStyles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    containDataGame: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
     buttonHelpFinish: {
         borderRadius: 10,
-        padding: Dimensions.get("window").height / 106,
+        padding: Dimensions.get("window").height / 74,
         width: '66.66%',
         justifyContent: 'space-around',
         alignItems: 'center',
-        flexDirection: 'row',
-        marginVertical: Dimensions.get("window").height / 37
+        flexDirection: 'row'
     },
 
     containHelpText: {
@@ -246,61 +255,5 @@ export const gameStyles = StyleSheet.create({
         fontSize: Dimensions.get("window").height / 41,
         color: '#ffffff'
     }
-
-})
-
-export const configGamesStyles = StyleSheet.create({
-
-    containerConfigGames: {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        zIndex: 14,
-        backgroundColor: '#9edefa',
-        paddingVertical: Dimensions.get("window").height / 46.25,
-        paddingHorizontal: Dimensions.get("window").width / 36
-    },
-
-    configGamesContain: {
-        backgroundColor: '#FFFFFF',
-        width: '100%',
-        height: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'column',
-        paddingVertical: Dimensions.get("window").height / 61.66,
-        paddingHorizontal: Dimensions.get("window").width / 60
-    },
-
-    containShowConfig: {
-        width: '100%',
-        flex: 1,
-        padding: Dimensions.get("window").height / 50
-    },
-
-    containShowConfigOptions: {
-        width: '100%',
-        flex: 1
-    },
-
-    containMoveCategories: {
-        marginVertical: Dimensions.get("window").height / 52.85,
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-    },
-
-    iconMoveCategories: {
-        fontSize: Dimensions.get("window").height / 33.63,
-        fontWeight: '900',
-        color: '#111'
-    },
-
-    iconMoveCategoriesDisable: {
-        fontSize: Dimensions.get("window").height / 33.63,
-        fontWeight: '900',
-        color: '#888'
-    },
 
 })

@@ -1,17 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { View, Text, Pressable, Dimensions } from "react-native";
-import { useDispatch } from 'react-redux';
-import FilterIcon from 'react-native-vector-icons/FontAwesome5';
+import { View } from "react-native";
 
-import { rankingStyles } from '../../styles/home.styles';
+import HeaderRank from "./components/HeaderRank";
+import DateRank from "./components/DateRank";
 
-import { RankingProps } from "../../types/props.types";
-import { LocationRankType, RanksType } from "../../types/user.types";
+import { FilterRankPropsType } from "../../types/ranking.types";
+import { LocationRankType, RanksType } from "../../types/props.types";
+
 import { rankingLocation, rankingUser } from "../../server/actions/user.actions";
 
-const FilterRank = ({ users, setRankData, rankData }: RankingProps) => {
-
-    const dispatch = useDispatch()
+const FilterRank = ({ users, setRankData, rankData, dispatch }: FilterRankPropsType) => {
 
     const [isTotal, setIsTotal] = useState<boolean>(true)
     const [isYear, setIsYear] = useState<boolean>(false)
@@ -76,7 +74,7 @@ const FilterRank = ({ users, setRankData, rankData }: RankingProps) => {
             dispatch(rankingLocation({
                 positionRank: dateRank.current[(positionRank - 2) < 0 ? positionRank + 2 : positionRank - 2],
                 rankData,
-                token: users.user.token
+                token: users.user.token!
             }) as any)
 
         } catch (error) {
@@ -89,7 +87,7 @@ const FilterRank = ({ users, setRankData, rankData }: RankingProps) => {
 
         dispatch(rankingUser({
             rankData,
-            token: users.user.token
+            token: users.user.token!
         }) as any)
 
     }
@@ -106,40 +104,10 @@ const FilterRank = ({ users, setRankData, rankData }: RankingProps) => {
     }, [positionRank, rankData])
 
     return (
-        <View>
-            <View style={rankingStyles.containerHeaderRank}>
-                <FilterIcon onPress={changeFilter} name={rankState.current[positionRank]} color={'#5d8cff'} size={Dimensions.get("window").height / 28} />
-                {
-                    users.users.ranking?.length! > 0 &&
-                    <>
-                        {(users.users.ranking!.map((u) => u._id).indexOf(users.user.user._id) + 1 === 0) ? (
-                            <Text style={rankingStyles.infoUserRank}>Usted no se encuetra aquí</Text>
-                        ) : (
-                            <Text style={rankingStyles.infoUserRank}>Su posición actual es {users.users.ranking!.map((u) => u._id)
-                                .indexOf(users.user.user._id) + 1}°
-                            </Text>
-                        )}
-                    </>
-                }
-            </View>
-            <View style={rankingStyles.containerDateRank}>
-                <Pressable style={isTotal ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showTotal} disabled={isTotal}>
-                    <Text style={isTotal ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Total</Text>
-                </Pressable>
-                <Pressable style={isYear ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showYear} disabled={isYear}>
-                    <Text style={isYear ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Año</Text>
-                </Pressable>
-                <Pressable style={isMonth ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showMonth} disabled={isMonth}>
-                    <Text style={isMonth ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Mes</Text>
-                </Pressable>
-                <Pressable style={isDay ? rankingStyles.buttonDateRankSelected : rankingStyles.buttonDateRank}
-                    onPress={showDay} disabled={isDay}>
-                    <Text style={isDay ? rankingStyles.infoUserRankSelected : rankingStyles.infoUserRank}>Día</Text>
-                </Pressable>
-            </View>
+        <View style={{ width: '100%' }}>
+            <HeaderRank changeFilter={changeFilter} positionRank={positionRank} rankState={rankState} users={users} />
+            <DateRank isDay={isDay} isMonth={isMonth} isYear={isYear} isTotal={isTotal} 
+            showDay={showDay} showMonth={showMonth} showTotal={showTotal} showYear={showYear} />
         </View>
     )
 }

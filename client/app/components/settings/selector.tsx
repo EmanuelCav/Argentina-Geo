@@ -2,23 +2,22 @@ import { View, Text } from 'react-native'
 
 import InputSelect from './components/InputSelect'
 
-import { generalStyles } from '../../styles/home.styles'
-import { authStyles } from '../../styles/settings.styles'
+import { settingsStyles } from '../../styles/settings.styles'
 
-import { SelectSettingsProps } from '../../types/props.types'
+import { SelectorPropsType } from '../../types/settings.types'
 
-const Selector = ({ settingsData, setIsPais, setIsProvincia, setIsMunicipio }: SelectSettingsProps) => {
+const Selector = ({ settingsData, setIsPais, setIsProvincia, setIsMunicipio }: SelectorPropsType) => {
     return (
-        <View style={generalStyles.containSelector}>
-            <Text style={authStyles.labelForm}>País</Text>
+        <View style={settingsStyles.containerSelector}>
+            <Text style={settingsStyles.labelForm}>País</Text>
             <InputSelect value={settingsData.pais} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
             isDisabled={false} location="Pais" />
-            <Text style={authStyles.labelForm}>Provincia/Distrito</Text>
+            <Text style={settingsStyles.labelForm}>Provincia/Distrito</Text>
             <InputSelect value={settingsData.provincia} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
-            isDisabled={settingsData.pais === "Argentina" ? false : true} location="Provincia" />
-            <Text style={authStyles.labelForm}>Departamento/Partido/barrio</Text>
+            isDisabled={settingsData.pais !== "Argentina"} location="Provincia" />
+            <Text style={settingsStyles.labelForm}>Departamento/Partido/barrio</Text>
             <InputSelect value={settingsData.municipio} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} 
-            isDisabled={settingsData.provincia === "" ? true : false} location="Municipio" />
+            isDisabled={settingsData.provincia === ""} location="Municipio" />
         </View>
     )
 }

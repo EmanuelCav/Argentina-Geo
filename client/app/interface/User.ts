@@ -1,10 +1,15 @@
-import { StackNavigation } from "../types/props.types";
-import { UserReducerType } from "../types/user.types";
 import { ICategoriesUser } from "./Game";
 
-interface ICounterUserReducer {
+export interface ICounterUser {
+    users: IUsersRank;
+    user: IUserInfo;
+    isLoggedIn: boolean;
+    profile: IUser;
+}
+
+export interface IUserInfo {
     token?: string;
-    user?: object;
+    user?: IUser;
 }
 
 export interface IUsersRank {
@@ -18,29 +23,22 @@ export interface ILocationRank {
     points: number;
 }
 
-export interface ICounterUser {
-    users: IUsersRank;
-    user: ICounterUserReducer;
-    isLoggedIn: boolean;
-    profile: object;
-}
-
 export interface IUser {
-    _id: string;
-    createdAt: string;
-    updatedAt: string;
-    nickname: string;
-    password: string;
-    role: string;
-    points: IExperience;
-    categories: ICategoriesUser[];
-    amountOptions: number;
-    amountQuestions: number;
-    pais: IPais;
-    provincia: IProvincia;
-    municipio: IMunicipio;
-    helps: number;
-    isAdd: boolean;
+    _id?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    nickname?: string;
+    password?: string;
+    role?: string;
+    points?: IExperience;
+    categories?: ICategoriesUser[];
+    amountOptions?: number;
+    amountQuestions?: number;
+    pais?: IPais;
+    provincia?: IProvincia;
+    municipio?: IMunicipio;
+    helps?: number;
+    isAdd?: boolean;
 }
 
 export interface IUserReducer {
@@ -113,24 +111,14 @@ export interface IPoints {
     points: number;
 }
 
-export interface IAuthAction {
-    userData: ILogin;
-    setIsAuth: (isAuth: boolean) => void;
-    setMessage: (message: string) => void;
-    setUserData: (userData: ILogin) => void;
-    navigation: StackNavigation;
-}
-
-export interface IGetUserAction {
-    id: string;
-    user: UserReducerType;
-    setIsProfile: (isProfile: boolean) => void;
-}
-
 export interface ITent {
     _id: string;
     title: string;
     description: string;
     price: number;
     quantity: number;
+}
+
+export interface IUpdateCaterories {
+    query: string;
 }

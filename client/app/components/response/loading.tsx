@@ -1,4 +1,4 @@
-import { View, Image, ImageBackground } from "react-native";
+import { Image, ImageBackground } from "react-native";
 import { useSelector } from 'react-redux';
 
 import { IReducer } from "../../interface/Reducer";
@@ -15,11 +15,9 @@ const Loading = () => {
         <>
             {
                 response.loading &&
-                <View style={responseStyles.containerMainLoading}>
-                    <ImageBackground source={require('../../../assets/fondo2.png')} style={responseStyles.containerLoading} resizeMode="cover">
-                        <Image source={require('../../../assets/loading.gif')} style={responseStyles.loadingIcon} resizeMode="center" />
-                    </ImageBackground>
-                </View>
+                <ImageBackground source={require('../../../assets/fondo2.png')} style={responseStyles.containerMainLoading} resizeMode="cover">
+                    <Image source={require('../../../assets/loading.gif')} style={responseStyles.loadingIcon} resizeMode="center" />
+                </ImageBackground>
             }
         </>
     )

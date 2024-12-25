@@ -2,8 +2,8 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { IResponse } from '../../interface/Response';
 
-import { auth, getLogin, getRanking, getTents, getUser, newUser, rankingLocation, rankingUser, updateAllCategory, updateCategory } from '../actions/user.actions';
-import { experienceGame, game } from '../actions/game.actions';
+import * as userAction from '../actions/user.actions';
+import * as gameAction from '../actions/game.actions';
 
 const initialState: IResponse = {
     loading: false
@@ -18,87 +18,133 @@ const counterResponseSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(auth.pending, (state) => {
+        builder.addCase(userAction.auth.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(auth.fulfilled, (state) => {
+        builder.addCase(userAction.auth.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.auth.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(game.pending, (state) => {
+        builder.addCase(gameAction.game.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(game.fulfilled, (state) => {
+        builder.addCase(gameAction.game.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(gameAction.game.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(getUser.pending, (state) => {
+        builder.addCase(userAction.getUser.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(getUser.fulfilled, (state) => {
+        builder.addCase(userAction.getUser.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.getUser.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(newUser.pending, (state) => {
+        builder.addCase(userAction.newUser.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(newUser.fulfilled, (state) => {
+        builder.addCase(userAction.newUser.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.newUser.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(getRanking.pending, (state) => {
+        builder.addCase(userAction.getRanking.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(getRanking.fulfilled, (state) => {
+        builder.addCase(userAction.getRanking.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.getRanking.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(getLogin.pending, (state) => {
+        builder.addCase(userAction.getLogin.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(getLogin.fulfilled, (state) => {
+        builder.addCase(userAction.getLogin.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.getLogin.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(experienceGame.pending, (state) => {
+        builder.addCase(gameAction.experienceGame.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(experienceGame.fulfilled, (state) => {
+        builder.addCase(gameAction.experienceGame.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(gameAction.experienceGame.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(rankingLocation.pending, (state) => {
+        builder.addCase(userAction.rankingLocation.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(rankingLocation.fulfilled, (state) => {
+        builder.addCase(userAction.rankingLocation.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.rankingLocation.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(rankingUser.pending, (state) => {
+        builder.addCase(userAction.rankingUser.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(rankingUser.fulfilled, (state) => {
+        builder.addCase(userAction.rankingUser.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.rankingUser.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(updateCategory.pending, (state) => {
+        builder.addCase(userAction.updateCategory.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(updateCategory.fulfilled, (state) => {
+        builder.addCase(userAction.updateCategory.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.updateCategory.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(updateAllCategory.pending, (state) => {
+        builder.addCase(userAction.updateOptions.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(updateAllCategory.fulfilled, (state) => {
+        builder.addCase(userAction.updateOptions.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.updateOptions.rejected, (state) => {
             state.loading = false
         })
 
-        builder.addCase(getTents.pending, (state) => {
+        builder.addCase(userAction.updateAllCategory.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(getTents.fulfilled, (state) => {
+        builder.addCase(userAction.updateAllCategory.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.updateAllCategory.rejected, (state) => {
+            state.loading = false
+        })
+
+        builder.addCase(userAction.getTents.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(userAction.getTents.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(userAction.getTents.rejected, (state) => {
             state.loading = false
         })
         

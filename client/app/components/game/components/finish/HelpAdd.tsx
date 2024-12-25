@@ -1,9 +1,9 @@
 import { Pressable, View, Text, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 
-import { HelpType } from '../../../../types/user.types'
-
 import { gameStyles } from '../../../../styles/game.styles'
+
+import { HelpType } from '../../../../types/props.types'
 
 const HelpAdd = ({ changeHelp }: { changeHelp: (type: HelpType) => void }) => {
     return (

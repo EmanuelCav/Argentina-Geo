@@ -1,10 +1,10 @@
 import { Text, Pressable } from "react-native";
 
-import { sectionStyle } from "../../../styles/settings.styles";
+import { InputSelectPropsType } from "../../../types/settings.types";
 
-import { InputSettingsType } from "../../../types/props.types";
+import { settingsStyles } from "../../../styles/settings.styles";
 
-const InputSelect = ({ value, setIsPais, setIsProvincia, setIsMunicipio, isDisabled, location }: InputSettingsType) => {
+const InputSelect = ({ value, setIsPais, setIsProvincia, setIsMunicipio, isDisabled, location }: InputSelectPropsType) => {
 
     const setLocation = () => {
     
@@ -29,14 +29,15 @@ const InputSelect = ({ value, setIsPais, setIsProvincia, setIsMunicipio, isDisab
             return
         }
 
-        return
-
     }
 
     return (
-        <Pressable style={isDisabled ? sectionStyle.containerInputSettingsDisabled : sectionStyle.containerInputSettings} 
+        <Pressable style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? '#dddddd' : isDisabled ? '#888888' : '#ffffff',
+              }, settingsStyles.containerInputSettings]}
         onPress={setLocation} disabled={isDisabled}>
-            <Text style={sectionStyle.textInput}>{value}</Text>
+            <Text style={settingsStyles.textInput}>{value}</Text>
         </Pressable>
     )
 }

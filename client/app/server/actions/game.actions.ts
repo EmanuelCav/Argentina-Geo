@@ -3,9 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IExperienceGame, IGameGenerate } from "../../interface/Game";
 
 import { createGameApi } from "../api/game.api";
-import { createGameAction, getGameAction } from "../features/game.features";
-import { updateExperienceApi, usersApi } from "../api/user.api";
-import { updateOptionsAction, usersAction } from "../features/user.features";
+import * as userApi from "../api/user.api";
+import * as userFeatures from "../features/user.features";
 
 export const game = createAsyncThunk('game/generateGame', async (gameData: IGameGenerate, { dispatch }) => {
 
@@ -13,12 +12,9 @@ export const game = createAsyncThunk('game/generateGame', async (gameData: IGame
 
         const { data } = await createGameApi(gameData.token)
 
-        dispatch(createGameAction(data.game))
-        dispatch(getGameAction(data.game))
-
         gameData.navigation.navigate('Playing', {
             isConnection: true,
-            questionsWC: data.shuffledQuestions
+            questionsWC: data
         })
 
     } catch (error: any) {
@@ -31,11 +27,11 @@ export const experienceGame = createAsyncThunk('game/experienceGame', async (gam
 
     try {
 
-        const { data } = await updateExperienceApi(gameData.pointsData, gameData.user.token)
-        dispatch(updateOptionsAction(data))
+        const { data } = await userApi.updateExperienceApi(gameData.pointsData, gameData.user.token!)
+        dispatch(userFeatures.updateOptionsAction(data))
 
-        const res = await usersApi("total", gameData.user.token)
-        dispatch(usersAction(res.data))
+        const res = await userApi.usersApi("total", gameData.user.token!)
+        dispatch(userFeatures.usersAction(res.data))
 
     } catch (error) {
         console.log(error);

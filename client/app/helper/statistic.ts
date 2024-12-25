@@ -28,9 +28,7 @@ export const categoryStatistic = (categories: ICategoriesUser[], questionCategor
 
     const category = categories.find(category => category.category.name === questionCategory)
 
-    if(!category){
-        return
-    }
+    if(!category) return
 
     return category._id
 

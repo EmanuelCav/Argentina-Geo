@@ -4,19 +4,19 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
 
-import ButtonMenu from "../components/ButtonMenu";
 import Selector from "../components/settings/Selector";
 import CodeSettings from "../components/settings/CodeSettings";
-import Select from "../components/Select";
+import Select from "../components/settings/Select";
 import Auth from "../components/settings/components/Auth";
 import ChangeCode from "../components/settings/ChangeCode";
 import ChangeName from "../components/settings/ChangeName";
+import ButtonAccept from "../components/general/ButtonAccept";
 
 import { IReducer } from "../interface/Reducer";
 import { ISetting } from "../interface/User";
 import { StackNavigation } from "../types/props.types";
 
-import { homeStyles, generalStyles } from '../styles/home.styles'
+import { generalStyles } from "../styles/general.styles";
 
 import { selector } from "../helper/selector";
 
@@ -27,9 +27,9 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     const dispatch = useDispatch()
 
     const initialState: ISetting = {
-        pais: users.user.user.pais.name,
-        provincia: users.user.user.provincia ? users.user.user.provincia.name : "",
-        municipio: users.user.user.municipio ? users.user.user.municipio.name : ""
+        pais: users.user.user?.pais?.name,
+        provincia: users.user.user?.provincia ? users.user.user.provincia.name : "",
+        municipio: users.user.user?.municipio ? users.user.user.municipio.name : ""
     }
 
     const [settingsData, setSettingsData] = useState<ISetting>(initialState)
@@ -94,10 +94,11 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
         if (provincia !== "") {
             getMunicipios()
         }
+
     }, [isPais, isProvincia, isMunicipio])
 
     return (
-        <View style={generalStyles.containerInfoSelect}>
+        <View style={generalStyles.containerGeneral}>
             {
                 isPais && <Select loc="Pais" user={users.user} setSettingsData={setSettingsData} userLocation={pais} settingsData={settingsData} data={paises}
                     setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
@@ -120,11 +121,9 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
                 isNickname && <ChangeName setIsNickname={setIsNickname} user={users.user} />
             }
             <Selector settingsData={settingsData} setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
-            <CodeSettings password={users.user.user.password} nickname={users.user.user.nickname}
+            <CodeSettings password={users.user.user?.password!} nickname={users.user.user?.nickname!}
                 setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} />
-            <View style={homeStyles.containerActionsView}>
-                <ButtonMenu text="Aceptar" redirect={() => navigation.navigate('Home')} isAccept={true} disabled={false} />
-            </View>
+            <ButtonAccept text="ACEPTAR" func={() => navigation.goBack()} isCategory={false} />
         </View>
     )
 }

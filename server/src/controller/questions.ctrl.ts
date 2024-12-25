@@ -157,7 +157,7 @@ export const gameQuestion = async (req: Request, res: Response) => {
             new: true
         })
 
-        return res.status(200).json({ message: "New question" })
+        return res.status(200).json({ message: "Question counted" })
 
     } catch (error) {
         throw error
@@ -167,27 +167,18 @@ export const gameQuestion = async (req: Request, res: Response) => {
 
 export const correctQuestion = async (req: Request, res: Response) => {
 
-    const { id, gameId } = req.params
+    const { id } = req.params
 
     try {
 
         const category = await Categoryuser.findById(id)
-        const game = await Game.findById(gameId)
 
         if (!category) {
             return res.status(400).json({ message: "Category does not exists" })
         }
 
-        if (!game) {
-            return res.status(400).json({ message: "Category does not exists" })
-        }
-
         if (req.user != category.user) {
             return res.status(400).json({ message: "The category user does not match with user logged" })
-        }
-
-        if (req.user != game.user) {
-            return res.status(400).json({ message: "The game user does not match with user logged" })
         }
 
         await Categoryuser.findByIdAndUpdate(id, {
@@ -196,22 +187,9 @@ export const correctQuestion = async (req: Request, res: Response) => {
             new: true
         })
 
-        const gameUpdated = await Game.findByIdAndUpdate(gameId, {
-            corrects: game.corrects + 1
-        }, {
-            new: true
+        return res.status(200).json({
+            message: "User category updated"
         })
-            .populate({
-                path: "questions",
-                populate: [{
-                    path: "image",
-                    select: "image"
-                }, {
-                    path: "category"
-                }]
-            })
-
-        return res.status(200).json(gameUpdated)
 
     } catch (error) {
         throw error
@@ -430,6 +408,28 @@ export const updateQuestion = async (req: Request, res: Response): Promise<Respo
         })
 
         return res.status(200).json(questionUpdated)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const questionsSuccess = async (req: Request, res: Response): Promise<Response> => {
+
+    try {
+
+        const showQuestions = await Question.find()
+
+        let wrong = []
+
+        for (let i = 0; i < showQuestions.length; i++) {
+            if (showQuestions[i].answer !== showQuestions[i].options[0]) {
+                wrong.push(showQuestions[i])
+            }
+        }
+
+        return res.status(200).json(wrong)
 
     } catch (error) {
         throw error

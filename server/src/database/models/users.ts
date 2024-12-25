@@ -12,49 +12,60 @@ const userSchema = new Schema({
         unique: true,
         trim: true
     },
+    
     password: {
         type: String,
         required: true,
         trim: true
     },
+
     role: {
         type: ObjectId,
         ref: 'Role'
     },
+
     points: {
         type: ObjectId,
         ref: 'Experience'
     },
+
     categories: [{
         type: ObjectId,
         ref: 'Categoryuser'
     }],
+
     amountOptions: {
         type: Number,
         default: 4
     },
+
     amountQuestions: {
         type: Number,
         default: 10
     },
+
     pais: {
         type: ObjectId,
         ref: 'Pais'
     },
+
     provincia: {
         type: ObjectId,
         ref: 'Provincia',
         default: null
     },
+
     municipio: {
         type: ObjectId,
         ref: 'Municipio',
         default: null
     },
+    
     helps: {
         type: Number,
         default: 3
     },
+
     isAdd: {
         type: Boolean,
         default: true

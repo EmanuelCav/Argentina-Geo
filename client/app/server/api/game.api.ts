@@ -28,8 +28,8 @@ export const questionsCountApi = async (id: string | undefined, token: string) =
     })
 }
 
-export const questionsCorrectApi = async (id: string | undefined, idGame: string, token: string) => {
-    return await api.patch(`/questions/correct/${id}/${idGame}`, null, {
+export const questionsCorrectApi = async (id: string | undefined, token: string) => {
+    return await api.patch(`/questions/correct/${id}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

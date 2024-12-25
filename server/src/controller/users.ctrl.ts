@@ -564,7 +564,7 @@ export const updateNickname = async (req: Request, res: Response): Promise<Respo
 
 export const updateCategory = async (req: Request, res: Response): Promise<Response> => {
 
-    const { id } = req.params
+    const { id } = req.params    
 
     try {
 
@@ -583,7 +583,7 @@ export const updateCategory = async (req: Request, res: Response): Promise<Respo
         if (categoryUser.user != req.user) {
             return res.status(400).json({ message: "You cannot update this category" })
         }
-
+        
         await Categoryuser.findByIdAndUpdate(categoryUser._id, {
             isSelect: !categoryUser.isSelect
         }, {

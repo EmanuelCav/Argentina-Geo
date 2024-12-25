@@ -4,7 +4,7 @@ import { openBrowserAsync } from "expo-web-browser";
 import ElementTent from './components/ElementTent'
 
 import { ITent } from '../../interface/User'
-import { MenuTentPropsType } from '../../types/props.types';
+import { MenuTentPropsType } from '../../types/tent.types';
 
 import { tentStyle } from '../../styles/tent.styles';
 
@@ -14,7 +14,7 @@ const MenuTent = ({ tents, user }: MenuTentPropsType) => {
 
     const handleTent = async (tent: ITent) => {
         
-        const data = await handleIntegrationMP(tent._id, user.user.token)
+        const data = await handleIntegrationMP(tent._id, user.user.token!)
 
         await openBrowserAsync(data)
 

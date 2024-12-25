@@ -10,16 +10,16 @@ import { updateNicknameApi } from '../../server/api/user.api'
 import { updateOptionsAction } from '../../server/features/user.features'
 
 import { INickname } from "../../interface/User";
-import { ChangeNicknameProps } from "../../types/props.types";
+import { ChangeNicknamePropsType } from "../../types/settings.types";
 
-import { authStyles } from '../../styles/settings.styles'
+import { settingsStyles } from '../../styles/settings.styles'
 
-const ChangeCode = ({ setIsNickname, user }: ChangeNicknameProps) => {
+const ChangeCode = ({ setIsNickname, user }: ChangeNicknamePropsType) => {
 
     const dispatch = useDispatch()
 
     const initialState: INickname = {
-        nickname: user.user.nickname
+        nickname: user.user?.nickname!
     }
 
     const [message, setMessage] = useState<string>("")
@@ -37,7 +37,7 @@ const ChangeCode = ({ setIsNickname, user }: ChangeNicknameProps) => {
     const handleSumbit = async () => {
 
         try {
-            const { data } = await updateNicknameApi(user.user._id, nicknameData, user.token)
+            const { data } = await updateNicknameApi(user.user?._id!, nicknameData, user.token!)
             dispatch(updateOptionsAction(data))
             setIsNickname(false)
         } catch (error: any) {
@@ -50,11 +50,13 @@ const ChangeCode = ({ setIsNickname, user }: ChangeNicknameProps) => {
     }
 
     return (
-        <View style={authStyles.containerAuth} >
-            <View style={authStyles.containerForm}>
-                <Error msg={message} />
+        <View style={settingsStyles.containerAuth} >
+            <View style={settingsStyles.containerForm}>
+                {
+                    message && <Error msg={message} />
+                }
                 <Input label="Nombre de usuario" value={nickname} handleChange={handleChangePassword} isPassword={false} />
-                <View style={authStyles.separator}>
+                <View style={settingsStyles.separator}>
                     <ButtonSettings text="Aceptar" redirect={handleSumbit} />
                     <ButtonSettings text="Regresar" redirect={redirectSettings} />
                 </View>

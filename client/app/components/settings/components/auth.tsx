@@ -7,12 +7,12 @@ import Error from '../../response/Error';
 
 import { auth } from "../../../server/actions/user.actions";
 
-import { authStyles } from '../../../styles/settings.styles'
+import { settingsStyles } from '../../../styles/settings.styles'
 
 import { ILogin } from "../../../interface/User";
-import { NewProps } from "../../../types/props.types";
+import { AuthPropsType } from "../../../types/settings.types";
 
-const Auth = ({ navigation, setIsAuth, dispatch }: NewProps) => {
+const Auth = ({ navigation, setIsAuth, dispatch }: AuthPropsType) => {
 
     const initialState: ILogin = {
         nickname: "",
@@ -53,12 +53,14 @@ const Auth = ({ navigation, setIsAuth, dispatch }: NewProps) => {
     }
 
     return (
-        <View style={authStyles.containerAuth} >
-            <View style={authStyles.containerForm}>
-                <Error msg={message} />
+        <View style={settingsStyles.containerAuth} >
+            <View style={settingsStyles.containerForm}>
+                {
+                    message && <Error msg={message} />
+                }
                 <Input label="Nombre de usuario" value={nickname} handleChange={handleChangeNickname} isPassword={false} />
                 <Input label="Código de entrada" value={password} handleChange={handleChangePassword} isPassword={true} />
-                <View style={authStyles.separator}>
+                <View style={settingsStyles.separator}>
                     <ButtonSettings text="Aceptar" redirect={handleSumbit} />
                     <ButtonSettings text="Regresar" redirect={redirectNew} />
                 </View>

@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 
 import { gameStyles } from '../../../../styles/game.styles'
 
-import { DataFinishPropsType } from '../../../../types/props.types'
+import { DataFinishPropsType } from '../../../../types/playing.types'
 
 const DataFinish = ({ minutes, seconds, isGameError, corrects, points }: DataFinishPropsType) => {
     return (

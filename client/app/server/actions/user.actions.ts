@@ -1,26 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-import { IAuthAction, IGetUserAction } from "../../interface/User";
-
 import * as userApi from "../api/user.api"
-import * as gamesApi from "../api/game.api";
 
-import { firstTimeAction, getUserAction, locationRankAction, loginAction, loginAuthAction, updateOptionsAction, usersAction } from "../features/user.features";
-import { gamesAction } from "../features/game.features";
-import { GetTentProps, LocationDataProps, RankingActionProps, RankingUserDataProps, UpdateAllCategoryDataProps, UpdateCategoryDataProps } from "../../types/props.types";
+import * as ActionTypes from "../../types/action.types";
 
-export const auth = createAsyncThunk('users/login', async (userData: IAuthAction, { dispatch }) => {
+import * as userFeatures from "../features/user.features";
+
+export const auth = createAsyncThunk('users/login', async (userData: ActionTypes.AuthActionPropsType, { dispatch }) => {
 
     try {
 
         const resLogin = await userApi.loginApi(userData.userData)
-        dispatch(loginAuthAction(resLogin.data))
+        dispatch(userFeatures.loginAuthAction(resLogin.data))
 
         const resUsers = await userApi.usersApi("total", resLogin.data.token)
-        dispatch(usersAction(resUsers.data))
-
-        const resGames = await gamesApi.gamesApi(resLogin.data.token)
-        dispatch(gamesAction(resGames.data))
+        dispatch(userFeatures.usersAction(resUsers.data))
 
         userData.setIsAuth(false)
         userData.navigation.navigate('Home')
@@ -34,18 +28,18 @@ export const auth = createAsyncThunk('users/login', async (userData: IAuthAction
     }
 })
 
-export const getUser = createAsyncThunk("users/getUser", async (userData: IGetUserAction, { dispatch }) => {
+export const getUser = createAsyncThunk("users/getUser", async (userData: ActionTypes.GetUserActionPropsType, { dispatch }) => {
 
     try {
 
-        const { data } = await userApi.userApi(userData.id, userData.user.user.token)
+        const { data } = await userApi.userApi(userData.id, userData.user.user.token!)
 
-        dispatch(getUserAction(data))
+        dispatch(userFeatures.getUserAction(data))
 
-        userData.setIsProfile(true)
+        userData.navigation.navigate('Profile')
 
     } catch (error) {
-        userData.setIsProfile(true)
+        userData.navigation.navigate('Home')
     }
 
 })
@@ -54,11 +48,11 @@ export const newUser = createAsyncThunk("users/newUser", async (_, { dispatch })
 
     try {
 
-        const resFirst = await userApi.firstTimeApi()        
+        const resFirst = await userApi.firstTimeApi()
         const resUsers = await userApi.usersApi("total", resFirst.data.token)
 
-        dispatch(firstTimeAction(resFirst.data))
-        dispatch(usersAction(resUsers.data))
+        dispatch(userFeatures.firstTimeAction(resFirst.data))
+        dispatch(userFeatures.usersAction(resUsers.data))
 
     } catch (error) {
         console.log(error);
@@ -66,13 +60,13 @@ export const newUser = createAsyncThunk("users/newUser", async (_, { dispatch })
 
 })
 
-export const getRanking = createAsyncThunk('users/ranking', async (rankingData: RankingActionProps, { dispatch }) => {
+export const getRanking = createAsyncThunk('users/ranking', async (rankingData: ActionTypes.GetRankingActionPropsType, { dispatch }) => {
 
     try {
 
-        const { data } = await userApi.usersApi("total", rankingData.user.user.token)
+        const { data } = await userApi.usersApi("total", rankingData.user.user.token!)
 
-        dispatch(usersAction(data))
+        dispatch(userFeatures.usersAction(data))
 
         rankingData.navigation.navigate("Ranking")
 
@@ -87,8 +81,7 @@ export const getLogin = createAsyncThunk('/users/getLogin', async (id: string, {
     try {
 
         const { data } = await userApi.getLoginApi(id)
-        dispatch(loginAction(data))
-
+        dispatch(userFeatures.loginAction(data))
 
     } catch (error) {
         console.log(error);
@@ -96,14 +89,13 @@ export const getLogin = createAsyncThunk('/users/getLogin', async (id: string, {
 
 })
 
-export const rankingLocation = createAsyncThunk('ranking/location', async (locationData: LocationDataProps, { dispatch }) => {
+export const rankingLocation = createAsyncThunk('ranking/location', async (locationData: ActionTypes.RankingLocationActionPropsType, { dispatch }) => {
 
     try {
 
         const { data } = await userApi.rankingLocationApi(locationData.positionRank, locationData.rankData, locationData.token)
 
-        dispatch(locationRankAction(data))
-
+        dispatch(userFeatures.locationRankAction(data))
 
     } catch (error) {
         console.log(error);
@@ -111,13 +103,13 @@ export const rankingLocation = createAsyncThunk('ranking/location', async (locat
 
 })
 
-export const rankingUser = createAsyncThunk('ranking/user', async (rankingUserData: RankingUserDataProps, { dispatch }) => {
+export const rankingUser = createAsyncThunk('ranking/user', async (rankingUserData: ActionTypes.RankingUserActionPropsType, { dispatch }) => {
 
     try {
 
         const { data } = await userApi.usersApi(rankingUserData.rankData, rankingUserData.token)
 
-        dispatch(usersAction(data))
+        dispatch(userFeatures.usersAction(data))
 
     } catch (error) {
         console.log(error);
@@ -125,13 +117,13 @@ export const rankingUser = createAsyncThunk('ranking/user', async (rankingUserDa
 
 })
 
-export const updateCategory = createAsyncThunk('users/category', async (userData: UpdateCategoryDataProps, { dispatch }) => {
+export const updateCategory = createAsyncThunk('users/category', async (userData: ActionTypes.UpdateCategoryActionPropsType, { dispatch }) => {
 
     try {
 
         const { data } = await userApi.updateCategoryApi(userData.id, userData.token)
 
-        dispatch(updateOptionsAction(data))
+        dispatch(userFeatures.updateOptionsAction(data))
 
     } catch (error) {
         console.log(error);
@@ -139,13 +131,15 @@ export const updateCategory = createAsyncThunk('users/category', async (userData
 
 })
 
-export const updateAllCategory = createAsyncThunk('users/allcategory', async (userData: UpdateAllCategoryDataProps, { dispatch }) => {
+export const updateOptions = createAsyncThunk('users/options', async (userData: ActionTypes.UpdateOptionsActionPropsType, { dispatch }) => {
 
     try {
 
-        const { data } = await userApi.updateAllCategoryApi(userData.query, userData.token)
+        const { data } = await userApi.updateOptionsApi(userData.user.user?._id!, userData.optionsData, userData.user.token!)
 
-        dispatch(updateOptionsAction(data))
+        dispatch(userFeatures.updateOptionsAction(data))
+
+        userData.navigation.navigate('Play')
 
     } catch (error) {
         console.log(error);
@@ -153,7 +147,21 @@ export const updateAllCategory = createAsyncThunk('users/allcategory', async (us
 
 })
 
-export const getTents = createAsyncThunk('users/tent', async (userData: GetTentProps, { dispatch }) => {
+export const updateAllCategory = createAsyncThunk('users/allcategory', async (userData: ActionTypes.UpdateAllCategoryActionPropsType, { dispatch }) => {
+
+    try {
+
+        const { data } = await userApi.updateAllCategoryApi({ query: userData.query }, userData.token)
+
+        dispatch(userFeatures.updateOptionsAction(data))
+
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+export const getTents = createAsyncThunk('users/tent', async (userData: ActionTypes.GetTentActionPropsType) => {
 
     try {
 

@@ -1,25 +1,28 @@
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, Pressable } from "react-native";
 
-import { rankingStyles } from "../../styles/home.styles";
+import { LocationRankPropsType } from "../../types/ranking.types";
 
-import { LocationRankProps } from "../../types/props.types";
+import { rankingStyles } from "../../styles/ranking.styles";
 
-const LocationRank = ({ location, index }: LocationRankProps) => {
+const LocationRank = ({ location, index }: LocationRankPropsType) => {
 
     return (
-        <TouchableOpacity style={rankingStyles.userRanking}>
-            <View style={rankingStyles.containerUserRank}>
-                <View style={rankingStyles.topUser}>
-                    <Text style={rankingStyles.topUserRank}>{index + 1}</Text>
-                    <Text style={rankingStyles.infoUserRank}>{location._id.slice(0, 15)}
-                        {location._id.length > 16 && <Text>..</Text>}
-                    </Text>
-                </View>
-                <View style={rankingStyles.containExpUser}>
-                    <Text style={rankingStyles.pointsUserRank}>{location.points}xp</Text>
-                </View>
+        <Pressable style={({ pressed }) => [
+            {
+                backgroundColor: pressed ? '#5cc197' : '#5dc1b9',
+            },
+            rankingStyles.userRanking
+        ]}>
+            <View style={rankingStyles.topUser}>
+                <Text style={rankingStyles.topUserRank}>{index + 1}</Text>
+                <Text style={rankingStyles.userRank}>{location._id.slice(0, 15)}
+                    {location._id.length > 16 && <Text>..</Text>}
+                </Text>
             </View>
-        </TouchableOpacity>
+            <View style={rankingStyles.containExpUser}>
+                <Text style={rankingStyles.pointsUserRank}>{location.points}xp</Text>
+            </View>
+        </Pressable>
     )
 }
 

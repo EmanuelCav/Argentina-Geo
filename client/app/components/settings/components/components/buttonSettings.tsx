@@ -1,13 +1,13 @@
 import { TouchableOpacity, Text } from 'react-native'
 
-import { newStyles } from '../../../../styles/settings.styles'
+import { settingsStyles } from '../../../../styles/settings.styles'
 
-import { ButtonNavigateProps } from '../../../../types/props.types'
+import { ButtonNavigatePropsType } from '../../../../types/settings.types'
 
-const ButtonSettings = ({ text, redirect }: ButtonNavigateProps) => {
+const ButtonSettings = ({ text, redirect }: ButtonNavigatePropsType) => {
     return (
-        <TouchableOpacity style={newStyles.buttonSettings} onPress={redirect}>
-            <Text style={newStyles.textButtonSettings}>{text}</Text>
+        <TouchableOpacity style={settingsStyles.buttonSettings} onPress={redirect}>
+            <Text style={settingsStyles.textButtonSettings}>{text}</Text>
         </TouchableOpacity>
     )
 }

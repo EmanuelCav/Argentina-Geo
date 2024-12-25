@@ -7,8 +7,6 @@ import CategoryUser from '../database/models/categoryUser'
 
 import { shuffle } from '../helper/functions';
 
-import { IQuestion } from "../interface/Game";
-
 export const games = async (req: Request, res: Response): Promise<Response> => {
 
     try {
@@ -81,43 +79,11 @@ export const createGames = async (req: Request, res: Response): Promise<Response
             categories.push(categoriesSelected[i].category)
         }
 
-        const avaibleQuestions = await Question.find({ category: categories })
+        const avaibleQuestions = await Question.find({ category: categories }).populate("image").populate("category")
 
-        const shuffledQuestions: IQuestion[] = shuffle(avaibleQuestions).slice(0, user?.amountQuestions!)
+        const shuffledQuestions = shuffle(avaibleQuestions).slice(0, user?.amountQuestions!)
 
-        const newGame = new Game({
-            user: req.user
-        })
-
-        const gameSaved = await newGame.save()
-
-        for (let i = 0; i < 5; i++) {
-
-            await Game.findByIdAndUpdate(gameSaved._id, {
-                $push: {
-                    questions: shuffledQuestions[i]._id
-                }
-            }, {
-                new: true
-            })
-
-        }
-
-        const game = await Game.findById(gameSaved._id)
-            .populate({
-                path: "questions",
-                populate: [{
-                    path: "image",
-                    select: "image"
-                }, {
-                    path: "category"
-                }]
-            })
-
-        return res.status(200).json({
-            game,
-            shuffledQuestions
-        })
+        return res.status(200).json(shuffledQuestions)
 
     } catch (error) {
         throw error
