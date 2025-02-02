@@ -171,6 +171,8 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }
 
     const continueGame = () => {
+        if(isPreFinish || isFinish) return
+
         setIsCorrect(false)
         setIsIncorrect(false)
         setIsHelped(false)
