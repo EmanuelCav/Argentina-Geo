@@ -1,6 +1,6 @@
 <h1 align="center">Argentina Quiz</h1>
 <div align="center">
-  <img src="https://res.cloudinary.com/projects-emanuek/image/upload/v1706790450/favicon_tvx4ge.png" width="40%" />
+  <img src="https://res.cloudinary.com/projects-emanuek/image/upload/v1737125578/adaptive-icon_mpjfks.jpg" width="40%" />
 </div>
 
 <h3>Educational and entertaining quiz application about Argentina where you will find all kinds of questions about the country</h3>
