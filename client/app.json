@@ -3,7 +3,6 @@
     "name": "Argentina Quiz",
     "slug": "ArgentinaQuiz",
     "version": "1.3.2",
-    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
