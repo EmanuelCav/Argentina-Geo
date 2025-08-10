@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { View, BackHandler } from 'react-native'
 import { InterstitialAd, AdEventType, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 import { INTERSTITIAL_FINISH_ID, RECOMPENSADO_ID } from '@env';
+import { fetch } from '@react-native-community/netinfo';
 
 import Finish from '../components/game/Finish'
 import DataGame from '../components/game/DataGame'
@@ -74,6 +75,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const [isAdd, setIsAdd] = useState<boolean>(false)
     const [isIntersitialLoaded, setIsIntersitialLoaded] = useState<boolean>(false)
     const [isRecompensadoLoaded, setIsRecompensadoLoaded] = useState<boolean>(false)
+    const [isConnectionLoading, setIsConnectionLoading] = useState<boolean>(true)
 
     const [helpType, setHelpType] = useState<HelpType>('help')
 
@@ -206,7 +208,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
             setHelpType(type)
 
             if (type === 'add') {
-                if (route.params.isConnection) {
+                if (isConnectionLoading) {
                     if (rewarded.loaded || isRecompensadoLoaded) {
                         rewarded.show()
                         setIsAdd(true)
@@ -235,6 +237,9 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }
 
     useEffect(() => {
+
+        fetch().then(conn => conn).then(state => setIsConnectionLoading(state.isConnected!));
+
         if (!isGameError) {
             if (route.params.isConnection) {
                 statisticsCount()
@@ -348,6 +353,14 @@ const Playing = ({ navigation, route }: PlayingType) => {
             unsubscribeEarned();
         };
     }, []);
+
+    useEffect(() => {
+        if (route.params.isConnection) {
+            if (!isConnectionLoading) {
+                navigation.replace("Home")
+            }
+        }
+    }, [isConnectionLoading])
 
     return (
         <View style={generalStyles.containerGeneral}>

@@ -50,7 +50,7 @@ const Menu = ({ navigation, user, isConnection, setIsChangeView, isChangeView }:
             <ButtonMenu text="JUGAR" redirect={redirectPlay} disabled={false} />
             <ButtonMenu text="ESTADÍSTICAS" redirect={redirectProfile} disabled={!isConnection} />
             <ButtonMenu text="CLASIFICACIÓN" redirect={redirectRanking} disabled={!isConnection} />
-            <ButtonMenu text="TIENDA" redirect={redirectTent} disabled={!isConnection} />
+            {/* <ButtonMenu text="TIENDA" redirect={redirectTent} disabled={!isConnection} /> */}
             <ButtonMenu text="AJUSTES" redirect={redirectSettings} disabled={!isConnection} />
         </View>
     )

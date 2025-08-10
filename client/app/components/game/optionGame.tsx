@@ -8,28 +8,28 @@ const OptionGame = ({ text, nextQuestion, amountOptions, disabled }: OptionGameP
 
     const usersOptions = (): number => {
         if (amountOptions === 2) {
-            return 19.54
+            return 18
         }
 
         if (amountOptions === 4) {
-            return 22.12
+            return 16
         }
 
         if (amountOptions === 6) {
-            return 25.86
+            return 14
         }
 
         if (amountOptions === 8) {
-            return 29.31
+            return 12
         }
 
-        return 22.31
+        return 16
     }
     
     const styles = StyleSheet.create({
         textButtonOptions: {
             color: "#ffffff",
-            fontSize: ((Dimensions.get("window").height - ((Dimensions.get("window").height / 60) * 2)) / 2) / usersOptions(),
+            fontSize: usersOptions(),
             textAlign: 'center'
         }
     })

@@ -132,7 +132,7 @@ export const settingsStyles = StyleSheet.create({
     },
 
     changeTextCode: {
-        fontSize: Dimensions.get("window").height / 33.66,
+        fontSize: Dimensions.get("window").height / 41,
         color: '#597EEE',
         marginTop: Dimensions.get("window").height / 370,
         fontWeight: '600'

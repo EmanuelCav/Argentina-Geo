@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
 import { fetch } from "@react-native-community/netinfo";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EXPO_KEY } from '@env';
 
 import Banner from '../components/general/Banner';
 import User from '../components/home/User'
@@ -53,17 +55,17 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     useEffect(() => {
 
-        if (isConnection) {
+        const handleAuth = async () => {
+
             if (users.isLoggedIn) {
-
                 dispatch(getLogin(users.user.user?._id!) as any)
-
-                return
-
+            } else {
+                dispatch(newUser() as any)
             }
+        }
 
-            dispatch(newUser() as any)
-
+        if (isConnection) {
+            handleAuth()
         }
 
     }, [dispatch, users.isLoggedIn])

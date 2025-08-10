@@ -14,12 +14,12 @@ const Answer = ({ isCorrect, answer, continueGame }: AnswerPropsType) => {
         }]}
             onPress={continueGame}>
             <HeaderAnswer isCorrect={isCorrect} />
+            <Text style={{ color: isCorrect ? '#02c028' : '#f00', fontSize: Dimensions.get("window").height / 41, fontWeight: 'bold' }}>
+                Toca para continuar
+            </Text>
             {
                 !isCorrect && <ShowCorrect answer={answer} />
             }
-            <Text style={{ color: isCorrect ? '#02c028' : '#f00', fontSize: Dimensions.get("window").height / 37 }}>
-                Toca para continuar
-            </Text>
         </Pressable>
     )
 }

@@ -67,7 +67,7 @@ export const generateUserNumber = (): string => {
 
     let number: string = ''
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 8; i++) {
         number += String(Math.floor(Math.random() * 10))
     }
 

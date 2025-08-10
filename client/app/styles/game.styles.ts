@@ -53,7 +53,7 @@ export const gameStyles = StyleSheet.create({
     },
 
     textQuestionGame: {
-        fontSize: Dimensions.get("window").height / 38,
+        fontSize: Dimensions.get("window").height / 47,
         textAlign: 'center',
         color: '#ffffff',
         fontWeight: '500'
@@ -192,7 +192,8 @@ export const gameStyles = StyleSheet.create({
         textAlign: 'center',
         fontSize: Dimensions.get("window").height / 29.63,
         color: '#597EEE',
-        fontWeight: '600'
+        fontWeight: '600',
+        marginBottom: Dimensions.get("window").height / 74
     },
 
     containerAnswer: {
