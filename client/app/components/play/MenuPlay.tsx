@@ -48,8 +48,8 @@ const MenuPlay = ({ navigation, isConnection, dispatch, token }: MenuPlayPropsTy
     }
 
     const back = () => {
-        setMessage("")
-        navigation.goBack()
+        navigation.popToTop();
+        setMessage("");
     }
 
     return (

@@ -6,7 +6,7 @@ import { createGameApi } from "../api/game.api";
 import * as userApi from "../api/user.api";
 import * as userFeatures from "../features/user.features";
 
-export const game = createAsyncThunk('game/generateGame', async (gameData: IGameGenerate, { dispatch }) => {
+export const game = createAsyncThunk('game/generateGame', async (gameData: IGameGenerate) => {
 
     try {
 
@@ -30,7 +30,7 @@ export const experienceGame = createAsyncThunk('game/experienceGame', async (gam
         const { data } = await userApi.updateExperienceApi(gameData.pointsData, gameData.user.token!)
         dispatch(userFeatures.updateOptionsAction(data))
 
-        const res = await userApi.usersApi("total", gameData.user.token!)
+        const res = await userApi.usersApi("total")
         dispatch(userFeatures.usersAction(res.data))
 
     } catch (error) {

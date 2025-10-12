@@ -1,17 +1,37 @@
 import { ReactNode } from "react";
-import { ImageBackground, StyleSheet } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+
+const dimensionsSpace = Dimensions.get("window").height / 74
 
 export default function Container({ children }: { children: ReactNode }) {
     return (
         <SafeAreaProvider>
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaWrapper>
                 <ImageBackground source={require('../assets/fondo2.png')} style={styles.container} resizeMode="cover">
                     {children}
                 </ImageBackground>
-            </SafeAreaView>
+            </SafeAreaWrapper>
         </SafeAreaProvider>
     )
+}
+
+const SafeAreaWrapper = ({ children }: { children: ReactNode }) => {
+    const insets = useSafeAreaInsets()
+
+    return (
+        <View style={[
+            styles.container,
+            {
+                paddingTop: insets.top + dimensionsSpace,
+                paddingBottom: insets.bottom + dimensionsSpace,
+                paddingLeft: insets.left + dimensionsSpace,
+                paddingRight: insets.right + dimensionsSpace,
+            }
+        ]}>
+            {children}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({

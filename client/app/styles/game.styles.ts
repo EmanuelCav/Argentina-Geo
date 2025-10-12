@@ -125,15 +125,14 @@ export const gameStyles = StyleSheet.create({
     containerPreFinish: {
         position: 'absolute',
         top: 0,
-        left: 0,
-        zIndex: 14,
+        left: -Dimensions.get("window").width / 35,
+        zIndex: 12,
         backgroundColor: 'rgba(89, 205, 238, 0.4)',
-        width: '100%',
-        height: '100%',
+        width: Dimensions.get("window").width,
+        height: Dimensions.get("window").height,
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        margin: Dimensions.get("window").height / 74
+        alignItems: 'center'
     },
 
     containPreFinish: {
@@ -151,14 +150,15 @@ export const gameStyles = StyleSheet.create({
     containerFinish: {
         position: 'absolute',
         top: 0,
-        left: 0,
+        left: -Dimensions.get("window").width / 35,
+        padding: Dimensions.get("window").height / 74,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(89,126,238,0.5)',
-        width: '100%',
-        height: '100%',
-        zIndex: 22,
-        margin: Dimensions.get("window").height / 74
+        backgroundColor: 'rgba(89, 126, 238, 0.5)',
+        width: Dimensions.get("window").width,
+        height: Dimensions.get("window").height,
+        zIndex: 15,
     },
 
     containFinish: {

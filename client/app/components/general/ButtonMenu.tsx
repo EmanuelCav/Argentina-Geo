@@ -11,7 +11,7 @@ const ButtonMenu = ({ text, redirect, disabled }: ButtonMenuPropsType) => {
         backgroundColor: pressed ? '#6b8cf2' : disabled ? '#dddddd' : '#597EEE',
       },
       generalStyles.buttonMenu]} onPress={redirect} disabled={disabled}>
-      <Text adjustsFontSizeToFit style={generalStyles.buttonMenuText}>{text}</Text>
+      <Text style={generalStyles.buttonMenuText}>{text}</Text>
     </Pressable>
   )
 }

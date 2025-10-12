@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
-import { View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
 import { fetch } from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { EXPO_KEY } from '@env';
+import admob from 'react-native-google-mobile-ads';
 
 import Banner from '../components/general/Banner';
 import User from '../components/home/User'
 import Menu from '../components/home/Menu'
 import UserNoConnection from '../components/home/UserNoConnection';
+import Container from '../Container';
 
 import { usersApi } from '../server/api/user.api'
 import { getLogin, newUser } from '../server/actions/user.actions';
@@ -16,8 +16,6 @@ import { usersAction } from '../server/features/user.features';
 
 import { StackNavigation } from '../types/props.types'
 import { IReducer } from '../interface/Reducer';
-
-import { generalStyles } from '../styles/general.styles';
 
 import { selector } from '../helper/selector';
 
@@ -34,7 +32,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
         try {
 
-            const { data } = await usersApi("total", users.user.token!)
+            const { data } = await usersApi("total")
             dispatch(usersAction(data))
 
         } catch (error) {
@@ -48,30 +46,27 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
     }, [isConnection, isChangeView])
 
     useEffect(() => {
-        if (isConnection && users.isLoggedIn) {
+        if (isConnection) {
             getUsers()
         }
     }, [])
 
     useEffect(() => {
-
-        const handleAuth = async () => {
-
-            if (users.isLoggedIn) {
-                dispatch(getLogin(users.user.user?._id!) as any)
-            } else {
-                dispatch(newUser() as any)
-            }
-        }
-
         if (isConnection) {
-            handleAuth()
+            (async () => {
+                const key = await AsyncStorage.getItem(`userId`)
+                
+                if (key) {
+                    dispatch(getLogin(key) as any)
+                } else {
+                    dispatch(newUser() as any)
+                }
+            })()
         }
-
-    }, [dispatch, users.isLoggedIn])
+    }, [dispatch])
 
     return (
-        <View style={generalStyles.containerGeneral} >
+        <Container>
             {
                 isConnection ? (
                     <>
@@ -95,7 +90,7 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                     </>
                 )
             }
-        </View >
+        </Container>
     )
 }
 

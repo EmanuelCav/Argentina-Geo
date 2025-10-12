@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { AnyAction } from "redux";
+import { UnknownAction } from "redux";
 
 import { ISetting, IUserInfo } from "../interface/User";
 import { StackNavigation } from "./props.types";
@@ -27,7 +27,7 @@ export type LocationPropsType = {
 export type AuthPropsType = {
     navigation: StackNavigation;
     setIsAuth: (isAuth: boolean) => void;
-    dispatch: Dispatch<AnyAction>
+    dispatch: Dispatch<UnknownAction>
 }
 
 export type InputPropsType = {

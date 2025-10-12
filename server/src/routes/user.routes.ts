@@ -14,7 +14,7 @@ import validNickname from "../middleware/validation/user/validNickname";
 
 const router = Router()
 
-router.get('/users/ranking/:date', auth, usersCtrl.users)
+router.get('/users/ranking/:date', usersCtrl.users)
 router.get('/users/:id', auth, usersCtrl.user)
 router.get('/login/:id', usersCtrl.getLogin)
 router.get('/users/experience/date', auth, usersCtrl.getDate)

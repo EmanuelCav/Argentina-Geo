@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { View } from "react-native";
 import { useDispatch, useSelector } from 'react-redux'
 import { fetch } from "@react-native-community/netinfo";
 
+import Container from "../Container";
 import Banner from "../components/general/Banner";
 import MenuPlay from "../components/play/MenuPlay";
 import User from "../components/home/User";
@@ -12,8 +12,6 @@ import { getDateExperienceApi } from "../server/api/user.api";
 
 import { StackNavigation } from "../types/props.types";
 import { IReducer } from "../interface/Reducer";
-
-import { generalStyles } from "../styles/general.styles";
 
 import { selector } from "../helper/selector";
 import { isNewDate } from "../helper/time";
@@ -50,7 +48,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
     }, [isConnection])
 
     return (
-        <View style={generalStyles.containerGeneral}>
+        <Container>
             {
                 isConnection && users.user.user?.isAdd && <Banner />
             }
@@ -58,7 +56,7 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
                 isConnection ? <User user={users.user.user!} users={users.users} /> : <UserNoConnection />
             }
             <MenuPlay dispatch={dispatch} isConnection={isConnection} navigation={navigation} token={users.user.token!} />
-        </View>
+        </Container>
     )
 }
 

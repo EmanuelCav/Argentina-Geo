@@ -1,27 +1,33 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { persistReducer } from "redux-persist";
-import thunk from 'redux-thunk';
+import { persistReducer, persistStore } from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { EXPO_KEY, NODE_ENV } from '@env';
+import { EXPO_KEY, NODE_ENV } from '@env'
 
 import userReducer from './features/user.features'
 import responseReducer from './features/response.features'
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
     users: userReducer,
     response: responseReducer
 })
 
-const persistedReducers = persistReducer({
-    key: `${EXPO_KEY}`,
+const persistConfig = {
+    key: `${EXPO_KEY}`.trim(),
     version: 1,
     storage: AsyncStorage
-}, reducers)
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
-    reducer: persistedReducers,
-    devTools: NODE_ENV !== 'production',
-    middleware: [thunk]
+    reducer: persistedReducer,
+    devTools: NODE_ENV.trim() !== 'production',
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false
+        })
 })
+
+export const persistor = persistStore(store)
 
 export default store

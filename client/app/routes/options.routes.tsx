@@ -5,17 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import ButtonAccept from "../components/general/ButtonAccept";
 import SelectOption from "../components/options/SelectOption";
 import SliderQuestion from "../components/options/SliderQuestion";
+import Container from "../Container";
 
 import { StackNavigation } from "../types/props.types";
 
-import { generalStyles } from "../styles/general.styles";
 import { configStyles } from "../styles/config.styles";
 
 import { IOptions } from "../interface/User";
 import { IReducer } from "../interface/Reducer";
 
-import { selector } from "../helper/selector";
 import { updateOptions } from "../server/actions/user.actions";
+
+import { selector } from "../helper/selector";
 
 const Options = ({ navigation }: { navigation: StackNavigation }) => {
 
@@ -41,7 +42,7 @@ const Options = ({ navigation }: { navigation: StackNavigation }) => {
     }
 
     return (
-        <View style={generalStyles.containerGeneral}>
+        <Container>
             <View style={configStyles.configContain}>
                 <SelectOption setOptionsData={setOptionsData}
                     amountOptions={amountOptions} />
@@ -49,7 +50,7 @@ const Options = ({ navigation }: { navigation: StackNavigation }) => {
                     amountQuestions={amountQuestions} />
             </View>
             <ButtonAccept func={acceptOptions} isCategory={false} text="ACEPTAR" />
-        </View>
+        </Container>
     )
 }
 

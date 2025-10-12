@@ -71,6 +71,8 @@ export type AnswerPropsType = {
     isCorrect: boolean; 
     answer: string;  
     continueGame: () => void;
+    numberQuestion: number;
+    amountQuestions: number;
 }
 
 export type ShowOptionGamePropsType = {

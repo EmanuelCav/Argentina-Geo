@@ -1,7 +1,7 @@
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 
-import { EXPO_HOST, EXPO_URL, NODE_ENV } from '@env'
+// import { EXPO_HOST, EXPO_URL, NODE_ENV } from '@env'
 
-const url = NODE_ENV.trim() === 'production' ? `${EXPO_URL}` : `${EXPO_HOST}`
+// const url = NODE_ENV.trim() === 'production' ? `${EXPO_URL}` : `${EXPO_HOST}`
 
-export const socket = io(url)
+// export const socket = io(url)

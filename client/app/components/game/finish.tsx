@@ -10,7 +10,7 @@ import { FinishPropsType } from "../../types/playing.types";
 
 const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors,
     areErrors, isGameError, isConnection, changeHelp, isAdd, interstitial,
-    isRecompensadoLoaded, isIntersitialLoaded, setIsRecompensadoLoaded }: FinishPropsType) => {
+    isIntersitialLoaded, setIsRecompensadoLoaded }: FinishPropsType) => {
 
     const navigateHome = () => {
 
@@ -42,7 +42,7 @@ const Finish = ({ minutes, seconds, corrects, points, navigation, viewErrors,
                     areErrors && <Text style={gameStyles.textErrorsGame} onPress={viewErrors}>Repasar errores</Text>
                 }
                 {
-                    isConnection && isRecompensadoLoaded &&
+                    isConnection &&
                     <>
                         {
                             !isAdd ?

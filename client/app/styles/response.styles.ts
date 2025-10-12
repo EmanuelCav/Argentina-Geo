@@ -5,10 +5,6 @@ export const responseStyles = StyleSheet.create({
     containerMainLoading: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
-        top: 0,
-        left: 0,
-        position: 'absolute',
-        zIndex: 44,
         backgroundColor: '#90d5f6',
         justifyContent: 'center',
         alignItems: 'center'

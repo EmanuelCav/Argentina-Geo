@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { View, BackHandler } from 'react-native'
+import { BackHandler } from 'react-native'
 import { InterstitialAd, AdEventType, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 import { INTERSTITIAL_FINISH_ID, RECOMPENSADO_ID } from '@env';
 import { fetch } from '@react-native-community/netinfo';
@@ -11,6 +11,7 @@ import ShowOptionsGame from '../components/game/ShowOptionsGame'
 import ShowQuestion from '../components/game/ShowQuestion'
 import Answer from '../components/game/Answer';
 import PreFinish from '../components/game/PreFinish';
+import Container from '../Container';
 
 import { IReducer } from '../interface/Reducer'
 import { IPoints } from '../interface/User'
@@ -23,8 +24,6 @@ import { loadingAction } from '../server/features/response.features'
 import { experienceGame } from '../server/actions/game.actions';
 import { helpsApi } from '../server/api/user.api';
 import { updateOptionsAction } from '../server/features/user.features';
-
-import { generalStyles } from '../styles/general.styles';
 
 import { selector } from '../helper/selector'
 import { categoryStatistic } from '../helper/statistic'
@@ -173,7 +172,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }
 
     const continueGame = () => {
-        if(isPreFinish || isFinish) return
+        if (isPreFinish || isFinish) return
 
         setIsCorrect(false)
         setIsIncorrect(false)
@@ -339,6 +338,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
         const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
             setIsRecompensadoLoaded(true)
         });
+
         const unsubscribeEarned = rewarded.addAdEventListener(
             RewardedAdEventType.EARNED_REWARD,
             () => {
@@ -363,7 +363,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }, [isConnectionLoading])
 
     return (
-        <View style={generalStyles.containerGeneral}>
+        <Container>
             {
                 isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
                     navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
@@ -385,13 +385,13 @@ const Playing = ({ navigation, route }: PlayingType) => {
             {
                 (isCorrect || isIncorrect) ? (
                     <Answer answer={isGameError ? errorsGame[numberQuestion].answer : route.params.questionsWC[numberQuestion].answer}
-                        isCorrect={isCorrect} continueGame={continueGame} />
+                        isCorrect={isCorrect} continueGame={continueGame} amountQuestions={users.user.user?.amountQuestions!} numberQuestion={numberQuestion} />
                 ) : (
                     <ShowOptionsGame options={options} nextQuestion={nextQuestion} amountOptions={route.params.isConnection ? users.user.user?.amountOptions! : 4}
                         isHelped={isHelped} optionsHelped={optionsHelped} />
                 )
             }
-        </View>
+        </Container>
     )
 }
 

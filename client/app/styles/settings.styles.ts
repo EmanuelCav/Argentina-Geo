@@ -55,8 +55,7 @@ export const settingsStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: Dimensions.get("window").width / 32.5,
-        margin: Dimensions.get("window").height / 74
+        paddingHorizontal: Dimensions.get("window").width / 32.5
     },
 
     containerForm: {
@@ -79,11 +78,13 @@ export const settingsStyles = StyleSheet.create({
         fontSize: Dimensions.get("window").height / 41.11,
         borderWidth: 1,
         borderColor: '#597EEE',
+        color: "#597EEE",
         height: Dimensions.get("window").height / 15.5
     },
 
     inputAuthFocused: {
         shadowColor: "#597EEE",
+        color: "#597EEE",
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.8,
         shadowRadius: 10,
@@ -99,6 +100,7 @@ export const settingsStyles = StyleSheet.create({
     labelForm: {
         fontSize: Dimensions.get("window").height / 39.33,
         fontWeight: '500',
+        color: "#597EEE",
         marginBottom: Dimensions.get("window").height / 106
     },
 
@@ -147,7 +149,6 @@ export const settingsStyles = StyleSheet.create({
         flexDirection: 'column',
         zIndex: 14,
         height: '100%',
-        margin: Dimensions.get("window").height / 74,
         padding: Dimensions.get("window").height / 74
     },
 

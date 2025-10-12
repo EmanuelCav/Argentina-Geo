@@ -19,7 +19,10 @@ const User = ({ user, users }: UserInfoPropsType) => {
                     <Text> - {user.municipio.name}</Text>
                 )}
             </Text>
-            <Text style={homeStyles.userInfo}>Posición: {users.total?.map((user) => user._id).indexOf(user._id)! + 1}°</Text>
+            {
+                !isNaN(users.total?.map((user) => user._id).indexOf(user._id)! + 1) &&
+                <Text style={homeStyles.userInfo}>Posición: {users.total?.map((user) => user._id).indexOf(user._id)! + 1}°</Text>
+            }
         </View>
     )
 }

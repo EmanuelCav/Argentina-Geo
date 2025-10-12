@@ -5,6 +5,7 @@ import * as userApi from "../api/user.api"
 import * as ActionTypes from "../../types/action.types";
 
 import * as userFeatures from "../features/user.features";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const auth = createAsyncThunk('users/login', async (userData: ActionTypes.AuthActionPropsType, { dispatch }) => {
 
@@ -13,7 +14,7 @@ export const auth = createAsyncThunk('users/login', async (userData: ActionTypes
         const resLogin = await userApi.loginApi(userData.userData)
         dispatch(userFeatures.loginAuthAction(resLogin.data))
 
-        const resUsers = await userApi.usersApi("total", resLogin.data.token)
+        const resUsers = await userApi.usersApi("total")
         dispatch(userFeatures.usersAction(resUsers.data))
 
         userData.setIsAuth(false)
@@ -49,10 +50,12 @@ export const newUser = createAsyncThunk("users/newUser", async (_, { dispatch })
     try {
 
         const resFirst = await userApi.firstTimeApi()
-        const resUsers = await userApi.usersApi("total", resFirst.data.token)
+        const resUsers = await userApi.usersApi("total")
 
         dispatch(userFeatures.firstTimeAction(resFirst.data))
         dispatch(userFeatures.usersAction(resUsers.data))
+
+        await AsyncStorage.setItem("userId", resFirst.data.user._id)
 
     } catch (error) {
         console.log(error);
@@ -64,7 +67,7 @@ export const getRanking = createAsyncThunk('users/ranking', async (rankingData: 
 
     try {
 
-        const { data } = await userApi.usersApi("total", rankingData.user.user.token!)
+        const { data } = await userApi.usersApi("total")
 
         dispatch(userFeatures.usersAction(data))
 
@@ -107,7 +110,7 @@ export const rankingUser = createAsyncThunk('ranking/user', async (rankingUserDa
 
     try {
 
-        const { data } = await userApi.usersApi(rankingUserData.rankData, rankingUserData.token)
+        const { data } = await userApi.usersApi(rankingUserData.rankData)
 
         dispatch(userFeatures.usersAction(data))
 

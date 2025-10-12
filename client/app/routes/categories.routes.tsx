@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
 
+import Container from '../Container';
 import ActionsCategories from '../components/categories/ActionsCategories';
 import ShowCategories from '../components/categories/ShowCategories';
 import ButtonAccept from '../components/general/ButtonAccept';
@@ -8,7 +9,6 @@ import ButtonAccept from '../components/general/ButtonAccept';
 import { StackNavigation } from '../types/props.types';
 import { IReducer } from '../interface/Reducer';
 
-import { generalStyles } from '../styles/general.styles';
 import { categoriesStyles } from '../styles/categories.styles';
 
 import { updateAllCategory, updateCategory } from '../server/actions/user.actions';
@@ -40,13 +40,13 @@ const Categories = ({ navigation }: { navigation: StackNavigation }) => {
     }
 
     return (
-        <View style={generalStyles.containerGeneral}>
+        <Container>
             <View style={categoriesStyles.containCategories}>
                 <ActionsCategories handleAction={handleAction} />
                 <ShowCategories categories={users.user.user?.categories!} changeCategory={changeCategory} />
             </View>
             <ButtonAccept func={handleAccept} text='ACEPTAR' isCategory={false} />
-        </View >
+        </Container>
     )
 }
 

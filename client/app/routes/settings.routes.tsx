@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { View } from "react-native";
 import { useSelector, useDispatch } from 'react-redux'
 
 import { getCountriesApi, getProvinciasApi, getMunicipiosApi } from "../server/api/location.api";
@@ -11,12 +10,11 @@ import Auth from "../components/settings/components/Auth";
 import ChangeCode from "../components/settings/ChangeCode";
 import ChangeName from "../components/settings/ChangeName";
 import ButtonAccept from "../components/general/ButtonAccept";
+import Container from "../Container";
 
 import { IReducer } from "../interface/Reducer";
 import { ISetting } from "../interface/User";
 import { StackNavigation } from "../types/props.types";
-
-import { generalStyles } from "../styles/general.styles";
 
 import { selector } from "../helper/selector";
 
@@ -98,7 +96,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
     }, [isPais, isProvincia, isMunicipio])
 
     return (
-        <View style={generalStyles.containerGeneral}>
+        <Container>
             {
                 isPais && <Select loc="Pais" user={users.user} setSettingsData={setSettingsData} userLocation={pais} settingsData={settingsData} data={paises}
                     setIsPais={setIsPais} setIsProvincia={setIsProvincia} setIsMunicipio={setIsMunicipio} />
@@ -124,7 +122,7 @@ const Settings = ({ navigation }: { navigation: StackNavigation }) => {
             <CodeSettings password={users.user.user?.password!} nickname={users.user.user?.nickname!}
                 setIsAuth={setIsAuth} setIsCode={setIsCode} setIsNickname={setIsNickname} />
             <ButtonAccept text="ACEPTAR" func={() => navigation.goBack()} isCategory={false} />
-        </View>
+        </Container>
     )
 }
 

@@ -6,13 +6,13 @@ import UserRank from "../components/ranking/UserRank";
 import FilterRank from "../components/ranking/FilterRank";
 import LocationRank from '../components/ranking/LocationRank';
 import ButtonAccept from '../components/general/ButtonAccept';
+import Container from '../Container';
 
 import { IReducer } from "../interface/Reducer";
 import { ILocationRank, IUser } from "../interface/User";
 import { DateRankType, StackNavigation } from "../types/props.types";
 
 import { rankingStyles } from '../styles/ranking.styles';
-import { generalStyles } from '../styles/general.styles';
 
 import { selector } from "../helper/selector";
 
@@ -25,7 +25,7 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
     const [rankData, setRankData] = useState<DateRankType>("total")
 
     return (
-        <View style={generalStyles.containerGeneral}>
+        <Container>
             <View style={rankingStyles.rankingContain}>
                 <FilterRank users={users} setRankData={setRankData} rankData={rankData} dispatch={dispatch} />
                 <ScrollView>
@@ -59,8 +59,8 @@ const Ranking = ({ navigation }: { navigation: StackNavigation }) => {
                     }
                 </ScrollView>
             </View>
-            <ButtonAccept text="REGRESAR" func={() => navigation.navigate('Home')} isCategory={false} />
-        </View >
+            <ButtonAccept text="REGRESAR" func={() => navigation.goBack()} isCategory={false} />
+        </Container>
     )
 }
 

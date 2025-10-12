@@ -1,5 +1,5 @@
-import { Dispatch, MutableRefObject } from "react";
-import { AnyAction } from "redux";
+import { Dispatch, RefObject } from "react";
+import { UnknownAction } from "redux";
 
 import { ICounterUser, ILocationRank, IUser } from "../interface/User";
 import { DateRankType, RanksType, StackNavigation } from "./props.types";
@@ -8,7 +8,7 @@ export type HeaderRankPropsType = {
     changeFilter: () => void;
     users: ICounterUser;
     positionRank: number;
-    rankState: MutableRefObject<RanksType[]>;
+    rankState: RefObject<RanksType[]>;
 }
 
 export type DateRankPropsType = {
@@ -32,7 +32,7 @@ export type FilterRankPropsType = {
     users: ICounterUser;
     setRankData: (rankData: DateRankType) => void;
     rankData: DateRankType;
-    dispatch: Dispatch<AnyAction>
+    dispatch: Dispatch<UnknownAction>
 }
 
 export type UserRankPropsType = {

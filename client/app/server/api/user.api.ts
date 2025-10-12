@@ -6,12 +6,8 @@ import { HelpType } from '../../types/props.types';
 
 const api = axios.create({ baseURL: NODE_ENV !== 'production' ? `${EXPO_HOST}` : `${EXPO_URL}` })
 
-export const usersApi = async (date: string, token: string) => {
-    return await api.get(`/users/ranking/${date}`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+export const usersApi = async (date: string) => {
+    return await api.get(`/users/ranking/${date}`)
 }
 
 export const userApi = async (id: string, token: string) => {
