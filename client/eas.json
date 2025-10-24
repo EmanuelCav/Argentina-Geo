@@ -9,26 +9,6 @@
     },
     "preview": {
       "distribution": "internal"
-    },
-    "production": {
-      "env": {
-        "EXPO_URL": "https://backendargquiz-production.up.railway.app",
-        "EXPO_HOST": "http://localhost:4200",
-        "EXPO_KEY": "arrgeo-user-games",
-        "BANNER_PLAY_ID": "ca-app-pub-8789796567862358/2621753316",
-        "INTERSTITIAL_FINISH_ID": "ca-app-pub-8789796567862358/9188845876",
-        "RECOMPENSADO_ID": "ca-app-pub-8789796567862358/7583544141"
-      }
-    },
-    "test": {
-      "env": {
-        "EXPO_URL": "https://backendargquiz-production.up.railway.app",
-        "EXPO_HOST": "http://localhost:4200",
-        "EXPO_KEY": "arrgeo-user-games",
-        "BANNER_PLAY_ID": "ca-app-pub-8789796567862358/2621753316",
-        "INTERSTITIAL_FINISH_ID": "ca-app-pub-8789796567862358/9188845876",
-        "RECOMPENSADO_ID": "ca-app-pub-8789796567862358/7583544141"
-      }
     }
   },
   "submit": {
