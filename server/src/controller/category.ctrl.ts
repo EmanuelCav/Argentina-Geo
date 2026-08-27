@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 
 import Category from '../database/models/category';
-import CategoryUser from '../database/models/categoryUser';
 import User from '../database/models/users';
 
 export const categories = async (req: Request, res: Response): Promise<Response> => {

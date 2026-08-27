@@ -12,6 +12,7 @@ const provinciaSchema = new Schema({
         trim: true,
         unique: true
     },
+    
     pais: {
         type: ObjectId,
         ref: 'Pais'

@@ -11,6 +11,7 @@ const municipioSchema = new Schema({
         required: true,
         trim: true
     },
+    
     provincia: {
         type: ObjectId,
         ref: 'Provincia'

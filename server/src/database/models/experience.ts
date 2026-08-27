@@ -10,26 +10,32 @@ const experienceSchema = new Schema({
         type: Number,
         default: 0
     },
+
     month: {
         type: Number,
         default: 0
     },
+
     year: {
         type: Number,
         default: 0
     },
+
     total: {
         type: Number,
         default: 0
     },
+
     user: {
         type: ObjectId,
         ref: 'User'
     },
+    
     bestPuntuation: {
         type: Number,
         default: 0
     },
+    
     lastGame: {
         type: String,
         trim: true

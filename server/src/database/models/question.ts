@@ -11,17 +11,21 @@ const questionSchema = new Schema({
         required: true,
         trim: true
     },
+
     category: {
         type: ObjectId,
         ref: 'Category'
     },
+
     options: [{
         type: String
     }],
+
     image: {
         type: ObjectId,
         ref: 'Image'
     },
+    
     answer: {
         type: String,
         required: true
