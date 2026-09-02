@@ -23,7 +23,7 @@ export const profileStyles = StyleSheet.create({
         fontSize: Dimensions.get('window').height / 41.11,
         marginLeft: Dimensions.get('window').width / 30,
         color: '#111111',
-        fontWeight: '600'
+        fontFamily: 'Inter-SemiBold'
     },
 
     containerMainInfoProfile: {
@@ -47,7 +47,7 @@ export const profileStyles = StyleSheet.create({
 
     categoryProfile: {
         fontSize: Dimensions.get('window').height / 41.11,
-        fontWeight: '600',
+        fontFamily: 'Inter-SemiBold',
         color: "#111111"
     }
 

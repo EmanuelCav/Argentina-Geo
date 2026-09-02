@@ -17,6 +17,7 @@ export default function Container({ children }: { children: ReactNode }) {
 }
 
 const SafeAreaWrapper = ({ children }: { children: ReactNode }) => {
+    
     const insets = useSafeAreaInsets()
 
     return (

@@ -102,7 +102,7 @@ export const rankingStyles = StyleSheet.create({
         fontSize: Dimensions.get('window').height / 41.11,
         color: '#5d8cff',
         textAlign: 'center',
-        fontWeight: '600',
+        fontFamily: 'Inter-SemiBold',
         marginRight: Dimensions.get("window").width / 60
     },
 

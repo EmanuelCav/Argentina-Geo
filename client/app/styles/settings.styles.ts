@@ -43,7 +43,7 @@ export const settingsStyles = StyleSheet.create({
         textAlign: 'center',
         color: '#fff',
         fontSize: Dimensions.get("window").height / 31,
-        fontWeight: '500'
+        fontFamily: 'Inter-Medium',
     },
 
     containerAuth: {
@@ -99,7 +99,7 @@ export const settingsStyles = StyleSheet.create({
 
     labelForm: {
         fontSize: Dimensions.get("window").height / 39.33,
-        fontWeight: '500',
+        fontFamily: 'Inter-Medium',
         color: "#597EEE",
         marginBottom: Dimensions.get("window").height / 106
     },
@@ -119,7 +119,7 @@ export const settingsStyles = StyleSheet.create({
         textAlign: 'center',
         color: '#597EEE',
         fontSize: Dimensions.get("window").height / 37,
-        fontWeight: '500'
+        fontFamily: 'Inter-Medium',
     },
 
     containerMoreSettings: {
@@ -137,7 +137,7 @@ export const settingsStyles = StyleSheet.create({
         fontSize: Dimensions.get("window").height / 41,
         color: '#597EEE',
         marginTop: Dimensions.get("window").height / 370,
-        fontWeight: '600'
+        fontFamily: 'Inter-SemiBold'
     },
 
     containerSelect: {

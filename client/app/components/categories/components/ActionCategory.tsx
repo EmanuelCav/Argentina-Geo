@@ -12,7 +12,7 @@ const ActionCategory = ({ text, handleAction, action }: ActionCategoryPropsType)
             },
             categoriesStyles.buttonActionCategory
         ]} onPress={() => handleAction(action)}>
-            <Text style={categoriesStyles.textButtonActionCategory}>{text}</Text>
+            <Text adjustsFontSizeToFit style={categoriesStyles.textButtonActionCategory}>{text}</Text>
         </Pressable>
     )
 }

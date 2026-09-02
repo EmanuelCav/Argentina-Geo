@@ -16,13 +16,14 @@ import { IReducer } from "../interface/Reducer";
 import { selector } from "../helper/selector";
 import { isNewDate } from "../helper/time";
 
+import { useConnection } from "../hooks/useConnection";
+
 const Play = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
 
     const dispatch = useDispatch()
-
-    const [isConnection, setIsConnection] = useState<boolean>(true)
+    const isConnection = useConnection()
 
     const getNewDate = async () => {
 
@@ -34,10 +35,6 @@ const Play = ({ navigation }: { navigation: StackNavigation }) => {
             console.log(error);
         }
     }
-
-    useEffect(() => {
-        fetch().then(conn => conn).then(state => setIsConnection(state.isConnected!));
-    }, [isConnection])
 
     useEffect(() => {
         if (isConnection && users.isLoggedIn) {

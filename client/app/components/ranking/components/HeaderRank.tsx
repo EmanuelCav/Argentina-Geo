@@ -1,5 +1,5 @@
 import { Dimensions, View, Text } from "react-native"
-import FilterIcon from 'react-native-vector-icons/FontAwesome5';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 import { rankingStyles } from "../../../styles/ranking.styles"
 
@@ -9,7 +9,7 @@ const HeaderRank = ({ users, changeFilter, rankState, positionRank }: HeaderRank
 
     return (
         <View style={rankingStyles.containerHeaderRank}>
-            <FilterIcon onPress={changeFilter} name={rankState.current[positionRank]} color={'#5d8cff'} size={Dimensions.get("window").height / 28} />
+            <FontAwesome5 onPress={changeFilter} name={rankState.current[positionRank]} color={'#5d8cff'} size={Dimensions.get("window").height / 28} />
             {
                 users.users.ranking?.length! > 0 &&
                 <>

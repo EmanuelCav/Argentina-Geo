@@ -36,7 +36,7 @@ export const gameStyles = StyleSheet.create({
     textButtonFinish: {
         fontSize: Dimensions.get("window").height / 41,
         color: '#ffffff',
-        fontWeight: '500'
+        fontFamily: 'Inter-Medium',
     },
 
     imageQuestion: {
@@ -56,7 +56,7 @@ export const gameStyles = StyleSheet.create({
         fontSize: Dimensions.get("window").height / 47,
         textAlign: 'center',
         color: '#ffffff',
-        fontWeight: '500'
+        fontFamily: 'Inter-Medium',
     },
 
     containerOptions: {
@@ -123,23 +123,18 @@ export const gameStyles = StyleSheet.create({
     },
 
     containerPreFinish: {
-        position: 'absolute',
-        top: 0,
-        left: -Dimensions.get("window").width / 35,
-        zIndex: 12,
-        backgroundColor: 'rgba(89, 205, 238, 0.4)',
-        width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height,
-        flex: 1,
+        ...StyleSheet.absoluteFillObject,
+        zIndex: 20,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'rgba(89, 205, 238, 0.4)',
     },
 
     containPreFinish: {
         padding: Dimensions.get("window").height / 106,
         backgroundColor: '#597EEE',
-        width: '66%',
-        height: '22%',
+        width: '80%',
+        height: '25%',
         justifyContent: 'space-around',
         alignItems: 'center',
         borderWidth: 4,
@@ -147,22 +142,8 @@ export const gameStyles = StyleSheet.create({
         borderStyle: 'solid',
     },
 
-    containerFinish: {
-        position: 'absolute',
-        top: 0,
-        left: -Dimensions.get("window").width / 35,
-        padding: Dimensions.get("window").height / 74,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(89, 126, 238, 0.5)',
-        width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height,
-        zIndex: 15,
-    },
-
     containFinish: {
-        width: '100%',
+        width: '95%',
         justifyContent: 'space-evenly',
         alignItems: 'center',
         borderColor: '#597EEE',
@@ -192,7 +173,7 @@ export const gameStyles = StyleSheet.create({
         textAlign: 'center',
         fontSize: Dimensions.get("window").height / 29.63,
         color: '#597EEE',
-        fontWeight: '600',
+        fontFamily: 'Inter-SemiBold',
         marginBottom: Dimensions.get("window").height / 74
     },
 

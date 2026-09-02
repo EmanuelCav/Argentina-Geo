@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { fetch } from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import admob from 'react-native-google-mobile-ads';
 
 import Banner from '../components/general/Banner';
 import User from '../components/home/User'
@@ -19,14 +17,14 @@ import { IReducer } from '../interface/Reducer';
 
 import { selector } from '../helper/selector';
 
+import { useConnection } from '../hooks/useConnection';
+
 const Home = ({ navigation }: { navigation: StackNavigation }) => {
 
     const users = useSelector((state: IReducer) => selector(state).users)
 
     const dispatch = useDispatch()
-
-    const [isConnection, setIsConnection] = useState<boolean>(true)
-    const [isChangeView, setIsChangeView] = useState<boolean>(false)
+    const isConnection = useConnection()
 
     const getUsers = async () => {
 
@@ -40,10 +38,6 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
         }
 
     }
-
-    useEffect(() => {
-        fetch().then(conn => conn).then(state => setIsConnection(state.isConnected!));
-    }, [isConnection, isChangeView])
 
     useEffect(() => {
         if (isConnection) {
@@ -77,16 +71,14 @@ const Home = ({ navigation }: { navigation: StackNavigation }) => {
                                     users.user.user?.isAdd && <Banner />
                                 }
                                 <User user={users.user.user!} users={users.users} />
-                                <Menu navigation={navigation} user={users} isConnection={isConnection}
-                                    setIsChangeView={setIsChangeView} isChangeView={isChangeView} />
+                                <Menu navigation={navigation} user={users} isConnection={isConnection} />
                             </>
                         }
                     </>
                 ) : (
                     <>
                         <UserNoConnection />
-                        <Menu navigation={navigation} user={users} isConnection={isConnection}
-                            setIsChangeView={setIsChangeView} isChangeView={isChangeView} />
+                        <Menu navigation={navigation} user={users} isConnection={isConnection}/>
                     </>
                 )
             }

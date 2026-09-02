@@ -8,7 +8,7 @@ export type SelectOptionPropsType = {
 }
 
 export type SliderQuestionPropsType = {
-    setOptionsData: (optionData: SetStateAction<IOptions>) => void;
+    setOptionsUser: (optionData: SetStateAction<IOptions>) => void;
     amountQuestions: number;
 }
 

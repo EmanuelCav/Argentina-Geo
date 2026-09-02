@@ -11,8 +11,6 @@ import { StackNavigation } from '../types/props.types'
 import { ITent } from '../interface/User'
 import { IReducer } from '../interface/Reducer'
 
-// import { socket } from '../server/socket'
-
 import { tentStyle } from '../styles/tent.styles'
 
 import { getTents } from '../server/actions/user.actions'
@@ -34,13 +32,6 @@ const Tent = ({ navigation }: { navigation: StackNavigation }) => {
             token: users.user.token!
         }) as any)
     }, [])
-
-    // useEffect(() => {
-    //     socket.on('payment', (data: any) => {
-    //         dispatch(updateOptionsAction(data.user))
-    //         setIsPayed(true)
-    //     })
-    // }, [])
 
     return (
         <Container>

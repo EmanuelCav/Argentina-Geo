@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { BackHandler } from 'react-native'
-import { InterstitialAd, AdEventType, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
-import { INTERSTITIAL_FINISH_ID, RECOMPENSADO_ID } from '@env';
-import { fetch } from '@react-native-community/netinfo';
 
 import Finish from '../components/game/Finish'
 import DataGame from '../components/game/DataGame'
@@ -28,18 +24,9 @@ import { updateOptionsAction } from '../server/features/user.features';
 import { selector } from '../helper/selector'
 import { categoryStatistic } from '../helper/statistic'
 import { generateOptions, helpsOptions } from '../helper/generator'
-
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : `${INTERSTITIAL_FINISH_ID}`;
-
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-    keywords: ['fashion', 'clothing'],
-});
-
-const adUnitIdReward = __DEV__ ? TestIds.REWARDED : `${RECOMPENSADO_ID}`;
-
-const rewarded = RewardedAd.createForAdRequest(adUnitIdReward, {
-    keywords: ['fashion', 'clothing'],
-});
+import { useAdsPlaying } from '../hooks/useAdsPlaying';
+import { useConnection } from '../hooks/useConnection';
+import { useDisableBack } from '../hooks/useDisableBack';
 
 const Playing = ({ navigation, route }: PlayingType) => {
 
@@ -72,9 +59,10 @@ const Playing = ({ navigation, route }: PlayingType) => {
     const [isGameError, setIsGameError] = useState<boolean>(false)
     const [isHelped, setIsHelped] = useState<boolean>(false)
     const [isAdd, setIsAdd] = useState<boolean>(false)
-    const [isIntersitialLoaded, setIsIntersitialLoaded] = useState<boolean>(false)
-    const [isRecompensadoLoaded, setIsRecompensadoLoaded] = useState<boolean>(false)
-    const [isConnectionLoading, setIsConnectionLoading] = useState<boolean>(true)
+
+    useDisableBack()
+    const isConnectionLoading = useConnection()
+    const { interstitial, rewarded, isIntersitialLoaded, isRewardedLoaded } = useAdsPlaying()
 
     const [helpType, setHelpType] = useState<HelpType>('help')
 
@@ -208,7 +196,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
 
             if (type === 'add') {
                 if (isConnectionLoading) {
-                    if (rewarded.loaded || isRecompensadoLoaded) {
+                    if (rewarded.loaded || isRewardedLoaded) {
                         rewarded.show()
                         setIsAdd(true)
                     } else {
@@ -236,8 +224,6 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }
 
     useEffect(() => {
-
-        fetch().then(conn => conn).then(state => setIsConnectionLoading(state.isConnected!));
 
         if (!isGameError) {
             if (route.params.isConnection) {
@@ -294,67 +280,6 @@ const Playing = ({ navigation, route }: PlayingType) => {
     }, [points])
 
     useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
-        return () => backHandler.remove()
-    }, [])
-
-    useEffect(() => {
-
-        const loadInterstitialAd = () => {
-            try {
-                interstitial.load();
-            } catch (error) {
-                console.error("Error loading interstitial ad:", error);
-            }
-        };
-
-        const unsubscribeLoaded = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-            setIsIntersitialLoaded(true)
-        });
-
-        const unsubscribedClosed = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
-            setIsIntersitialLoaded(false)
-            loadInterstitialAd();
-        });
-
-        loadInterstitialAd();
-
-        return () => {
-            unsubscribeLoaded()
-            unsubscribedClosed()
-        };
-    }, []);
-
-    useEffect(() => {
-
-        const loadRewardedAd = () => {
-            try {
-                rewarded.load();
-            } catch (error) {
-                console.error("Error loading rewarded ad:", error);
-            }
-        };
-
-        const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-            setIsRecompensadoLoaded(true)
-        });
-
-        const unsubscribeEarned = rewarded.addAdEventListener(
-            RewardedAdEventType.EARNED_REWARD,
-            () => {
-                setIsRecompensadoLoaded(false)
-            },
-        );
-
-        loadRewardedAd();
-
-        return () => {
-            unsubscribeLoaded();
-            unsubscribeEarned();
-        };
-    }, []);
-
-    useEffect(() => {
         if (route.params.isConnection) {
             if (!isConnectionLoading) {
                 navigation.replace("Home")
@@ -368,7 +293,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
                 isFinish && <Finish minutes={realMinutes} seconds={realSeconds} corrects={numberCorrect} points={points}
                     navigation={navigation} viewErrors={viewErrors} isConnection={route.params.isConnection} interstitial={interstitial}
                     isGameError={isGameError} areErrors={errors.length !== 0} changeHelp={changeHelp} isAdd={isAdd}
-                    isRecompensadoLoaded={isRecompensadoLoaded || rewarded.loaded} setIsRecompensadoLoaded={setIsRecompensadoLoaded}
+                    isRecompensadoLoaded={isRewardedLoaded || rewarded.loaded}
                     isIntersitialLoaded={(isIntersitialLoaded || interstitial.loaded) && users.user.user?.isAdd!} />
             }
             {
@@ -387,7 +312,7 @@ const Playing = ({ navigation, route }: PlayingType) => {
                     <Answer answer={isGameError ? errorsGame[numberQuestion].answer : route.params.questionsWC[numberQuestion].answer}
                         isCorrect={isCorrect} continueGame={continueGame} amountQuestions={users.user.user?.amountQuestions!} numberQuestion={numberQuestion} />
                 ) : (
-                    <ShowOptionsGame options={options} nextQuestion={nextQuestion} amountOptions={route.params.isConnection ? users.user.user?.amountOptions! : 4}
+                    <ShowOptionsGame options={options} nextQuestion={nextQuestion}
                         isHelped={isHelped} optionsHelped={optionsHelped} />
                 )
             }

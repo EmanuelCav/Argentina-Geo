@@ -23,7 +23,6 @@ export type FinishPropsType = {
     changeHelp: (type: HelpType) => void;
     interstitial: InterstitialAd;
     isRecompensadoLoaded: boolean;
-    setIsRecompensadoLoaded: (isRecompensadoLoaded: boolean) => void;
     isIntersitialLoaded: boolean;
 }
 
@@ -78,7 +77,6 @@ export type AnswerPropsType = {
 export type ShowOptionGamePropsType = {
     options: string[];
     nextQuestion: (item: string) => void;
-    amountOptions: number;
     isHelped: boolean;
     optionsHelped: string[];
 }
@@ -86,6 +84,5 @@ export type ShowOptionGamePropsType = {
 export type OptionGamePropsType = {
     text: string;
     nextQuestion: (item: string) => void;
-    amountOptions: number;
     disabled: boolean
 }

@@ -69,10 +69,8 @@ export const homeStyles = StyleSheet.create({
 
     textLevel: {
         fontSize: Dimensions.get("window").height / 42,
-        fontWeight: '900'
+        fontFamily: 'Inter-Bold'
     },
-
-    // PROFILE
 
     imageLevelProfile: {
         width: Dimensions.get("window").width / 8.5,

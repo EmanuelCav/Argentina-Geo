@@ -42,8 +42,7 @@ export const categoriesStyles = StyleSheet.create({
     },
 
     categoryText: {
-        color: '#ffffff',
-        fontSize: Dimensions.get("window").height / 50
+        color: '#ffffff'
     },
 
     buttonActionCategory: {
@@ -54,7 +53,7 @@ export const categoriesStyles = StyleSheet.create({
         borderColor: '#ffffff',
         borderWidth: 1,
         borderStyle: 'solid',
-        width: '40%',
+        width: '47%',
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -67,8 +66,7 @@ export const categoriesStyles = StyleSheet.create({
 
     textButtonActionCategory: {
         color: '#ffffff',
-        fontWeight: '500',
-        fontSize: Dimensions.get("window").height / 46
+        fontFamily: 'Inter-Medium'
     },
 
 })

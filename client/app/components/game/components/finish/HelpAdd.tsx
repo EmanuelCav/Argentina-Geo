@@ -1,5 +1,5 @@
 import { Pressable, View, Text, Dimensions } from 'react-native'
-import Icon from 'react-native-vector-icons/Entypo'
+import { Entypo } from '@expo/vector-icons'
 
 import { gameStyles } from '../../../../styles/game.styles'
 
@@ -14,10 +14,10 @@ const HelpAdd = ({ changeHelp }: { changeHelp: (type: HelpType) => void }) => {
             gameStyles.buttonHelpFinish
         ]} onPress={() => changeHelp('add')}>
             <View style={gameStyles.containHelpText}>
-                <Icon name='help' color={'#ffffff'} size={Dimensions.get("window").height / 39} />
+                <Entypo name='help' color={'#ffffff'} size={Dimensions.get("window").height / 39} />
                 <Text style={gameStyles.textGame}>Ayudas x2</Text>
             </View>
-            <Icon name='video' color={'#ffffff'} size={Dimensions.get("window").height / 37} />
+            <Entypo name='video' color={'#ffffff'} size={Dimensions.get("window").height / 37} />
         </Pressable>
     )
 }

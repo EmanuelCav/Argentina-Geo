@@ -22,14 +22,14 @@ export const optionStyles = StyleSheet.create({
         fontSize: Dimensions.get('window').height / 34,
         color: '#597EEE',
         marginTop: Dimensions.get('window').height / 106,
-        fontWeight: '600',
+        fontFamily: 'Inter-SemiBold',
         textAlign: 'center'
     },
 
     textQuestionOptions: {
         fontSize: Dimensions.get('window').height / 37,
         marginVertical: Dimensions.get("window").height / 106,
-        fontWeight: '600',
+        fontFamily: 'Inter-SemiBold',
         color: '#597EEE'
     },
 
@@ -44,7 +44,21 @@ export const optionStyles = StyleSheet.create({
 
     textButtonOptions: {
         fontSize: Dimensions.get('window').height / 37,
-        fontWeight: '600'
+        fontFamily: 'Inter-SemiBold'
     },
+
+    containerButtonsQuestions: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        width: "100%"
+    },
+
+    buttonQuestion: {
+        width: 45,
+        height: 45,
+        borderRadius: 35,
+        justifyContent: "center",
+        alignItems: "center",
+    }
     
 })

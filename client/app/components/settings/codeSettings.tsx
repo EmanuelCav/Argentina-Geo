@@ -29,13 +29,13 @@ const CodeSettings = ({ password, nickname, setIsAuth, setIsCode, setIsNickname 
 
     return (
         <View style={settingsStyles.containerMoreSettings}>
-            <Text style={settingsStyles.textCode}>Nombre de usuario: <Text style={{ fontWeight: '500' }}>{nickname}</Text>
+            <Text style={settingsStyles.textCode}>Nombre de usuario: <Text style={{ fontFamily: 'Inter-Medium' }}>{nickname}</Text>
             </Text>
             {
                 isChangeNickname() &&
                 <Text style={settingsStyles.changeTextCode} onPress={ChangeNickname}>Cambiar nombre de usuario</Text>
             }
-            <Text style={settingsStyles.textCode}>Código de entrada: <Text style={{ fontWeight: '500' }}>{password}</Text>
+            <Text style={settingsStyles.textCode}>Código de entrada: <Text style={{ fontFamily: 'Inter-Medium' }}>{password}</Text>
             </Text>
             <Text style={settingsStyles.changeTextCode} onPress={changeCode}>
                 Cambiar código

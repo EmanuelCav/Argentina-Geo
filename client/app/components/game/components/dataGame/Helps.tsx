@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Dimensions } from 'react-native'
-import Icon from 'react-native-vector-icons/Entypo'
+import { Entypo } from '@expo/vector-icons'
 
 import { gameStyles } from '../../../../styles/game.styles'
 
@@ -10,14 +10,14 @@ const Helps = ({ changeHelp, helps, isHelped }: HelpsPropsType) => {
         <View style={{ width: '16%' }}>
             <Pressable style={({ pressed }) => [
                 {
-                    backgroundColor: pressed ? '#5d8cff' : `${isHelped ? '#DDDDDD' : '#597EEE'}` 
+                    backgroundColor: pressed ? '#5d8cff' : `${isHelped ? '#DDDDDD' : '#597EEE'}`
                 },
                 gameStyles.buttonHelp
             ]}
-            onPress={() => changeHelp('help')}
-            disabled={isHelped}>
+                onPress={() => changeHelp('help')}
+                disabled={isHelped}>
                 <Text style={gameStyles.textGame}>{helps}</Text>
-                <Icon name='help' color={'#ffffff'} size={Dimensions.get("window").height / 39} />
+                <Entypo name='help' color={'#ffffff'} size={Dimensions.get("window").height / 39} />
             </Pressable>
         </View>
     )

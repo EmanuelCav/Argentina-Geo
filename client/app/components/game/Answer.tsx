@@ -14,7 +14,7 @@ const Answer = ({ isCorrect, answer, continueGame, numberQuestion, amountQuestio
         }]}
             onPress={continueGame} disabled={numberQuestion >= amountQuestions}>
             <HeaderAnswer isCorrect={isCorrect} />
-            <Text style={{ color: isCorrect ? '#02c028' : '#f00', fontSize: Dimensions.get("window").height / 41, fontWeight: 'bold' }}>
+            <Text style={{ color: isCorrect ? '#02c028' : '#f00', fontSize: Dimensions.get("window").height / 41, fontFamily: 'Inter-Bold' }}>
                 Toca para continuar
             </Text>
             {

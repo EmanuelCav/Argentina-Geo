@@ -9,17 +9,15 @@ import { generalStyles } from "../../styles/general.styles";
 
 import { MenuPropsType } from "../../types/home.types";
 
-const Menu = ({ navigation, user, isConnection, setIsChangeView, isChangeView }: MenuPropsType) => {
+const Menu = ({ navigation, user, isConnection }: MenuPropsType) => {
 
     const dispatch = useDispatch()
 
     const redirectPlay = () => {
-        setIsChangeView(!isChangeView)
         navigation.navigate('Play')
     }
 
     const redirectProfile = () => {
-        setIsChangeView(!isChangeView)
         dispatch(getUser({
             id: user.user.user?._id!,
             user,
@@ -28,8 +26,6 @@ const Menu = ({ navigation, user, isConnection, setIsChangeView, isChangeView }:
     }
 
     const redirectRanking = () => {
-        setIsChangeView(!isChangeView)
-
         dispatch(getRanking({
             user,
             navigation
@@ -41,7 +37,6 @@ const Menu = ({ navigation, user, isConnection, setIsChangeView, isChangeView }:
     }
 
     const redirectSettings = () => {
-        setIsChangeView(!isChangeView)
         navigation.navigate('Settings')
     }
 

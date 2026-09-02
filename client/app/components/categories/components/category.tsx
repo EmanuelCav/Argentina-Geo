@@ -15,7 +15,7 @@ const Category = ({ category, changeCategory }: CategoryPropsType) => {
             categoriesStyles.containCategory
         ]} onPress={() => changeCategory(category.category._id)}>
             <View style={{ width: '94%' }}>
-                <Text style={categoriesStyles.categoryText}>{category.category.name}</Text>
+                <Text adjustsFontSizeToFit style={categoriesStyles.categoryText}>{category.category.name}</Text>
             </View>
             <Checkbox
                 value={category.isSelect}

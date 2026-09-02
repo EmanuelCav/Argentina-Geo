@@ -46,7 +46,7 @@ const Options = ({ navigation }: { navigation: StackNavigation }) => {
             <View style={configStyles.configContain}>
                 <SelectOption setOptionsData={setOptionsData}
                     amountOptions={amountOptions} />
-                <SliderQuestion setOptionsData={setOptionsData}
+                <SliderQuestion setOptionsUser={setOptionsData}
                     amountQuestions={amountQuestions} />
             </View>
             <ButtonAccept func={acceptOptions} isCategory={false} text="ACEPTAR" />

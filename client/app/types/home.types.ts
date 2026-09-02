@@ -10,6 +10,4 @@ export type MenuPropsType = {
     navigation: StackNavigation;
     user: ICounterUser;
     isConnection: boolean | null;
-    setIsChangeView: (isChangeView: boolean) => void;
-    isChangeView: boolean;
 }
