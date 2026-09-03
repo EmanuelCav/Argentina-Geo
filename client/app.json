@@ -8,8 +8,8 @@
     "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "contain",
+      "backgroundColor": "#9edefa"
     },
     "assetBundlePatterns": [
       "**/*"
